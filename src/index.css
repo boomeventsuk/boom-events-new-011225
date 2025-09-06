@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Boombastic Events Design System - Dark theme with vibrant accents */
+
+@layer base {
+  :root {
+    /* Core brand colors */
+    --background: 242 12% 4%; /* #0B0B0F */
+    --foreground: 0 0% 100%; /* #FFFFFF */
+    
+    /* Card surfaces */
+    --card: 240 12% 8%; /* #13131A */
+    --card-foreground: 0 0% 100%;
+    
+    /* Primary brand - Electric blue */
+    --primary: 207 100% 60%; /* #35A7FF */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary brand - Pink accent */
+    --secondary: 324 96% 62%; /* #FF3CAC */
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Muted elements */
+    --muted: 240 12% 15%;
+    --muted-foreground: 0 0% 70%;
+    
+    /* Accent for highlights */
+    --accent: 324 96% 62%; /* Use pink accent */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Destructive states */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders and inputs */
+    --border: 240 12% 20%;
+    --input: 240 12% 20%;
+    --ring: 207 100% 60%;
+    
+    /* Border radius */
+    --radius: 0.75rem;
+    
+    /* Spacing rhythm - 72/48/32/24px */
+    --spacing-xl: 4.5rem; /* 72px */
+    --spacing-lg: 3rem; /* 48px */
+    --spacing-md: 2rem; /* 32px */
+    --spacing-sm: 1.5rem; /* 24px */
+    
+    /* Custom gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--secondary) / 0.05));
+    --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(var(--card) / 0.8));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

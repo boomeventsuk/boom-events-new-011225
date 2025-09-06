@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boombastic Events — Daytime Disco, Silent Disco & Decades | Midlands</title>
+    <meta name="description" content="Sell-out Daytime Disco, Silent Disco and Decades parties across Northampton, Bedford, Milton Keynes, Coventry & Luton. Book tickets now." />
+    <meta name="author" content="Boombastic Events" />
+    <link rel="canonical" href="https://boomevents.co.uk/" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <meta property="og:title" content="Boombastic Events" />
+    <meta property="og:description" content="Daytime Disco, Silent Disco & Decades parties across the Midlands." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://boomevents.co.uk/" />
+    <meta property="og:image" content="https://i.postimg.cc/ZBvqzmGb/SD.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Boombastic Events" />
+    <meta name="twitter:description" content="Daytime Disco, Silent Disco & Decades parties across the Midlands." />
+    <meta name="twitter:image" content="https://i.postimg.cc/ZBvqzmGb/SD.png" />
+    
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Organization",
+      "name":"Boombastic Events",
+      "url":"https://boomevents.co.uk",
+      "logo":"https://boomevents.co.uk/cdn/061225_BOOMPM_NPTON_ANNEVT.jpg",
+      "sameAs":[
+        "https://www.facebook.com/boombastic.eventsuk",
+        "https://www.instagram.com/boombastic.eventsuk"
+      ]
+    }
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <script>
+/* Make external ticket links open in a new tab (safe) */
+document.querySelectorAll('#tickets-list a[href^="http"]').forEach(a=>{
+  a.target='_blank'; a.rel='noopener';
+});
+
+/* Robust hamburger: works if button has .nav-toggle OR aria-label="Menu" */
+(function(){
+  const toggle = document.querySelector('.nav-toggle') || document.querySelector('[aria-label="Menu"]');
+  const menu   = document.getElementById('mobile-menu') || document.querySelector('.mobile-menu');
+  if(!toggle || !menu) return;
+  // initial state
+  menu.setAttribute('hidden','');
+  toggle.setAttribute('aria-expanded','false');
+
+  function openMenu(open){
+    if(open){
+      document.body.classList.add('nav-open');
+      menu.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded','true');
+    }else{
+      document.body.classList.remove('nav-open');
+      menu.setAttribute('hidden','');
+      toggle.setAttribute('aria-expanded','false');
+    }
+  }
+
+  toggle.addEventListener('click', ()=>{
+    const isOpen = document.body.classList.contains('nav-open');
+    openMenu(!isOpen);
+  });
+
+  // Close menu on link click (improves UX)
+  menu.addEventListener('click', e=>{
+    const a = e.target.closest('a');
+    if(a) openMenu(false);
+  });
+})();
+
+// CONFIG: IDs & selectors
+const LIST_ID = 'tickets-list';                 // the container that holds all event cards
+const CARD_SEL = '[data-ticket-card]';          // each event card wrapper
+const DATE_ATTR = 'data-date-iso';              // ISO date attribute on each card
+const STATUS_SEL = '[data-status]';             // empty <span> that will read "On sale"
+const XMAS_BANNER_SEL = '[data-banner="christmas"]'; // optional banner to show if any Dec events
+
+// 1) Collect cards, remove past events, and sort future ones by date
+const todayIso = new Date().toISOString().slice(0,10);
+const list = document.getElementById(LIST_ID);
+if (list) {
+  const cards = Array.from(list.querySelectorAll(CARD_SEL));
+  const upcoming = [];
+  let hasDecember = false;
+
+  for (const card of cards) {
+    const iso = (card.getAttribute(DATE_ATTR) || '').trim();
+    if (!iso) continue;                      // ignore cards without a date
+    if (iso < todayIso) {                    // hide past
+      card.remove();
+      continue;
+    }
+    const d = new Date(iso);
+    if (d.getMonth() === 11) hasDecember = true; // December = 11
+    upcoming.push({ card, iso });
+  }
+
+  // Sort ascending by ISO date
+  upcoming.sort((a, b) => a.iso.localeCompare(b.iso));
+
+  // Re-append in order and set default "On sale" status
+  for (const { card } of upcoming) {
+    const statusEl = card.querySelector(STATUS_SEL);
+    if (statusEl && !statusEl.textContent.trim()) statusEl.textContent = 'On sale';
+    list.appendChild(card);
+  }
+
+  // 2) Toggle Christmas banner if any December shows remain
+  const banner = document.querySelector(XMAS_BANNER_SEL);
+  if (banner) banner.style.display = hasDecember ? 'block' : 'none';
+
+  // 3) Safety: make all outbound ticket links open in a new tab
+  list.querySelectorAll('a[href^="http"]').forEach(a => {
+    a.setAttribute('target','_blank');
+    a.setAttribute('rel','noopener');
+  });
+}
+</script>
+
+<style>
+/* ======================================================
+   PARTY TILES — readable, smaller, no overlap
+   ====================================================== */
+.party-tile,[data-party-tile]{position:relative;overflow:hidden;border-radius:16px}
+.party-tile>img,[data-party-tile]>img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Darker overlay, especially on small screens */
+.party-tile::before,[data-party-tile]::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to bottom, rgba(0,0,0,.22) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.78) 100%);
+  pointer-events:none;
+}
+@media (max-width:900px){
+  .party-tile::before,[data-party-tile]::before{
+    background:linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,.65) 60%, rgba(0,0,0,.85) 100%);
+  }
+}
+
+/* Content layer uses GRID so nothing overlaps */
+.tile-content{position:absolute;inset:0;z-index:2;
+  display:grid;grid-template-rows:auto 1fr auto;gap:12px;padding:16px}
+
+/* Title: top-left pill */
+.tile-title{
+  justify-self:start;align-self:start;margin:0;
+  padding:6px 10px;border-radius:10px;background:rgba(0,0,0,.6);
+  font-weight:800;line-height:1.1;text-align:left;
+  font-size:clamp(16px,1.6vw,20px);
+  text-shadow:0 1px 0 rgba(0,0,0,.4);
+  max-width:92%;
+}
+
+/* Blurb: centre of tile, its own backing, smaller on desktop */
+.tile-blurb{
+  justify-self:center;align-self:center;margin:0;
+  padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.5);
+  text-align:center;max-width:min(520px,88%);
+  font-size:clamp(14px,1.3vw,16px); line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  text-shadow:0 1px 0 rgba(0,0,0,.25);
+}
+
+/* CTA: small, left; never full-width */
+.tile-cta{
+  justify-self:start;align-self:end;
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:8px 12px;border-radius:10px;min-width:132px;max-width:190px;font-size:14px;
+}
+
+/* Extra headroom on very small screens so blurb never collides */
+@media (max-width:480px){
+  .tile-content{gap:10px;padding:14px}
+  .tile-blurb{-webkit-line-clamp:4}
+}
+
+/* =========================
+   1) Spacing — close big gaps
+   ========================= */
+#hero{position:relative;padding-bottom:16px;}
+#parties{margin-top:0;padding-top:0px;padding-bottom:32px;}
+#tickets{padding-top:16px;padding-bottom:32px;}
+#about{padding-top:16px;padding-bottom:32px;}
+#reviews{padding-top:16px;padding-bottom:32px;}
+section h2{margin-bottom:12px;}
+
+/* Make hero text readable on phones with a stronger overlay */
+#hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,.25) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.7) 100%);
+  pointer-events:none;}
+@media (max-width:700px){
+  #hero::after{background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.78));}
+}
+
+/* ======================================================
+   MOBILE MENU — make hamburger work reliably
+   ====================================================== */
+/* Desktop */
+.mobile-menu{display:none}
+.nav-toggle{display:none;background:transparent;border:0;padding:8px;margin-left:8px}
+/* Header layout helpers (safe defaults if not already present) */
+.header-inner{display:flex;align-items:center;gap:16px}
+.primary-nav{display:flex;gap:28px;margin-left:auto}
+.header-actions{display:flex;gap:12px;align-items:center;margin-left:18px}
+.header-icons{display:flex;gap:12px;align-items:center}
+.header-icons a{display:inline-flex;width:22px;height:22px;opacity:.9}
+.header-icons a:hover{opacity:1}
+.header-icons svg{width:22px;height:22px;fill:#fff}
+
+/* Mobile */
+@media (max-width:900px){
+  .primary-nav{display:none}
+  .header-icons{display:none}
+  .nav-toggle{display:inline-flex}
+  /* Dropdown panel */
+  .mobile-menu{
+    position:absolute;top:100%;left:0;right:0;z-index:60;
+    background:#0B0B0F;border-top:1px solid rgba(255,255,255,.08);
+    padding:12px 16px;display:none;
+  }
+  body.nav-open .mobile-menu{display:block}
+  .mobile-menu a{display:flex;align-items:center;gap:10px;padding:10px 4px}
+}
+
+/* =========================
+   3) Tickets rows — keep clean 3-column row (Poster | Details | Buttons)
+   ========================= */
+#tickets-list{max-width:1100px;margin:0 auto;padding:0 16px;}
+.ticket-card{display:grid;grid-template-columns:200px 1fr 220px;align-items:center;gap:20px;
+  padding:18px 20px;border-radius:16px;background:#13131A;border:1px solid rgba(255,255,255,.06);}
+.ticket-card .poster{aspect-ratio:1/1;overflow:hidden;border-radius:12px;background:#0B0B0F}
+.ticket-card .poster img{width:100%;height:100%;object-fit:cover;display:block}
+.ticket-card .actions{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+@media (max-width:1024px){.ticket-card{grid-template-columns:180px 1fr 190px}}
+@media (max-width:700px){
+  .ticket-card{grid-template-columns:1fr;align-items:start}
+  .ticket-card .actions{align-items:stretch}
+  .ticket-card .actions a{width:100%}
+  .ticket-card .poster{max-width:360px}
+}
+
+/* ======================================================
+   3) REVIEWS — event name at the top, then stars, then quote.
+       Hide the small context line at the bottom.
+   ====================================================== */
+.review-card { position: relative; }
+.review-card .review-event {
+  margin: 0 0 6px 0; font-weight: 800; letter-spacing: .2px;
+}
+.review-card .stars { margin-bottom: 6px; font-size: 14px; letter-spacing: 2px; color: #FFD24D; }
+.review-card .quote { margin: 0 0 10px 0; }
+.review-card .context { display: none; } /* hides the small event label at the bottom */
+
+/* Hide view all tickets button */
+#view-all-tickets{display:none!important}
+
+/* Hero subhead size/line-length */
+#hero .subhead,.hero-subhead{font-size:clamp(16px,2vw,18px);line-height:1.4;max-width:42ch;margin-inline:auto;opacity:.95}
+
+/* Status chip */
+.status{padding:6px 10px;border-radius:999px;background:#1e2630;color:#9DFF8C;font-weight:600;font-size:12px;display:inline-block}
+</style>
+  </body>
+</html>
