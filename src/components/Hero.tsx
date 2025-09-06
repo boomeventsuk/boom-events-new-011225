@@ -26,7 +26,6 @@ const Hero = () => {
           e.currentTarget.src = fallbackHero;
         }}
       />
-      <div className="absolute inset-0 bg-background/5"></div>
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-4">
