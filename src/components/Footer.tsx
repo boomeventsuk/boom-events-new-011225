@@ -1,4 +1,5 @@
 import { Mail, Facebook, Instagram } from "lucide-react";
+import logo from "@/assets/boombastic-logo.png";
 
 const Footer = () => {
   return (
@@ -6,8 +7,14 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="text-center">
           {/* Logo */}
-          <div className="font-bebas text-3xl font-bold text-foreground mb-6 tracking-wider">
-            BOOMBASTIC EVENTS
+          <div className="mb-6 flex justify-center">
+            <img 
+              src={logo} 
+              alt="Boombastic Events" 
+              className="h-16 w-auto"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           
           {/* Contact Info */}
