@@ -1,5 +1,4 @@
 import { Mail, Facebook, Instagram } from "lucide-react";
-import logo from "@/assets/boombastic-logo.png";
 
 const Footer = () => {
   return (
@@ -9,8 +8,8 @@ const Footer = () => {
           {/* Logo */}
           <div className="mb-6 flex justify-center">
             <img 
-              src={logo} 
-              alt="Boombastic Events" 
+              src="/lovable-uploads/57926c83-5a73-43e4-b501-9f9c758534fd.png" 
+              alt="Boombastic Events Logo" 
               className="h-16 w-auto"
               loading="lazy"
               decoding="async"
