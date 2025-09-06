@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Boombastic Events — Daytime Disco, Silent Disco & Decades | Midlands</title>
-    <meta name="description" content="Sell-out Daytime Disco, Silent Disco and Decades parties across Northampton, Bedford, Milton Keynes, Coventry & Luton. Book tickets now." />
-    <meta name="author" content="Boombastic Events" />
-    <link rel="canonical" href="https://boomevents.co.uk/" />
-    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="description" content="Sell-out Daytime Disco, Silent Disco & Decades parties across Birmingham, Bedford, Milton Keynes, Coventry & Luton. Book tickets now." />
+    <link rel="canonical" href="https://boomevents.co.uk/">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+
+    <!-- Events feed hint for crawlers / LLMs -->
+    <link rel="alternate" type="application/json" href="/events.json">
+
+    <!-- Google Tag Manager -- placeholder (no ID needed right now) -->
+    <script>window.dataLayer = window.dataLayer || [];</script>
+    <!-- End GTM placeholder -->
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,29 +24,65 @@
     <meta property="og:description" content="Daytime Disco, Silent Disco & Decades parties across the Midlands." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://boomevents.co.uk/" />
-    <meta property="og:image" content="https://i.postimg.cc/ZBvqzmGb/SD.png" />
+    <meta property="og:image" content="https://boomevents.co.uk/cdn/og-image.jpg">
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Boombastic Events" />
-    <meta name="twitter:description" content="Daytime Disco, Silent Disco & Decades parties across the Midlands." />
-    <meta name="twitter:image" content="https://i.postimg.cc/ZBvqzmGb/SD.png" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Boombastic Events">
+    <meta name="twitter:description" content="Daytime Disco, Silent Disco & Decades parties across the Midlands.">
+    <meta name="twitter:image" content="https://boomevents.co.uk/cdn/og-image.jpg">
     
     <script type="application/ld+json">
     {
-      "@context":"https://schema.org",
-      "@type":"Organization",
-      "name":"Boombastic Events",
-      "url":"https://boomevents.co.uk",
-      "logo":"https://boomevents.co.uk/cdn/061225_BOOMPM_NPTON_ANNEVT.jpg",
-      "sameAs":[
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Boombastic Events",
+      "url": "https://boomevents.co.uk",
+      "logo": "https://boomevents.co.uk/cdn/logo.png",
+      "sameAs": [
         "https://www.facebook.com/boombastic.eventsuk",
         "https://www.instagram.com/boombastic.eventsuk"
       ]
     }
     </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "FOOTLOOSE 80s NORTHAMPTON — A MOST EXCELLENT 80s PARTY",
+      "startDate": "2025-09-13T20:00:00",
+      "endDate": "2025-09-14T00:00:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "The Picturedrome",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Northampton",
+          "addressCountry": "GB"
+        }
+      },
+      "image": ["https://boomevents.co.uk/cdn/event-posters/2025-09-13-footloose-northampton.jpg"],
+      "description": "An all-80s party packed with sing-along anthems and retro floor-fillers. ⚠️ Verify — inference.",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.eventbrite.co.uk/e/footloose-80s-northampton-a-most-excellent-80s-party-tickets-1428897423659"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Boombastic Events",
+        "url": "https://boomevents.co.uk"
+      }
+    }
+    </script>
   </head>
 
   <body>
+    <!-- Google Tag Manager (noscript) placeholder -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     

@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import EventCard from "./EventCard";
 
 const Tickets = () => {
+  useEffect(() => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event: "view_tickets_list" });
+  }, []);
+
   // Helper function to convert date string to ISO format
   const dateToIso = (dateStr: string): string => {
     const monthMap: { [key: string]: string } = {

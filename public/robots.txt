@@ -18,4 +18,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://boombastic-bash-builder.lovable.app/sitemap.xml
+Sitemap: https://boomevents.co.uk/sitemap.xml

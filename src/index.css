@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Paste into Lovable custom CSS */
+#parties { padding-top: 0 !important; }
+#hero .absolute.inset-0 { background-color: rgba(0,0,0,0.78) !important; }
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  #hero h1 { font-size: 2.6rem !important; line-height: 1.08 !important; }
+  #hero h2 { font-size: 2.0rem !important; line-height: 1.08 !important; }
+}
+
+/* Make CTAs keyboard-focus visible */
+a.button, button {
+  outline-offset: 3px;
+}
+a.button:focus, button:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 3px;
+}
+
 /* Boombastic Events Design System - Dark theme with vibrant accents */
 
 @layer base {

@@ -15,11 +15,27 @@ interface EventCardProps {
 }
 
 const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, dateIso }: EventCardProps) => {
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
   const handleBookNow = () => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({
+      event: 'ticket_click',
+      eventId: slug,
+      eventName: title,
+      venue: venue,
+      price: "TICKET_PRICE"
+    });
     window.open(bookUrl, '_blank', 'noopener');
   };
 
   const handleEventInfo = () => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({
+      event: 'view_event',
+      eventId: slug,
+      eventName: title
+    });
     if (infoUrl) {
       window.open(infoUrl, '_blank', 'noopener');
     }
@@ -30,9 +46,13 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
       <div className="poster">
         <img 
           src={poster}
-          alt={`${title} poster`}
+          alt={`${title} event poster`}
           className="w-full h-full object-cover"
           loading="lazy"
+          decoding="async"
+          width="800"
+          height="1200"
+          style={{ aspectRatio: '2 / 3', objectFit: 'cover' }}
         />
       </div>
       
