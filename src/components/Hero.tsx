@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import heroCrowd from "@/assets/hero-crowd.jpg";
+const heroImageUrl = "/lovable-uploads/3f5a393f-598c-4956-98b4-1f494dfb2f56.png";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -19,9 +19,9 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroCrowd})` }}
+        style={{ backgroundImage: `url(${heroImageUrl})` }}
       >
-        <div className="absolute inset-0 bg-background/50"></div>
+        <div className="absolute inset-0 bg-background/20"></div>
       </div>
       
       {/* Content */}
