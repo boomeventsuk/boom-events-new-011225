@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import fallbackHero from "@/assets/hero-crowd.jpg";
 const heroImageUrl = "/lovable-uploads/3f5a393f-598c-4956-98b4-1f494dfb2f56.png";
 
 const Hero = () => {
@@ -17,12 +18,15 @@ const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImageUrl})` }}
-      >
-        <div className="absolute inset-0 bg-background/20"></div>
-      </div>
+      <img
+        src={heroImageUrl}
+        alt="Boombastic Events crowd at a party with colorful lights"
+        className="absolute inset-0 w-full h-full object-cover"
+        onError={(e) => {
+          e.currentTarget.src = fallbackHero;
+        }}
+      />
+      <div className="absolute inset-0 bg-background/15"></div>
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-4">
