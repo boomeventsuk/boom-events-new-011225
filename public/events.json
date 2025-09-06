@@ -91,6 +91,15 @@
   },
   {
     "id": 11,
+    "title": "FAMILY SILENT DISCO Halloween Party Milton Keynes",
+    "location": "MK11 Music Venue, Milton Keynes",
+    "start": "2025-10-26T13:00:00",
+    "end": "2025-10-26T15:00:00",
+    "bookUrl": "https://www.eventbrite.co.uk/e/family-silent-disco-halloween-edition-milton-keynes-tickets-1663986531509",
+    "description": "Family-friendly Halloween silent disco with multi-channel headphones, costumes and fun for all ages. ⚠️ Verify — inference."
+  },
+  {
+    "id": 12,
     "title": "THE 2PM CLUB™ LUTON - 80s 90s 00s Daytime Disco",
     "location": "Hat Factory, Luton",
     "start": "2025-11-01T14:00:00",
@@ -99,7 +108,7 @@
     "description": "Luton's over-25s afternoon disco—back-to-back 80s/90s/00s bangers. ⚠️ Verify — inference."
   },
   {
-    "id": 12,
+    "id": 13,
     "title": "FAMILY SILENT DISCO Luton",
     "location": "Hat Factory, Luton",
     "start": "2025-11-16T13:00:00",
@@ -108,7 +117,7 @@
     "description": "Family silent disco with volume-friendly headphones and channel choices for every taste. ⚠️ Verify — inference."
   },
   {
-    "id": 13,
+    "id": 14,
     "title": "CHRISTMAS SILENT DISCO NORTHAMPTON",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-05T20:30:00",
@@ -117,7 +126,7 @@
     "description": "Festive three-channel silent disco—Christmas classics meet decades favourites. ⚠️ Verify — inference."
   },
   {
-    "id": 14,
+    "id": 15,
     "title": "THE 2PM CLUB™ Northampton - Christmas Daytime Disco",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-06T14:00:00",
@@ -126,7 +135,7 @@
     "description": "A Christmas daytime disco stacked with 80s/90s/00s bangers—festive outfits welcome. ⚠️ Verify — inference."
   },
   {
-    "id": 15,
+    "id": 16,
     "title": "Boombastic's Christmas Decades Party NORTHAMPTON",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-06T20:30:00",
@@ -135,7 +144,7 @@
     "description": "Christmas blow-out across 80s/90s/00s—big choruses, party classics, full house vibes. ⚠️ Verify — inference."
   },
   {
-    "id": 16,
+    "id": 17,
     "title": "Christmas FAMILY SILENT DISCO Northampton",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-07T13:00:00",
