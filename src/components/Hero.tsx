@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import fallbackHero from "@/assets/hero-crowd.jpg";
-const heroImageUrl = "/lovable-uploads/3f5a393f-598c-4956-98b4-1f494dfb2f56.png";
+const heroImageUrl = "/lovable-uploads/d04f8530-a93a-4375-9615-fea4dbce007a.png";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -26,7 +26,7 @@ const Hero = () => {
           e.currentTarget.src = fallbackHero;
         }}
       />
-      <div className="absolute inset-0 bg-background/15"></div>
+      <div className="absolute inset-0 bg-background/5"></div>
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-4">
