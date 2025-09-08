@@ -11,17 +11,6 @@
     "description": "A full-throttle 80s night at The Picturedrome—synth pop, new wave and rock anthems from start to finish. Big choruses, dance-floor classics and friendly party vibes all night."
   },
   {
-    "id": 2,
-    "title": "SILENT DISCO BATTLE MILTON KEYNES: POP VS INDIE VS DANCE",
-    "location": "MK11 Music Venue, Milton Keynes",
-    "start": "2025-09-19T20:30:00",
-    "end": "2025-09-20T00:30:00",
-    "bookUrl": "https://www.eventbrite.co.uk/e/silent-disco-greatest-hits-milton-keynes-launch-tickets-1416583953739?WEBLINK=",
-    "infoUrl": "https://www.facebook.com/events/1471905990926710",
-    "image": "/lovable-uploads/b0670047-b755-4e4e-9167-8ef9125e90d7.png",
-    "description": "Three-channel silent disco at MK11 with Pop, Indie and Dance to flick between. Headphones included; pick your colour, belt the choruses and help your channel win the crowd."
-  },
-  {
     "id": 3,
     "title": "FOOTLOOSE 80s DAY PARTY BEDFORD",
     "location": "Bedford Esquires, Bedford",
@@ -34,7 +23,7 @@
   },
   {
     "id": 4,
-    "title": "SILENT DISCO BATTLE NORTHAMPTON: POP VS INDIE VS DANCE",
+    "title": "SILENT DISCO NORTHAMPTON: POP VS INDIE VS DANCE",
     "location": "The Picturedrome, Northampton",
     "start": "2025-09-27T20:30:00",
     "end": "2025-09-28T00:30:00",

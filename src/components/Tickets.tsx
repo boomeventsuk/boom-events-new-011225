@@ -33,16 +33,6 @@ const events = [
     infoUrl: "https://www.facebook.com/events/1466091197726110"
   },
   {
-    title: "SILENT DISCO BATTLE MILTON KEYNES: POP VS INDIE VS DANCE",
-    date: "Fri 19 Sep 2025",
-    venue: "MK11 Music Venue",
-    city: "Milton Keynes",
-    time: "20:30–00:30",
-    poster: "/lovable-uploads/b0670047-b755-4e4e-9167-8ef9125e90d7.png",
-    bookUrl: "https://www.eventbrite.co.uk/e/silent-disco-greatest-hits-milton-keynes-launch-tickets-1416583953739?WEBLINK=",
-    infoUrl: "https://www.facebook.com/events/1471905990926710"
-  },
-  {
     title: "FOOTLOOSE 80s DAY PARTY BEDFORD",
     date: "Sat 20 Sep 2025",
     venue: "Bedford Esquires",
@@ -53,7 +43,7 @@ const events = [
     infoUrl: "https://www.facebook.com/events/1238442701296733"
   },
   {
-    title: "SILENT DISCO BATTLE NORTHAMPTON: POP VS INDIE VS DANCE",
+    title: "SILENT DISCO NORTHAMPTON: POP VS INDIE VS DANCE",
     date: "Sat 27 Sep 2025",
     venue: "The Picturedrome",
     city: "Northampton",
