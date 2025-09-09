@@ -113,10 +113,10 @@ a.button:focus, button:focus {
   outline:none;
 }
 .icon-btn:active{ transform:translateY(0); }
-.icon-calendar{ color:hsl(var(--primary)); }
-.icon-whatsapp{ color:#075E54; }   /* WhatsApp green */
-.icon-facebook{ color:#1877F2; }   /* Facebook blue */
-.icon-copy{ color:hsl(var(--primary)); }
+.icon-calendar{ color: white; }
+.icon-whatsapp{ color: white; }
+.icon-facebook{ color: white; }
+.icon-copy{ color: white; }
 
 /* Tiny toast (confirmation) */
 .__share-toast{
