@@ -105,7 +105,7 @@ a.button:focus, button:focus {
   color:hsl(var(--foreground));
   transition:transform .08s ease, background-color .12s ease, border-color .12s ease;
 }
-.icon-btn svg{ width:22px; height:22px; display:block; }
+.icon-btn svg,.icon-btn img{ width:22px; height:22px; display:block; }
 .icon-btn:hover,.icon-btn:focus{
   transform:translateY(-2px);
   background:hsl(var(--muted));

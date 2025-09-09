@@ -188,9 +188,7 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
             aria-label="Share with friends on WhatsApp" 
             type="button"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path stroke="currentColor" strokeWidth="2" fill="none" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-            </svg>
+            <img src="/lovable-uploads/bb7f178c-1cf5-4ce2-a752-a39c92c097f7.png" alt="Share on WhatsApp" width="22" height="22" loading="lazy" decoding="async" />
           </button>
 
           <button 
