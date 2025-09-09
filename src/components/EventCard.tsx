@@ -75,73 +75,6 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
     }
   };
 
-  const downloadICS = ({ title, startISO, endISO, location, description, url }: {
-    title: string;
-    startISO: string;
-    endISO?: string;
-    location?: string;
-    description?: string;
-    url: string;
-  }) => {
-    const toUTCstamp = (iso: string) => {
-      const d = new Date(iso);
-      return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-    };
-    
-    const uid = `${title.replace(/\s+/g, '_')}_${Math.floor(Math.random() * 1e5)}@boombasticevents`;
-    const dtstamp = toUTCstamp(new Date().toISOString());
-    const dtstart = toUTCstamp(startISO);
-    const dtend = toUTCstamp(endISO || new Date(new Date(startISO).getTime() + 2 * 60 * 60 * 1000).toISOString());
-    
-    const body = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Boombastic Events//EN',
-      'BEGIN:VEVENT',
-      `UID:${uid}`,
-      `DTSTAMP:${dtstamp}`,
-      `DTSTART:${dtstart}`,
-      `DTEND:${dtend}`,
-      `SUMMARY:${title}`,
-      `LOCATION:${location || ''}`,
-      `DESCRIPTION:${description || ''} -- Tickets: ${url}`,
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ].join('\r\n');
-    
-    const blob = new Blob([body], { type: 'text/calendar' });
-    const objUrl = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = objUrl;
-    a.download = `${title.replace(/[^\w\-]+/g, '_')}.ics`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(objUrl);
-  };
-
-  const handleCalendarShare = () => {
-    const utmUrl = buildUtmUrl(bookUrl, 'calendar');
-    downloadICS({
-      title,
-      startISO: dateIso,
-      location: `${venue}, ${city}`,
-      description: `${title} at ${venue}`,
-      url: utmUrl
-    });
-    toast({
-      title: "Calendar event downloaded",
-      description: "Open the file to add the event to your calendar.",
-    });
-    
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({
-      event: 'calendar_share',
-      eventId: slug,
-      eventName: title
-    });
-  };
-
   const handleWhatsAppShare = () => {
     const utmUrl = buildUtmUrl(bookUrl, 'whatsapp');
     const text = `This event looks great - who's in? ✨\n${title} • ${date} • ${time}\nTickets: ${utmUrl}`;
@@ -249,18 +182,6 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
         {/* Share icons row */}
         <div className="share-icons" role="group" aria-label="Share event">
           <button 
-            className="icon-btn icon-calendar" 
-            onClick={handleCalendarShare}
-            title="Add to Calendar" 
-            aria-label="Add to Calendar" 
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM5 20V9h14l.002 11H5z"/>
-            </svg>
-          </button>
-
-          <button 
             className="icon-btn icon-whatsapp" 
             onClick={handleWhatsAppShare}
             title="Share with friends on WhatsApp" 
@@ -268,9 +189,7 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
             type="button"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
-              <path stroke="currentColor" strokeWidth="1.5" fill="none" d="M16.2 7.8c-1.5-1.5-3.5-2.3-5.6-2.3-4.4 0-8 3.6-8 8 0 1.4.4 2.8 1 4L2 20l2.5-1.6c1.2.7 2.5 1 3.9 1h0c4.4 0 8-3.6 8-8 0-2.1-.8-4.1-2.2-5.6zM8.4 18.6c-1.2 0-2.4-.3-3.4-1l-.2-.1-2.1 1.4 1.4-2-.2-.2c-.7-1.1-1.1-2.4-1.1-3.7 0-3.9 3.2-7.1 7.1-7.1 1.9 0 3.7.7 5 2s1.9 3.1 1.9 5c0 3.9-3.2 7.1-7.1 7.1"/>
-              <path stroke="currentColor" strokeWidth="1.5" fill="none" d="M13.2 10.6c-.1-.3-.3-.6-.5-.6-.1 0-.3 0-.4 0s-.2 0-.3.1c-.1.1-.4.4-.5.5s-.6.6-.6 1.5.6 1.7.7 1.8.1.1.1.2l1.5 2.2"/>
+              <path stroke="currentColor" strokeWidth="2" fill="none" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
             </svg>
           </button>
 

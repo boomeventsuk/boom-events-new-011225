@@ -113,7 +113,6 @@ a.button:focus, button:focus {
   outline:none;
 }
 .icon-btn:active{ transform:translateY(0); }
-.icon-calendar{ color: white; }
 .icon-whatsapp{ color: white; }
 .icon-facebook{ color: white; }
 .icon-copy{ color: white; }
