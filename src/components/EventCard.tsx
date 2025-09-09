@@ -179,7 +179,7 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
         )}
         <span className="status" data-status></span>
         
-        <p className="font-poppins text-white text-sm mb-0.5 text-left">Share This Event</p>
+        <p className="font-poppins text-white text-sm text-left">Share This Event</p>
         
         {/* Share icons row */}
         <div className="share-icons" role="group" aria-label="Share event">
