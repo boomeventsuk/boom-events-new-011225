@@ -238,7 +238,7 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
           <Button 
             onClick={handleEventInfo}
             variant="outline"
-            className="border-border text-muted-foreground hover:bg-muted flex items-center justify-center gap-2 btn"
+            className="bg-white text-primary border-white hover:bg-white/90 flex items-center justify-center gap-2 btn"
           >
             <ExternalLink className="w-4 h-4" />
             Event Info
@@ -292,7 +292,8 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
             type="button"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="currentColor" d="M3.9 12a3 3 0 0 1 0-4.2l2.4-2.4a3 3 0 1 1 4.24 4.24L8.2 12l2.36 2.36a3 3 0 1 1-4.24 4.24L3.9 16.2A3 3 0 0 1 3.9 12zm12.2-6.2a3 3 0 0 1 4.24 4.24L16.8 12l2.36 2.36a3 3 0 1 1-4.24 4.24L12.76 16.2a3 3 0 0 1 0-4.24L15.06 9.96z"/>
+              <path fill="currentColor" d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path fill="currentColor" d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
             </svg>
           </button>
         </div>

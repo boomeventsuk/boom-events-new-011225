@@ -88,7 +88,7 @@ a.button:focus, button:focus {
 /* ====== Share icons row ====== */
 .share-icons{
   display:flex;
-  gap:10px;
+  gap:6px;
   align-items:center;
   margin-top:12px;
   flex-wrap:wrap;
@@ -96,19 +96,20 @@ a.button:focus, button:focus {
 .icon-btn{
   display:inline-grid;
   place-items:center;
-  width:40px;
-  height:40px;
-  border-radius:10px;
-  border:0;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  border:1px solid rgba(255, 255, 255, 0.2);
   background:transparent;
   cursor:pointer;
   color:hsl(var(--foreground));
-  transition:transform .08s ease, background-color .12s ease;
+  transition:transform .08s ease, background-color .12s ease, border-color .12s ease;
 }
-.icon-btn svg{ width:20px; height:20px; display:block; }
+.icon-btn svg{ width:22px; height:22px; display:block; }
 .icon-btn:hover,.icon-btn:focus{
   transform:translateY(-2px);
   background:hsl(var(--muted));
+  border-color:rgba(255, 255, 255, 0.4);
   outline:none;
 }
 .icon-btn:active{ transform:translateY(0); }
