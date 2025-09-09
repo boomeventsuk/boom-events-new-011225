@@ -198,7 +198,7 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
             aria-label="Share this event to Facebook" 
             type="button"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="26" height="26">
               <path fill="currentColor" d="M22 12a10 10 0 1 0-11.5 9.9v-7H8.5v-3h2V9.2c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.2l-.4 3h-1.8v7A10 10 0 0 0 22 12z"/>
             </svg>
           </button>
@@ -210,7 +210,10 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
             aria-label="Copy event link" 
             type="button"
           >
-            <img src="/lovable-uploads/7091e184-8774-4e5c-bd98-1f463f120b0a.png" alt="Copy event link" width="22" height="22" loading="lazy" decoding="async" />
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="none" stroke="currentColor" strokeWidth="2" d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+            </svg>
           </button>
         </div>
       </div>
