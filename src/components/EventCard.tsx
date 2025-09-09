@@ -198,7 +198,7 @@ const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, d
             aria-label="Share this event to Facebook" 
             type="button"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="26" height="26">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="28" height="28">
               <path fill="currentColor" d="M22 12a10 10 0 1 0-11.5 9.9v-7H8.5v-3h2V9.2c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.2l-.4 3h-1.8v7A10 10 0 0 0 22 12z"/>
             </svg>
           </button>
