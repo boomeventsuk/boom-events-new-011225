@@ -58,6 +58,10 @@ a.button:focus, button:focus {
     --input: 240 12% 20%;
     --ring: 207 100% 60%;
     
+    /* Popover */
+    --popover: 240 12% 12%;
+    --popover-foreground: 0 0% 100%;
+    
     /* Border radius */
     --radius: 0.75rem;
     
@@ -80,6 +84,49 @@ a.button:focus, button:focus {
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
+
+/* ====== Share icons row ====== */
+.share-icons{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+.icon-btn{
+  display:inline-grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  color:hsl(var(--foreground));
+  transition:transform .08s ease, background-color .12s ease;
+}
+.icon-btn svg{ width:20px; height:20px; display:block; }
+.icon-btn:hover,.icon-btn:focus{
+  transform:translateY(-2px);
+  background:hsl(var(--muted));
+  outline:none;
+}
+.icon-btn:active{ transform:translateY(0); }
+.icon-calendar{ color:hsl(var(--primary)); }
+.icon-whatsapp{ color:#075E54; }   /* WhatsApp green */
+.icon-facebook{ color:#1877F2; }   /* Facebook blue */
+.icon-copy{ color:hsl(var(--primary)); }
+
+/* Tiny toast (confirmation) */
+.__share-toast{
+  position:fixed; left:50%; bottom:36px; transform:translateX(-50%);
+  background:hsl(var(--popover)); color:hsl(var(--popover-foreground)); 
+  padding:8px 14px; border-radius:8px; font-size:13px; z-index:99999;
+  box-shadow:0 6px 18px hsl(var(--border) / 0.18);
+  opacity:0; pointer-events:none;
+  transition:opacity .18s ease, transform .18s ease;
+}
+.__share-toast.show{ opacity:1; transform:translateX(-50%) translateY(-6px); }
 
 @layer base {
   * {
