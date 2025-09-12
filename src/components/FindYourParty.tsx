@@ -9,22 +9,22 @@ const FindYourParty = () => {
     {
       title: "The 2PM Club™ Daytime Disco",
       description: "The Midland's most popular Day Party! Iconic 80s 90s 00s Anthems - Your best night out ever now happens in the afternoon.",
-      image: "/lovable-uploads/70d32a18-1fe7-456a-bf1b-d3ed6fc325cd.png"
+      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709307/2PM_Crowd_Web_wmakid.jpg"
     },
     {
       title: "Silent Disco Parties",
       description: "10 years of Silent Chaos! Three DJs. Three channels. No compromise needed. Greatest Hits or Decades formats",
-      image: "/lovable-uploads/83d46c39-bfc9-4b32-bebb-1e20c9a80f66.png"
+      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709302/SDB_EVT_CROWD_b1j1ah.jpg"
     },
     {
       title: "Family Silent Disco",
       description: "Something for the whole family. 3 channels to choose from 🔵Party 🔴Throwback 🟢Charts. Everyone finds their vibe!",
-      image: "/lovable-uploads/ee1df65c-a583-4507-8590-e8ba08a7981b.png"
+      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709305/FSD_Crowd_Web_rti2jb.jpg"
     },
     {
       title: "Decades Parties",
       description: "Pick your decade: Footloose 80s, Boombastic 90s, Hey‑Ya 2000s.",
-      image: "https://i.postimg.cc/p5NL27vD/FL80s.png"
+      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709300/FL80s_Crowd_Web_xwfcan.jpg"
     }
   ];
 

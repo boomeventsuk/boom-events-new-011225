@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import fallbackHero from "@/assets/hero-crowd.jpg";
-const heroImageUrl = "/lovable-uploads/d04f8530-a93a-4375-9615-fea4dbce007a.png";
+const heroImageUrl = "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708204/Boom_Crowd_Web_bdke2o.jpg";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {

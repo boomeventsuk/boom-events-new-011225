@@ -8,7 +8,7 @@ const Footer = () => {
           {/* Logo */}
           <div className="mb-6 flex justify-center">
             <img 
-              src="/lovable-uploads/57926c83-5a73-43e4-b501-9f9c758534fd.png" 
+              src="https://res.cloudinary.com/dteowuv7o/image/upload/v1757519785/57926c83-5a73-43e4-b501-9f9c758534fd_fs7hwi.png"
               alt="Boombastic Events Logo" 
               className="h-16 w-auto"
               loading="lazy"
