@@ -123,6 +123,16 @@ const events = [
     infoUrl: "https://www.facebook.com/events/801356105664017"
   },
   {
+    title: "FAMILY SILENT DISCO Halloween Party Milton Keynes",
+    date: "Sun 26 Oct 2025",
+    venue: "MK11 Music Venue",
+    city: "Milton Keynes",
+    time: "13:00–15:00",
+    poster: "/lovable-uploads/9a7b1850-8db1-493a-8753-349e07bf3f92.png",
+    bookUrl: "https://www.eventbrite.co.uk/e/family-silent-disco-halloween-edition-milton-keynes-tickets-1663986531509?aff=BoomWeb",
+    infoUrl: "https://www.facebook.com/events/801356105664017"
+  },
+  {
     title: "THE 2PM CLUB™ LUTON - 80s 90s 00s Daytime Disco",
     date: "Sat 1 Nov 2025",
     venue: "Hat Factory",
