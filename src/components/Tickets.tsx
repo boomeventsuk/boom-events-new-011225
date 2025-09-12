@@ -33,6 +33,16 @@ const events = [
     infoUrl: "https://www.facebook.com/events/1466091197726110"
   },
   {
+    title: "SILENT DISCO MILTON KEYNES: POP VS INDIE VS DANCE",
+    date: "Fri 19 Sep 2025",
+    venue: "MK11 Music Venue",
+    city: "Milton Keynes",
+    time: "20:30–00:30",
+    poster: "/lovable-uploads/3151f4c2-caa9-4718-9327-33c7a7fc882f.png",
+    bookUrl: "https://www.eventbrite.co.uk/e/greatest-hits-silent-disco-milton-keynes-tickets-1345076533120?WEBLINK=",
+    infoUrl: "https://www.facebook.com/events/1747332309299707"
+  },
+  {
     title: "FOOTLOOSE 80s DAY PARTY BEDFORD",
     date: "Sat 20 Sep 2025",
     venue: "Bedford Esquires",
