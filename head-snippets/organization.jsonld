@@ -1,0 +1,21 @@
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"Boombastic",
+  "url":"https://boomevents.co.uk",
+  "logo":"https://boomevents.co.uk/assets/logo.png",
+  "sameAs":[
+    "https://www.instagram.com/boombastic_events",
+    "https://www.facebook.com/BoombasticEvents"
+  ],
+  "contactPoint":[
+    {
+      "@type":"ContactPoint",
+      "telephone":"+44-1234-567890",
+      "contactType":"customer support",
+      "areaServed":"GB"
+    }
+  ]
+}
+</script>

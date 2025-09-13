@@ -1,4 +1,5 @@
 import React from "react";
+import slugify from "slugify";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
@@ -26,6 +27,8 @@ export const EventCard: React.FC<EventCardProps> = ({
   slug,
 }) => {
   const { toast } = useToast();
+  const resolvedSlug = slug || slugify(title || 'event', { lower: true, strict: true });
+  const eventUrl = `/events/${resolvedSlug}/`;
 
   const handleBookNow = () => {
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
@@ -145,11 +148,18 @@ export const EventCard: React.FC<EventCardProps> = ({
   return (
     <Card className="bg-card border-border overflow-hidden hover:shadow-lg transition-shadow">
       <div className="aspect-square overflow-hidden">
-        <img
-          src={poster}
-          alt={`${title} event poster`}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-        />
+        <a href={eventUrl} aria-label={`Open event page: ${title}`}>
+          <img
+            src={poster}
+            alt={`${title} event poster`}
+            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            width="800"
+            height="800"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        </a>
       </div>
       <CardContent className="p-6">
         <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
@@ -176,6 +186,13 @@ export const EventCard: React.FC<EventCardProps> = ({
           >
             Event Info
           </button>
+
+          <a
+            href={eventUrl}
+            className="inline-flex items-center justify-center h-10 w-full px-4 py-2 border border-border rounded-md hover:bg-accent transition-colors"
+          >
+            Event page
+          </a>
         </div>
 
         <p className="text-xs text-muted-foreground mb-2 mt-4">Share this event</p>
