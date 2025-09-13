@@ -40,7 +40,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   };
 
   const handleEventInfo = () => {
-    if (!infoUrl) return;
+    const targetUrl = infoUrl || (slug ? `${window.location.origin}/events/${slug}/` : '#');
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
       (window as any).dataLayer.push({
         event: 'event_info_click',
@@ -49,7 +49,9 @@ export const EventCard: React.FC<EventCardProps> = ({
         event_date: isoDate,
       });
     }
-    window.open(infoUrl, '_blank');
+    if (targetUrl !== '#') {
+      window.open(targetUrl, '_blank');
+    }
   };
 
   const buildUtmUrl = (baseUrl: string, eventTitle: string): string => {
@@ -142,7 +144,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   return (
     <Card className="bg-card border-border overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="aspect-[4/3] overflow-hidden">
+      <div className="aspect-square overflow-hidden">
         <img
           src={poster}
           alt={`${title} event poster`}
@@ -168,14 +170,12 @@ export const EventCard: React.FC<EventCardProps> = ({
             Book Now
           </button>
           
-          {infoUrl && (
-            <button
-              onClick={handleEventInfo}
-              className="w-full border border-border bg-transparent hover:bg-muted hover:text-foreground transition-colors px-4 py-2 rounded-md font-medium text-muted-foreground"
-            >
-              Event Info
-            </button>
-          )}
+          <button
+            onClick={handleEventInfo}
+            className="w-full border border-border bg-transparent hover:bg-muted hover:text-foreground transition-colors px-4 py-2 rounded-md font-medium text-muted-foreground"
+          >
+            Event Info
+          </button>
         </div>
 
         <div className="share-icons">
