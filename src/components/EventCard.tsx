@@ -1,226 +1,216 @@
-import { Button } from "@/components/ui/button";
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { ExternalLink, Calendar, MapPin, Clock, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-interface EventCardProps {
+export interface EventCardProps {
   title: string;
   date: string;
   venue: string;
-  city: string;
   time: string;
   poster: string;
   bookUrl: string;
   infoUrl?: string;
-  dateIso: string;
+  isoDate: string;
+  slug?: string;
 }
 
-const EventCard = ({ title, date, venue, city, time, poster, bookUrl, infoUrl, dateIso }: EventCardProps) => {
-  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+export const EventCard: React.FC<EventCardProps> = ({
+  title,
+  date,
+  venue,
+  time,
+  poster,
+  bookUrl,
+  infoUrl,
+  isoDate,
+  slug,
+}) => {
   const { toast } = useToast();
 
   const handleBookNow = () => {
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({
-      event: 'ticket_click',
-      eventId: slug,
-      eventName: title,
-      venue: venue,
-      price: "TICKET_PRICE"
-    });
-    window.open(bookUrl, '_blank', 'noopener');
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'book_now_click',
+        event_category: 'Tickets',
+        event_label: title,
+        event_date: isoDate,
+      });
+    }
+    window.open(bookUrl, '_blank');
   };
 
   const handleEventInfo = () => {
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({
-      event: 'view_event',
-      eventId: slug,
-      eventName: title
-    });
-    if (infoUrl) {
-      window.open(infoUrl, '_blank', 'noopener');
+    if (!infoUrl) return;
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'event_info_click',
+        event_category: 'Event Info',
+        event_label: title,
+        event_date: isoDate,
+      });
     }
+    window.open(infoUrl, '_blank');
   };
 
-  // Sharing functions
-  const buildUtmUrl = (baseUrl: string, source: string) => {
-    if (!baseUrl) return '';
-    const sep = baseUrl.includes('?') ? '&' : '?';
-    return baseUrl + sep
-      + 'utm_source=' + encodeURIComponent(source)
-      + '&utm_medium=share_button'
-      + '&utm_campaign=event_share';
-  };
-
-  const copyText = async (text: string) => {
+  const buildUtmUrl = (baseUrl: string, eventTitle: string): string => {
     try {
-      await navigator.clipboard.writeText(text);
-      return true;
+      const url = new URL(baseUrl);
+      url.searchParams.set('utm_source', 'boombastic_website');
+      url.searchParams.set('utm_medium', 'event_share');
+      url.searchParams.set('utm_campaign', eventTitle.toLowerCase().replace(/[^a-z0-9]/g, '_'));
+      return url.toString();
     } catch {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      try {
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        return true;
-      } catch {
-        document.body.removeChild(ta);
-        return false;
-      }
+      return baseUrl;
     }
   };
 
   const handleWhatsAppShare = () => {
-    const utmUrl = buildUtmUrl(bookUrl, 'whatsapp');
-    const text = `This event looks great - who's in? ✨\n${title} • ${date} • ${time}\nTickets: ${utmUrl}`;
-    const wa = 'https://wa.me/?text=' + encodeURIComponent(text);
-    window.open(wa, '_blank');
+    const shareUrl = slug ? `${window.location.origin}/events/${slug}/` : window.location.href;
+    const message = `🎉 Check out this event: ${title}\n\n${shareUrl}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({
-      event: 'whatsapp_share',
-      eventId: slug,
-      eventName: title
-    });
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'whatsapp_share',
+        event_category: 'Social Share',
+        event_label: title,
+        event_date: isoDate,
+      });
+    }
+    
+    window.open(whatsappUrl, '_blank');
   };
 
   const handleFacebookShare = () => {
-    const utmUrl = buildUtmUrl(bookUrl, 'facebook');
-    const fb = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(utmUrl);
-    window.open(fb, '_blank', 'noopener');
+    const shareUrl = slug ? `${window.location.origin}/events/${slug}/` : window.location.href;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
     
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({
-      event: 'facebook_share',
-      eventId: slug,
-      eventName: title
-    });
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'facebook_share',
+        event_category: 'Social Share',
+        event_label: title,
+        event_date: isoDate,
+      });
+    }
+    
+    window.open(facebookUrl, '_blank');
+  };
+
+  const copyText = async (text: string): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      textArea.remove();
+    }
   };
 
   const handleCopyLink = async () => {
-    const utmUrl = buildUtmUrl(bookUrl, 'copy');
-    const success = await copyText(utmUrl);
+    const shareUrl = slug ? `${window.location.origin}/events/${slug}/` : window.location.href;
+    const utmUrl = buildUtmUrl(shareUrl, title);
     
-    if (success) {
+    try {
+      await copyText(utmUrl);
       toast({
-        title: "Link copied",
-        description: "Paste into WhatsApp, Instagram or SMS.",
+        description: "Link copied to clipboard!",
       });
-    } else {
-      window.open(utmUrl, '_blank');
+      
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          event: 'copy_link',
+          event_category: 'Social Share',
+          event_label: title,
+          event_date: isoDate,
+        });
+      }
+    } catch (error) {
+      toast({
+        description: "Failed to copy link",
+        variant: "destructive",
+      });
     }
-    
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).dataLayer.push({
-      event: 'copy_link_share',
-      eventId: slug,
-      eventName: title
-    });
   };
 
   return (
-    <article className="ticket-card" data-ticket-card data-date-iso={dateIso}>
-      <div className="poster">
-        <img 
+    <Card className="bg-card border-border overflow-hidden hover:shadow-lg transition-shadow">
+      <div className="aspect-[4/3] overflow-hidden">
+        <img
           src={poster}
           alt={`${title} event poster`}
-          className="w-full h-full object-cover"
-          loading="lazy"
-          decoding="async"
-          width="800"
-          height="1200"
-          style={{ aspectRatio: '2 / 3', objectFit: 'cover' }}
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>
-      
-      <div className="meta">
-        <h3 className="font-bebas text-2xl font-bold text-foreground mb-3 leading-tight">
+      <CardContent className="p-6">
+        <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
           {title}
         </h3>
         
-        <div className="space-y-2">
-          <div className="flex items-center text-muted-foreground">
-            <Calendar className="w-4 h-4 mr-2 text-primary" />
-            <span className="font-poppins">{date}</span>
-          </div>
-          <div className="flex items-center text-muted-foreground">
-            <MapPin className="w-4 h-4 mr-2 text-primary" />
-            <span className="font-poppins">{venue}, {city}</span>
-          </div>
-          <div className="flex items-center text-muted-foreground">
-            <Clock className="w-4 h-4 mr-2 text-primary" />
-            <span className="font-poppins">{time}</span>
-          </div>
+        <div className="space-y-1 text-muted-foreground mb-4">
+          <p className="text-sm">{date}</p>
+          <p className="text-sm">{time}</p>
+          <p className="text-sm">{venue}</p>
         </div>
-      </div>
-      
-      <div className="actions">
-        <Button 
-          onClick={handleBookNow}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold flex items-center justify-center gap-2 btn"
-        >
-          <ExternalLink className="w-4 h-4" />
-          Book Now
-        </Button>
-        {infoUrl && (
-          <Button 
-            onClick={handleEventInfo}
-            variant="outline"
-            className="bg-white text-primary border-white hover:bg-white/90 flex items-center justify-center gap-2 btn"
+
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={handleBookNow}
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-4 py-2 rounded-md font-medium"
           >
-            <ExternalLink className="w-4 h-4" />
-            Event Info
-          </Button>
-        )}
-        <span className="status" data-status></span>
-        
-        <p className="font-poppins text-white text-sm text-left">Share This Event</p>
-        
-        {/* Share icons row */}
-        <div className="share-icons" role="group" aria-label="Share event">
+            Book Now
+          </button>
+          
+          {infoUrl && (
+            <button
+              onClick={handleEventInfo}
+              className="w-full border border-border bg-transparent hover:bg-muted hover:text-foreground transition-colors px-4 py-2 rounded-md font-medium text-muted-foreground"
+            >
+              Event Info
+            </button>
+          )}
+        </div>
+
+        <div className="share-icons">
           <button 
-            className="icon-btn icon-whatsapp" 
             onClick={handleWhatsAppShare}
-            title="Share with friends on WhatsApp" 
-            aria-label="Share with friends on WhatsApp" 
-            type="button"
+            className="icon-btn icon-whatsapp"
+            title="Share on WhatsApp"
           >
-            <img src="https://res.cloudinary.com/dteowuv7o/image/upload/v1757519736/bb7f178c-1cf5-4ce2-a752-a39c92c097f7_cbk3z9.png" alt="Share on WhatsApp" width="22" height="22" loading="lazy" decoding="async" />
-          </button>
-
-          <button 
-            className="icon-btn icon-facebook" 
-            onClick={handleFacebookShare}
-            title="Share this event to Facebook" 
-            aria-label="Share this event to Facebook" 
-            type="button"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="28" height="28">
-              <path fill="currentColor" d="M22 12a10 10 0 1 0-11.5 9.9v-7H8.5v-3h2V9.2c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2V12h2.2l-.4 3h-1.8v7A10 10 0 0 0 22 12z"/>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/>
             </svg>
           </button>
-
+          
           <button 
-            className="icon-btn icon-copy" 
-            onClick={handleCopyLink}
-            title="Copy event link" 
-            aria-label="Copy event link" 
-            type="button"
+            onClick={handleFacebookShare}
+            className="icon-btn icon-facebook"
+            title="Share on Facebook"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="none" stroke="currentColor" strokeWidth="1.5" d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-              <path fill="none" stroke="currentColor" strokeWidth="1.5" d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </button>
+          
+          <button 
+            onClick={handleCopyLink}
+            className="icon-btn icon-copy"
+            title="Copy Link"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
             </svg>
           </button>
         </div>
-      </div>
-    </article>
+      </CardContent>
+    </Card>
   );
 };
-
-export default EventCard;
