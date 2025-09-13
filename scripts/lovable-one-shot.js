@@ -274,7 +274,218 @@ function buildEventHtml(event, description, slug){
   const startTime = ftime(event.start || '');
   const endTime = ftime(event.end || '');
 
-  return \`<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>\${event.title} | Boombastic</title><meta name="description" content="\${description || event.description || ''}"><link rel="canonical" href="\${shareUrl}">\\n<script type="application/ld+json">\${JSON.stringify(structured)}</script>\\n<script type="application/ld+json">\${JSON.stringify(breadcrumb)}</script>\\n</head><body><main style="max-width:980px;margin:20px auto;font-family:system-ui,sans-serif;"><h1>\${event.title}</h1><p>\${description || event.description || ''}</p><p><strong>Date:</strong> \${dateRead} <strong>Time:</strong> \${startTime}–\${endTime}</p><p><strong>Venue:</strong> \${venue || event.location}</p>\${event.bookUrl ? '<p><a href="'+event.bookUrl+'" target="_blank" rel="noopener">Buy tickets</a></p>' : ''}</main></body></html>\`;
+  const utmUrl = event.bookUrl ? new URL(event.bookUrl) : null;
+  if (utmUrl) {
+    utmUrl.searchParams.set('utm_source', 'boombastic_event_page');
+    utmUrl.searchParams.set('utm_medium', 'event_share');
+    utmUrl.searchParams.set('utm_campaign', slug);
+  }
+  
+  const whatsappText = encodeURIComponent(\`🎉 Check out this event: \${event.title || ''}\\n\\n\${shareUrl}\`);
+  const facebookShareUrl = \`https://www.facebook.com/sharer/sharer.php?u=\${encodeURIComponent(shareUrl)}\`;
+
+  return \`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>\${event.title || 'Event'} | Boombastic Events</title>
+    <meta name="description" content="\${description || event.description || ''}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="event">
+    <meta property="og:url" content="\${shareUrl}">
+    <meta property="og:title" content="\${event.title || 'Event'}">
+    <meta property="og:description" content="\${description || event.description || ''}">
+    <meta property="og:image" content="\${imageAbs}">
+    <meta property="og:site_name" content="Boombastic Events">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="\${shareUrl}">
+    <meta property="twitter:title" content="\${event.title || 'Event'}">
+    <meta property="twitter:description" content="\${description || event.description || ''}">
+    <meta property="twitter:image" content="\${imageAbs}">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="\${shareUrl}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">\${JSON.stringify(structured)}</script>
+    <script type="application/ld+json">\${JSON.stringify(breadcrumb)}</script>
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #0B0B0F;
+            color: white;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #35A7FF, #FF3CAC);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        .share-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #13131A;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        .event-image {
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Navigation -->
+        <nav class="mb-8">
+            <a href="/" class="text-white hover:text-blue-400 transition-colors">
+                ← Back to Boombastic Events
+            </a>
+        </nav>
+        
+        <!-- Event Header -->
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div>
+                <img src="\${event.image || imageAbs}" alt="\${event.title || 'Event'}" class="w-full rounded-xl shadow-lg event-image">
+            </div>
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">\${event.title || 'Event'}</h1>
+                <div class="text-lg text-gray-300 space-y-2 mb-6">
+                    <p><strong>📅 Date:</strong> \${dateRead}</p>
+                    <p><strong>⏰ Time:</strong> \${startTime} - \${endTime}</p>
+                    <p><strong>📍 Venue:</strong> \${venue || event.location}</p>
+                </div>
+                
+                <!-- Book Now Button -->
+                \${event.bookUrl ? \`<a href="\${utmUrl ? utmUrl.toString() : event.bookUrl}" 
+                   target="_blank" 
+                   class="btn-primary mb-4 block text-center"
+                   onclick="if(typeof gtag !== 'undefined') gtag('event', 'book_now_click', { 'event_category': 'Event Page', 'event_label': '\${event.title}' });">
+                    🎫 Book Now
+                </a>\` : ''}
+                
+                <!-- Share Section -->
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-2">Share this event:</h3>
+                    <div class="share-icons">
+                        <a href="https://wa.me/?text=\${whatsappText}" 
+                           target="_blank" 
+                           class="icon-btn"
+                           onclick="if(typeof gtag !== 'undefined') gtag('event', 'whatsapp_share', { 'event_category': 'Event Page', 'event_label': '\${event.title}' });"
+                           title="Share on WhatsApp">
+                            📱
+                        </a>
+                        <a href="\${facebookShareUrl}" 
+                           target="_blank" 
+                           class="icon-btn"
+                           onclick="if(typeof gtag !== 'undefined') gtag('event', 'facebook_share', { 'event_category': 'Event Page', 'event_label': '\${event.title}' });"
+                           title="Share on Facebook">
+                            📘
+                        </a>
+                        <button onclick="copyLink()" 
+                                class="icon-btn"
+                                title="Copy Link">
+                            🔗
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Event Description -->
+        <div class="bg-gray-900 rounded-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">About This Event</h2>
+            <p class="text-gray-300 text-lg leading-relaxed">\${description || event.description || ''}</p>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="text-center">
+            \${event.bookUrl ? \`<a href="\${utmUrl ? utmUrl.toString() : event.bookUrl}" 
+               target="_blank" 
+               class="btn-primary text-xl px-8 py-4"
+               onclick="if(typeof gtag !== 'undefined') gtag('event', 'book_now_bottom_click', { 'event_category': 'Event Page', 'event_label': '\${event.title}' });">
+                🎫 Get Your Tickets Now
+            </a>\` : ''}
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Link copied to clipboard!</div>
+    
+    <!-- Scripts -->
+    <script>
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+                
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'copy_link', { 
+                        'event_category': 'Event Page', 
+                        'event_label': '\${event.title || ''}'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>\`;
 }
 
 ensureDir(outDir);
