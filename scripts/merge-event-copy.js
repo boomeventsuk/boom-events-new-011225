@@ -13,10 +13,10 @@ const missingEvent = {
   "location": "MK11 Music Venue, Milton Keynes",
   "start": "2025-09-19T20:30:00",
   "end": "2025-09-20T00:30:00",
-  "bookUrl": "https://www.eventbrite.co.uk/e/greatest-hits-silent-disco-milton-keynes-tickets-1345123456789?aff=BoomWeb",
-  "infoUrl": "https://www.facebook.com/events/1234567890123456",
+  "bookUrl": "https://www.eventbrite.co.uk/e/greatest-hits-silent-disco-milton-keynes-tickets-1345076533120?WEBLINK=",
+  "infoUrl": "https://www.facebook.com/events/1747332309299707",
   "image": "/lovable-uploads/3151f4c2-caa9-4718-9327-33c7a7fc882f.png",
-  "description": "Three-channel silent disco at MK11—switch between Pop, Indie and Dance on your headphones. Multi-generational crowd energy and massive tunes in a friendly atmosphere."
+  "description": "Milton Keynes, the headphones are on, the lights are glowing, and the battle is about to begin. Three DJs. Three channels. One dance floor. Will you belt the pop anthems, jump with the indie crowd, or rave to the dance bangers? The beauty is you can do it all — flip channels whenever the mood takes you and laugh as your mates sing wildly to something totally different. It's four hours of no-compromise fun, glowing headphone selfies, and that Monday smugness knowing you just nailed the weekend."
 };
 
 // Find the right position to insert (after ID 1, before ID 3)
