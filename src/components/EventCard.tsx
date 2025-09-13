@@ -178,6 +178,8 @@ export const EventCard: React.FC<EventCardProps> = ({
           </button>
         </div>
 
+        <p className="text-xs text-muted-foreground mb-2 mt-4">Share this event</p>
+        
         <div className="share-icons">
           <button 
             onClick={handleWhatsAppShare}
