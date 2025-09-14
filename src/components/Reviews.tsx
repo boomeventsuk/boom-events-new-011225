@@ -3,22 +3,26 @@ const Reviews = () => {
     {
       text: "It's brilliant to be able to get out with your friends and you get a full night's sleep.",
       author: "SUE L",
-      event: "Daytime Disco"
+      event: "Daytime Disco",
+      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757520205/041025_2PM_COV_ANNSQ_i62sjk.jpg"
     },
     {
       text: "So many Anthems! You know every word, and so does everyone else. It's the ultimate 90s night.",
       author: "ALEX W", 
-      event: "Boombastic 90s"
+      event: "Boombastic 90s",
+      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708204/Boom_Crowd_Web_bdke2o.jpg"
     },
     {
       text: "Totally the best night in the area. We never miss one. Love taking my headphones off just to soak in the beautiful chaos!",
       author: "FERN G",
-      event: "Greatest Hits Silent Disco"
+      event: "Greatest Hits Silent Disco",
+      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757707388/190925_SDB_MK_No_Comp_Sq_kxxd8v.jpg"
     },
     {
       text: "My teenager actually smiled (and danced!) No one was glued to their phones, apart from taking photos of each other. A proper family game-changer.",
       author: "SARAH P",
-      event: "Family Silent Disco"
+      event: "Family Silent Disco",
+      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757707885/261025_FSD_NPTON_ANNSQ_kvh0xf.jpg"
     }
   ];
 
@@ -31,21 +35,35 @@ const Reviews = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {quotes.map((quote, index) => (
-            <div key={index} className="review-card bg-card p-6 rounded-lg border border-border">
-              <h4 className="review-event font-bebas text-xl text-primary mb-2">
-                {quote.event}
-              </h4>
-              <div className="stars mb-3" aria-label="5 out of 5">
-                ★★★★★
-              </div>
-              <blockquote className="quote font-poppins text-foreground mb-4 leading-relaxed">
-                "{quote.text}"
-              </blockquote>
-              <div className="reviewer font-poppins font-semibold text-primary">
-                {quote.author}
-              </div>
-              <div className="context font-poppins text-sm text-muted-foreground">
-                {quote.event}
+            <div 
+              key={index} 
+              className="review-card relative bg-white p-6 rounded-lg border border-border overflow-hidden"
+              style={{
+                backgroundImage: `url(${quote.backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              {/* White overlay for readability */}
+              <div className="absolute inset-0 bg-white/85"></div>
+              
+              {/* Content */}
+              <div className="relative z-10">
+                <h4 className="review-event font-bebas text-xl text-primary mb-2">
+                  {quote.event}
+                </h4>
+                <div className="stars mb-3 text-yellow-500" aria-label="5 out of 5">
+                  ★★★★★
+                </div>
+                <blockquote className="quote font-poppins text-black mb-4 leading-relaxed">
+                  "{quote.text}"
+                </blockquote>
+                <div className="reviewer font-poppins font-semibold text-primary">
+                  {quote.author}
+                </div>
+                <div className="context font-poppins text-sm text-muted-foreground">
+                  {quote.event}
+                </div>
               </div>
             </div>
           ))}
