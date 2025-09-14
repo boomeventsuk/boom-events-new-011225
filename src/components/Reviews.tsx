@@ -49,7 +49,7 @@ const Reviews = () => {
                 <h4 className="review-event font-bebas text-3xl font-bold text-black mb-2">
                   {quote.event}
                 </h4>
-                <div className="stars mb-3 text-yellow-500" aria-label="5 out of 5">
+                <div className="stars mb-3 text-primary" aria-label="5 out of 5">
                   ★★★★★
                 </div>
                 <blockquote className="quote font-poppins font-bold text-black mb-4 leading-relaxed">
