@@ -10,7 +10,7 @@ const Reviews = () => {
       text: "So many Anthems! You know every word, and so does everyone else. It's the ultimate 90s night.",
       author: "ALEX W", 
       event: "Boombastic 90s",
-      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708204/Boom_Crowd_Web_bdke2o.jpg"
+      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708050/061225_BOOMPM_NPTON_ANNSQ_fbwdg1.png"
     },
     {
       text: "Totally the best night in the area. We never miss one. Love taking my headphones off just to soak in the beautiful chaos!",
@@ -55,7 +55,7 @@ const Reviews = () => {
                 <div className="stars mb-3 text-yellow-500" aria-label="5 out of 5">
                   ★★★★★
                 </div>
-                <blockquote className="quote font-poppins text-black mb-4 leading-relaxed">
+                <blockquote className="quote font-poppins text-black mb-4 leading-relaxed font-bold">
                   "{quote.text}"
                 </blockquote>
                 <div className="reviewer font-poppins font-semibold text-primary">
