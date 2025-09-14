@@ -1,13 +1,3 @@
-// build marker (ESM) — remove after test
-import fs from 'fs';
-import path from 'path';
-try {
-  const out = path.join(process.cwd(), 'public', '.generator_marker.txt');
-  await fs.promises.mkdir(path.dirname(out), { recursive: true });
-  await fs.promises.writeFile(out, `ran-file: scripts/generate-event-pages.js\ntimestamp: ${new Date().toISOString()}\n`, 'utf8');
-} catch (e) {
-  // continue silently
-}
 
 /* V2 generator: per-event static pages with clean JSON-LD + OG/Twitter meta + optional FAQ + sitemap + report
    Reads:
