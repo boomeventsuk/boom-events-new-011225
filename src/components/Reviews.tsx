@@ -46,7 +46,7 @@ const Reviews = () => {
             >
               <div className="absolute inset-0 bg-white/90"></div>
               <div className="relative z-10 p-6">
-                <h4 className="review-event font-bebas text-xl text-primary mb-2">
+                <h4 className="review-event font-bebas text-3xl font-bold text-primary mb-2">
                   {quote.event}
                 </h4>
                 <div className="stars mb-3 text-yellow-500" aria-label="5 out of 5">
