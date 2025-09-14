@@ -44,7 +44,7 @@ const Reviews = () => {
                 backgroundPosition: 'center'
               }}
             >
-              <div className="absolute inset-0 bg-white/90"></div>
+              <div className="absolute inset-0 bg-white/70"></div>
               <div className="relative z-10 p-6">
                 <h4 className="review-event font-bebas text-3xl font-bold text-primary mb-2">
                   {quote.event}
