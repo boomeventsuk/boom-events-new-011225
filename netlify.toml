@@ -1,45 +1,10 @@
+# netlify.toml — put at repository root
 [build]
-  publish = "dist"
   command = "npm run build"
+  publish = "dist"
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    Cache-Control = "max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.css"
-  [headers.values]
-    Cache-Control = "max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.png"
-  [headers.values]
-    Cache-Control = "max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.jpg"
-  [headers.values]
-    Cache-Control = "max-age=31536000, immutable"
-
-# Event page redirects (if needed)
-[[redirects]]
-  from = "/event/*"
-  to = "/events/:splat/"
-  status = 301
-
-# SPA fallback
+# SPA fallback for client-side routes — available to everyone
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {Role = ["admin"]}
