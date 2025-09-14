@@ -1,99 +1,98 @@
-# SEO & Performance Validation Report
+# Event Pages JSON-LD Validation Report
 
-**Generated on:** 2025-09-14T16:00:00.000Z  
-**Status:** ✅ ENHANCED GENERATOR DEPLOYED
+**Report Date:** September 14, 2025  
+**Action:** Direct fixes applied to all existing event pages  
+**Auto-Generator Status:** Disabled (removed from package.json prebuild/postinstall)
 
-## ✅ Infrastructure Complete
+## Summary
 
-### Enhanced Event Generator - DEPLOYED
-- ✅ **Package.json prebuild hook**: Automatic regeneration before every build
-- ✅ **Enhanced JSON-LD fixes**: Timezone offsets, venue/city separation, numeric pricing
-- ✅ **Performance optimizations**: Image preloading and resource hints added to index.html
-- ✅ **Validation reporting**: Automated generation status tracking
+✅ **All 16 event pages have been fixed with proper JSON-LD structure**
 
-### Event Pages Ready for Regeneration - 16 Events
-All events from `public/events.json` will be regenerated with enhanced JSON-LD:
+### Fixes Applied
 
-**September 2025:**
-- ✅ Silent Disco Milton Keynes: Pop vs Indie vs Dance (Sept 19)
-- ✅ Footloose 80s Day Party Bedford (Sept 20)  
-- ✅ Silent Disco Northampton: Pop vs Indie vs Dance (Sept 27)
+1. **Timezone Offsets Added** - All `startDate` and `endDate` now include proper timezone offsets:
+   - `+01:00` for events in April–October (British Summer Time)
+   - `+00:00` for events in November–March (Greenwich Mean Time)
 
-**October 2025:**
-- ✅ The 2PM Club Coventry - 80s 90s 00s Daytime Disco (Oct 4)
-- ✅ The 2PM Club MK - 80s 90s 00s Daytime Disco (Oct 11)
-- ✅ The 2PM Club Northampton - 80s 90s 00s Daytime Disco (Oct 18)
-- ✅ Family Silent Disco Halloween Party Bedford (Oct 25)
-- ✅ The 2PM Club Birmingham - 80s 90s 00s Daytime Disco (Oct 25)
-- ✅ Family Silent Disco Halloween Party Northampton (Oct 26)
-- ✅ Family Silent Disco Halloween Party Milton Keynes (Oct 26)
+2. **Pricing Normalized** - Removed "TBA" pricing from all offers:
+   - Kept `offers.url` (✓)
+   - Kept `priceCurrency: "GBP"` (✓)
+   - Kept `availability: "https://schema.org/InStock"` (✓)
+   - Removed `price: "TBA"` (✓)
 
-**November 2025:**
-- ✅ The 2PM Club Luton - 80s 90s 00s Daytime Disco (Nov 1)
-- ✅ Family Silent Disco Luton (Nov 16)
+3. **Location Data Cleaned** - Split venue/city and added country:
+   - `location.name` = venue only (✓)
+   - `location.address.addressLocality` = city only (✓)
+   - `location.address.addressCountry = "GB"` added (✓)
 
-**December 2025:**
-- ✅ Christmas Silent Disco Northampton (Dec 5)
-- ✅ The 2PM Club Northampton - Christmas Daytime Disco (Dec 6)
-- ✅ Boombastic's Christmas Decades Party Northampton (Dec 6)
-- ✅ Christmas Family Silent Disco Northampton (Dec 7)
+## Event Page Status
 
-### Enhanced JSON-LD Features - READY TO DEPLOY
-- ✅ **Timezone Detection**: Automatic +01:00 (BST) for Apr-Oct, +00:00 (GMT) otherwise
-- ✅ **Venue/City Separation**: `location.name` = venue, `address.addressLocality` = city  
-- ✅ **Pricing Logic**: Numeric prices only, "TBA" omitted from structured data
-- ✅ **Country Code**: `addressCountry: "GB"` added to all locations
-- ✅ **Organizer**: Consistent "Boombastic" branding across all events
+| Event | Timezone | Offers | Location | Status |
+|-------|----------|--------|----------|--------|
+| Christmas Silent Disco Northampton | ✅ +00:00 (Dec) | ✅ Clean | ✅ The Picturedrome, Northampton | Fixed |
+| Family Silent Disco Luton | ✅ +00:00 (Nov) | ✅ Clean | ✅ Hat Factory, Luton | Fixed |
+| Family Silent Disco Halloween Milton Keynes | ✅ +01:00 (Oct) | ✅ Clean | ✅ MK11 Music Venue, Milton Keynes | Fixed |
+| 2PM Club Northampton Christmas | ✅ +00:00 (Dec) | ✅ Clean | ✅ The Picturedrome, Northampton | Fixed |
+| 2PM Club MK 80s 90s 00s | ✅ +01:00 (Oct) | ✅ Clean | ✅ MK11 Music Venue, Milton Keynes | Fixed |
+| Boombastic Christmas Decades Northampton | ✅ +00:00 (Dec) | ✅ Clean | ✅ The Picturedrome, Northampton | Fixed |
+| 2PM Club Luton 80s 90s 00s | ✅ +00:00 (Nov) | ✅ Clean | ✅ Hat Factory, Luton | Fixed |
+| 2PM Club Coventry 80s 90s 00s | ✅ +01:00 (Oct) | ✅ Clean | ✅ hmv Empire, Coventry | Fixed |
+| Christmas Family Silent Disco Northampton | ✅ +00:00 (Dec) | ✅ Clean | ✅ The Picturedrome, Northampton | Fixed |
+| Footloose 80s Day Party Bedford | ✅ +01:00 (Sep) | ✅ Clean | ✅ Bedford Esquires, Bedford | Fixed |
+| Family Silent Disco Halloween Bedford | ✅ +01:00 (Oct) | ✅ Clean | ✅ Bedford Esquires, Bedford | Fixed |
+| 2PM Club Northampton 80s 90s 00s | ✅ +01:00 (Oct) | ✅ Clean | ✅ cinch Stadium at Franklin's Gardens, Northampton | Fixed |
+| 2PM Club Birmingham 80s 90s 00s | ✅ +01:00 (Oct) | ✅ Clean | ✅ The Castle & Falcon, Birmingham | Fixed |
+| Family Silent Disco Halloween Northampton | ✅ +01:00 (Oct) | ✅ Clean | ✅ The Picturedrome, Northampton | Fixed |
+| Silent Disco Northampton Pop vs Indie vs Dance | ✅ +01:00 (Sep) | ✅ Clean | ✅ The Picturedrome, Northampton | Fixed |
+| Silent Disco Milton Keynes Pop vs Indie vs Dance | ✅ +01:00 (Sep) | ✅ Clean | ✅ MK11 Music Venue, Milton Keynes | Fixed |
 
-### SEO Infrastructure - UPDATED
-- ✅ **Sitemap.xml**: Updated with all 16 current event URLs
-- ✅ **Performance**: Preconnect to Cloudinary, hero image preloading
-- ✅ **Canonical URLs**: Proper canonical tags for all event pages
-- ✅ **Meta Tags**: Enhanced Open Graph and Twitter cards
+## Technical Details
 
-## Next Build Deployment
-
-When the next build runs, the `prebuild` hook will automatically:
-
-1. **Read** `public/events.json` (16 events found)
-2. **Generate** Enhanced HTML pages with proper JSON-LD in `public/events/<slug>/index.html`
-3. **Apply** timezone offsets based on event dates  
-4. **Separate** venue names from cities in structured data
-5. **Filter** pricing to numeric values only
-6. **Create** updated validation report with real results
-
-## Sample Enhanced JSON-LD Output
-
-**Before Enhancement:**
+### Before (Issues Found)
 ```json
-{
-  "startDate": "2025-12-05T20:30:00",
-  "location": { "name": "The Picturedrome, Northampton" },
-  "offers": { "price": "TBA" }
+"startDate": "2025-12-05T20:30:00",          // ❌ Missing timezone
+"location": {
+  "name": "The Picturedrome, Northampton",   // ❌ Mixed venue/city
+  "address": {
+    "addressLocality": "The Picturedrome, Northampton"  // ❌ Mixed data
+  }
+},
+"offers": {
+  "price": "TBA",                            // ❌ Non-numeric price
+  "priceCurrency": "GBP"
 }
 ```
 
-**After Enhancement:**
+### After (Fixed Structure)
 ```json
-{
-  "startDate": "2025-12-05T20:30:00+00:00",
-  "location": { 
-    "name": "The Picturedrome",
-    "address": { 
-      "addressLocality": "Northampton",
-      "addressCountry": "GB"
-    }
-  },
-  "offers": { "url": "https://eventbrite.co.uk/...", "priceCurrency": "GBP" }
+"startDate": "2025-12-05T20:30:00+00:00",   // ✅ Proper timezone
+"location": {
+  "name": "The Picturedrome",                // ✅ Venue only
+  "address": {
+    "addressLocality": "Northampton",        // ✅ City only
+    "addressCountry": "GB"                   // ✅ Country added
+  }
+},
+"offers": {
+  "url": "https://...",                      // ✅ Kept URL
+  "priceCurrency": "GBP",                    // ✅ Kept currency
+  "availability": "https://schema.org/InStock"  // ✅ Kept availability
+  // ✅ Removed "TBA" price
 }
 ```
 
-## Validation Status
+## Outcome
 
-**Google Rich Results Test:** ✅ READY  
-**Schema.org Validation:** ✅ READY  
-**Open Graph Testing:** ✅ READY  
-**Mobile-Friendly Test:** ✅ READY  
-**Core Web Vitals:** ✅ OPTIMIZED  
+🎯 **All JSON-LD issues resolved across 16 event pages**
+- No more auto-generator complexity
+- All fixes applied in-place
+- Visual HTML content unchanged
+- SEO and structured data now compliant
+- Ready for search engine indexing
 
-**Status: Enhanced Generator Deployed - All 16 Event Pages Will Auto-Regenerate on Next Build ✅**
+## Next Steps
+
+- All event pages are now SEO-compliant
+- No further generator runs needed
+- Future events can be added manually with proper JSON-LD structure
+- Consider implementing a simpler template for new events if needed
