@@ -8,9 +8,14 @@ const pkg = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 // Update scripts
 pkg.scripts = {
   ...pkg.scripts,
-  "generate:events": "node scripts/generate-event-pages.js",
-  "build": "npm run generate:events && vite build",
-  "postinstall": "node scripts/lovable-one-shot.js"
+  "dev": "vite",
+  "prebuild": "node scripts/generate-event-pages.cjs",
+  "build": "vite build",
+  "build:dev": "vite build --mode development",
+  "lint": "eslint .",
+  "preview": "vite preview",
+  "postinstall": "node scripts/generate-event-pages.cjs || true",
+  "generate:events": "node scripts/generate-event-pages.cjs"
 };
 
 fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2), 'utf8');
