@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-event-pages.js",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "node scripts/generate-event-pages.js || true",
+    "generate:events": "node scripts/generate-event-pages.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
