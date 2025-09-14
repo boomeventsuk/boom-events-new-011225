@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 
 /* V2 generator: per-event static pages with clean JSON-LD + OG/Twitter meta + optional FAQ + sitemap + report
    Reads:
