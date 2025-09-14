@@ -3,18 +3,19 @@
   <url>
     <loc>https://boomevents.co.uk/</loc>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://boomevents.co.uk/faq/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://boomevents.co.uk/events.json</loc>
     <changefreq>hourly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
-    <loc>https://boomevents.co.uk/events/footloose-80s-northampton-a-most-excellent-80s-party/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Event Pages -->
   <url>
     <loc>https://boomevents.co.uk/events/silent-disco-milton-keynes-pop-vs-indie-vs-dance/</loc>
     <changefreq>weekly</changefreq>
@@ -46,16 +47,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://boomevents.co.uk/events/christmas-silent-disco-northampton/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://boomevents.co.uk/events/boombastics-christmas-decades-party-northampton/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://boomevents.co.uk/events/family-silent-disco-halloween-party-bedford/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -71,6 +62,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://boomevents.co.uk/events/family-silent-disco-halloween-party-milton-keynes/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://boomevents.co.uk/events/the-2pm-club-luton-80s-90s-00s-daytime-disco/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -81,17 +77,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://boomevents.co.uk/events/christmas-silent-disco-northampton/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://boomevents.co.uk/events/the-2pm-club-northampton-christmas-daytime-disco/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://boomevents.co.uk/events/christmas-family-silent-disco-northampton/</loc>
+    <loc>https://boomevents.co.uk/events/boombastics-christmas-decades-party-northampton/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://boomevents.co.uk/events/family-silent-disco-halloween-party-milton-keynes/</loc>
+    <loc>https://boomevents.co.uk/events/christmas-family-silent-disco-northampton/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
