@@ -186,13 +186,6 @@ export const EventCard: React.FC<EventCardProps> = ({
           >
             Event Info
           </button>
-
-          <a
-            href={eventUrl}
-            className="inline-flex items-center justify-center h-10 w-full px-4 py-2 border border-border rounded-md hover:bg-accent transition-colors"
-          >
-            Event page
-          </a>
         </div>
 
         <p className="text-xs text-muted-foreground mb-2 mt-4">Share this event</p>
