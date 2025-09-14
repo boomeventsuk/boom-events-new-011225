@@ -1,3 +1,14 @@
+// build marker (ESM) — remove after test
+import fs from 'fs';
+import path from 'path';
+try {
+  const out = path.join(process.cwd(), 'public', '.generator_marker.txt');
+  await fs.promises.mkdir(path.dirname(out), { recursive: true });
+  await fs.promises.writeFile(out, `ran-file: scripts/generate-event-pages.js\ntimestamp: ${new Date().toISOString()}\n`, 'utf8');
+} catch (e) {
+  // continue silently
+}
+
 /* V2 generator: per-event static pages with clean JSON-LD + OG/Twitter meta + optional FAQ + sitemap + report
    Reads:
      - public/events.json
@@ -8,8 +19,6 @@
      - public/sitemap.xml
      - public/geo-seo-validation-report.md
 */
-const fs = require('fs');
-const path = require('path');
 
 const ROOT = process.cwd();
 const SITE_URL = process.env.SITE_URL || 'https://boomevents.co.uk';
@@ -124,7 +133,7 @@ ${urls.map(u=>`  <url><loc>${u}</loc></url>`).join('\n')}
 </urlset>
 `; }
 
-(function run(){
+(async function run(){
   const events = readJson(path.join(ROOT,'public','events.json')) || [];
   const copy   = readJson(path.join(ROOT,'content','event-copy.json')) || {};
   const faqMap = readJson(path.join(ROOT,'content','event-faq.json')) || {};
