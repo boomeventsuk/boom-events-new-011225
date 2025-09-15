@@ -7,9 +7,9 @@ const Reviews = () => {
       backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709307/2PM_Crowd_Web_wmakid.jpg"
     },
     {
-      text: "So many Anthems! You know every word, and so does everyone else. It's the ultimate 90s night.",
+      text: "So many Anthems! You know every word, and so does everyone else. It's the ultimate 80s night.",
       author: "ALEX W", 
-      event: "Boombastic 90s",
+      event: "Footloose 80s",
       backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709300/FL80s_Crowd_Web_xwfcan.jpg"
     },
     {
