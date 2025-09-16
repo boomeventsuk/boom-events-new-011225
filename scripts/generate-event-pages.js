@@ -1,11 +1,14 @@
-/* ESM generator: event pages with header, poster, CTAs, OG/Twitter, clean JSON-LD, sitemap + report
+/* Enhanced ESM generator: event pages + per-event JSON + venues + city pages + comprehensive sitemap
    Reads:
      - public/events.json
      - content/event-copy.json (optional)
    Writes:
      - public/events/<slug>/index.html
-     - public/sitemap.xml
-     - public/geo-seo-validation-report.md
+     - public/events/<slug>/index.json (NEW)
+     - public/venues.json (NEW)
+     - public/locations/<city-slug>/index.html (NEW)
+     - public/sitemap.xml (enhanced)
+     - public/geo-seo-validation-report.md (enhanced)
 */
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -43,7 +46,7 @@ function splitVenueCity(loc) {
 }
 function esc(s) { return (s || "").toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-// ---------- template ----------
+// ---------- event page template ----------
 function buildEventHtml(ev, desc, slug) {
   const { venue, city } = splitVenueCity(ev.location || "");
   const start = withUkOffset(ev.start || "");
@@ -51,8 +54,16 @@ function buildEventHtml(ev, desc, slug) {
   const share = `${SITE_URL}/events/${slug}/`;
   const img = ev.image ? (ev.image.startsWith("http") ? ev.image : SITE_URL + ev.image) : "";
 
-  const offers = { "@type": "Offer", url: ev.bookUrl || "", priceCurrency: "GBP", availability: "https://schema.org/InStock" };
-  if (ev.price !== undefined && ev.price !== null && !isNaN(Number(ev.price))) offers.price = Number(ev.price);
+  const offers = { 
+    "@type": "Offer", 
+    url: ev.bookUrl || "", 
+    priceCurrency: "GBP", 
+    availability: "https://schema.org/InStock",
+    validFrom: new Date().toISOString()
+  };
+  if (ev.price !== undefined && ev.price !== null && !isNaN(Number(ev.price))) {
+    offers.price = Number(ev.price);
+  }
 
   const eventSD = {
     "@context": "https://schema.org",
@@ -155,15 +166,133 @@ ${og}
           ${ev.infoUrl ? `<a class="btn-secondary text-center" href="${ev.infoUrl}" target="_blank" rel="noopener">ℹ️ Event Info</a>` : ``}
           <a class="btn-secondary text-center" href="/#tickets">⬅︎ Back to Tickets</a>
         </div>
-        <div class="text-xs text-[var(--muted)] pt-2">Share</div>
-        <div class="flex gap-3 text-sm">
+        <div class="text-xs text-[var(--muted)] pt-2">Share & Data</div>
+        <div class="flex gap-3 text-sm flex-wrap">
           <a class="underline" href="https://wa.me/?text=${encodeURIComponent(safeTitle + ' — ' + share)}" target="_blank" rel="noopener">WhatsApp</a>
           <a class="underline" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(share)}" target="_blank" rel="noopener">Facebook</a>
           <a class="underline" href="${share}" onclick="navigator.clipboard?.writeText('${share}'); return false;">Copy link</a>
+          <a class="underline" href="${share}index.json" rel="nofollow">Event data (JSON)</a>
         </div>
       </aside>
     </section>
   </main>
+</body>
+</html>`;
+}
+
+// ---------- city page template ----------
+function buildCityHtml(citySlug, cityName, events) {
+  const cityUrl = `${SITE_URL}/locations/${citySlug}/`;
+  
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL + "/" },
+      { "@type": "ListItem", position: 2, name: "Locations", item: SITE_URL + "/locations/" },
+      { "@type": "ListItem", position: 3, name: cityName, item: cityUrl }
+    ]
+  };
+
+  const itemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": events.map((ev, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 1,
+      "name": ev.title || "Event",
+      "url": `${SITE_URL}/events/${ev.slug}/`
+    }))
+  };
+
+  return `<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events in ${esc(cityName)} | Boombastic Events</title>
+    <meta name="description" content="Discover daytime disco, silent disco and decades parties in ${esc(cityName)}. Join hundreds of party-goers for unforgettable music events featuring 80s, 90s and 00s hits.">
+    <link rel="canonical" href="${cityUrl}">
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>
+    <script type="application/ld+json">${JSON.stringify(itemList)}</script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .event-item {
+            transition: all 0.3s ease;
+        }
+        
+        .event-item:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <nav class="mb-8">
+            <a href="/" class="inline-flex items-center text-white hover:text-gray-200 transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to Home
+            </a>
+        </nav>
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" style="font-family: 'Bebas Neue', cursive;">
+                Events in ${esc(cityName)}
+            </h1>
+            <p class="text-xl text-gray-200 max-w-3xl mx-auto">
+                Experience the ultimate party atmosphere with our daytime disco and silent disco events in ${esc(cityName)}. From high-energy 80s throwbacks to multi-channel silent disco battles, we bring decades of iconic music to life with full club production, confetti cannons, and unforgettable singalong moments. Join hundreds of music lovers dancing to everything from Whitney and Bon Jovi to Spice Girls and Oasis – all in the perfect afternoon setting that lets you party hard and still be home for dinner.
+            </p>
+        </header>
+
+        <!-- Events List -->
+        <div class="max-w-4xl mx-auto space-y-6">
+            <h2 class="text-2xl font-semibold mb-6">Upcoming Events</h2>
+            ${events.map(ev => {
+              const date = ev.start ? new Date(ev.start).toLocaleDateString("en-GB", { 
+                weekday: "short", 
+                year: "numeric", 
+                month: "short", 
+                day: "numeric" 
+              }) : "";
+              return `
+            <div class="event-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <h3 class="text-xl font-semibold mb-2">
+                    <a href="/events/${ev.slug}/" class="text-white hover:text-blue-300 transition-colors">
+                        ${esc(ev.title || "Event")}
+                    </a>
+                </h3>
+                ${date ? `<p class="text-gray-300 text-sm mb-2">📅 ${date}</p>` : ""}
+                ${ev.description ? `<p class="text-gray-200 text-sm">${esc(ev.description.slice(0, 150))}${ev.description.length > 150 ? "..." : ""}</p>` : ""}
+            </div>`;
+            }).join("")}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="text-center mt-12 p-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Ready to Party in ${esc(cityName)}?</h2>
+            <p class="text-gray-200 mb-6">
+                Don't miss out on the best daytime disco and silent disco events in the area!
+            </p>
+            <a href="/#tickets" class="inline-block bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+                View All Events
+            </a>
+        </div>
+    </div>
 </body>
 </html>`;
 }
@@ -175,35 +304,130 @@ async function run() {
   const outDir = path.join(ROOT, "public", "events");
   await ensureDir(outDir);
 
-  const sitemapUrls = new Set([`${SITE_URL}/`, `${SITE_URL}/tickets`, `${SITE_URL}/events`]);
+  const sitemapUrls = new Set([
+    `${SITE_URL}/`, 
+    `${SITE_URL}/faq/`, 
+    `${SITE_URL}/events.json`,
+    `${SITE_URL}/venues.json`,
+    `${SITE_URL}/for-ai/`
+  ]);
   const sample = [];
+  const venueData = new Map(); // city -> {venue: string, events: Array}
 
+  // Generate event pages and collect venue data
   for (const ev of events) {
     const slug = ev.slug || slugify(ev.title || ev.id || "event");
     const desc = copy[String(ev.id)] || copy[slug] || ev.description || "";
     const html = buildEventHtml(ev, desc, slug);
     const dir  = path.join(outDir, slug);
     await ensureDir(dir);
+    
+    // Write HTML page
     await fs.writeFile(path.join(dir, "index.html"), html, "utf8");
+    
+    // Write per-event JSON
+    const eventJson = {
+      ...ev,
+      slug,
+      shareUrl: `${SITE_URL}/events/${slug}/`,
+      description: desc || ev.description || "",
+      startDate: withUkOffset(ev.start || ""),
+      endDate: withUkOffset(ev.end || "")
+    };
+    await fs.writeFile(path.join(dir, "index.json"), JSON.stringify(eventJson, null, 2), "utf8");
+    
     sitemapUrls.add(`${SITE_URL}/events/${slug}/`);
+
+    // Collect venue data for venues.json
+    const { venue, city } = splitVenueCity(ev.location || "");
+    if (city) {
+      const cityKey = city.toLowerCase();
+      if (!venueData.has(cityKey)) {
+        venueData.set(cityKey, { city, venues: new Map() });
+      }
+      const cityData = venueData.get(cityKey);
+      if (!cityData.venues.has(venue)) {
+        cityData.venues.set(venue, { venue, events: [] });
+      }
+      cityData.venues.get(venue).events.push({ slug, title: ev.title });
+    }
 
     const tzOk = /"startDate"\s*:\s*".+?[+\-]\d{2}:\d{2}"/.test(html);
     const offersUrlOk = /"offers"\s*:\s*{[^}]*"url"\s*:\s*".+?"/.test(html);
     const priceNumeric = /"offers"\s*:\s*{[^}]*"price"\s*:\s*\d+/.test(html);
-    sample.push({ slug, tzOk, offersUrlOk, priceNumeric });
+    const hasValidFrom = /"validFrom"\s*:\s*".+?"/.test(html);
+    sample.push({ slug, tzOk, offersUrlOk, priceNumeric, hasValidFrom });
   }
 
-  // sitemap
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...sitemapUrls].map(u=>`  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`;
+  // Generate venues.json
+  const venuesJson = {};
+  for (const [cityKey, cityInfo] of venueData) {
+    venuesJson[cityInfo.city] = {
+      city: cityInfo.city,
+      eventCount: Array.from(cityInfo.venues.values()).reduce((sum, v) => sum + v.events.length, 0),
+      venues: Array.from(cityInfo.venues.values()).map(v => ({
+        name: v.venue,
+        eventCount: v.events.length,
+        events: v.events
+      }))
+    };
+  }
+  await fs.writeFile(path.join(ROOT, "public", "venues.json"), JSON.stringify(venuesJson, null, 2), "utf8");
+
+  // Generate city landing pages
+  const locationsDir = path.join(ROOT, "public", "locations");
+  await ensureDir(locationsDir);
+  
+  for (const [cityKey, cityInfo] of venueData) {
+    const citySlug = slugify(cityInfo.city);
+    const cityEvents = Array.from(cityInfo.venues.values())
+      .flatMap(v => v.events.map(e => ({ ...e, slug: e.slug })))
+      .map(e => {
+        const fullEvent = events.find(ev => (ev.slug || slugify(ev.title || ev.id || "event")) === e.slug);
+        return fullEvent ? { ...fullEvent, slug: e.slug } : { ...e };
+      });
+    
+    const cityHtml = buildCityHtml(citySlug, cityInfo.city, cityEvents);
+    const cityDir = path.join(locationsDir, citySlug);
+    await ensureDir(cityDir);
+    await fs.writeFile(path.join(cityDir, "index.html"), cityHtml, "utf8");
+    
+    sitemapUrls.add(`${SITE_URL}/locations/${citySlug}/`);
+  }
+
+  // Generate sitemap
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${[...sitemapUrls].map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
+</urlset>
+`;
   await fs.writeFile(path.join(ROOT, "public", "sitemap.xml"), sitemap, "utf8");
 
-  // validation report
+  // Enhanced validation report
   const lines = [];
-  lines.push("# GEO/SEO Styled Generation Report", "");
-  lines.push(`Pages generated: ${events.length}`, "");
-  sample.slice(0,20).forEach(s => lines.push(`- ${s.slug}: timezone=${s.tzOk}, offersUrl=${s.offersUrlOk}, priceNumeric=${s.priceNumeric}`));
+  lines.push("# Enhanced GEO/SEO Generation Report", "");
+  lines.push(`Event pages generated: ${events.length}`);
+  lines.push(`Per-event JSON files: ${events.length}`);
+  lines.push(`City pages generated: ${venueData.size}`);
+  lines.push(`Total sitemap URLs: ${sitemapUrls.size}`);
+  lines.push(`Venues.json cities: ${Object.keys(venuesJson).length}`, "");
+  
+  lines.push("## Validation Checks (Sample Events)");
+  sample.slice(0,15).forEach(s => {
+    lines.push(`- ${s.slug}: timezone=${s.tzOk}, offers=${s.offersUrlOk}, price=${s.priceNumeric}, validFrom=${s.hasValidFrom}`);
+  });
+  
+  lines.push("", "## Generated Files");
+  lines.push("✅ Enhanced event pages with JSON links");
+  lines.push("✅ Per-event JSON files (/events/*/index.json)");
+  lines.push("✅ Venues summary (venues.json)");
+  lines.push(`✅ City landing pages (${venueData.size} cities)`);
+  lines.push("✅ Comprehensive sitemap with all endpoints");
+  lines.push("✅ For-AI documentation page");
+  
   await fs.writeFile(path.join(ROOT, "public", "geo-seo-validation-report.md"), lines.join("\n"), "utf8");
 
-  console.log("Styled event pages generated (ESM); sitemap & report written.");
+  console.log(`Enhanced generation complete: ${events.length} events, ${venueData.size} cities, ${sitemapUrls.size} sitemap URLs`);
 }
+
 run().catch(err => { console.error(err); process.exit(1); });

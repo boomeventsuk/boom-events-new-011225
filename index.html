@@ -47,7 +47,7 @@
     <script>window.dataLayer = window.dataLayer || [];</script>
     <!-- (When you have your GTM ID, you may replace the line above with the standard GTM head snippet.) -->
 
-    <!-- ===== Organization JSON-LD ===== -->
+    <!-- ===== Organization + Website JSON-LD ===== -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -58,6 +58,34 @@
       "sameAs": [
         "https://www.facebook.com/boombastic.eventsuk",
         "https://www.instagram.com/boombastic.eventsuk"
+      ]
+    }
+    </script>
+
+    <!-- ===== Website + Search JSON-LD ===== -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@graph":[
+        {
+          "@type":"WebSite",
+          "url":"https://boomevents.co.uk",
+          "name":"Boombastic Events",
+          "potentialAction":{
+            "@type":"SearchAction",
+            "target":"https://boomevents.co.uk/?q={search_term_string}",
+            "query-input":"required name=search_term_string"
+          }
+        },
+        {
+          "@type":"Organization",
+          "name":"Boombastic Events",
+          "url":"https://boomevents.co.uk",
+          "sameAs":[
+            "https://www.instagram.com/boombastic.eventsuk/",
+            "https://www.facebook.com/boombastic.eventsuk/"
+          ]
+        }
       ]
     }
     </script>
