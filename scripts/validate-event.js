@@ -1,9 +1,8 @@
 // scripts/validate-event.js
-// Usage: node scripts/validate-event.js <slug>
 const fs = require('fs');
 const path = require('path');
-const slug = process.argv[2];
 
+const slug = process.argv[2];
 if (!slug) { console.error('Usage: node scripts/validate-event.js <slug>'); process.exit(2); }
 
 const root = path.resolve(__dirname, '..');

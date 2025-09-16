@@ -1,12 +1,15 @@
 // scripts/generate-and-validate-all.js
-const cp = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const cp = require('child_process');
 
-const root = path.resolve(__dirname, '..');
-const eventsPath = path.join(root, 'public', 'events.json');
-if (!fs.existsSync(eventsPath)) { console.error('No events.json at', eventsPath); process.exit(2); }
-const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const root = path.resolve(__dirname,'..');
+const eventsPath = path.join(root,'public','events.json');
+if (!fs.existsSync(eventsPath)) {
+  console.error('Missing events.json at', eventsPath);
+  process.exit(2);
+}
+const events = JSON.parse(fs.readFileSync(eventsPath,'utf8'));
 
 const fails = [];
 
@@ -19,24 +22,32 @@ function run(cmd) {
   }
 }
 
+// process each event
 for (const ev of events) {
-  const slug = ev.slug || ev.id || (() => {fails.push({ev,err:'no-slug'}); return null;})();
-  if (!slug) continue;
+  const slug = ev.slug || ev.id || (ev.title && ev.title.toLowerCase().replace(/[^\w\s-]/g,'').trim().replace(/[\s_]+/g,'-'));
+  if (!slug) {
+    fails.push({ slug: null, reason: 'no-slug' });
+    continue;
+  }
+
   console.log('----', slug, '----');
 
-  // try main generator if exists
-  let ok = false;
-  if (fs.existsSync(path.join(root,'scripts','generate-event-by-slug.js'))) {
-    ok = run(`node scripts/generate-event-by-slug.js ${slug}`);
+  // generate (if missing) using our single-event generator
+  const eventDir = path.join(root,'public','events',String(slug));
+  if (!fs.existsSync(eventDir) || !fs.existsSync(path.join(eventDir,'index.json')) || !fs.existsSync(path.join(eventDir,'index.html'))) {
+    const ok = run(`node scripts/generate-single-event.js ${slug}`);
+    if (!ok) {
+      fails.push({ slug, reason: 'generate_failed' });
+      continue;
+    }
   } else {
-    ok = run(`node scripts/generate-single-event.js ${slug}`);
+    console.log('Exists, skipping generation:', slug);
   }
 
   // validate
-  try {
-    run(`node scripts/validate-event.js ${slug}`);
-  } catch (e) {
-    fails.push({slug, reason: e.message});
+  const okVal = run(`node scripts/validate-event.js ${slug}`);
+  if (!okVal) {
+    fails.push({ slug, reason: 'validation_failed' });
   }
 }
 
@@ -46,3 +57,4 @@ if (fails.length) {
   process.exit(10);
 }
 console.log('All events generated and validated.');
+process.exit(0);
