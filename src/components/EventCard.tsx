@@ -44,6 +44,8 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   const handleEventInfo = () => {
     const targetUrl = infoUrl || (slug ? `${window.location.origin}/events/${slug}/` : '#');
+    console.log('Event Info clicked:', { title, infoUrl, targetUrl });
+    
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
       (window as any).dataLayer.push({
         event: 'event_info_click',
@@ -52,8 +54,18 @@ export const EventCard: React.FC<EventCardProps> = ({
         event_date: isoDate,
       });
     }
+    
     if (targetUrl !== '#') {
-      window.open(targetUrl, '_blank');
+      try {
+        const opened = window.open(targetUrl, '_blank', 'noopener,noreferrer');
+        if (!opened) {
+          console.error('Popup blocked, trying direct navigation');
+          window.location.href = targetUrl;
+        }
+      } catch (error) {
+        console.error('Error opening URL:', error);
+        window.location.href = targetUrl;
+      }
     }
   };
 
