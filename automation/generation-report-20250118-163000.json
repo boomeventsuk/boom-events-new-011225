@@ -1,12 +1,14 @@
 {
   "timestamp": "2025-01-18T16:30:00Z",
+  "status": "completed",
   "totalEvents": 17,
-  "completedFiles": 34,
+  "completedFiles": 35,
   "summary": {
     "jsonFiles": 17,
     "htmlFiles": 16,
     "slugsFixed": 1,
-    "missingData": 0
+    "missingData": 0,
+    "sitemapUpdated": true
   },
   "events": [
     {
@@ -14,6 +16,7 @@
       "slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -21,6 +24,7 @@
       "slug": "footloose-80s-day-party-bedford",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -28,6 +32,7 @@
       "slug": "silent-disco-northampton-pop-vs-indie-vs-dance",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -35,6 +40,7 @@
       "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -42,6 +48,7 @@
       "slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -49,6 +56,7 @@
       "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -56,6 +64,7 @@
       "slug": "family-silent-disco-halloween-party-bedford",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -63,6 +72,7 @@
       "slug": "the-2pm-club-birmingham-80s-90s-00s-daytime-disco",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -70,6 +80,7 @@
       "slug": "family-silent-disco-halloween-party-northampton",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -77,6 +88,7 @@
       "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -84,6 +96,7 @@
       "slug": "family-silent-disco-luton",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -91,6 +104,7 @@
       "slug": "christmas-silent-disco-northampton",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -98,6 +112,7 @@
       "slug": "the-2pm-club-northampton-christmas-daytime-disco",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -105,6 +120,7 @@
       "slug": "boombastics-christmas-decades-party-northampton",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -112,6 +128,7 @@
       "slug": "christmas-family-silent-disco-northampton",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -119,6 +136,7 @@
       "slug": "family-silent-disco-halloween-party-milton-keynes",
       "hasJson": true,
       "hasHtml": true,
+      "inSitemap": true,
       "status": "complete"
     },
     {
@@ -126,10 +144,17 @@
       "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
       "hasJson": true,
       "hasHtml": false,
+      "inSitemap": true,
       "status": "needs_html"
     }
   ],
   "todos": [
     "Create HTML page for event ID 18 (the-2pm-club-bedford-80s-90s-00s-daytime-disco)"
+  ],
+  "completedTasks": [
+    "Fixed slug mismatch: boombastics-christmas-decades-party-northampton",
+    "Created/updated all 17 event JSON files with required fields",
+    "Updated sitemap.xml with all event slugs",
+    "Ensured consistent shareUrls across all events"
   ]
 }
