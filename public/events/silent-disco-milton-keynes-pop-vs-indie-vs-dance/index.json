@@ -1,16 +1,17 @@
 {
   "id": 2,
   "title": "SILENT DISCO MILTON KEYNES: POP VS INDIE VS DANCE",
-  "location": "MK11 Music Venue, Milton Keynes",
+  "slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
   "start": "2025-09-19T20:30:00",
   "end": "2025-09-20T00:30:00",
+  "location": "MK11 Music Venue, Milton Keynes",
+  "shareUrl": "https://boomevents.co.uk/events/silent-disco-milton-keynes-pop-vs-indie-vs-dance/",
+  "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757707388/190925_SDB_MK_No_Comp_Sq_kxxd8v.jpg",
   "bookUrl": "https://www.eventbrite.co.uk/e/silent-disco-greatest-hits-milton-keynes-launch-tickets-1416583953739?WEBLINK=",
   "infoUrl": "https://www.facebook.com/events/1471905990926710",
-  "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757707388/190925_SDB_MK_No_Comp_Sq_kxxd8v.jpg",
   "description": "Milton Keynes, the headphones are on, the lights are glowing, and the battle is about to begin. Three DJs. Three channels. One dance floor. Will you belt the pop anthems, jump with the indie crowd, or rave to the dance bangers? The beauty is you can do it all — flip channels whenever the mood takes you and laugh as your mates sing wildly to something totally different. It's four hours of no-compromise fun, glowing headphone selfies, and that Monday smugness knowing you just nailed the weekend.",
   "price": 15,
-  "slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
-  "shareUrl": "https://boomevents.co.uk/events/silent-disco-milton-keynes-pop-vs-indie-vs-dance/",
+  "priceCurrency": "GBP",
   "startDate": "2025-09-19T20:30:00+01:00",
   "endDate": "2025-09-20T00:30:00+01:00"
 }
