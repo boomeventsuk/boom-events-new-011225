@@ -18,10 +18,6 @@ export default {
 			}
 		},
 		extend: {
-			fontFamily: {
-				'bebas': ['"Bebas Neue"', 'cursive'],
-				'poppins': ['Poppins', 'sans-serif'],
-			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
