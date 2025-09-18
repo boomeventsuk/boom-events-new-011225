@@ -11,6 +11,7 @@ interface Event {
   infoUrl?: string;
   image: string;
   description: string;
+  price?: string;
 }
 
 const Tickets = () => {
