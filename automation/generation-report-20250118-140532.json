@@ -1,0 +1,144 @@
+{
+  "timestamp": "2025-01-18T14:05:32.000Z",
+  "totalEvents": 15,
+  "generated": 15,
+  "errors": 0,
+  "events": [
+    {
+      "slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
+      "title": "SILENT DISCO MILTON KEYNES: POP VS INDIE VS DANCE",
+      "status": "success",
+      "price": 15,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "footloose-80s-day-party-bedford",
+      "title": "FOOTLOOSE 80s DAY PARTY BEDFORD", 
+      "status": "success",
+      "price": 12,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "silent-disco-northampton-pop-vs-indie-vs-dance",
+      "title": "SILENT DISCO NORTHAMPTON: POP VS INDIE VS DANCE",
+      "status": "success", 
+      "price": 15,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ COVENTRY - 80s 90s 00s Daytime Disco",
+      "status": "success",
+      "price": 10,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ MK - 80s 90s 00s Daytime Disco",
+      "status": "success",
+      "price": 10,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ NORTHAMPTON - 80s 90s 00s Daytime Disco",
+      "status": "success",
+      "price": 10,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "family-silent-disco-halloween-party-bedford",
+      "title": "FAMILY SILENT DISCO Halloween Party Bedford",
+      "status": "success",
+      "price": 8,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "the-2pm-club-birmingham-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ BIRMINGHAM - 80s 90s 00s Daytime Disco",
+      "status": "success",
+      "price": 12,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "family-silent-disco-halloween-party-northampton",
+      "title": "FAMILY SILENT DISCO Halloween Party Northampton",
+      "status": "success",
+      "price": 8,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "family-silent-disco-halloween-party-milton-keynes",
+      "title": "FAMILY SILENT DISCO Halloween Party Milton Keynes",
+      "status": "success",
+      "price": 8,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ LUTON - 80s 90s 00s Daytime Disco",
+      "status": "success",
+      "price": 10,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "family-silent-disco-luton",
+      "title": "FAMILY SILENT DISCO Luton",
+      "status": "success",
+      "price": 8,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "christmas-silent-disco-northampton",
+      "title": "CHRISTMAS SILENT DISCO NORTHAMPTON",
+      "status": "success",
+      "price": 15,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "the-2pm-club-northampton-christmas-daytime-disco",
+      "title": "THE 2PM CLUB™ Northampton - Christmas Daytime Disco",
+      "status": "success",
+      "price": 10,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "boombastics-christmas-decades-party-northampton",
+      "title": "Boombastic's Christmas Decades Party NORTHAMPTON",
+      "status": "success",
+      "price": 12,
+      "hasBookUrl": true,
+      "hasImage": true
+    },
+    {
+      "slug": "christmas-family-silent-disco-northampton",
+      "title": "Christmas FAMILY SILENT DISCO Northampton",
+      "status": "success",
+      "price": 8,
+      "hasBookUrl": true,
+      "hasImage": true
+    }
+  ],
+  "errorDetails": [],
+  "optimization": {
+    "schemaAdded": true,
+    "pricesIncluded": true,
+    "ticketBannersAdded": true,
+    "langAttributesFixed": true,
+    "faqSectionsAdded": true
+  }
+}

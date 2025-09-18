@@ -1,0 +1,263 @@
+{
+  "timestamp": "2025-01-18T14:05:32.000Z",
+  "events": [
+    {
+      "slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
+      "title": "SILENT DISCO MILTON KEYNES: POP VS INDIE VS DANCE",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "footloose-80s-day-party-bedford",
+      "title": "FOOTLOOSE 80s DAY PARTY BEDFORD",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "silent-disco-northampton-pop-vs-indie-vs-dance",
+      "title": "SILENT DISCO NORTHAMPTON: POP VS INDIE VS DANCE",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ COVENTRY - 80s 90s 00s Daytime Disco",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ MK - 80s 90s 00s Daytime Disco",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ NORTHAMPTON - 80s 90s 00s Daytime Disco",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "family-silent-disco-halloween-party-bedford",
+      "title": "FAMILY SILENT DISCO Halloween Party Bedford",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "the-2pm-club-birmingham-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ BIRMINGHAM - 80s 90s 00s Daytime Disco",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "family-silent-disco-halloween-party-northampton",
+      "title": "FAMILY SILENT DISCO Halloween Party Northampton",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "family-silent-disco-halloween-party-milton-keynes",
+      "title": "FAMILY SILENT DISCO Halloween Party Milton Keynes",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
+      "title": "THE 2PM CLUB™ LUTON - 80s 90s 00s Daytime Disco",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "family-silent-disco-luton",
+      "title": "FAMILY SILENT DISCO Luton",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "christmas-silent-disco-northampton",
+      "title": "CHRISTMAS SILENT DISCO NORTHAMPTON",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "the-2pm-club-northampton-christmas-daytime-disco",
+      "title": "THE 2PM CLUB™ Northampton - Christmas Daytime Disco",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "boombastics-christmas-decades-party-northampton",
+      "title": "Boombastic's Christmas Decades Party NORTHAMPTON",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    },
+    {
+      "slug": "christmas-family-silent-disco-northampton",
+      "title": "Christmas FAMILY SILENT DISCO Northampton",
+      "hasHtml": true,
+      "hasJson": true,
+      "hasPrice": true,
+      "langCorrect": true,
+      "hasProperSchema": true,
+      "hasTicketBanner": true,
+      "issues": []
+    }
+  ],
+  "locations": [
+    {
+      "city": "Milton Keynes",
+      "slug": "milton-keynes",
+      "exists": true,
+      "hasProperSchema": true,
+      "langCorrect": true,
+      "issues": []
+    },
+    {
+      "city": "Bedford",
+      "slug": "bedford",
+      "exists": true,
+      "hasProperSchema": true,
+      "langCorrect": true,
+      "issues": []
+    },
+    {
+      "city": "Northampton",
+      "slug": "northampton",
+      "exists": true,
+      "hasProperSchema": true,
+      "langCorrect": true,
+      "issues": []
+    },
+    {
+      "city": "Coventry",
+      "slug": "coventry",
+      "exists": true,
+      "hasProperSchema": true,
+      "langCorrect": true,
+      "issues": []
+    },
+    {
+      "city": "Birmingham",
+      "slug": "birmingham",
+      "exists": true,
+      "hasProperSchema": true,
+      "langCorrect": true,
+      "issues": []
+    },
+    {
+      "city": "Luton",
+      "slug": "luton",
+      "exists": true,
+      "hasProperSchema": true,
+      "langCorrect": true,
+      "issues": []
+    }
+  ],
+  "homepage": {
+    "hasOrganizationSchema": true,
+    "hasWebsiteSchema": true,
+    "hasLocalBusinessSchema": true,
+    "hasFaqSchema": true,
+    "langCorrect": true,
+    "issues": []
+  },
+  "infrastructure": {
+    "files": {
+      "public/robots.txt": true,
+      "public/sitemap.xml": true,
+      "public/events.json": true,
+      "public/venues.json": true,
+      "public/for-ai/index.html": true
+    },
+    "issues": []
+  },
+  "scores": {
+    "aeo": 100,
+    "seo": 100,
+    "aio": 100,
+    "geo": 100
+  },
+  "summary": {
+    "totalEvents": 16,
+    "eventsWithIssues": 0,
+    "locationsWithIssues": 0,
+    "homepageIssues": 0,
+    "infrastructureIssues": 0,
+    "overallScore": 100
+  }
+}
