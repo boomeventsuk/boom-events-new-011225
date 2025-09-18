@@ -2,6 +2,7 @@
   {
     "id": 2,
     "title": "SILENT DISCO MILTON KEYNES: POP VS INDIE VS DANCE",
+    "slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
     "location": "MK11 Music Venue, Milton Keynes",
     "start": "2025-09-19T20:30:00",
     "end": "2025-09-20T00:30:00",
@@ -14,6 +15,7 @@
   {
     "id": 3,
     "title": "FOOTLOOSE 80s DAY PARTY BEDFORD",
+    "slug": "footloose-80s-day-party-bedford",
     "location": "Bedford Esquires, Bedford",
     "start": "2025-09-20T14:00:00",
     "end": "2025-09-20T18:00:00",
@@ -26,6 +28,7 @@
   {
     "id": 4,
     "title": "SILENT DISCO NORTHAMPTON: POP VS INDIE VS DANCE",
+    "slug": "silent-disco-northampton-pop-vs-indie-vs-dance",
     "location": "The Picturedrome, Northampton",
     "start": "2025-09-27T20:30:00",
     "end": "2025-09-28T00:30:00",
@@ -38,6 +41,7 @@
   {
     "id": 5,
     "title": "THE 2PM CLUB™ COVENTRY - 80s 90s 00s Daytime Disco",
+    "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
     "location": "hmv Empire, Coventry",
     "start": "2025-10-04T14:00:00",
     "end": "2025-10-04T18:00:00",
@@ -50,6 +54,7 @@
   {
     "id": 6,
     "title": "THE 2PM CLUB™ MK - 80s 90s 00s Daytime Disco",
+    "slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco",
     "location": "MK11 Music Venue, Milton Keynes",
     "start": "2025-10-11T14:00:00",
     "end": "2025-10-11T16:00:00",
@@ -62,6 +67,7 @@
   {
     "id": 7,
     "title": "THE 2PM CLUB™ NORTHAMPTON - 80s 90s 00s Daytime Disco",
+    "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
     "location": "cinch Stadium at Franklin's Gardens, Northampton",
     "start": "2025-10-18T14:00:00",
     "end": "2025-10-18T18:00:00",
@@ -74,6 +80,7 @@
   {
     "id": 8,
     "title": "FAMILY SILENT DISCO Halloween Party Bedford",
+    "slug": "family-silent-disco-halloween-party-bedford",
     "location": "Bedford Esquires, Bedford",
     "start": "2025-10-25T13:00:00",
     "end": "2025-10-25T15:00:00",
@@ -86,6 +93,7 @@
   {
     "id": 9,
     "title": "THE 2PM CLUB™ BIRMINGHAM - 80s 90s 00s Daytime Disco",
+    "slug": "the-2pm-club-birmingham-80s-90s-00s-daytime-disco",
     "location": "The Castle & Falcon, Birmingham",
     "start": "2025-10-25T14:00:00",
     "end": "2025-10-25T18:00:00",
@@ -98,6 +106,7 @@
   {
     "id": 10,
     "title": "FAMILY SILENT DISCO Halloween Party Northampton",
+    "slug": "family-silent-disco-halloween-party-northampton",
     "location": "The Picturedrome, Northampton",
     "start": "2025-10-26T13:00:00",
     "end": "2025-10-26T15:00:00",
@@ -110,6 +119,7 @@
   {
     "id": 17,
     "title": "FAMILY SILENT DISCO Halloween Party Milton Keynes",
+    "slug": "family-silent-disco-halloween-party-milton-keynes",
     "location": "MK11 Music Venue, Milton Keynes",
     "start": "2025-10-26T13:00:00",
     "end": "2025-10-26T15:00:00",
@@ -122,6 +132,7 @@
   {
     "id": 11,
     "title": "THE 2PM CLUB™ LUTON - 80s 90s 00s Daytime Disco",
+    "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
     "location": "Hat Factory, Luton",
     "start": "2025-11-01T14:00:00",
     "end": "2025-11-01T18:00:00",
@@ -134,6 +145,7 @@
   {
     "id": 18,
     "title": "THE 2PM CLUB™ BEDFORD - 80s 90s 00s Daytime Disco",
+    "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
     "location": "Bedford Esquires, Bedford",
     "start": "2025-11-08T14:00:00",
     "end": "2025-11-08T18:00:00",
@@ -146,6 +158,7 @@
   {
     "id": 12,
     "title": "FAMILY SILENT DISCO Luton",
+    "slug": "family-silent-disco-luton",
     "location": "Hat Factory, Luton",
     "start": "2025-11-16T13:00:00",
     "end": "2025-11-16T15:00:00",
@@ -158,6 +171,7 @@
   {
     "id": 13,
     "title": "CHRISTMAS SILENT DISCO NORTHAMPTON",
+    "slug": "christmas-silent-disco-northampton",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-05T20:30:00",
     "end": "2025-12-06T00:00:00",
@@ -170,6 +184,7 @@
   {
     "id": 14,
     "title": "THE 2PM CLUB™ Northampton - Christmas Daytime Disco",
+    "slug": "the-2pm-club-northampton-christmas-daytime-disco",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-06T14:00:00",
     "end": "2025-12-06T17:30:00",
@@ -182,6 +197,7 @@
   {
     "id": 15,
     "title": "Boombastic's Christmas Decades Party NORTHAMPTON",
+    "slug": "boombastics-christmas-decades-party-northampton",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-06T20:30:00",
     "end": "2025-12-07T00:30:00",
@@ -194,6 +210,7 @@
   {
     "id": 16,
     "title": "Christmas FAMILY SILENT DISCO Northampton",
+    "slug": "christmas-family-silent-disco-northampton",
     "location": "The Picturedrome, Northampton",
     "start": "2025-12-07T13:00:00",
     "end": "2025-12-07T15:00:00",

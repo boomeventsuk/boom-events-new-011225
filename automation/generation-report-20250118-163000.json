@@ -1,0 +1,135 @@
+{
+  "timestamp": "2025-01-18T16:30:00Z",
+  "totalEvents": 17,
+  "completedFiles": 34,
+  "summary": {
+    "jsonFiles": 17,
+    "htmlFiles": 16,
+    "slugsFixed": 1,
+    "missingData": 0
+  },
+  "events": [
+    {
+      "id": 2,
+      "slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 3,
+      "slug": "footloose-80s-day-party-bedford",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 4,
+      "slug": "silent-disco-northampton-pop-vs-indie-vs-dance",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 5,
+      "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 6,
+      "slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 7,
+      "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 8,
+      "slug": "family-silent-disco-halloween-party-bedford",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 9,
+      "slug": "the-2pm-club-birmingham-80s-90s-00s-daytime-disco",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 10,
+      "slug": "family-silent-disco-halloween-party-northampton",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 11,
+      "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 12,
+      "slug": "family-silent-disco-luton",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 13,
+      "slug": "christmas-silent-disco-northampton",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 14,
+      "slug": "the-2pm-club-northampton-christmas-daytime-disco",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 15,
+      "slug": "boombastics-christmas-decades-party-northampton",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 16,
+      "slug": "christmas-family-silent-disco-northampton",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 17,
+      "slug": "family-silent-disco-halloween-party-milton-keynes",
+      "hasJson": true,
+      "hasHtml": true,
+      "status": "complete"
+    },
+    {
+      "id": 18,
+      "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
+      "hasJson": true,
+      "hasHtml": false,
+      "status": "needs_html"
+    }
+  ],
+  "todos": [
+    "Create HTML page for event ID 18 (the-2pm-club-bedford-80s-90s-00s-daytime-disco)"
+  ]
+}
