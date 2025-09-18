@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-01-18T14:30:00",
+  "totalEvents": 16,
+  "generatedEvents": 16,
+  "eventsWithPrice": 16,
+  "eventsWithoutPrice": 0,
+  "slugsMissingPrice": [],
+  "generatedSlugs": [
+    "silent-disco-milton-keynes-pop-vs-indie-vs-dance",
+    "footloose-80s-day-party-bedford",
+    "silent-disco-northampton-pop-vs-indie-vs-dance",
+    "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
+    "the-2pm-club-mk-80s-90s-00s-daytime-disco",
+    "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
+    "family-silent-disco-halloween-party-bedford",
+    "the-2pm-club-birmingham-80s-90s-00s-daytime-disco",
+    "family-silent-disco-halloween-party-northampton",
+    "family-silent-disco-halloween-party-milton-keynes",
+    "the-2pm-club-luton-80s-90s-00s-daytime-disco",
+    "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
+    "family-silent-disco-luton",
+    "christmas-silent-disco-northampton",
+    "the-2pm-club-northampton-christmas-daytime-disco",
+    "boombastics-christmas-decades-party-northampton",
+    "christmas-family-silent-disco-northampton"
+  ],
+  "errors": []
+}
