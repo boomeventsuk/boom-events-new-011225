@@ -132,6 +132,18 @@
     "price": 10
   },
   {
+    "id": 18,
+    "title": "THE 2PM CLUB™ BEDFORD - 80s 90s 00s Daytime Disco",
+    "location": "Bedford Esquires, Bedford",
+    "start": "2025-11-08T14:00:00",
+    "end": "2025-11-08T18:00:00",
+    "bookUrl": "https://www.eventbrite.co.uk/e/the-2pm-club-bedford-80s-90s-00s-daytime-disco-tickets-1678542198979?aff=BoomWeb",
+    "infoUrl": "https://www.facebook.com/events/1234567890123456",
+    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1758211686/081125_2PM_BED_ANNSQ_rsmka5.jpg",
+    "description": "Bedford, your afternoon revolution starts here. The 2PM Club brings four hours of 80s, 90s and 00s anthems to Bedford Esquires with full club production — confetti cannons, inflatable mic moments, and every iconic tune you still know by heart. From Whitney's soaring choruses to Oasis singalongs, it's daytime disco done properly. No midnight queues, no 2 AM regrets, just pure nostalgic joy when the timing actually works. Dance hard, sing louder, and feel smug when you're home buzzing by 7.",
+    "price": 10
+  },
+  {
     "id": 12,
     "title": "FAMILY SILENT DISCO Luton",
     "location": "Hat Factory, Luton",
@@ -190,17 +202,5 @@
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708067/071225_FSD_NPTON_ANNSQ_lgpd73.jpg",
     "description": "Jumpers on, headphones glowing, Christmas tunes blasting — Northampton's Family Silent Disco is back with a festive twist. Kids get their Disney joy on Blue, teens vibe with chart hits on Green, and parents relive throwback anthems on Red. All on the same floor, all at the same time, all buzzing with festive energy. Add Santa hats, confetti, and two hours of non-stop silliness, and you've got a December tradition worth repeating. A family Christmas memory that beats shopping queues every time.",
     "price": 8
-  },
-  {
-    "id": 18,
-    "title": "THE 2PM CLUB™ BEDFORD - 80s 90s 00s Daytime Disco",
-    "location": "Bedford Esquires, Bedford",
-    "start": "2025-11-08T14:00:00",
-    "end": "2025-11-08T18:00:00",
-    "bookUrl": "https://www.eventbrite.co.uk/e/the-2pm-club-bedford-80s-90s-00s-daytime-disco-tickets-1678542198979?aff=BoomWeb",
-    "infoUrl": "https://www.facebook.com/events/1234567890123456",
-    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757522825/081125_2PM_BED_ANNSQ_sample.jpg",
-    "description": "Bedford, your afternoon revolution starts here. The 2PM Club brings four hours of 80s, 90s and 00s anthems to Bedford Esquires with full club production — confetti cannons, inflatable mic moments, and every iconic tune you still know by heart. From Whitney's soaring choruses to Oasis singalongs, it's daytime disco done properly. No midnight queues, no 2 AM regrets, just pure nostalgic joy when the timing actually works. Dance hard, sing louder, and feel smug when you're home buzzing by 7.",
-    "price": 10
   }
 ]
