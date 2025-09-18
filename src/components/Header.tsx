@@ -38,7 +38,7 @@ const Header = () => {
               className="h-10 w-auto"
               loading="eager"
               decoding="async"
-              fetchPriority="high"
+              fetchpriority="high"
               width="160"
               height="40"
             />

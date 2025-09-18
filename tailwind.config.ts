@@ -17,11 +17,11 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		extend: {
-			fontFamily: {
-				'bebas': ['"Bebas Neue"', 'cursive'],
-				'poppins': ['Poppins', 'sans-serif'],
-			},
+    extend: {
+      fontFamily: {
+        'bebas': ['Bebas Neue', 'cursive'],
+        'poppins': ['Poppins', 'sans-serif'],
+      },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
