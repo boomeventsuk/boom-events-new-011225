@@ -135,6 +135,9 @@ ${JSON.stringify(structuredData, null, 2)}
     .button:hover { background: #be185d; }
     .button.secondary { background: #3b82f6; }
     .button.secondary:hover { background: #2563eb; }
+    .ticket-banner { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 12px 16px; margin: 16px 0; font-size: 14px; }
+    .ticket-banner strong { display: block; margin-bottom: 4px; color: #495057; }
+    .ticket-banner p { margin: 0; color: #6c757d; }
   </style>
 </head>
 <body>
@@ -157,6 +160,11 @@ ${JSON.stringify(structuredData, null, 2)}
     <div class="description">
       <h2>About This Event</h2>
       <p>${esc(event.description)}</p>
+    </div>
+    
+    <div class="ticket-banner" aria-live="polite">
+      <strong>Tickets</strong>
+      <p>Group ticket offers available on each event page.</p>
     </div>
     
     <div class="actions">
