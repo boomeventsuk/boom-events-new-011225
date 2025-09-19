@@ -31,7 +31,7 @@ const FindYourParty = () => {
   return (
     <section id="parties" className="pt-2 pb-lg bg-background">
       <div className="container mx-auto px-4">
-        <h2 className="font-bebas text-5xl md:text-6xl font-bold text-center mb-lg text-foreground">
+        <h2 className="font-poppins text-5xl md:text-6xl font-bold text-center mb-lg text-foreground">
           Find Your Party
         </h2>
         
@@ -45,7 +45,7 @@ const FindYourParty = () => {
                 loading="lazy"
               />
               <div className="tile-content">
-                <h3 className="font-bebas text-white font-bold tile-title">
+                <h3 className="font-poppins text-white font-bold tile-title">
                   {party.title}
                 </h3>
                 <p className="font-poppins text-white leading-relaxed tile-blurb">

@@ -3,7 +3,7 @@ const About = () => {
     <section id="about" className="py-lg bg-background" aria-labelledby="about-title">
       <div className="container mx-auto px-4">
         <div className="about max-w-4xl mx-auto text-center">
-          <h2 id="about-title" className="about-title font-bebas text-5xl md:text-6xl font-bold text-center mb-lg text-foreground">
+          <h2 id="about-title" className="about-title font-poppins text-5xl md:text-6xl font-bold text-center mb-lg text-foreground">
             About Boombastic Events
           </h2>
           <p className="lead font-poppins text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">

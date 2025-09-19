@@ -29,11 +29,11 @@ const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-4">
-        <h1 className="font-bebas text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-2 leading-tight uppercase">
+        <h1 className="font-poppins text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-2 leading-tight uppercase">
           10 YEARS OF SELL-OUT PARTIES ACROSS THE MIDLANDS.
         </h1>
         
-        <h2 className="font-bebas text-3xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight uppercase">
+        <h2 className="font-poppins text-3xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight uppercase">
           CREATED FOR YOU.
         </h2>
         

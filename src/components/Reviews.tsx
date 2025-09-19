@@ -29,7 +29,7 @@ const Reviews = () => {
   return (
     <section id="reviews" className="py-lg bg-muted/20">
       <div className="container mx-auto px-4">
-        <h2 className="font-bebas text-5xl md:text-6xl font-bold text-center mb-lg text-foreground">
+        <h2 className="font-poppins text-5xl md:text-6xl font-bold text-center mb-lg text-foreground">
           Don't Just Take Our Word For It...
         </h2>
         
@@ -46,7 +46,7 @@ const Reviews = () => {
             >
               <div className="absolute inset-0 bg-white/70"></div>
               <div className="relative z-10 p-6">
-                <h4 className="review-event font-bebas text-3xl font-bold text-black mb-2">
+                <h4 className="review-event font-poppins text-3xl font-bold text-black mb-2">
                   {quote.event}
                 </h4>
                 <div className="stars mb-3 text-primary" aria-label="5 out of 5">
