@@ -1,13 +1,12 @@
 {
   "Milton Keynes": {
     "city": "Milton Keynes",
-    "eventCount": 3,
+    "eventCount": 2,
     "venues": [
       {
         "name": "MK11 Music Venue",
-        "eventCount": 3,
+        "eventCount": 2,
         "events": [
-          {"slug": "silent-disco-milton-keynes-pop-vs-indie-vs-dance", "title": "SILENT DISCO MILTON KEYNES: POP VS INDIE VS DANCE"},
           {"slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco", "title": "THE 2PM CLUB™ MK - 80s 90s 00s Daytime Disco"},
           {"slug": "family-silent-disco-halloween-party-milton-keynes", "title": "FAMILY SILENT DISCO Halloween Party Milton Keynes"}
         ]
