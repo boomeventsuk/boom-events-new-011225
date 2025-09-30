@@ -29,13 +29,12 @@
   },
   "Northampton": {
     "city": "Northampton",
-    "eventCount": 6,
+    "eventCount": 5,
     "venues": [
       {
         "name": "The Picturedrome",
-        "eventCount": 4,
+        "eventCount": 3,
         "events": [
-          {"slug": "silent-disco-northampton-pop-vs-indie-vs-dance", "title": "SILENT DISCO NORTHAMPTON: POP VS INDIE VS DANCE"},
           {"slug": "family-silent-disco-halloween-party-northampton", "title": "FAMILY SILENT DISCO Halloween Party Northampton"},
           {"slug": "christmas-silent-disco-northampton", "title": "CHRISTMAS SILENT DISCO NORTHAMPTON"},
           {"slug": "the-2pm-club-northampton-christmas-daytime-disco", "title": "THE 2PM CLUB™ Northampton - Christmas Daytime Disco"},

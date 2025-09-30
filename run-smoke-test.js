@@ -32,7 +32,7 @@ try {
 }
 
 // Test 3: Check sample event JSON exists and is valid
-const sampleEventPath = 'public/events/silent-disco-northampton-pop-vs-indie-vs-dance/index.json';
+const sampleEventPath = 'public/events/the-2pm-club-coventry-80s-90s-00s-daytime-disco/index.json';
 try {
   const eventJson = JSON.parse(fs.readFileSync(sampleEventPath, 'utf8'));
   test('Sample event JSON exists', typeof eventJson === 'object', 'Invalid JSON structure');

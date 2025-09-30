@@ -10,7 +10,7 @@ import('./scripts/generate-event-pages.js')
     const filesToCheck = [
       'public/venues.json',
       'public/sitemap.xml', 
-      'public/events/silent-disco-northampton-pop-vs-indie-vs-dance/index.json',
+      'public/events/the-2pm-club-coventry-80s-90s-00s-daytime-disco/index.json',
       'public/locations/milton-keynes/index.html'
     ];
     
@@ -25,7 +25,7 @@ import('./scripts/generate-event-pages.js')
     
     // Check sample HTML for correct lang
     try {
-      const sampleHTML = fs.readFileSync('public/events/silent-disco-northampton-pop-vs-indie-vs-dance/index.html', 'utf8');
+      const sampleHTML = fs.readFileSync('public/events/the-2pm-club-coventry-80s-90s-00s-daytime-disco/index.html', 'utf8');
       if (sampleHTML.includes('<html lang="en-GB">')) {
         console.log('✅ HTML lang="en-GB" correct');
       } else {
