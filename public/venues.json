@@ -16,14 +16,15 @@
   },
   "Bedford": {
     "city": "Bedford",
-    "eventCount": 2,
+    "eventCount": 3,
     "venues": [
       {
         "name": "Bedford Esquires",
-        "eventCount": 2,
+        "eventCount": 3,
         "events": [
           {"slug": "family-silent-disco-halloween-party-bedford", "title": "FAMILY SILENT DISCO Halloween Party Bedford"},
-          {"slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco", "title": "THE 2PM CLUB™ BEDFORD - 80s 90s 00s Daytime Disco"}
+          {"slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco", "title": "THE 2PM CLUB™ BEDFORD - 80s 90s 00s Daytime Disco"},
+          {"slug": "the-2pm-club-bedford-christmas-daytime-disco", "title": "THE 2PM CLUB™ Bedford - Christmas Daytime Disco"}
         ]
       }
     ]
