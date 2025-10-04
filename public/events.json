@@ -1,18 +1,5 @@
 [
   {
-    "id": 5,
-    "title": "THE 2PM CLUB™ COVENTRY - 80s 90s 00s Daytime Disco",
-    "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
-    "location": "hmv Empire, Coventry",
-    "start": "2025-10-04T14:00:00",
-    "end": "2025-10-04T18:00:00",
-    "bookUrl": "https://www.eventbrite.co.uk/e/daytime-disco-presents-the-2pm-club-coventry-80s-90s-00s-anthems-tickets-1443614914069?aff=BOOMWEB",
-    "infoUrl": "https://www.facebook.com/events/1412104320029705",
-    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757520205/041025_2PM_COV_ANNSQ_i62sjk.jpg",
-    "description": "Your Saturday afternoon just became legendary. The 2PM Club brings the energy of a proper night out to Coventry — but perfectly timed from 2 till 6. Four hours of 80s, 90s and 00s floor-fillers, from Whitney and Robbie to Britney and Bon Jovi. Expect confetti cannons, inflatable mic moments, and the kind of singalongs that leave you buzzing for days. Best part? You'll be home in time for dinner, smugly singing \"Mr Brightside\" while the rest of the city is still queueing for taxis.",
-    "price": 10
-  },
-  {
     "id": 6,
     "title": "THE 2PM CLUB™ MK - 80s 90s 00s Daytime Disco",
     "slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco",
