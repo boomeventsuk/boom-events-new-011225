@@ -1,18 +1,5 @@
 [
   {
-    "id": 6,
-    "title": "THE 2PM CLUB™ MK - 80s 90s 00s Daytime Disco",
-    "slug": "the-2pm-club-mk-80s-90s-00s-daytime-disco",
-    "location": "MK11 Music Venue, Milton Keynes",
-    "start": "2025-10-11T14:00:00",
-    "end": "2025-10-11T16:00:00",
-    "bookUrl": "https://www.eventbrite.co.uk/e/daytime-disco-presents-the-2pm-clubtm-milton-keynes-80s-90s-00s-anthems-tickets-1403881610689",
-    "infoUrl": "https://www.facebook.com/events/710462968194939",
-    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757522739/111025_2PM_MK_ANNSQv2_tttdip.jpg",
-    "description": "Milton Keynes, afternoons just got interesting. The 2PM Club lands at MK11 with four hours of the biggest 80s, 90s and 00s throwbacks. Expect Spice Girls anthems, Bon Jovi choruses, Robbie hands-in-the-air, and confetti moments that feel just as epic in daylight. It's nostalgia with proper production, the atmosphere of a sold-out club night, and the joy of finally getting everyone together without the midnight faff. You'll laugh, sing, and dance yourself silly — and still be back home in time for tea.",
-    "price": 10
-  },
-  {
     "id": 7,
     "title": "THE 2PM CLUB™ NORTHAMPTON - 80s 90s 00s Daytime Disco",
     "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
@@ -37,19 +24,6 @@
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757707691/251025_FSD_BED_ANNSQ_a8ssvu.jpg",
     "description": "Bedford families, this is your Halloween sorted. Fancy dress? Check. Glowing headphones? Triple check. Family Silent Disco is the one event where kids, teens and parents all get exactly the music they want, together on the same dance floor. Little ones bounce to Disney bangers, older kids vibe to chart hits, and parents rediscover the anthems they grew up with. Expect two hours of laughter, silly moves, glowing photos, and the relief of finally finding a family activity where no one compromises. Pure Halloween joy for all.",
     "price": 8
-  },
-  {
-    "id": 9,
-    "title": "THE 2PM CLUB™ BIRMINGHAM - 80s 90s 00s Daytime Disco",
-    "slug": "the-2pm-club-birmingham-80s-90s-00s-daytime-disco",
-    "location": "The Castle & Falcon, Birmingham",
-    "start": "2025-10-25T14:00:00",
-    "end": "2025-10-25T18:00:00",
-    "bookUrl": "https://www.eventbrite.co.uk/e/the-2pm-clubtm-birmingham-80s-90s-00s-daytime-disco-tickets-1559435135469?aff=BOOMWEB",
-    "infoUrl": "https://www.facebook.com/events/1252072186162573",
-    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757522785/251025_2PM_BHAM_ANNSQ_exjo6v.jpg",
-    "description": "Birmingham, it's your turn to discover why The 2PM Club is sweeping the Midlands. Four hours of 80s, 90s and 00s anthems hit The Mill with full club production — think confetti cannons, epic singalongs, and every iconic tune you still know by heart. No \"maybe next time\" excuses, no 2 AM taxis, just pure fun at the perfect time of day. You'll belt Whitney, bounce to Oasis, and finish the night buzzing, not broken. This is daytime disco done properly.",
-    "price": 12
   },
   {
     "id": 10,
