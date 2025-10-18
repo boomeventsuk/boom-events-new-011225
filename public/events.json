@@ -10,7 +10,9 @@
     "infoUrl": "https://www.facebook.com/events/1099596238372820",
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757522765/181025_2PM_NPTON_ANNSQ_guiuq7.jpg",
     "description": "Northampton, your afternoon rave is calling. The 2PM Club transforms daytime into pure celebration, with four hours of 80s, 90s and 00s hits that guarantee every chorus is louder than the last. From Spice Girls singalongs to Bon Jovi finale moments, it's a party that doesn't compromise on atmosphere just because the sun's up. Bring your crew, belt every lyric, and feel the floor shake with confetti-soaked nostalgia. And when it's over? You'll still be home in daylight — buzzing, smiling, and already planning the next one.",
-    "price": 10
+    "price": 10,
+    "badge": "SOLD OUT",
+    "buttonText": "Join Waiting List"
   },
   {
     "id": 8,

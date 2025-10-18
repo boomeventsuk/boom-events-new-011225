@@ -14,6 +14,7 @@ export interface EventCardProps {
   isoDate: string;
   slug?: string;
   badge?: string;
+  buttonText?: string;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
@@ -27,6 +28,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   isoDate,
   slug,
   badge,
+  buttonText,
 }) => {
   const { toast } = useToast();
   const resolvedSlug = slug || slugify(title || 'event', { lower: true, strict: true });
@@ -196,7 +198,7 @@ export const EventCard: React.FC<EventCardProps> = ({
             onClick={handleBookNow}
             className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-4 py-2 rounded-md font-medium"
           >
-            Book Now
+            {buttonText || "Book Now"}
           </button>
           
           <button

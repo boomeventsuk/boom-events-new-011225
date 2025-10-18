@@ -13,6 +13,7 @@ interface Event {
   description: string;
   price?: string;
   badge?: string;
+  buttonText?: string;
 }
 
 const Tickets = () => {
@@ -101,6 +102,7 @@ const Tickets = () => {
               isoDate={dateToIso(event.start)}
               slug={createSlug(event.title)}
               badge={event.badge}
+              buttonText={event.buttonText}
             />
           ))}
         </div>
