@@ -13,6 +13,7 @@ export interface EventCardProps {
   infoUrl?: string;
   isoDate: string;
   slug?: string;
+  badge?: string;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
@@ -25,6 +26,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   infoUrl,
   isoDate,
   slug,
+  badge,
 }) => {
   const { toast } = useToast();
   const resolvedSlug = slug || slugify(title || 'event', { lower: true, strict: true });
@@ -159,7 +161,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   return (
     <Card className="bg-card border-border overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="aspect-square overflow-hidden">
+      <div className="aspect-square overflow-hidden relative">
         <a href={eventUrl} aria-label={`Open event page: ${title}`}>
           <img
             src={poster}
@@ -172,6 +174,11 @@ export const EventCard: React.FC<EventCardProps> = ({
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </a>
+        {badge && (
+          <span className="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg uppercase tracking-wide">
+            {badge}
+          </span>
+        )}
       </div>
       <CardContent className="p-6">
         <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
