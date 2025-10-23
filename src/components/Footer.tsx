@@ -49,6 +49,16 @@ const Footer = () => {
             </a>
           </div>
           
+          {/* Privacy Link */}
+          <div className="mb-6">
+            <a 
+              href="/privacy/"
+              className="font-poppins text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Privacy Policy
+            </a>
+          </div>
+          
           {/* Copyright */}
           <p className="font-poppins text-sm text-muted-foreground">
             © {new Date().getFullYear()} Boombastic Events Ltd. All rights reserved.
