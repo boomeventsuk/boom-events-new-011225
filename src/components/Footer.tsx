@@ -1,4 +1,5 @@
 import { Mail, Facebook, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -51,12 +52,12 @@ const Footer = () => {
           
           {/* Privacy Link */}
           <div className="mb-6">
-            <a 
-              href="/privacy/"
+            <Link 
+              to="/privacy"
               className="font-poppins text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               Privacy Policy
-            </a>
+            </Link>
           </div>
           
           {/* Copyright */}
