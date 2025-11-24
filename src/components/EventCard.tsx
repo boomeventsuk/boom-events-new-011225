@@ -164,18 +164,16 @@ export const EventCard: React.FC<EventCardProps> = ({
   return (
     <Card className="bg-card border-border overflow-hidden hover:shadow-lg transition-shadow">
       <div className="aspect-square overflow-hidden relative">
-        <a href={eventUrl} aria-label={`Open event page: ${title}`}>
-          <img
-            src={poster}
-            alt={`${title} event poster`}
-            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-            loading="lazy"
-            decoding="async"
-            width="800"
-            height="800"
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
-        </a>
+        <img
+          src={poster}
+          alt={`${title} event poster`}
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          loading="lazy"
+          decoding="async"
+          width="800"
+          height="800"
+          sizes="(max-width: 768px) 100vw, 33vw"
+        />
         {badge && (
           <span className="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg uppercase tracking-wide">
             {badge}

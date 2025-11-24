@@ -99,6 +99,12 @@
       border-radius: 12px;
       margin: 20px auto;
       display: block;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+    
+    .event-image:hover {
+      transform: scale(1.05);
     }
     
     h1 {
@@ -286,13 +292,18 @@
   <div class="container">
     <a href="/" class="back-link">← Back to Events</a>
     
-    <img 
-      src="https://res.cloudinary.com/dteowuv7o/image/upload/v1763995671/250126_GR_NPTON_ANNSQ_f14szr.png" 
-      alt="GET READY - 60s/70s Motown, Soul & Disco Sunday Matinee Special"
-      width="400"
-      height="400"
-      class="event-image"
-    >
+    <div style="position: relative; display: inline-block; margin: 20px auto; display: flex; justify-content: center;">
+      <img 
+        src="https://res.cloudinary.com/dteowuv7o/image/upload/v1763995671/250126_GR_NPTON_ANNSQ_f14szr.png" 
+        alt="GET READY - 60s/70s Motown, Soul & Disco Sunday Matinee Special"
+        width="400"
+        height="400"
+        class="event-image"
+      >
+      <span style="position: absolute; top: 12px; right: 12px; background: #10b981; color: white; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 9999px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-transform: uppercase; letter-spacing: 0.05em;">
+        NEW DATE
+      </span>
+    </div>
     
     <h1>GET READY - 60s/70s Motown, Soul & Disco Sunday Matinee Special</h1>
     
