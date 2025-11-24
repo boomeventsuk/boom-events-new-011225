@@ -13,5 +13,7 @@
   "price": 15,
   "priceCurrency": "GBP",
   "startDate": "2025-12-05T20:30:00+00:00",
-  "endDate": "2025-12-06T00:00:00+00:00"
+  "endDate": "2025-12-06T00:00:00+00:00",
+  "badge": "SOLD OUT",
+  "buttonText": "Join Waiting List"
 }
