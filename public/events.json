@@ -10,7 +10,9 @@
     "infoUrl": "https://www.facebook.com/events/600708973096782",
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757707947/051225_SD_NPTON_ANNSQ_ryaint.png",
     "description": "Northampton's most festive tradition is back for its tenth year. The Christmas Silent Disco takes over The Picturedrome with three channels of joy: Wham! and Mariah on Blue, indie anthems on Red, and dance bangers on Green. Add glowing headphones, confetti, and a crowd that knows every word, and you've got a party that's more fun than any office do. Expect hilarious headphone-off moments, mass singalongs, and the smug walk home knowing you just nailed Christmas the Boombastic way.",
-    "price": 15
+    "price": 15,
+    "badge": "SOLD OUT",
+    "buttonText": "Join Waiting List"
   },
   {
     "id": 14,
@@ -38,7 +40,9 @@
     "infoUrl": "https://www.facebook.com/events/726210763537267",
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708050/061225_BOOMPM_NPTON_ANNSQ_fbwdg1.png",
     "description": "The Christmas party to end them all. Three decades. One dance floor. Zero shame. Northampton's ultimate festive knees-up blends the best of the 80s, 90s and 00s into one glitter-covered night. From Spice Girls to Oasis, Britney to Bon Jovi, every anthem gets its moment. Expect big choruses, sequins everywhere, and confetti raining down as the year wraps up in style. Forget boring work dos — this is where you'll actually want to be, belting every lyric until your throat gives out.",
-    "price": 12
+    "price": 12,
+    "badge": "SOLD OUT",
+    "buttonText": "Join Waiting List"
   },
   {
     "id": 16,

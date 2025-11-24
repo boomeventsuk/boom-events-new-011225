@@ -162,7 +162,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   };
 
   return (
-    <Card className="bg-card border-border overflow-hidden hover:shadow-lg transition-shadow">
+    <Card className={`bg-card border-border overflow-hidden hover:shadow-lg transition-shadow ${badge === "SOLD OUT" ? "opacity-80" : ""}`}>
       <div className="aspect-square overflow-hidden relative">
         <img
           src={poster}
@@ -175,7 +175,9 @@ export const EventCard: React.FC<EventCardProps> = ({
           sizes="(max-width: 768px) 100vw, 33vw"
         />
         {badge && (
-          <span className="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg uppercase tracking-wide">
+          <span className={`absolute top-3 right-3 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg uppercase tracking-wide ${
+            badge === "SOLD OUT" ? "bg-red-500" : "bg-green-500"
+          }`}>
             {badge}
           </span>
         )}
@@ -183,6 +185,7 @@ export const EventCard: React.FC<EventCardProps> = ({
       <CardContent className="p-6">
         <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
           {title}
+          {badge === "SOLD OUT" && <span className="text-red-500 ml-2">- SOLD OUT</span>}
         </h3>
         
         <div className="space-y-1 text-muted-foreground mb-4">
