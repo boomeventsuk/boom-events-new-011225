@@ -1,6 +1,7 @@
 [
   {
     "id": 13,
+    "eventCode": "051225-SD-NPTON",
     "title": "CHRISTMAS SILENT DISCO NORTHAMPTON",
     "slug": "christmas-silent-disco-northampton",
     "location": "The Picturedrome, Northampton",
@@ -16,6 +17,7 @@
   },
   {
     "id": 14,
+    "eventCode": "061225-2PM-NPTON",
     "title": "THE 2PM CLUB™ Northampton - Christmas Daytime Disco",
     "slug": "the-2pm-club-northampton-christmas-daytime-disco",
     "location": "The Picturedrome, Northampton",
@@ -31,6 +33,7 @@
   },
   {
     "id": 15,
+    "eventCode": "061225-DEC-NPTON",
     "title": "Boombastic's Christmas Decades Party NORTHAMPTON",
     "slug": "boombastics-christmas-decades-party-northampton",
     "location": "The Picturedrome, Northampton",
@@ -46,6 +49,7 @@
   },
   {
     "id": 16,
+    "eventCode": "071225-FSD-NPTON",
     "title": "Christmas FAMILY SILENT DISCO Northampton",
     "slug": "christmas-family-silent-disco-northampton",
     "location": "The Picturedrome, Northampton",
@@ -59,6 +63,7 @@
   },
   {
     "id": 19,
+    "eventCode": "131225-2PM-MK",
     "title": "THE 2PM CLUB™ Milton Keynes - Christmas Daytime Disco",
     "slug": "the-2pm-club-milton-keynes-christmas-daytime-disco",
     "location": "MK11 Music Venue, Milton Keynes",
@@ -76,6 +81,7 @@
   },
   {
     "id": 20,
+    "eventCode": "201225-2PM-BED",
     "title": "THE 2PM CLUB™ Bedford - Christmas Daytime Disco",
     "slug": "the-2pm-club-bedford-christmas-daytime-disco",
     "location": "Bedford Esquires, Bedford",
@@ -93,6 +99,7 @@
   },
   {
     "id": 21,
+    "eventCode": "250126-GR-NPTON",
     "title": "GET READY - 60s/70s Motown, Soul & Disco Sunday Matinee Special",
     "slug": "get-ready-60s-70s-motown-soul-disco-sunday-matinee-special",
     "location": "The Picturedrome, Northampton",
@@ -111,6 +118,7 @@
   },
   {
     "id": 11,
+    "eventCode": "070226-2PM-LUT",
     "title": "THE 2PM CLUB™ LUTON - 80s 90s 00s Daytime Disco",
     "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
     "location": "Hat Factory, Luton",
