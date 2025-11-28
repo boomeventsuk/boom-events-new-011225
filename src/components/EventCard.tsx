@@ -59,8 +59,8 @@ export const EventCard: React.FC<EventCardProps> = ({
       </div>
       <CardContent className="p-6">
         <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
+          {badge === "SOLD OUT" && <span className="text-red-500 mr-2">SOLD OUT -</span>}
           {title}
-          {badge === "SOLD OUT" && <span className="text-red-500 ml-2">- SOLD OUT</span>}
         </h3>
         
         <div className="space-y-1 text-muted-foreground mb-4">
