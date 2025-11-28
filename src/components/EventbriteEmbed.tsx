@@ -40,10 +40,8 @@ const EventbriteEmbed = ({ eventbriteId, containerId, height = 425 }: Eventbrite
   return (
     <div 
       id={containerId} 
-      className="w-full min-h-[425px] bg-muted/20 rounded-lg flex items-center justify-center"
-    >
-      <div className="text-muted-foreground">Loading tickets...</div>
-    </div>
+      className="w-full min-h-[425px] bg-muted/20 rounded-lg"
+    />
   );
 };
 
