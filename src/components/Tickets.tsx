@@ -3,12 +3,12 @@ import { EventCard } from './EventCard';
 
 interface Event {
   id: number;
+  eventCode: string;
   title: string;
   location: string;
   start: string;
   end: string;
   bookUrl: string;
-  infoUrl?: string;
   image: string;
   description: string;
   price?: string;
@@ -63,14 +63,6 @@ const Tickets = () => {
     return `${startTime} - ${endTime}`;
   };
 
-  const createSlug = (title: string): string => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '');
-  };
-
   const dateToIso = (dateString: string): string => {
     return dateString.split('T')[0];
   };
@@ -97,10 +89,8 @@ const Tickets = () => {
               venue={event.location}
               time={formatTime(event.start, event.end)}
               poster={event.image}
-              bookUrl={event.bookUrl}
-              infoUrl={event.infoUrl}
+              eventCode={event.eventCode}
               isoDate={dateToIso(event.start)}
-              slug={createSlug(event.title)}
               badge={event.badge}
               buttonText={event.buttonText}
             />
