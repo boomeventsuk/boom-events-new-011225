@@ -96,15 +96,6 @@ const Tickets = () => {
             />
           ))}
         </div>
-
-        <div className="text-center">
-          <a
-            href="#tickets"
-            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-foreground bg-primary hover:bg-primary/90 transition-colors"
-          >
-            View All Tickets
-          </a>
-        </div>
       </div>
     </section>
   );
