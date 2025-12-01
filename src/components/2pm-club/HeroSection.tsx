@@ -69,32 +69,32 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
             <div>
               {isChristmas ? (
                 <>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-1">
+                  <h1 className="text-2xl md:text-3xl font-bold mb-1">
                     THE 2PM CLUB Christmas
                   </h1>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2">
+                  <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
                     Daytime Disco {city}
                   </h2>
-                  <p className="text-base md:text-lg text-foreground/80">
+                  <p className="text-sm md:text-base text-foreground/80">
                     Iconic 80s 90s 00s Anthems plus Festive Classics
                   </p>
                 </>
               ) : (
                 <>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-1">
+                  <h1 className="text-2xl md:text-3xl font-bold mb-1">
                     THE 2PM CLUB
                   </h1>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2">
+                  <p className="text-lg md:text-xl text-foreground/80">
                     Daytime Disco {city.toUpperCase()}
-                  </h2>
-                  <p className="text-base md:text-lg text-foreground/80">
+                  </p>
+                  <p className="text-lg md:text-xl text-foreground/80">
                     Iconic 80s 90s 00s Anthems
                   </p>
                 </>
               )}
             </div>
 
-            <div className="space-y-3 text-lg">
+            <div className="space-y-3 text-base">
               <div className="flex items-center gap-3">
                 <Calendar className="w-5 h-5 text-primary" />
                 <span>{format(startDate, 'EEEE, MMMM d, yyyy')}</span>
