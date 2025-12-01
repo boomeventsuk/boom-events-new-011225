@@ -16,6 +16,7 @@ interface EventData {
   description: string;
   eventbriteId: string;
   isSoldOut?: boolean;
+  waitingListUrl?: string;
   // Extended fields for 2PM Club events
   fullDescription?: string;
   highlights?: string;
@@ -69,6 +70,8 @@ const EventTemplate = () => {
       cityCode: event.eventCode.split('-')[2] || '',
       eventbriteId: event.eventbriteId,
       promoCode: event.promoCode,
+      isSoldOut: event.isSoldOut,
+      waitingListUrl: event.waitingListUrl,
       title: event.title,
       location: `${event.venue}, ${event.city}`,
       start: event.start || event.date,

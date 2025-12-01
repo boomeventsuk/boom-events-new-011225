@@ -19,6 +19,8 @@ export interface TwoPmClubEvent {
   cityCode: string;
   eventbriteId: string;
   promoCode?: string;
+  isSoldOut?: boolean;
+  waitingListUrl?: string;
   title: string;
   location: string;
   start: string;

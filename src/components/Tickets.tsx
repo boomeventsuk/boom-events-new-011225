@@ -13,6 +13,7 @@ interface Event {
   description: string;
   eventbriteId: string;
   isSoldOut?: boolean;
+  waitingListUrl?: string;
   fullDescription?: string;
   highlights?: string[];
 }
@@ -69,7 +70,7 @@ const Tickets = () => {
               eventCode={event.eventCode}
               isoDate={extractIsoDate(event.eventCode)}
               badge={event.isSoldOut ? "SOLD OUT" : undefined}
-              buttonText={event.isSoldOut ? "Sold Out" : "Book Now"}
+              waitingListUrl={event.waitingListUrl}
             />
           ))}
         </div>

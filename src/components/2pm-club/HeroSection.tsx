@@ -12,6 +12,7 @@ interface HeroSectionProps {
     end: string;
     image: string;
     cityCode: string;
+    isSoldOut?: boolean;
   };
 }
 
@@ -114,7 +115,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               className="w-full md:w-auto text-lg px-8 py-6"
               onClick={handleBookClick}
             >
-              BOOK TICKETS
+              {event.isSoldOut ? 'JOIN WAITING LIST' : 'BOOK TICKETS'}
             </Button>
 
             <div className="pt-4 border-t border-border/30">
