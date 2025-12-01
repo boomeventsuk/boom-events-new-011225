@@ -27,22 +27,58 @@ const EventbriteEmbed = ({
   height = 425 
 }: EventbriteEmbedProps) => {
   useEffect(() => {
+    // Check if script already exists
+    const existingScript = document.querySelector('script[src*="eb_widgets.js"]');
+    
+    if (existingScript && window.EBWidgets) {
+      // Script already loaded, just create the widget
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = '';
+      }
+      
+      const widgetConfig: any = {
+        widgetType: 'checkout',
+        eventId: eventbriteId,
+        iframeContainerId: containerId,
+        iframeContainerHeight: height,
+        onOrderComplete: () => {
+          pushToDataLayer({
+            event: 'purchase',
+            event_slug: eventSlug,
+            event_type: '2PM',
+            event_title: eventTitle
+          });
+        }
+      };
+      
+      if (promoCode) {
+        widgetConfig.promoCode = promoCode;
+      }
+      
+      window.EBWidgets.createWidget(widgetConfig);
+      return;
+    }
+    
     // Load Eventbrite widget script
     const script = document.createElement('script');
     script.src = 'https://www.eventbrite.co.uk/static/widgets/eb_widgets.js';
     script.async = true;
     
     script.onload = () => {
-      // @ts-ignore - Eventbrite global object
       if (window.EBWidgets) {
-        // @ts-ignore
+        // Clear any existing widget content to prevent duplicates
+        const container = document.getElementById(containerId);
+        if (container) {
+          container.innerHTML = '';
+        }
+        
         const widgetConfig: any = {
           widgetType: 'checkout',
           eventId: eventbriteId,
           iframeContainerId: containerId,
           iframeContainerHeight: height,
           onOrderComplete: () => {
-            // Track purchase completion
             pushToDataLayer({
               event: 'purchase',
               event_slug: eventSlug,
@@ -52,7 +88,6 @@ const EventbriteEmbed = ({
           }
         };
         
-        // Add promo code if provided
         if (promoCode) {
           widgetConfig.promoCode = promoCode;
         }
@@ -64,10 +99,16 @@ const EventbriteEmbed = ({
     document.body.appendChild(script);
     
     return () => {
+      // Clear the container content
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = '';
+      }
+      
       // Cleanup script on unmount
-      const existingScript = document.querySelector(`script[src="${script.src}"]`);
-      if (existingScript) {
-        document.body.removeChild(existingScript);
+      const scriptToRemove = document.querySelector(`script[src="${script.src}"]`);
+      if (scriptToRemove) {
+        document.body.removeChild(scriptToRemove);
       }
     };
   }, [eventbriteId, containerId, eventTitle, eventSlug, promoCode, height]);
