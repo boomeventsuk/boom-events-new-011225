@@ -11,7 +11,6 @@ export interface EventCardProps {
   isoDate: string;
   badge?: string;
   buttonText?: string;
-  waitingListUrl?: string;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
@@ -24,32 +23,19 @@ export const EventCard: React.FC<EventCardProps> = ({
   isoDate,
   badge,
   buttonText,
-  waitingListUrl,
 }) => {
   const isSoldOut = badge === "SOLD OUT";
   
   const handleBookNow = () => {
-    if (isSoldOut && waitingListUrl) {
-      if (typeof window !== 'undefined' && (window as any).dataLayer) {
-        (window as any).dataLayer.push({
-          event: 'waiting_list_click',
-          event_category: 'Waiting List',
-          event_label: title,
-          event_date: isoDate,
-        });
-      }
-      window.open(waitingListUrl, '_blank');
-    } else {
-      if (typeof window !== 'undefined' && (window as any).dataLayer) {
-        (window as any).dataLayer.push({
-          event: 'book_now_click',
-          event_category: 'Tickets',
-          event_label: title,
-          event_date: isoDate,
-        });
-      }
-      window.location.href = `/event/${eventCode}`;
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: isSoldOut ? 'waiting_list_click' : 'book_now_click',
+        event_category: isSoldOut ? 'Waiting List' : 'Tickets',
+        event_label: title,
+        event_date: isoDate,
+      });
     }
+    window.location.href = `/event/${eventCode}`;
   };
 
   return (
