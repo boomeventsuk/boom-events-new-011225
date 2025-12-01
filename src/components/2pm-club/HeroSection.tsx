@@ -84,10 +84,10 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                   <h1 className="text-2xl md:text-3xl font-bold mb-1">
                     THE 2PM CLUB
                   </h1>
-                  <p className="text-lg md:text-xl text-foreground/80">
+                  <p className="text-lg md:text-xl text-foreground">
                     Daytime Disco {city.toUpperCase()}
                   </p>
-                  <p className="text-lg md:text-xl text-foreground/80">
+                  <p className="text-lg md:text-xl text-foreground">
                     Iconic 80s 90s 00s Anthems
                   </p>
                 </>
