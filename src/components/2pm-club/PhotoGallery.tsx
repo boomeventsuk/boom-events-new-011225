@@ -1,12 +1,12 @@
 export const PhotoGallery = () => {
   const photos = [
-    'https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-gallery-1.jpg',
-    'https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-gallery-2.jpg',
-    'https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-gallery-3.jpg',
-    'https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-gallery-4.jpg',
-    'https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-gallery-5.jpg',
-    'https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-gallery-6.jpg',
-    'https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-gallery-7.jpg'
+    'https://res.cloudinary.com/dteowuv7o/image/upload/v1764268387/2pm_web_1_ndjab4.jpg',
+    'https://res.cloudinary.com/dteowuv7o/image/upload/v1764268387/2pm_web_2_qedzzq.jpg',
+    'https://res.cloudinary.com/dteowuv7o/image/upload/v1764268387/2pm_web_3_nuwrvk.jpg',
+    'https://res.cloudinary.com/dteowuv7o/image/upload/v1764268386/2pm_web_4_j87ixj.jpg',
+    'https://res.cloudinary.com/dteowuv7o/image/upload/v1764268386/2pm_web_5_eln7gp.jpg',
+    'https://res.cloudinary.com/dteowuv7o/image/upload/v1764268386/2pm_web_6_bjt6h7.jpg',
+    'https://res.cloudinary.com/dteowuv7o/image/upload/v1764268389/2pm_web_7_jl6yvd.jpg'
   ];
 
   // Double the array for seamless infinite scroll
