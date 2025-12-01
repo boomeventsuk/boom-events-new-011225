@@ -25,9 +25,7 @@ const Hero = () => {
         
         <h2 className="font-poppins text-3xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight uppercase">TRUSTED BY THOUSANDS.</h2>
         
-        <p className="font-poppins text-base md:text-lg text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
-          For over a decade we've been creating good times across the Midlands with our popular Decades and Silent Disco parties. Whether you're after huge singalongs at 2pm or the beautiful chaos of a Silent Disco at 11pm, you're in the right place. We do partying right (for you).
-        </p>
+        <p className="font-poppins text-base md:text-lg text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">Whether you're after huge singalongs at 2pm or the beautiful chaos of a Silent Disco at 11pm, you're in the right place.</p>
         
         <Button onClick={() => scrollToSection('tickets')} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all uppercase tracking-wide">
           UPCOMING PARTIES
