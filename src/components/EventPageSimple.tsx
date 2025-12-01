@@ -65,24 +65,6 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
       );
     }
     
-    // Urgency alert box
-    if (trimmedLine.startsWith('🚨')) {
-      return (
-        <div className="bg-amber-500/15 border border-amber-500/30 rounded-lg p-3 my-2">
-          <p className="text-base md:text-lg font-bold text-foreground">{trimmedLine}</p>
-        </div>
-      );
-    }
-    
-    // Festive/fun highlight boxes
-    if (trimmedLine.startsWith('🎅') || trimmedLine.startsWith('💃')) {
-      return (
-        <div className="bg-primary/10 rounded-lg p-3 my-2">
-          <p className="text-base md:text-lg italic text-foreground">{trimmedLine}</p>
-        </div>
-      );
-    }
-    
     // Parenthetical notes - smaller, muted
     if (trimmedLine.startsWith('(') && trimmedLine.endsWith(')')) {
       return (
