@@ -27,19 +27,17 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
               </blockquote>
               <div className="prose prose-invert prose-lg max-w-none space-y-4 text-foreground/80">
                 <p>
-                  Picture this: neon fairy lights twinkling over the dance floor, festive bangers 
-                  dropping between classic anthems, and you're home in time for Strictly. This isn't 
-                  your average Christmas party — this is THE party that lets you actually enjoy Christmas.
+                  No more yawning through midnight office do's. From 2PM sharp, we're upgrading 
+                  your December with neon fairy lights, and wall‑shaking 80s, 90s & 00s anthems - 
+                  spiked with the festive bangers you've been miming in the car since November.
+                </p>
+                <p className="font-bold text-foreground">
+                  Your best night out is NOW in the afternoon.
                 </p>
                 <p>
-                  We're bringing all the energy of a legendary Saturday night out, but you'll be 
-                  dancing between 2pm and 6pm. Professional sound system, club lighting, confetti cannons, 
-                  and DJs who know exactly how to work a festive crowd. Four hours of pure celebration 
-                  with zero hangover tax.
-                </p>
-                <p>
-                  This is the Christmas celebration you've been waiting for — all the magic, none of 
-                  the next-day regrets.
+                  By 7 PM, you'll be back on the sofa for Strictly, glowing like Rudolph with 
+                  your voice happily gone. It's all the festive fun with your mates, none of 
+                  the Sunday regret.
                 </p>
               </div>
             </>
