@@ -5,11 +5,13 @@ interface HighlightsSectionProps {
 
 export const HighlightsSection = ({ highlights, isChristmas = false }: HighlightsSectionProps) => {
   const parsedHighlights = highlights.split('|').map(h => {
-    const [title, description] = h.split(':');
-    return {
-      title: title?.trim() || '',
-      description: description?.trim() || ''
-    };
+    const colonIndex = h.indexOf(':');
+    if (colonIndex === -1) return { title: '', description: '' };
+    
+    const title = h.substring(0, colonIndex).trim();
+    const description = h.substring(colonIndex + 1).trim();
+    
+    return { title, description };
   }).filter(h => h.title && h.description);
 
   return (
