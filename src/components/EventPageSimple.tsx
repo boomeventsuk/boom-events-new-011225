@@ -138,9 +138,16 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
                 About This Event
               </h2>
               <div className="text-base md:text-lg text-foreground/85 leading-relaxed space-y-4">
-                {descriptionParagraphs.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
+              {descriptionParagraphs.map((paragraph, index) => (
+                <p key={index}>
+                  {paragraph.split('\n').map((line, lineIndex, arr) => (
+                    <span key={lineIndex}>
+                      {line}
+                      {lineIndex < arr.length - 1 && <br />}
+                    </span>
+                  ))}
+                </p>
+              ))}
               </div>
             </div>
           </div>
