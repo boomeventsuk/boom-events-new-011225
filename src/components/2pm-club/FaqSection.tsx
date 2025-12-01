@@ -5,31 +5,31 @@ export const FaqSection = () => {
   const faqs = [
     {
       question: "Is it really like a night out clubbing in the afternoon?",
-      answer: "Absolutely! We've got professional sound systems, club lighting, confetti cannons, and DJs who know how to work a crowd. The only difference is the time — and the fact you'll actually remember it all."
+      answer: "Yes. Club-level production, proper sound system, lighting, confetti moments. But you're done by 6pm and you'll actually feel good the next day. Same energy, better timing."
     },
     {
       question: "What music will be played?",
-      answer: "80s, 90s, and 00s classics that everyone knows every word to. Think Spice Girls, Oasis, OutKast, Whitney Houston, Vengaboys, and everything in between. Pure singalong anthems from start to finish."
+      answer: "80s, 90s and 00s anthems. Wall-to-wall songs you know every word to. The DJ builds the energy across the afternoon—starting with solid, accessible tracks and building toward peak moments. Think Whitney, Wham!, Spice Girls, Beyoncé, Take That, The Killers, Oasis."
     },
     {
       question: "Why do you start at 2pm?",
-      answer: "Because it's the sweet spot! Late enough to have a leisurely morning, early enough to be home by 7pm. You get all the fun of a night out without sacrificing your Sunday or Monday."
+      answer: "Because it actually works with real life. You can have lunch with friends, run errands, whatever. You're done by 6pm, home by 7pm. You get a proper night out without sacrificing your Sunday or disrupting your week. That's the whole point."
     },
     {
       question: "Do you offer group tickets?",
-      answer: "Yes! Groups of 10+ can get special rates. Contact us through Facebook or check the Eventbrite page for group booking options. Perfect for birthdays, hen dos, or just getting the squad together."
+      answer: "Yes. We offer group tickets for groups of four or more. People come to celebrate all sorts—birthdays, hen dos, work dos. But honestly, you don't need an excuse. The biggest thing is getting your friends together for a proper afternoon out. That's what this is for."
     },
     {
       question: "What's the crowd like?",
-      answer: "A brilliant mix of people who love a good time but also appreciate being home at a reasonable hour. Ages typically range from late 20s to 50s+, but everyone's welcome. It's all about the vibes, not the demographics!"
+      answer: "Predominantly female, predominantly over 30. Everyone's welcome. Everyone's here for the same reason—to have a proper afternoon out with good music and good people. The atmosphere is genuinely welcoming."
     },
     {
       question: "What should I wear?",
-      answer: "Whatever makes you feel fabulous! Some people go full night-out glam, others keep it casual. There's no dress code — just bring your dancing shoes and good energy."
+      answer: "Whatever makes you feel good. Smart casual works perfectly – think the outfit you'd wear out for a nice afternoon. If you're planning to dance a lot, comfy shoes are your friend. Dress code is just to feel good."
     },
     {
       question: "What time do doors open and when does it finish?",
-      answer: "Doors open at 2pm sharp, and we party until 6pm. Four solid hours of non-stop dancing, singalongs, and confetti moments. You'll be home in time for dinner!"
+      answer: "Doors open at 2pm. Event runs until 6pm. You can arrive anytime after 2pm."
     }
   ];
 
@@ -48,7 +48,7 @@ export const FaqSection = () => {
                 value={`faq-${i}`}
                 className="border border-border/20 rounded-lg px-6 bg-muted/20"
               >
-                <AccordionTrigger className="text-left hover:no-underline py-4">
+                <AccordionTrigger className="text-left hover:no-underline py-4 uppercase">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-foreground/70 pb-4">
