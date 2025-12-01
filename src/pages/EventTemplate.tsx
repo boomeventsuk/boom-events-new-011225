@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EventPageSimple from "@/components/EventPageSimple";
+import TwoPmClubEventPage, { TwoPmClubEvent } from "@/components/TwoPmClubEventPage";
 import NotFound from "./NotFound";
 
 interface EventData {
@@ -15,6 +16,14 @@ interface EventData {
   description: string;
   eventbriteId: string;
   isSoldOut?: boolean;
+  // Extended fields for 2PM Club events
+  fullDescription?: string;
+  highlights?: string;
+  promoCode?: string;
+  bookUrl?: string;
+  infoUrl?: string;
+  start?: string;
+  end?: string;
 }
 
 const EventTemplate = () => {
@@ -26,7 +35,9 @@ const EventTemplate = () => {
     fetch('/events-boombastic.json')
       .then(res => res.json())
       .then((events: EventData[]) => {
-        const found = events.find(e => e.eventCode === eventCode);
+        // Case-insensitive matching
+        const normalizedCode = eventCode?.toUpperCase();
+        const found = events.find(e => e.eventCode.toUpperCase() === normalizedCode);
         setEvent(found || null);
         setLoading(false);
       })
@@ -37,17 +48,41 @@ const EventTemplate = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          <p className="mt-4 text-muted-foreground">Loading event...</p>
-        </div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white">Loading event details...</div>
       </div>
     );
   }
 
   if (!event) {
     return <NotFound />;
+  }
+
+  // Smart template selection based on event type code
+  const is2PMClubEvent = event.eventCode.includes('-2PM-');
+  
+  if (is2PMClubEvent) {
+    // Map EventData to TwoPmClubEvent format
+    const twoPmEvent: TwoPmClubEvent = {
+      slug: event.eventCode.toLowerCase(),
+      eventType: event.eventCode.split('-')[1] || '2PM',
+      cityCode: event.eventCode.split('-')[2] || '',
+      eventbriteId: event.eventbriteId,
+      promoCode: event.promoCode,
+      title: event.title,
+      location: `${event.venue}, ${event.city}`,
+      start: event.start || event.date,
+      end: event.end || event.date,
+      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      infoUrl: event.infoUrl || event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      image: event.image,
+      description: event.description,
+      subtitle: event.subtitle || '',
+      fullDescription: event.fullDescription || event.description,
+      highlights: event.highlights || '',
+    };
+    
+    return <TwoPmClubEventPage event={twoPmEvent} />;
   }
   
   return <EventPageSimple event={event} />;
