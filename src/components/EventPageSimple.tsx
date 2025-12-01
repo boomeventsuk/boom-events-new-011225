@@ -38,6 +38,76 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   // Split description by newlines for paragraph rendering
   const descriptionParagraphs = event.description.split('\n\n').filter(p => p.trim());
 
+  // Helper to render styled lines based on pattern detection
+  const renderStyledLine = (line: string, isFirstParagraph: boolean) => {
+    const trimmedLine = line.trim();
+    
+    // Channel cards with colored backgrounds
+    if (trimmedLine.startsWith('🔴')) {
+      return (
+        <div className="bg-red-500/10 border-l-4 border-red-500 rounded-lg p-3 my-2">
+          <p className="text-base md:text-lg font-medium text-foreground">{trimmedLine}</p>
+        </div>
+      );
+    }
+    if (trimmedLine.startsWith('🔵')) {
+      return (
+        <div className="bg-blue-500/10 border-l-4 border-blue-500 rounded-lg p-3 my-2">
+          <p className="text-base md:text-lg font-medium text-foreground">{trimmedLine}</p>
+        </div>
+      );
+    }
+    if (trimmedLine.startsWith('🟢')) {
+      return (
+        <div className="bg-green-500/10 border-l-4 border-green-500 rounded-lg p-3 my-2">
+          <p className="text-base md:text-lg font-medium text-foreground">{trimmedLine}</p>
+        </div>
+      );
+    }
+    
+    // Urgency alert box
+    if (trimmedLine.startsWith('🚨')) {
+      return (
+        <div className="bg-amber-500/15 border border-amber-500/30 rounded-lg p-3 my-2">
+          <p className="text-base md:text-lg font-bold text-foreground">{trimmedLine}</p>
+        </div>
+      );
+    }
+    
+    // Festive/fun highlight boxes
+    if (trimmedLine.startsWith('🎅') || trimmedLine.startsWith('💃')) {
+      return (
+        <div className="bg-primary/10 rounded-lg p-3 my-2">
+          <p className="text-base md:text-lg italic text-foreground">{trimmedLine}</p>
+        </div>
+      );
+    }
+    
+    // Parenthetical notes - smaller, muted
+    if (trimmedLine.startsWith('(') && trimmedLine.endsWith(')')) {
+      return (
+        <p className="text-sm text-foreground/60 italic my-2">{trimmedLine}</p>
+      );
+    }
+    
+    // Feature headlines (contains numbers + "DJs" or "hours")
+    if (/\d+\s*(DJs?|hours?)/i.test(trimmedLine)) {
+      return (
+        <p className="text-lg md:text-xl font-bold text-foreground my-2">{trimmedLine}</p>
+      );
+    }
+    
+    // First paragraph - larger and slightly bolder
+    if (isFirstParagraph) {
+      return (
+        <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed">{trimmedLine}</p>
+      );
+    }
+    
+    // Default text
+    return <p className="text-base md:text-lg text-foreground/85">{trimmedLine}</p>;
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -137,17 +207,21 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
               <h2 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
                 About This Event
               </h2>
-              <div className="text-base md:text-lg text-foreground/85 leading-relaxed space-y-4">
-              {descriptionParagraphs.map((paragraph, index) => (
-                <p key={index}>
-                  {paragraph.split('\n').map((line, lineIndex, arr) => (
-                    <span key={lineIndex}>
-                      {line}
-                      {lineIndex < arr.length - 1 && <br />}
-                    </span>
-                  ))}
-                </p>
-              ))}
+              <div className="space-y-3">
+                {descriptionParagraphs.map((paragraph, paragraphIndex) => {
+                  const lines = paragraph.split('\n').filter(l => l.trim());
+                  const isFirstParagraph = paragraphIndex === 0;
+                  
+                  return (
+                    <div key={paragraphIndex} className="space-y-2">
+                      {lines.map((line, lineIndex) => (
+                        <div key={lineIndex}>
+                          {renderStyledLine(line, isFirstParagraph && lineIndex === 0)}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
