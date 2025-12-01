@@ -7,7 +7,6 @@ import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import TicketsRedirect from "./components/TicketsRedirect";
 import EventTemplate from "./pages/EventTemplate";
-import TwoPmClubEventTemplate from "./pages/TwoPmClubEventTemplate";
 
 const App = () => (
   <TooltipProvider>
