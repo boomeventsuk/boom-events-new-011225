@@ -1,18 +1,18 @@
 export const TestimonialsSection = () => {
   const testimonials = [
     {
-      quote: "Best afternoon of my life! Home by 7, no hangover, all the fun!",
-      author: "SARAH M",
+      quote: "Brilliant music, not just clubbing anthems the whole time",
+      author: "JOSIE L",
       location: "NORTHAMPTON"
     },
     {
-      quote: "Finally, a party that doesn't write off my entire weekend. Genius concept!",
-      author: "JAMES T",
-      location: "MILTON KEYNES"
+      quote: "Finally able to get all my friends together, when's the next one?",
+      author: "MARIE T",
+      location: "COVENTRY"
     },
     {
-      quote: "The perfect hen do! We danced our hearts out and still made dinner reservations.",
-      author: "EMMA L",
+      quote: "Don't think I've danced and laughed so much in a long time. Thank you!",
+      author: "TRACEY M",
       location: "BEDFORD"
     }
   ];
