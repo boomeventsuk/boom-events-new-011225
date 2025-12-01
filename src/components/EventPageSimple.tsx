@@ -42,6 +42,47 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   const renderStyledLine = (line: string, isFirstParagraph: boolean) => {
     const trimmedLine = line.trim();
     
+    // Section headers (🎧, 🎟)
+    if (trimmedLine.startsWith('🎧') || trimmedLine.startsWith('🎟')) {
+      return (
+        <h3 className="text-lg md:text-xl font-bold text-foreground mt-4 mb-2">
+          {trimmedLine}
+        </h3>
+      );
+    }
+    
+    // Bullet info cards (▪️)
+    if (trimmedLine.startsWith('▪️')) {
+      return (
+        <div className="bg-muted/50 border-l-4 border-primary/50 rounded-lg p-3 my-2">
+          <p className="text-base md:text-lg font-medium text-foreground">{trimmedLine}</p>
+        </div>
+      );
+    }
+    
+    // Feature lines (🎶)
+    if (trimmedLine.startsWith('🎶')) {
+      return (
+        <p className="text-base md:text-lg font-semibold text-primary my-2">{trimmedLine}</p>
+      );
+    }
+    
+    // Sub-headers (🎄)
+    if (trimmedLine.startsWith('🎄')) {
+      return (
+        <h4 className="text-base md:text-lg font-bold text-foreground mt-3 mb-1">{trimmedLine}</h4>
+      );
+    }
+    
+    // Competition highlight (🏆)
+    if (trimmedLine.startsWith('🏆')) {
+      return (
+        <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 my-2">
+          <p className="text-base md:text-lg font-semibold text-foreground">{trimmedLine}</p>
+        </div>
+      );
+    }
+    
     // Channel cards with colored backgrounds
     if (trimmedLine.startsWith('🔴')) {
       return (
