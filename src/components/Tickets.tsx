@@ -2,25 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { EventCard } from './EventCard';
 
 interface Event {
-  id: number;
   eventCode: string;
   title: string;
-  location: string;
-  start: string;
-  end: string;
-  bookUrl: string;
+  subtitle?: string;
+  date: string;
+  timeDisplay: string;
+  venue: string;
+  city: string;
   image: string;
   description: string;
-  price?: string;
-  badge?: string;
-  buttonText?: string;
+  eventbriteId: string;
+  isSoldOut?: boolean;
+  fullDescription?: string;
+  highlights?: string[];
 }
 
 const Tickets = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    fetch('/events.json')
+    fetch('/events-boombastic.json')
       .then(response => response.json())
       .then(data => setEvents(data))
       .catch(error => console.error('Error loading events:', error));
@@ -34,37 +35,13 @@ const Tickets = () => {
     }
   }, []);
 
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    });
-  };
-
-  const formatTime = (startDate: string, endDate: string): string => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    const startTime = start.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-    
-    const endTime = end.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-    
-    return `${startTime} - ${endTime}`;
-  };
-
-  const dateToIso = (dateString: string): string => {
-    return dateString.split('T')[0];
+  const extractIsoDate = (eventCode: string): string => {
+    // eventCode format: "061225-2PM-NPTON" → "2025-12-06"
+    const dateStr = eventCode.split('-')[0]; // "061225"
+    const day = dateStr.slice(0, 2);
+    const month = dateStr.slice(2, 4);
+    const year = '20' + dateStr.slice(4, 6);
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -83,16 +60,16 @@ const Tickets = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {events.map((event) => (
             <EventCard
-              key={event.id}
+              key={event.eventCode}
               title={event.title}
-              date={formatDate(event.start)}
-              venue={event.location}
-              time={formatTime(event.start, event.end)}
+              date={event.date}
+              venue={`${event.venue}, ${event.city}`}
+              time={event.timeDisplay}
               poster={event.image}
               eventCode={event.eventCode}
-              isoDate={dateToIso(event.start)}
-              badge={event.badge}
-              buttonText={event.buttonText}
+              isoDate={extractIsoDate(event.eventCode)}
+              badge={event.isSoldOut ? "SOLD OUT" : undefined}
+              buttonText={event.isSoldOut ? "Sold Out" : "Book Now"}
             />
           ))}
         </div>
