@@ -23,7 +23,7 @@ const Hero = () => {
       <div className="relative z-10 text-center max-w-4xl px-4">
         <h1 className="font-poppins text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-2 leading-tight uppercase">THE MIDLANDS' FAVOURITE PARTY STARTERS SINCE 2014.</h1>
         
-        <h2 className="font-poppins text-3xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight uppercase">TRUSTED BY THOUSANDS.</h2>
+        <h2 className="font-poppins text-3xl md:text-5xl font-bold text-primary mb-6 leading-tight uppercase lg:text-5xl">TRUSTED BY THOUSANDS.</h2>
         
         <p className="font-poppins text-base text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto md:text-2xl">Whether you're after huge singalongs at 2pm or the beautiful chaos of a Silent Disco at 11pm, you're in the right place.</p>
         
