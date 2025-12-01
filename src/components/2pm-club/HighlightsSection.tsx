@@ -1,8 +1,9 @@
 interface HighlightsSectionProps {
   highlights: string;
+  isChristmas?: boolean;
 }
 
-export const HighlightsSection = ({ highlights }: HighlightsSectionProps) => {
+export const HighlightsSection = ({ highlights, isChristmas = false }: HighlightsSectionProps) => {
   const parsedHighlights = highlights.split('|').map(h => {
     const [title, description] = h.split(':');
     return {
@@ -16,7 +17,7 @@ export const HighlightsSection = ({ highlights }: HighlightsSectionProps) => {
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
-            Why Daytime Discos Are a Game Changer!
+            {isChristmas ? "Why This Beats Every Other Christmas Do" : "Why Daytime Discos Are a Game Changer!"}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
