@@ -7,17 +7,17 @@ export const VideoSection = () => {
             See What You're Missing
           </h2>
           <div className="video-container">
-            <video
-              controls
-              playsInline
-              preload="none"
-              poster="https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/video-thumb_placeholder.jpg"
-              className="w-full rounded-xl shadow-xl"
-            >
-              <source
-                src="https://res.cloudinary.com/dteowuv7o/video/upload/v1737207982/2pm-club-promo.mp4"
-                type="video/mp4"
-              />
+          <video
+            controls
+            playsInline
+            preload="none"
+            poster="https://res.cloudinary.com/dteowuv7o/image/upload/v1764280330/WEB_VID_THUMBNAIL_i8cg1s.png"
+            className="w-full rounded-xl shadow-xl"
+          >
+            <source
+              src="https://res.cloudinary.com/dteowuv7o/video/upload/v1764279993/2PM_video_low_res_aihmi0.mp4"
+              type="video/mp4"
+            />
               Your browser does not support the video tag.
             </video>
           </div>
