@@ -39,6 +39,9 @@ interface TwoPmClubEventPageProps {
 const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
   const canonicalUrl = `https://boomevents.co.uk/events/${event.slug}/`;
   
+  // Determine if this is a Christmas event (December events ending in "1225")
+  const isChristmasEvent = event.slug.includes('1225');
+  
   useEffect(() => {
     // Track page view on mount
     trackEventPageView(event.slug, event.title);
@@ -111,7 +114,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         <main>
           <HeroSection event={event} />
           <DescriptionSection event={event} />
-          <VideoSection />
+          <VideoSection isChristmas={isChristmasEvent} />
           <HighlightsSection highlights={event.highlights} />
           <PhotoGallery />
           <TestimonialsSection />
