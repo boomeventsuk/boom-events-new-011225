@@ -14,7 +14,7 @@
   },
   {
     "eventCode": "061225-2PM-NPTON",
-    "title": "THE 2PM CLUB™ Northampton",
+    "title": "THE 2PM CLUB Northampton",
     "subtitle": "Christmas Daytime Disco",
     "date": "Saturday, 6 December 2025",
     "timeDisplay": "14:00 – 17:30",
@@ -23,7 +23,9 @@
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1757522817/061225_2PM_NPTON_ANNSQ_pcnhtp.png",
     "description": "Your Christmas daytime rave is here. Northampton's 2PM Club packs four hours of 80s, 90s and 00s classics into one festive-soaked afternoon. Think Whitney confetti moments, Robbie singalongs, and everyone in sequins or Santa hats, losing themselves in the music before dinner time. It's the no-hangover Christmas party: maximum fun, minimum faff. When Bon Jovi or Mariah hits and the whole room erupts, you'll know why this is the festive tradition that actually works.",
     "eventbriteId": "1544458540069",
-    "isSoldOut": true
+    "isSoldOut": true,
+    "fullDescription": "THE 2PM CLUB DAYTIME DISCO RETURNS TO NORTHAMPTON FOR A CHRISTMAS SPECIAL!\n\nAn Afternoon of Iconic 80s 90s 00s Anthems plus Festive Classics!\n\nRemember when going OUT OUT didn't require a week's recovery?\n\nWelcome to THE 2PM CLUB — the daytime disco revolution. Four hours of pure nostalgia, singalong anthems, and confetti moments. All the energy of a Saturday night out, but you'll be home by 7pm.\n\nYour Christmas Party just got upgraded... to the afternoon!",
+    "highlights": "🎤 Singalong Anthems: Every word, every song|🎄 Festive Classics: Christmas bangers included|🕺 Home by 7pm: Maximum fun, zero hangover|🎉 Confetti Moments: The good kind of chaos|🌟 No Recovery Time: Sunday done right|💃 Dance Your Heart Out: Four hours of pure energy"
   },
   {
     "eventCode": "061225-DEC-NPTON",
@@ -53,7 +55,7 @@
   },
   {
     "eventCode": "131225-2PM-MK",
-    "title": "THE 2PM CLUB™ Milton Keynes",
+    "title": "THE 2PM CLUB Milton Keynes",
     "subtitle": "Christmas Daytime Disco",
     "date": "Saturday, 13 December 2025",
     "timeDisplay": "14:00 – 18:00",
@@ -62,11 +64,14 @@
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1764007275/131225_2PM_MK_LEGENDSSQ_xtzaxb.png",
     "description": "Your Christmas daytime rave lands in Milton Keynes. Four hours of 80s, 90s and 00s bangers, festive vibes, and a room full of people who know every word. Whether it's Whitney, Wham!, or Wheatus, this is the afternoon that gets you buzzing without wrecking your evening. Think confetti cannons, inflatable mics, and singalongs so loud they're basically therapy. It's the Christmas party you didn't know you needed—and you'll be home, happy, and hangover-free by 7pm.",
     "eventbriteId": "1757042494399",
-    "isSoldOut": false
+    "isSoldOut": false,
+    "fullDescription": "THE 2PM CLUB DAYTIME DISCO RETURNS TO MILTON KEYNES FOR A CHRISTMAS SPECIAL!\n\nAn Afternoon of Iconic 80s 90s 00s Anthems plus Festive Classics!\n\nRemember when going OUT OUT didn't require a week's recovery?\n\nWelcome to THE 2PM CLUB — the daytime disco revolution. Four hours of pure nostalgia, singalong anthems, and confetti moments. All the energy of a Saturday night out, but you'll be home by 7pm.\n\nYour Christmas Party just got upgraded... to the afternoon!",
+    "highlights": "🎤 Singalong Anthems: Every word, every song|🎄 Festive Classics: Christmas bangers included|🕺 Home by 7pm: Maximum fun, zero hangover|🎉 Confetti Moments: The good kind of chaos|🌟 No Recovery Time: Sunday done right|💃 Dance Your Heart Out: Four hours of pure energy",
+    "promoCode": "AutomaticDiscount_1764194555103"
   },
   {
     "eventCode": "201225-2PM-BED",
-    "title": "THE 2PM CLUB™ Bedford",
+    "title": "THE 2PM CLUB Bedford",
     "subtitle": "Christmas Daytime Disco",
     "date": "Saturday, 20 December 2025",
     "timeDisplay": "14:00 – 18:00",
@@ -75,7 +80,9 @@
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1764007112/201225_2PM_BED_LEGENDSSQ_ifgmuk.png",
     "description": "Your Christmas daytime rave lands in Bedford. Four hours of 80s, 90s and 00s classics, festive chaos, and a dance floor that's equal parts nostalgia and pure joy. From Bon Jovi to Britney, this is the afternoon where you belt out every lyric, throw shapes like it's 2003, and leave buzzing. It's the Christmas party that doesn't steal your evening—just your dignity on the dance floor. Home by 7, feeling like a legend.",
     "eventbriteId": "1758345602029",
-    "isSoldOut": false
+    "isSoldOut": false,
+    "fullDescription": "THE 2PM CLUB DAYTIME DISCO RETURNS TO BEDFORD FOR A CHRISTMAS SPECIAL!\n\nAn Afternoon of Iconic 80s 90s 00s Anthems plus Festive Classics!\n\nRemember when going OUT OUT didn't require a week's recovery?\n\nWelcome to THE 2PM CLUB — the daytime disco revolution. Four hours of pure nostalgia, singalong anthems, and confetti moments. All the energy of a Saturday night out, but you'll be home by 7pm.\n\nYour Christmas Party just got upgraded... to the afternoon!",
+    "highlights": "🎤 Singalong Anthems: Every word, every song|🎄 Festive Classics: Christmas bangers included|🕺 Home by 7pm: Maximum fun, zero hangover|🎉 Confetti Moments: The good kind of chaos|🌟 No Recovery Time: Sunday done right|💃 Dance Your Heart Out: Four hours of pure energy"
   },
   {
     "eventCode": "250126-GR-NPTON",
@@ -92,15 +99,17 @@
   },
   {
     "eventCode": "070226-2PM-LUT",
-    "title": "THE 2PM CLUB™ LUTON",
+    "title": "THE 2PM CLUB Luton",
     "subtitle": "80s 90s 00s Daytime Disco",
     "date": "Saturday, 7 February 2026",
     "timeDisplay": "14:00 – 18:00",
     "venue": "Hat Factory",
     "city": "Luton",
-    "image": "/luton-2pm-feb-2026.jpg",
+    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1737207982/2pm-luton-feb-2026_ohh9ew.jpg",
     "description": "Luton, your afternoon is about to change forever. The 2PM Club lands with a four-hour soundtrack of 80s, 90s and 00s hits, the kind of anthems you've been dying to sing at full tilt with your mates. Expect confetti explosions, inflatable mic singalongs, and a buzzing dance floor filled with legends who still know every word. It's the proper night-out energy you crave, but at a time that actually works. Dance hard, sing louder, and feel smug when you're home, happy, and hangover-free by 7.",
     "eventbriteId": "1645025849599",
-    "isSoldOut": false
+    "isSoldOut": false,
+    "fullDescription": "THE 2PM CLUB DAYTIME DISCO RETURNS TO LUTON!\n\nAn Afternoon of Iconic Anthems from the 80s 90s 00s!\n\nRemember when going OUT OUT didn't require a week's recovery?\n\nWelcome to THE 2PM CLUB — the daytime disco revolution that's taking the UK by storm. Four hours of pure nostalgia, singalong anthems, and confetti moments. All the energy of a Saturday night out, but you'll be home by 7pm to watch Strictly.\n\nThis isn't some watered-down afternoon tea disco. This is a full-blown club experience with professional sound, lighting, and DJs who know exactly how to work a crowd. The only difference? You'll actually remember it in the morning.\n\nWhether you're celebrating a birthday, hen do, or just fancy a proper day out that doesn't write off your entire weekend — this is your new favourite thing.",
+    "highlights": "🎤 Singalong Anthems: Every word, every song|🕺 Home by 7pm: Maximum fun, zero hangover|🎉 Confetti Moments: The good kind of chaos|🎧 Premium Sound: Club-quality audio system|🌟 No Recovery Time: Sunday done right|💃 Dance Your Heart Out: Four hours of pure energy"
   }
 ]
