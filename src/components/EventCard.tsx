@@ -11,6 +11,7 @@ export interface EventCardProps {
   isoDate: string;
   badge?: string;
   buttonText?: string;
+  waitingListUrl?: string;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
@@ -23,17 +24,32 @@ export const EventCard: React.FC<EventCardProps> = ({
   isoDate,
   badge,
   buttonText,
+  waitingListUrl,
 }) => {
+  const isSoldOut = badge === "SOLD OUT";
+  
   const handleBookNow = () => {
-    if (typeof window !== 'undefined' && (window as any).dataLayer) {
-      (window as any).dataLayer.push({
-        event: 'book_now_click',
-        event_category: 'Tickets',
-        event_label: title,
-        event_date: isoDate,
-      });
+    if (isSoldOut && waitingListUrl) {
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          event: 'waiting_list_click',
+          event_category: 'Waiting List',
+          event_label: title,
+          event_date: isoDate,
+        });
+      }
+      window.open(waitingListUrl, '_blank');
+    } else {
+      if (typeof window !== 'undefined' && (window as any).dataLayer) {
+        (window as any).dataLayer.push({
+          event: 'book_now_click',
+          event_category: 'Tickets',
+          event_label: title,
+          event_date: isoDate,
+        });
+      }
+      window.location.href = `/event/${eventCode}`;
     }
-    window.location.href = `/event/${eventCode}`;
   };
 
   return (
@@ -73,7 +89,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           onClick={handleBookNow}
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-4 py-2 rounded-md font-medium"
         >
-          {buttonText || "Book Now"}
+          {isSoldOut ? "Join Waiting List" : (buttonText || "Book Now")}
         </button>
       </CardContent>
     </Card>

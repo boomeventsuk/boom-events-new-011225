@@ -16,6 +16,7 @@ interface EventData {
   description: string;
   eventbriteId: string;
   isSoldOut?: boolean;
+  waitingListUrl?: string;
 }
 
 interface EventPageSimpleProps {
@@ -27,6 +28,12 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
     const checkoutSection = document.getElementById('checkout-section');
     if (checkoutSection) {
       checkoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleWaitingListClick = () => {
+    if (event.waitingListUrl) {
+      window.open(event.waitingListUrl, '_blank');
     }
   };
 
@@ -151,22 +158,44 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="bg-primary/10 border border-primary/30 rounded-2xl p-6 md:p-8">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-3">
-                  🎟️
+              {event.isSoldOut ? (
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-red-500/20 rounded-full mb-4">
+                    🎫
+                  </div>
+                  <h2 className="font-poppins text-2xl md:text-3xl font-bold text-red-500 mb-3">
+                    SOLD OUT
+                  </h2>
+                  <p className="text-base md:text-lg text-foreground/70 mb-6">
+                    This event has sold out! Join the waiting list to be notified if tickets become available.
+                  </p>
+                  <button
+                    onClick={handleWaitingListClick}
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-8 py-4 rounded-md font-semibold text-lg"
+                  >
+                    JOIN WAITING LIST
+                  </button>
                 </div>
-                <h2 className="font-poppins text-xl md:text-2xl font-bold text-foreground tracking-tight">
-                  {event.isSoldOut ? 'Join Waiting List' : 'Book Your Tickets'}
-                </h2>
-              </div>
-              
-              <div className="bg-card/50 rounded-xl overflow-hidden">
-                <EventbriteEmbed
-                  eventbriteId={event.eventbriteId}
-                  containerId={`eventbrite-${event.eventCode}`}
-                  height={425}
-                />
-              </div>
+              ) : (
+                <>
+                  <div className="text-center mb-6">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-3">
+                      🎟️
+                    </div>
+                    <h2 className="font-poppins text-xl md:text-2xl font-bold text-foreground tracking-tight">
+                      Book Your Tickets
+                    </h2>
+                  </div>
+                  
+                  <div className="bg-card/50 rounded-xl overflow-hidden">
+                    <EventbriteEmbed
+                      eventbriteId={event.eventbriteId}
+                      containerId={`eventbrite-${event.eventCode}`}
+                      height={425}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
