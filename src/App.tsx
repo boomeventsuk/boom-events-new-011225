@@ -20,7 +20,6 @@ const App = () => (
           <Route path="/tickets" element={<TicketsRedirect />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/event/:eventCode" element={<EventTemplate />} />
-          <Route path="/events/:slug" element={<TwoPmClubEventTemplate />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
