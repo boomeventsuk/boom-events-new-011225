@@ -1,0 +1,15 @@
+# Legacy static HTML URLs → New canonical URLs (301 permanent redirects)
+/events/christmas-silent-disco-northampton/*                           /event/051225-SD-NPTON    301
+/events/the-2pm-club-northampton-christmas-daytime-disco/*             /event/061225-2PM-NPTON   301
+/events/boombastics-christmas-decades-party-northampton/*              /event/061225-DEC-NPTON   301
+/events/christmas-family-silent-disco-northampton/*                    /event/071225-FSD-NPTON   301
+/events/the-2pm-club-milton-keynes-christmas-daytime-disco/*           /event/131225-2PM-MK      301
+/events/the-2pm-club-bedford-christmas-daytime-disco/*                 /event/201225-2PM-BED     301
+/events/get-ready-60s-70s-motown-soul-disco-sunday-matinee-special/*   /event/250126-GR-NPTON    301
+/events/the-2pm-club-luton-80s-90s-00s-daytime-disco/*                 /event/070226-2PM-LUT     301
+
+# Redirect /events/:slug pattern to /event/:slug (consolidate URL patterns)
+/events/:slug                                                          /event/:slug              301
+
+# SPA fallback - must be LAST
+/*                                                                     /index.html               200
