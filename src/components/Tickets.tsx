@@ -13,6 +13,7 @@ interface Event {
   description: string;
   eventbriteId: string;
   isSoldOut?: boolean;
+  isHidden?: boolean;
   fullDescription?: string;
   highlights?: string[];
 }
@@ -58,7 +59,7 @@ const Tickets = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {events.map((event) => (
+          {events.filter(event => !event.isHidden).map((event) => (
             <EventCard
               key={event.eventCode}
               title={event.title}

@@ -16,6 +16,7 @@ interface EventData {
   description: string;
   eventbriteId: string;
   isSoldOut?: boolean;
+  isHidden?: boolean;
   waitingListUrl?: string;
   // Extended fields for 2PM Club events
   fullDescription?: string;
@@ -55,7 +56,7 @@ const EventTemplate = () => {
     );
   }
 
-  if (!event) {
+  if (!event || event.isHidden) {
     return <NotFound />;
   }
 
