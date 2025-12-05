@@ -112,7 +112,10 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
           <DescriptionSection event={event} />
           <ChannelsSection channels={event.channels} />
           {!hiddenSections.includes('highlights') && (
-            <HighlightsSection highlights={event.highlights} />
+            <HighlightsSection 
+              highlights={event.highlights} 
+              sectionTitle="Why People Love Our Silent Discos"
+            />
           )}
           <CheckoutSection event={event} />
         </main>
