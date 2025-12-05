@@ -117,7 +117,10 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
               sectionTitle="Why People Love Our Silent Discos"
             />
           )}
-          <CheckoutSection event={event} />
+          <CheckoutSection 
+            event={event} 
+            checkoutMessage="10 years of sell-out parties. Don't miss out!"
+          />
         </main>
 
         <Footer />

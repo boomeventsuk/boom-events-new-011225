@@ -8,9 +8,12 @@ interface CheckoutSectionProps {
     promoCode?: string;
     isSoldOut?: boolean;
   };
+  checkoutMessage?: string;
 }
 
-export const CheckoutSection = ({ event }: CheckoutSectionProps) => {
+export const CheckoutSection = ({ event, checkoutMessage }: CheckoutSectionProps) => {
+  const defaultMessage = "Don't miss out! The most popular day party in the Midlands";
+  
   return (
     <section id="checkout-section" className="py-10 md:py-14 bg-primary/10">
       <div className="container mx-auto px-4">
@@ -25,7 +28,7 @@ export const CheckoutSection = ({ event }: CheckoutSectionProps) => {
             <p className="text-lg text-foreground/70">
               {event.isSoldOut 
                 ? "This event has sold out! Join the waiting list via Eventbrite below" 
-                : "Don't miss out! The most popular day party in the Midlands"}
+                : (checkoutMessage || defaultMessage)}
             </p>
           </div>
           
