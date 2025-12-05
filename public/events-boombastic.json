@@ -171,5 +171,28 @@
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
+  },
+  {
+    "eventCode": "210326-SD-NPTON",
+    "title": "SILENT DISCO GREATEST HITS IS 10! POP vs INDIE vs DANCE",
+    "subtitle": "Ten years of sold-out events. Three channels. One legendary night.",
+    "date": "Saturday, 21 March 2026",
+    "timeDisplay": "20:30 – 00:30",
+    "venue": "The Picturedrome",
+    "city": "Northampton",
+    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1764942245/210326-SD-NPTON_ANNSQ_cofvog.png",
+    "description": "Silent Disco Greatest Hits is 10! A decade of three-channel madness. Pop Throwbacks, Indie Classics, Dance Anthems. The most popular silent disco in the region.",
+    "eventbriteId": "1977024693077",
+    "isSoldOut": false,
+    "start": "2026-03-21T20:30:00+00:00",
+    "end": "2026-03-22T00:30:00+00:00",
+    "fullDescription": "A decade of sold-out events. Thousands of people screaming every word to songs they forgot they knew. And we're celebrating at the Picturedrome.\n\nPop Throwbacks. Indie Classics. Dance Anthems. Three genre-specialist DJs playing through your wireless headphones - switch between them whenever you want.\n\nYou'll be screaming Mr Brightside while your mate's lost in Show Me Love. Take your headphones off for a second - muffled singing, shuffling feet, three different songs at once. Pure chaos. Pure joy.\n\nNo more arguing about music. No more splitting up to find different rooms. The pop fan, the indie kid, and the dance head - all on the same floor, all having the time of their lives.\n\nSwitch whenever you want. Your headphones, your rules.",
+    "highlights": "🎧 Three channels - Pop, Indie, Dance - switch all night|🎤 Sing as loud as you want - nobody can hear you|👯 Everyone gets their music - zero compromise|🏆 Ten years of sold-out events - the most popular silent disco in the region",
+    "channels": [
+      { "color": "blue", "name": "Pop Throwbacks", "description": "Whitney, Spice Girls, Take That, Beyoncé. Every word, full volume, zero shame." },
+      { "color": "green", "name": "Indie Classics", "description": "Oasis, Arctic Monkeys, The Killers, Blur. The good stuff, turned up loud." },
+      { "color": "red", "name": "Dance Anthems", "description": "Robin S, Fatboy Slim, Haddaway, Black Box. Lose yourself completely." }
+    ],
+    "hiddenSections": ["video", "gallery", "testimonials", "faq"]
   }
 ]
