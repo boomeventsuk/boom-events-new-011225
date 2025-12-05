@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EventPageSimple from "@/components/EventPageSimple";
 import TwoPmClubEventPage, { TwoPmClubEvent } from "@/components/TwoPmClubEventPage";
+import SilentDiscoEventPage, { SilentDiscoEvent, SilentDiscoChannel } from "@/components/SilentDiscoEventPage";
 import NotFound from "./NotFound";
 
 interface EventData {
@@ -26,6 +27,9 @@ interface EventData {
   infoUrl?: string;
   start?: string;
   end?: string;
+  // Silent Disco specific fields
+  channels?: SilentDiscoChannel[];
+  hiddenSections?: string[];
 }
 
 const EventTemplate = () => {
@@ -62,6 +66,31 @@ const EventTemplate = () => {
 
   // Smart template selection based on event type code
   const is2PMClubEvent = event.eventCode.includes('-2PM-');
+  const isSilentDiscoEvent = event.eventCode.includes('-SD-');
+  
+  if (isSilentDiscoEvent && event.channels) {
+    // Map EventData to SilentDiscoEvent format
+    const silentDiscoEvent: SilentDiscoEvent = {
+      slug: event.eventCode.toLowerCase(),
+      eventbriteId: event.eventbriteId,
+      promoCode: event.promoCode,
+      isSoldOut: event.isSoldOut,
+      title: event.title,
+      location: `${event.venue}, ${event.city}`,
+      start: event.start || event.date,
+      end: event.end || event.date,
+      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      image: event.image,
+      description: event.description,
+      subtitle: event.subtitle || '',
+      fullDescription: event.fullDescription || event.description,
+      highlights: event.highlights || '',
+      channels: event.channels,
+      hiddenSections: event.hiddenSections,
+    };
+    
+    return <SilentDiscoEventPage event={silentDiscoEvent} />;
+  }
   
   if (is2PMClubEvent) {
     // Map EventData to TwoPmClubEvent format
