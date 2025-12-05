@@ -1,9 +1,10 @@
 interface HighlightsSectionProps {
   highlights: string;
   isChristmas?: boolean;
+  sectionTitle?: string;
 }
 
-export const HighlightsSection = ({ highlights, isChristmas = false }: HighlightsSectionProps) => {
+export const HighlightsSection = ({ highlights, isChristmas = false, sectionTitle }: HighlightsSectionProps) => {
   const parsedHighlights = highlights.split('|').map(h => {
     const colonIndex = h.indexOf(':');
     if (colonIndex === -1) return { title: '', description: '' };
@@ -14,12 +15,15 @@ export const HighlightsSection = ({ highlights, isChristmas = false }: Highlight
     return { title, description };
   }).filter(h => h.title && h.description);
 
+  const heading = sectionTitle 
+    || (isChristmas ? "Why This Beats Every Other Christmas Do" : "Why Daytime Discos Are a Game Changer!");
+
   return (
     <section className="py-10 md:py-14">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
-            {isChristmas ? "Why This Beats Every Other Christmas Do" : "Why Daytime Discos Are a Game Changer!"}
+            {heading}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
