@@ -124,6 +124,8 @@
     "subtitle": "10th Anniversary Celebration",
     "date": "Saturday, 21 March 2026",
     "timeDisplay": "20:30 – 00:00",
+    "start": "2026-03-21T20:30:00",
+    "end": "2026-03-22T00:00:00",
     "venue": "The Picturedrome",
     "city": "Northampton",
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1764253497/210326_SD_NPTON_ANNSQ_l44cso.jpg",
