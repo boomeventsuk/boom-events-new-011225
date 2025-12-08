@@ -139,21 +139,21 @@
       {
         "color": "blue",
         "emoji": "🔵",
-        "name": "POP",
+        "name": "POP THROWBACKS",
         "artists": "Taylor Swift, ABBA, Beyoncé, Dua Lipa & more 💃",
         "description": "Massive singalong anthems and feel-good party classics. The songs everyone knows every word to."
       },
       {
         "color": "green",
         "emoji": "🟢",
-        "name": "INDIE",
+        "name": "INDIE CLASSICS",
         "artists": "Arctic Monkeys, The Killers, Oasis, Blossoms & more 🎸",
         "description": "Guitar-driven bangers and indie classics. For those who like their tunes with a bit more edge."
       },
       {
         "color": "red",
         "emoji": "🔴",
-        "name": "DANCE",
+        "name": "DANCE ANTHEMS",
         "artists": "Calvin Harris, Faithless, Robin S, Disclosure & more 🔊",
         "description": "Pure dancefloor energy. House, dance and club classics to keep you moving all night."
       }
