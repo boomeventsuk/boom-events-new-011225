@@ -15,6 +15,7 @@ export interface SilentDiscoChannel {
   emoji?: string;
   name: string;
   artists: string;
+  description?: string;
 }
 
 export interface SilentDiscoEvent {
