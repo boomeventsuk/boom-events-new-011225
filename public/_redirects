@@ -1,5 +1,8 @@
 # Legacy static HTML URLs → New canonical URLs (301 permanent redirects)
 /events/christmas-silent-disco-northampton/*                           /event/051225-SD-NPTON    301
+
+# Silent Disco date change redirect (March → April 2026)
+/event/210326-SD-NPTON                                                 /event/250426-SD-NPTON    301
 /events/the-2pm-club-northampton-christmas-daytime-disco/*             /event/061225-2PM-NPTON   301
 /events/boombastics-christmas-decades-party-northampton/*              /event/061225-DEC-NPTON   301
 /events/christmas-family-silent-disco-northampton/*                    /event/071225-FSD-NPTON   301
