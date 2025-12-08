@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://boomevents.co.uk/</loc></url>
+  <url><loc>https://boomevents.co.uk/privacy/</loc></url>
+  <url><loc>https://boomevents.co.uk/terms/</loc></url>
   <url><loc>https://boomevents.co.uk/faq/</loc></url>
   <url><loc>https://boomevents.co.uk/events.json</loc></url>
   <url><loc>https://boomevents.co.uk/venues.json</loc></url>
