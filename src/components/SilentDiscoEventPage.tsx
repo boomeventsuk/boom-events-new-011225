@@ -12,8 +12,9 @@ import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 
 export interface SilentDiscoChannel {
   color: 'blue' | 'green' | 'red';
+  emoji?: string;
   name: string;
-  description: string;
+  artists: string;
 }
 
 export interface SilentDiscoEvent {

@@ -54,7 +54,7 @@ export const ChannelsSection = ({ channels }: ChannelsSectionProps) => {
                     </h3>
                   </div>
                   <p className="text-foreground/80">
-                    {channel.description}
+                    {channel.artists}
                   </p>
                 </div>
               );
