@@ -50,13 +50,20 @@ const Footer = () => {
             </a>
           </div>
           
-          {/* Privacy Link */}
-          <div className="mb-6">
+          {/* Legal Links */}
+          <div className="mb-6 flex items-center justify-center gap-4">
             <Link 
               to="/privacy"
               className="font-poppins text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               Privacy Policy
+            </Link>
+            <span className="text-muted-foreground">|</span>
+            <Link 
+              to="/terms"
+              className="font-poppins text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Terms & Conditions
             </Link>
           </div>
           
