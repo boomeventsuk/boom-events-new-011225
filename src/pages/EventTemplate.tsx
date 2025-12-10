@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import EventPageSimple from "@/components/EventPageSimple";
 import TwoPmClubEventPage, { TwoPmClubEvent } from "@/components/TwoPmClubEventPage";
 import SilentDiscoEventPage, { SilentDiscoEvent, SilentDiscoChannel } from "@/components/SilentDiscoEventPage";
+import FootlooseEventPage, { FootlooseEvent } from "@/components/FootlooseEventPage";
 import NotFound from "./NotFound";
 
 interface EventData {
@@ -19,7 +20,7 @@ interface EventData {
   isSoldOut?: boolean;
   isHidden?: boolean;
   waitingListUrl?: string;
-  // Extended fields for 2PM Club events
+  // Extended fields for rich event pages
   fullDescription?: string;
   highlights?: string;
   promoCode?: string;
@@ -30,6 +31,8 @@ interface EventData {
   // Silent Disco specific fields
   channels?: SilentDiscoChannel[];
   hiddenSections?: string[];
+  // Footloose 80s specific fields
+  soundtrack?: string;
 }
 
 const EventTemplate = () => {
@@ -67,6 +70,31 @@ const EventTemplate = () => {
   // Smart template selection based on event type code
   const is2PMClubEvent = event.eventCode.includes('-2PM-');
   const isSilentDiscoEvent = event.eventCode.includes('-SD-');
+  const isFootlooseEvent = event.eventCode.includes('-FL80-');
+  
+  if (isFootlooseEvent && event.soundtrack) {
+    // Map EventData to FootlooseEvent format
+    const footlooseEvent: FootlooseEvent = {
+      slug: event.eventCode.toLowerCase(),
+      eventbriteId: event.eventbriteId,
+      promoCode: event.promoCode,
+      isSoldOut: event.isSoldOut,
+      title: event.title,
+      location: `${event.venue}, ${event.city}`,
+      city: event.city,
+      start: event.start || event.date,
+      end: event.end || event.date,
+      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      image: event.image,
+      description: event.description,
+      fullDescription: event.fullDescription || event.description,
+      highlights: event.highlights || '',
+      soundtrack: event.soundtrack,
+      hiddenSections: event.hiddenSections,
+    };
+    
+    return <FootlooseEventPage event={footlooseEvent} />;
+  }
   
   if (isSilentDiscoEvent && event.channels) {
     // Map EventData to SilentDiscoEvent format
