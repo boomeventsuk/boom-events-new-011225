@@ -4,6 +4,7 @@ import EventPageSimple from "@/components/EventPageSimple";
 import TwoPmClubEventPage, { TwoPmClubEvent } from "@/components/TwoPmClubEventPage";
 import SilentDiscoEventPage, { SilentDiscoEvent, SilentDiscoChannel } from "@/components/SilentDiscoEventPage";
 import FootlooseEventPage, { FootlooseEvent } from "@/components/FootlooseEventPage";
+import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
 
 interface EventData {
@@ -71,6 +72,31 @@ const EventTemplate = () => {
   const is2PMClubEvent = event.eventCode.includes('-2PM-');
   const isSilentDiscoEvent = event.eventCode.includes('-SD-');
   const isFootlooseEvent = event.eventCode.includes('-FL80-');
+  const isGetReadyEvent = event.eventCode.includes('-GR-');
+  
+  if (isGetReadyEvent && event.soundtrack) {
+    // Map EventData to GetReadyEvent format
+    const getReadyEvent: GetReadyEvent = {
+      slug: event.eventCode.toLowerCase(),
+      eventbriteId: event.eventbriteId,
+      promoCode: event.promoCode,
+      isSoldOut: event.isSoldOut,
+      title: event.title,
+      location: `${event.venue}, ${event.city}`,
+      city: event.city,
+      start: event.start || event.date,
+      end: event.end || event.date,
+      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      image: event.image,
+      description: event.description,
+      fullDescription: event.fullDescription || event.description,
+      highlights: event.highlights || '',
+      soundtrack: event.soundtrack,
+      hiddenSections: event.hiddenSections,
+    };
+    
+    return <GetReadyEventPage event={getReadyEvent} />;
+  }
   
   if (isFootlooseEvent && event.soundtrack) {
     // Map EventData to FootlooseEvent format
