@@ -6,6 +6,7 @@ import SilentDiscoEventPage, { SilentDiscoEvent, SilentDiscoChannel } from "@/co
 import FootlooseEventPage, { FootlooseEvent } from "@/components/FootlooseEventPage";
 import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
+import { isEventPassed } from "@/lib/eventUtils";
 
 interface EventData {
   eventCode: string;
@@ -64,7 +65,7 @@ const EventTemplate = () => {
     );
   }
 
-  if (!event || event.isHidden) {
+  if (!event || event.isHidden || isEventPassed(event)) {
     return <NotFound />;
   }
 
