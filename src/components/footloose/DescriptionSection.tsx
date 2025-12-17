@@ -15,11 +15,10 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
           </h2>
           
           <div className="space-y-6 text-lg text-foreground/90">
-            <p className="text-xl leading-relaxed">
-              Remember pressing record on your tape deck during the Top of the Pops countdown? 
-              Blasting Madonna's "Like a Prayer" through your headphones? 
-              Belting out Bon Jovi in your first car?
-            </p>
+          <p className="text-xl leading-relaxed">
+            Remember taping the charts on a Sunday afternoon, praying the DJ would shut up before the intro? 
+            Or heading into town on a Saturday afternoon to get the latest single from Our Price?
+          </p>
             
             <p className="leading-relaxed">
               <strong className="text-primary">FOOTLOOSE 80s</strong> is your ticket back to those moments — 
