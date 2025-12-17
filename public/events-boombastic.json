@@ -78,23 +78,6 @@
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
   },
   {
-    "eventCode": "140326-2PM-MK",
-    "title": "THE 2PM CLUB Milton Keynes — 80s 90s 00s Daytime Disco",
-    "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
-    "date": "Saturday, 14 March 2026",
-    "timeDisplay": "14:00 – 18:00",
-    "start": "2026-03-14T14:00:00",
-    "end": "2026-03-14T18:00:00",
-    "venue": "MK11 Music Venue",
-    "city": "Milton Keynes",
-    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1764253462/140226_2PM_MK_ANNSQ_xspc64.jpg",
-    "description": "THE 2PM CLUB Milton Keynes — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-    "eventbriteId": "1975983454705",
-    "isSoldOut": false,
-    "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
-    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
-  },
-  {
     "eventCode": "280226-2PM-NPTON",
     "title": "THE 2PM CLUB Northampton — 80s 90s 00s Daytime Disco",
     "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
@@ -120,6 +103,23 @@
     "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1764253438/070326_2PM_COV_ANNSQ_ykhbc0.jpg",
     "description": "THE 2PM CLUB Coventry — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
     "eventbriteId": "1975984192913",
+    "isSoldOut": false,
+    "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
+    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
+  },
+  {
+    "eventCode": "140326-2PM-MK",
+    "title": "THE 2PM CLUB Milton Keynes — 80s 90s 00s Daytime Disco",
+    "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
+    "date": "Saturday, 14 March 2026",
+    "timeDisplay": "14:00 – 18:00",
+    "start": "2026-03-14T14:00:00",
+    "end": "2026-03-14T18:00:00",
+    "venue": "MK11 Music Venue",
+    "city": "Milton Keynes",
+    "image": "https://res.cloudinary.com/dteowuv7o/image/upload/v1764253462/140226_2PM_MK_ANNSQ_xspc64.jpg",
+    "description": "THE 2PM CLUB Milton Keynes — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
+    "eventbriteId": "1975983454705",
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
