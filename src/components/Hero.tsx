@@ -21,37 +21,7 @@ const Hero = () => {
     }
   };
 
-  // Generate snowflakes for Christmas
-  const snowflakes = isChristmasDay() ? Array.from({ length: 30 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    delay: `${Math.random() * 5}s`,
-    duration: `${5 + Math.random() * 5}s`,
-    size: `${0.5 + Math.random() * 0.5}rem`
-  })) : [];
-
   return <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Snowflakes Overlay for Christmas */}
-      {isChristmasDay() && (
-        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
-          {snowflakes.map((flake) => (
-            <span
-              key={flake.id}
-              className="absolute text-foreground/80 animate-snowfall"
-              style={{
-                left: flake.left,
-                top: '-20px',
-                animationDelay: flake.delay,
-                animationDuration: flake.duration,
-                fontSize: flake.size
-              }}
-            >
-              ❄
-            </span>
-          ))}
-        </div>
-      )}
-
       {/* Background Image with Overlay */}
       <img src={heroImageUrl} alt="Boombastic Events crowd at a party with colorful lights" className="absolute inset-0 w-full h-full object-cover" onError={e => {
       e.currentTarget.src = fallbackHero;
