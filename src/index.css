@@ -164,3 +164,40 @@ a.button:focus, button:focus {
     @apply bg-background text-foreground;
   }
 }
+
+/* Christmas Day Festive Theme */
+.christmas-theme {
+  --christmas-red: 0 72% 51%;
+  --christmas-green: 142 76% 36%;
+  --christmas-gold: 45 93% 47%;
+}
+
+.christmas-glow {
+  box-shadow: 
+    0 0 20px hsl(0 72% 51% / 0.3),
+    0 0 40px hsl(142 76% 36% / 0.2),
+    0 0 60px hsl(0 72% 51% / 0.1);
+}
+
+.christmas-border {
+  border: 2px solid transparent;
+  background: 
+    linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
+    linear-gradient(135deg, hsl(0 72% 51%), hsl(142 76% 36%), hsl(0 72% 51%)) border-box;
+}
+
+.christmas-gradient-text {
+  background: linear-gradient(135deg, hsl(0 72% 60%), hsl(45 93% 55%), hsl(142 76% 50%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes christmas-shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.christmas-shimmer {
+  animation: christmas-shimmer 2s ease-in-out infinite;
+}
