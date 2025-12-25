@@ -1,6 +1,10 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
+const isChristmasDay = () => {
+  const today = new Date();
+  return today.getMonth() === 11 && today.getDate() === 25;
+};
 export interface EventCardProps {
   title: string;
   date: string;
@@ -39,7 +43,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   };
 
   return (
-    <Card className={`bg-card border-border overflow-hidden hover:shadow-lg transition-shadow ${badge === "SOLD OUT" ? "opacity-80" : ""}`}>
+    <Card className={`bg-card border-border overflow-hidden hover:shadow-lg transition-shadow ${badge === "SOLD OUT" ? "opacity-80" : ""} ${isChristmasDay() ? "christmas-border christmas-glow" : ""}`}>
       <div className="aspect-square overflow-hidden relative">
         <img
           src={poster}
@@ -73,7 +77,7 @@ export const EventCard: React.FC<EventCardProps> = ({
 
         <button
           onClick={handleBookNow}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-4 py-2 rounded-md font-medium"
+          className={`w-full transition-colors px-4 py-2 rounded-md font-medium ${isChristmasDay() ? "bg-gradient-to-r from-red-600 to-green-600 hover:from-red-500 hover:to-green-500 text-white" : "bg-primary text-primary-foreground hover:bg-primary/90"}`}
         >
           {isSoldOut ? "Join Waiting List" : (buttonText || "Book Now")}
         </button>
