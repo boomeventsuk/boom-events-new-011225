@@ -19,6 +19,11 @@ interface Event {
   highlights?: string[];
 }
 
+const isChristmasDay = () => {
+  const today = new Date();
+  return today.getMonth() === 11 && today.getDate() === 25;
+};
+
 const Tickets = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
@@ -51,11 +56,12 @@ const Tickets = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Upcoming Dates
+            {isChristmasDay() ? "🎄 Merry Christmas! 🎄" : "Upcoming Dates"}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Get your tickets now for the best parties in the Midlands. From 80s nights to family-friendly silent discos, 
-            we've got something for everyone.
+            {isChristmasDay() 
+              ? "Hope you're having a wonderful day! Here's what we've got coming up for you in the New Year."
+              : "Get your tickets now for the best parties in the Midlands. From 80s nights to family-friendly silent discos, we've got something for everyone."}
           </p>
         </div>
 

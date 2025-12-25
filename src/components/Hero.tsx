@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
 import fallbackHero from "@/assets/hero-crowd.jpg";
+
 const heroImageUrl = "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708204/Boom_Crowd_Web_bdke2o.jpg";
+
+const isChristmasDay = () => {
+  const today = new Date();
+  return today.getMonth() === 11 && today.getDate() === 25;
+};
+
 const Hero = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -21,6 +28,11 @@ const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-4">
+        {isChristmasDay() && (
+          <div className="mb-6 inline-block bg-primary/90 text-primary-foreground px-6 py-3 rounded-full text-lg md:text-xl font-poppins font-semibold animate-pulse">
+            🎄 Merry Christmas from Boombastic! 🎄
+          </div>
+        )}
         <h1 className="font-poppins text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-2 leading-tight uppercase">THE MIDLANDS' FAVOURITE PARTY STARTERS SINCE 2014.</h1>
         
         <h2 className="font-poppins text-3xl md:text-5xl font-bold text-primary mb-6 leading-tight uppercase lg:text-5xl">TRUSTED BY THOUSANDS.</h2>
