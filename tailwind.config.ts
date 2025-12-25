@@ -79,11 +79,22 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'snowfall': {
+					'0%': {
+						transform: 'translateY(-10vh) translateX(0)',
+						opacity: '1'
+					},
+					'100%': {
+						transform: 'translateY(100vh) translateX(20px)',
+						opacity: '0.3'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'snowfall': 'snowfall linear infinite'
 			}
 		}
 	},
