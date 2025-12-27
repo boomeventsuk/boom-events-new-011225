@@ -1,3 +1,5 @@
+import { isConsentGranted } from './cookieConsent';
+
 declare global {
   interface Window {
     dataLayer: any[];
@@ -5,9 +7,9 @@ declare global {
   }
 }
 
-// Helper to track Meta Pixel events
+// Helper to track Meta Pixel events - only fires if consent granted
 const trackFbEvent = (eventName: string, params?: Record<string, any>) => {
-  if (typeof window !== 'undefined' && window.fbq) {
+  if (typeof window !== 'undefined' && window.fbq && isConsentGranted()) {
     window.fbq('track', eventName, params);
   }
 };
