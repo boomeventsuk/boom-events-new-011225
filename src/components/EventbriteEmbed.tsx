@@ -19,6 +19,19 @@ interface EventbriteEmbedProps {
   height?: number;
 }
 
+// Debug mode: enabled via ?eb_debug=1 or localStorage.setItem('eb_debug','1')
+const isDebugMode = () => {
+  if (typeof window === 'undefined') return false;
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('eb_debug') === '1' || localStorage.getItem('eb_debug') === '1';
+};
+
+const debugLog = (...args: any[]) => {
+  if (isDebugMode()) {
+    console.log(...args);
+  }
+};
+
 const EventbriteEmbed = ({ 
   eventbriteId, 
   containerId, 
@@ -28,10 +41,13 @@ const EventbriteEmbed = ({
   height = 425 
 }: EventbriteEmbedProps) => {
   useEffect(() => {
+    debugLog('🔧 EventbriteEmbed mounted', { eventbriteId, containerId, eventTitle, eventSlug, promoCode });
+    
     // Check if script already exists
     const existingScript = document.querySelector('script[src*="eb_widgets.js"]');
     
     if (existingScript && window.EBWidgets) {
+      debugLog('📜 EB script already loaded, creating widget');
       // Script already loaded, just create the widget
       const container = document.getElementById(containerId);
       if (container) {
@@ -44,19 +60,30 @@ const EventbriteEmbed = ({
         iframeContainerId: containerId,
         iframeContainerHeight: height,
         onOrderComplete: () => {
+          debugLog('✅ Eventbrite onOrderComplete fired', { eventbriteId, eventSlug, eventTitle });
+          
           pushToDataLayer({
             event: 'purchase',
             event_slug: eventSlug,
             event_type: '2PM',
             event_title: eventTitle
           });
+          
           // Meta Pixel: Purchase
+          debugLog('💳 About to fire Purchase, fbq exists:', typeof window.fbq);
           if (window.fbq) {
-            window.fbq('track', 'Purchase', {
-              content_name: eventTitle,
-              content_ids: [eventSlug],
-              currency: 'GBP'
-            });
+            try {
+              window.fbq('track', 'Purchase', {
+                content_name: eventTitle,
+                content_ids: [eventSlug],
+                currency: 'GBP'
+              });
+              debugLog('✅ Purchase event fired!');
+            } catch (err) {
+              debugLog('❌ Purchase fbq error:', err);
+            }
+          } else {
+            debugLog('❌ fbq not found for Purchase');
           }
         }
       };
@@ -75,6 +102,7 @@ const EventbriteEmbed = ({
     script.async = true;
     
     script.onload = () => {
+      debugLog('📜 EB script loaded');
       if (window.EBWidgets) {
         // Clear any existing widget content to prevent duplicates
         const container = document.getElementById(containerId);
@@ -88,19 +116,30 @@ const EventbriteEmbed = ({
           iframeContainerId: containerId,
           iframeContainerHeight: height,
           onOrderComplete: () => {
+            debugLog('✅ Eventbrite onOrderComplete fired', { eventbriteId, eventSlug, eventTitle });
+            
             pushToDataLayer({
               event: 'purchase',
               event_slug: eventSlug,
               event_type: '2PM',
               event_title: eventTitle
             });
+            
             // Meta Pixel: Purchase
+            debugLog('💳 About to fire Purchase, fbq exists:', typeof window.fbq);
             if (window.fbq) {
-              window.fbq('track', 'Purchase', {
-                content_name: eventTitle,
-                content_ids: [eventSlug],
-                currency: 'GBP'
-              });
+              try {
+                window.fbq('track', 'Purchase', {
+                  content_name: eventTitle,
+                  content_ids: [eventSlug],
+                  currency: 'GBP'
+                });
+                debugLog('✅ Purchase event fired!');
+              } catch (err) {
+                debugLog('❌ Purchase fbq error:', err);
+              }
+            } else {
+              debugLog('❌ fbq not found for Purchase');
             }
           }
         };
@@ -138,8 +177,7 @@ const EventbriteEmbed = ({
       try {
         const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
         
-        // Log for debugging
-        console.log('Eventbrite postMessage:', data);
+        debugLog('📨 Eventbrite postMessage:', data);
         
         // Forward events to dataLayer
         if (data.event) {
@@ -166,8 +204,19 @@ const EventbriteEmbed = ({
       const container = document.getElementById(containerId);
       const iframe = container?.querySelector('iframe');
       
+      // Pre-condition debug logs
+      debugLog('👆 focusin event fired');
+      debugLog('📦 Container found:', !!container);
+      debugLog('🖼️ Iframe found:', !!iframe);
+      debugLog('🎯 activeElement:', activeElement?.tagName, activeElement);
+      debugLog('🔍 activeElement === iframe:', activeElement === iframe);
+      debugLog('🔒 iframeFocused already:', iframeFocused);
+      
       if (iframe && activeElement === iframe && !iframeFocused) {
         iframeFocused = true;
+        
+        debugLog('🎯 Iframe focus detected - condition passed!');
+        
         pushToDataLayer({
           event: 'eb_checkout_interaction',
           eventbrite_id: eventbriteId,
@@ -175,19 +224,29 @@ const EventbriteEmbed = ({
         });
 
         // Fire Meta Pixel AddToCart event when user interacts with checkout
+        debugLog('🛒 About to fire AddToCart, fbq exists:', typeof window.fbq);
+        debugLog('🛒 eventTitle:', eventTitle, 'eventSlug:', eventSlug);
+        
         if (window.fbq) {
-          window.fbq('track', 'AddToCart', {
-            content_name: eventTitle,
-            content_ids: [eventSlug],
-            currency: 'GBP'
-          });
+          try {
+            window.fbq('track', 'AddToCart', {
+              content_name: eventTitle,
+              content_ids: [eventSlug],
+              currency: 'GBP'
+            });
+            debugLog('✅ AddToCart event fired!');
+          } catch (err) {
+            debugLog('❌ AddToCart fbq error:', err);
+          }
+        } else {
+          debugLog('❌ fbq not found on window');
         }
       }
     };
     
     window.addEventListener('focusin', handleFocusIn);
     return () => window.removeEventListener('focusin', handleFocusIn);
-  }, [containerId, eventbriteId, eventTitle]);
+  }, [containerId, eventbriteId, eventTitle, eventSlug]); // Fixed: added eventSlug to deps
 
   return (
     <div 
