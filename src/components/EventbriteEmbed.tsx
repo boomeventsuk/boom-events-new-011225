@@ -6,6 +6,7 @@ declare global {
     EBWidgets?: {
       createWidget: (config: any) => void;
     };
+    fbq?: (...args: any[]) => void;
   }
 }
 
@@ -49,6 +50,14 @@ const EventbriteEmbed = ({
             event_type: '2PM',
             event_title: eventTitle
           });
+          // Meta Pixel: Purchase
+          if (window.fbq) {
+            window.fbq('track', 'Purchase', {
+              content_name: eventTitle,
+              content_ids: [eventSlug],
+              currency: 'GBP'
+            });
+          }
         }
       };
       
@@ -85,6 +94,14 @@ const EventbriteEmbed = ({
               event_type: '2PM',
               event_title: eventTitle
             });
+            // Meta Pixel: Purchase
+            if (window.fbq) {
+              window.fbq('track', 'Purchase', {
+                content_name: eventTitle,
+                content_ids: [eventSlug],
+                currency: 'GBP'
+              });
+            }
           }
         };
         
