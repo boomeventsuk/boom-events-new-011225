@@ -173,6 +173,15 @@ const EventbriteEmbed = ({
           eventbrite_id: eventbriteId,
           event_title: eventTitle
         });
+
+        // Fire Meta Pixel AddToCart event when user interacts with checkout
+        if (window.fbq) {
+          window.fbq('track', 'AddToCart', {
+            content_name: eventTitle,
+            content_ids: [eventSlug],
+            currency: 'GBP'
+          });
+        }
       }
     };
     
