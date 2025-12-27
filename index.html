@@ -9,7 +9,7 @@
     })(window,document,'script','dataLayer','GTM-PJGV534N');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code (Consent Mode) -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -19,8 +19,9 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('consent', 'revoke'); // Default to revoked until user consents
     fbq('init', '1947538679159165');
-    fbq('track', 'PageView');
+    // PageView is fired after consent is granted via cookieConsent.ts
     </script>
     <!-- End Meta Pixel Code -->
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,8 +9,15 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import TicketsRedirect from "./components/TicketsRedirect";
 import EventTemplate from "./pages/EventTemplate";
+import CookieConsent from "./components/CookieConsent";
+import { initConsentOnLoad } from "./lib/cookieConsent";
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    initConsentOnLoad();
+  }, []);
+
+  return (
   <TooltipProvider>
     <div className="min-h-screen bg-background font-poppins">
       <Toaster />
@@ -25,8 +33,10 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <CookieConsent />
     </div>
   </TooltipProvider>
-);
+  );
+};
 
 export default App;
