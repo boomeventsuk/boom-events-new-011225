@@ -38,8 +38,8 @@ const Header = () => {
           {/* Logo */}
           <a href="/" className="site-logo flex items-center gap-2">
             <img 
-              src="https://res.cloudinary.com/dteowuv7o/image/upload/v1757519785/57926c83-5a73-43e4-b501-9f9c758534fd_fs7hwi.png"
-              alt="Boombastic Events Logo" 
+              src="https://boombastic-events.b-cdn.net/The2PMCLUB-Website/57926c83-5a73-43e4-b501-9f9c758534fd_fs7hwi.png"
+              alt="Boombastic Events Logo"
               className="h-10 w-auto"
               loading="eager"
               decoding="async"
