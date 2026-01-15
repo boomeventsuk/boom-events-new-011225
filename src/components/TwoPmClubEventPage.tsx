@@ -116,7 +116,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         <main>
           <HeroSection event={event} />
           <DescriptionSection event={event} />
-          <VideoSection isChristmas={isChristmasEvent} />
+          <VideoSection />
           <HighlightsSection highlights={event.highlights} isChristmas={isChristmasEvent} />
           <PhotoGallery />
           <TestimonialsSection />
