@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import fallbackHero from "@/assets/hero-crowd.jpg";
 
-const heroImageUrl = "https://res.cloudinary.com/dteowuv7o/image/upload/v1757708204/Boom_Crowd_Web_bdke2o.jpg";
+const heroImageUrl = "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg";
 
 const isChristmasDay = () => {
   const today = new Date();

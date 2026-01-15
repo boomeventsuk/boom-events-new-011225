@@ -9,22 +9,22 @@ const FindYourParty = () => {
     {
       title: "The 2PM Club™ Daytime Disco",
       description: "The Midland's most popular Day Party! Iconic 80s 90s 00s Anthems - Your best night out ever now happens in the afternoon.",
-      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709307/2PM_Crowd_Web_wmakid.jpg"
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/2PM%20Crowd%20Web.jpg"
     },
     {
       title: "Silent Disco Parties",
       description: "10 years of Silent Chaos! Three DJs. Three channels. No compromise needed. Greatest Hits or Decades formats",
-      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709302/SDB_EVT_CROWD_b1j1ah.jpg"
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/SDB_EVT_CROWD.jpg"
     },
     {
       title: "Family Silent Disco",
       description: "Something for the whole family. 3 channels to choose from 🔵Party 🔴Throwback 🟢Charts. Everyone finds their vibe!",
-      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709305/FSD_Crowd_Web_rti2jb.jpg"
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FSD%20Crowd%20Web.jpg"
     },
     {
       title: "Decades Parties",
       description: "Pick your decade: Footloose 80s, Boombastic 90s, Hey‑Ya 2000s.",
-      image: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709300/FL80s_Crowd_Web_xwfcan.jpg"
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FL80s%20Crowd%20Web.jpg"
     }
   ];
 

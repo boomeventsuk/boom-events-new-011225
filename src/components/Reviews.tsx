@@ -4,25 +4,25 @@ const Reviews = () => {
       text: "It's brilliant to be able to get out with your friends and you get a full night's sleep.",
       author: "SUE L",
       event: "Daytime Disco",
-      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709307/2PM_Crowd_Web_wmakid.jpg"
+      backgroundImage: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/2PM%20Crowd%20Web.jpg"
     },
     {
       text: "So many Anthems! You know every word, and so does everyone else. It's the ultimate 80s night.",
       author: "ALEX W", 
       event: "Footloose 80s",
-      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709300/FL80s_Crowd_Web_xwfcan.jpg"
+      backgroundImage: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FL80s%20Crowd%20Web.jpg"
     },
     {
       text: "Totally the best night in the area. We never miss one. Love taking my headphones off just to soak in the beautiful chaos!",
       author: "FERN G",
       event: "Greatest Hits Silent Disco",
-      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709302/SDB_EVT_CROWD_b1j1ah.jpg"
+      backgroundImage: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/SDB_EVT_CROWD.jpg"
     },
     {
       text: "My teenager actually smiled (and danced!) No one was glued to their phones, apart from taking photos of each other. A proper family game-changer.",
       author: "SARAH P",
       event: "Family Silent Disco",
-      backgroundImage: "https://res.cloudinary.com/dteowuv7o/image/upload/v1757709305/FSD_Crowd_Web_rti2jb.jpg"
+      backgroundImage: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FSD%20Crowd%20Web.jpg"
     }
   ];
 
