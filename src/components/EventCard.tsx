@@ -1,5 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
+import { FomoBadge } from "@/components/FomoBadge";
+import { useEventFomoData } from "@/hooks/useEventFomoData";
 
 const isChristmasDay = () => {
   const today = new Date();
@@ -28,7 +31,12 @@ export const EventCard: React.FC<EventCardProps> = ({
   badge,
   buttonText,
 }) => {
-  const isSoldOut = badge === "SOLD OUT";
+  const { data: fomoData } = useEventFomoData(eventCode);
+  const isSoldOut = fomoData?.is_sold_out || badge === "SOLD OUT";
+  
+  // Use FOMO data if available, otherwise fallback to static badge
+  const displayBadge = fomoData?.fomo_message || badge;
+  const fomoTier = fomoData?.fomo_tier || (badge === "SOLD OUT" ? "sold_out" : "on_sale");
   
   const handleBookNow = () => {
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
@@ -43,8 +51,8 @@ export const EventCard: React.FC<EventCardProps> = ({
   };
 
   return (
-    <Card className={`bg-card border-border overflow-hidden hover:shadow-lg transition-shadow ${badge === "SOLD OUT" ? "opacity-80" : ""} ${isChristmasDay() ? "christmas-border christmas-glow" : ""}`}>
-      <div className="aspect-square overflow-hidden relative">
+    <Card className={`bg-card border-border overflow-hidden hover:shadow-lg transition-shadow ${isSoldOut ? "opacity-80" : ""} ${isChristmasDay() ? "christmas-border christmas-glow" : ""}`}>
+      <Link to={`/event/${eventCode}`} className="block aspect-square overflow-hidden relative">
         <img
           src={poster}
           alt={`${title} event poster`}
@@ -55,17 +63,20 @@ export const EventCard: React.FC<EventCardProps> = ({
           height="800"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
-        {badge && (
-          <span className={`absolute top-3 right-3 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg uppercase tracking-wide ${
-            badge === "SOLD OUT" ? "bg-red-500" : "bg-green-500"
-          }`}>
-            {badge}
-          </span>
+        {displayBadge && (
+          <div className="absolute top-3 right-3">
+            <FomoBadge
+              tier={fomoTier}
+              message={displayBadge}
+              timeMessage={fomoData?.time_message}
+              size="sm"
+            />
+          </div>
         )}
-      </div>
+      </Link>
       <CardContent className="p-6">
         <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
-          {badge === "SOLD OUT" && <span className="text-red-500 mr-2">SOLD OUT -</span>}
+          {isSoldOut && <span className="text-red-500 mr-2">SOLD OUT -</span>}
           {title}
         </h3>
         
