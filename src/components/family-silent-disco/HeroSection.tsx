@@ -75,7 +75,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 loading="eager"
               />
               {/* Family Fun Badge */}
-              <div className="absolute top-4 left-4">
+              <div className="absolute bottom-4 left-4">
                 <Badge className="bg-green-500 text-white border-0 text-sm px-3 py-1 shadow-lg">
                   👨‍👩‍👧‍👦 FAMILY FUN
                 </Badge>
