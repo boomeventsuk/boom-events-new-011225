@@ -2,6 +2,8 @@ import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { format } from 'date-fns';
+import { FomoBadge } from '@/components/FomoBadge';
+import { useEventFomoData } from '@/hooks/useEventFomoData';
 
 interface HeroSectionProps {
   event: {
@@ -17,6 +19,7 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
+  const { data: fomoData } = useEventFomoData(event.slug);
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
@@ -95,13 +98,22 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
             </div>
 
+            {fomoData?.fomo_tier && fomoData.fomo_message && (
+              <FomoBadge
+                tier={fomoData.fomo_tier}
+                message={fomoData.fomo_message}
+                timeMessage={fomoData.time_message}
+                size="lg"
+              />
+            )}
+
             <Button
               id="hero-book-button"
               size="lg"
               className="w-full md:w-auto text-lg px-8 py-6"
               onClick={handleBookClick}
             >
-              {event.isSoldOut ? 'JOIN WAITING LIST' : 'BOOK TICKETS'}
+              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : 'BOOK TICKETS'}
             </Button>
 
             <div className="pt-4 border-t border-border/30">
