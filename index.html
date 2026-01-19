@@ -19,10 +19,30 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('consent', 'revoke');
     fbq('init', '1947538679159165');
-    fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FE0H4X5BBS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      // Default to denied for GDPR compliance
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied'
+      });
+      
+      gtag('js', new Date());
+      gtag('config', 'G-FE0H4X5BBS', {
+        'anonymize_ip': true,
+        'cookie_flags': 'SameSite=None;Secure'
+      });
+    </script>
+    <!-- End Google Analytics 4 -->
 
     <!-- ===== Core document meta ===== -->
     <meta charset="utf-8">
@@ -73,9 +93,7 @@
     
     <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/ykfD1GMCLLWQjbmKQ8aXDz3kB4x2/social-images/social-1757495937584-Boom Crowd Web (1).jpg">
 
-    <!-- ===== GTM scaffold (safe placeholder until you have a real ID) ===== -->
-    <script>window.dataLayer = window.dataLayer || [];</script>
-    <!-- (When you have your GTM ID, you may replace the line above with the standard GTM head snippet.) -->
+    <!-- GTM dataLayer initialized in GA4 snippet above -->
 
     <!-- ===== Organization + Website JSON-LD ===== -->
     <script type="application/ld+json">
