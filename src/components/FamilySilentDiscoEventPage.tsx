@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import { HeroSection } from '@/components/family-silent-disco/HeroSection';
 import { DescriptionSection } from '@/components/family-silent-disco/DescriptionSection';
 import { ChannelsSection } from '@/components/silent-disco/ChannelsSection';
-import { WhyParentsLoveItSection } from '@/components/family-silent-disco/WhyParentsLoveItSection';
+import { HighlightsSection } from '@/components/2pm-club/HighlightsSection';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { FaqSection } from '@/components/family-silent-disco/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
@@ -146,7 +146,10 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
           
           <ChannelsSection channels={event.channels} />
           
-          <WhyParentsLoveItSection />
+          <HighlightsSection
+            highlights="🎧 Three Channels = No Compromise: Blue for little ones, Green for tweens/teens, Red for parents. Your 5-year-old gets Moana, your 12-year-old gets Sabrina Carpenter, you get Spice Girls. Nobody's compromising.|📈 Grows With Your Family: Kids switch channels as their tastes evolve. You don't 'age out' - as they outgrow Disney, they just flip channels. Same event works for years.|🎉 Parents Genuinely Have Fun: Unlike soft play where you're clock-watching, or kids' parties where you're scrolling your phone - you're actually on the dance floor losing it to Wannabe while they're loving their own music right next to you.|💚 Sensory-Smart & Confidence-Building: Individual volume control means it's comfortable for everyone. Your shy 7-year-old can sing at full volume without worrying. Everyone participates at their own comfort level."
+            sectionTitle="Why Parents Love Family Silent Disco"
+          />
           
           <CheckoutSection
             event={{
