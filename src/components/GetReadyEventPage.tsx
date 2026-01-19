@@ -146,7 +146,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
               promoCode: event.promoCode,
               isSoldOut: event.isSoldOut,
             }}
-            checkoutMessage="Grab your early bird tickets now - just £6 until 11th January! 👇"
+            checkoutMessage="🔥 Only 50 tickets left — £7.50 each — This Sunday 2pm-6pm!"
           />
           
           {!hiddenSections.includes('faq') && (

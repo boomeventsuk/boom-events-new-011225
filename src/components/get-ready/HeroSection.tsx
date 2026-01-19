@@ -98,9 +98,9 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-lg p-4">
-              <p className="text-amber-300 font-semibold text-lg">
-                🎫 Early Bird: Just £6 until 11th January!
+            <div className="bg-gradient-to-r from-red-500/20 to-amber-500/20 border border-red-500/40 rounded-lg p-4 animate-pulse">
+              <p className="text-red-300 font-bold text-lg">
+                🔥 LAST 50 TICKETS — Just £7.50 — This Sunday!
               </p>
             </div>
 
