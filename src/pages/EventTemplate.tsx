@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import EventPageSimple from "@/components/EventPageSimple";
 import TwoPmClubEventPage, { TwoPmClubEvent } from "@/components/TwoPmClubEventPage";
 import SilentDiscoEventPage, { SilentDiscoEvent, SilentDiscoChannel } from "@/components/SilentDiscoEventPage";
+import FamilySilentDiscoEventPage, { FamilySilentDiscoEvent } from "@/components/FamilySilentDiscoEventPage";
 import FootlooseEventPage, { FootlooseEvent } from "@/components/FootlooseEventPage";
 import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
@@ -35,6 +36,8 @@ interface EventData {
   hiddenSections?: string[];
   // Footloose 80s specific fields
   soundtrack?: string;
+  // Family Silent Disco specific
+  doorsTime?: string;
 }
 
 const EventTemplate = () => {
@@ -71,7 +74,8 @@ const EventTemplate = () => {
 
   // Smart template selection based on event type code
   const is2PMClubEvent = event.eventCode.includes('-2PM-');
-  const isSilentDiscoEvent = event.eventCode.includes('-SD-');
+  const isFamilySilentDiscoEvent = event.eventCode.includes('-FSD-');
+  const isSilentDiscoEvent = event.eventCode.includes('-SD-') && !isFamilySilentDiscoEvent;
   const isFootlooseEvent = event.eventCode.includes('-FL80-');
   const isGetReadyEvent = event.eventCode.includes('-GR-');
   
@@ -123,6 +127,32 @@ const EventTemplate = () => {
     return <FootlooseEventPage event={footlooseEvent} />;
   }
   
+  if (isFamilySilentDiscoEvent && event.channels) {
+    // Map EventData to FamilySilentDiscoEvent format
+    const familySDEvent: FamilySilentDiscoEvent = {
+      slug: event.eventCode.toLowerCase(),
+      eventbriteId: event.eventbriteId,
+      promoCode: event.promoCode,
+      isSoldOut: event.isSoldOut,
+      title: event.title,
+      subtitle: event.subtitle,
+      location: `${event.venue}, ${event.city}`,
+      city: event.city,
+      start: event.start || event.date,
+      end: event.end || event.date,
+      doorsTime: event.doorsTime,
+      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      image: event.image,
+      description: event.description,
+      fullDescription: event.fullDescription || event.description,
+      highlights: event.highlights || '',
+      channels: event.channels,
+      hiddenSections: event.hiddenSections,
+    };
+    
+    return <FamilySilentDiscoEventPage event={familySDEvent} />;
+  }
+
   if (isSilentDiscoEvent && event.channels) {
     // Map EventData to SilentDiscoEvent format
     const silentDiscoEvent: SilentDiscoEvent = {
