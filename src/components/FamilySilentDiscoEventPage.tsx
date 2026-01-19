@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import { HeroSection } from '@/components/family-silent-disco/HeroSection';
 import { DescriptionSection } from '@/components/family-silent-disco/DescriptionSection';
 import { ChannelsSection } from '@/components/silent-disco/ChannelsSection';
-import { HighlightsSection } from '@/components/2pm-club/HighlightsSection';
+import { WhyParentsLoveItSection } from '@/components/family-silent-disco/WhyParentsLoveItSection';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { FaqSection } from '@/components/family-silent-disco/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
@@ -146,12 +146,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
           
           <ChannelsSection channels={event.channels} />
           
-          {!hiddenSections.includes('highlights') && event.highlights && (
-            <HighlightsSection
-              highlights={event.highlights}
-              sectionTitle="Why Families Love It"
-            />
-          )}
+          <WhyParentsLoveItSection />
           
           <CheckoutSection
             event={{
