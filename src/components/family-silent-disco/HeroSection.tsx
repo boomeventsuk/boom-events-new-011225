@@ -62,12 +62,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   };
 
   return (
-    <section className="relative py-8 md:py-12 bg-gradient-to-b from-primary/20 to-background overflow-hidden">
+    <section className="relative py-10 md:py-16 overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Event Image */}
-          <div className="relative order-1 lg:order-2">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Event Image - LEFT on desktop */}
+          <div className="flex justify-center lg:justify-start">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 max-w-md w-full">
               <img
                 src={event.image}
                 alt={event.title}
@@ -93,8 +93,8 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
             </div>
           </div>
 
-          {/* Event Details */}
-          <div className="order-2 lg:order-1 text-center lg:text-left">
+          {/* Event Details - RIGHT on desktop */}
+          <div className="text-center lg:text-left">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight">
               {event.title}
             </h1>
