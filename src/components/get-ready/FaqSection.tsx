@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "Can I buy tickets on the door?",
-    answer: "We recommend booking in advance as these events often sell out. Early bird tickets are available at a discounted price until 11th January."
+    answer: "We recommend booking online now — only 50 tickets remain! Tickets are £7.50 each. This event often sells out completely."
   },
   {
     question: "Is the venue accessible?",
