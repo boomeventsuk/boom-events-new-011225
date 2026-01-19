@@ -128,10 +128,12 @@ async function queryNotionDatabase(notionApiKey: string, databaseId: string): Pr
     try {
       const props = page.properties;
       
-      // Extract event key (slug)
-      const eventKey = props["Event Key"]?.rich_text?.[0]?.plain_text || 
+      // Extract event key (slug) - normalize to use hyphens to match frontend
+      const rawEventKey = props["Event Key"]?.rich_text?.[0]?.plain_text || 
                        props["Slug"]?.rich_text?.[0]?.plain_text || 
                        page.id;
+      // Convert underscores to hyphens to match frontend event codes
+      const eventKey = rawEventKey.replace(/_/g, '-');
       
       // Extract event name
       const eventName = props["Event Name"]?.title?.[0]?.plain_text ||
