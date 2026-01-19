@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      events_fomo: {
+        Row: {
+          capacity: number | null
+          created_at: string | null
+          days_until_event: number | null
+          event_key: string
+          event_name: string | null
+          fomo_message: string | null
+          fomo_tier: string | null
+          id: string
+          is_sold_out: boolean | null
+          last_synced_at: string | null
+          percent_sold: number | null
+          status: string | null
+          tickets_remaining: number | null
+          time_message: string | null
+        }
+        Insert: {
+          capacity?: number | null
+          created_at?: string | null
+          days_until_event?: number | null
+          event_key: string
+          event_name?: string | null
+          fomo_message?: string | null
+          fomo_tier?: string | null
+          id?: string
+          is_sold_out?: boolean | null
+          last_synced_at?: string | null
+          percent_sold?: number | null
+          status?: string | null
+          tickets_remaining?: number | null
+          time_message?: string | null
+        }
+        Update: {
+          capacity?: number | null
+          created_at?: string | null
+          days_until_event?: number | null
+          event_key?: string
+          event_name?: string | null
+          fomo_message?: string | null
+          fomo_tier?: string | null
+          id?: string
+          is_sold_out?: boolean | null
+          last_synced_at?: string | null
+          percent_sold?: number | null
+          status?: string | null
+          tickets_remaining?: number | null
+          time_message?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
