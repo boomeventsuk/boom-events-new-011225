@@ -38,6 +38,8 @@ interface EventData {
   soundtrack?: string;
   // Family Silent Disco specific
   doorsTime?: string;
+  // GET READY specific
+  isAfternoon?: boolean;
 }
 
 const EventTemplate = () => {
@@ -98,6 +100,7 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       soundtrack: event.soundtrack,
       hiddenSections: event.hiddenSections,
+      isAfternoon: event.isAfternoon,
     };
     
     return <GetReadyEventPage event={getReadyEvent} />;

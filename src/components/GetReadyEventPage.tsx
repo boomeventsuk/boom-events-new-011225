@@ -29,6 +29,7 @@ export interface GetReadyEvent {
   highlights: string;
   soundtrack: string;
   hiddenSections?: string[];
+  isAfternoon?: boolean;
 }
 
 interface GetReadyEventPageProps {
@@ -40,9 +41,14 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
     trackEventPageView(event.slug, event.title);
   }, [event.slug, event.title]);
 
+  // Determine if this is an afternoon/daytime or evening event
+  const startHour = new Date(event.start).getHours();
+  const isAfternoon = event.isAfternoon ?? startHour < 18;
+
   const canonicalUrl = `https://boomevents.co.uk/event/${event.slug}/`;
   const pageTitle = `GET READY ${event.city} | 60s/70s Motown, Soul & Disco`;
-  const pageDescription = `${event.description} Book tickets for the ultimate 60s/70s afternoon at ${event.location}.`;
+  const timeOfDay = isAfternoon ? "afternoon" : "evening";
+  const pageDescription = `${event.description} Book tickets for the ultimate 60s/70s ${timeOfDay} at ${event.location}.`;
 
   // Structured data for SEO
   const eventSchema = {
@@ -119,6 +125,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
             image: event.image,
             city: event.city,
             isSoldOut: event.isSoldOut,
+            isAfternoon: isAfternoon,
           }} />
           
           <DescriptionSection event={{
@@ -146,11 +153,14 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
               promoCode: event.promoCode,
               isSoldOut: event.isSoldOut,
             }}
-            checkoutMessage="🔥 Only 50 tickets left — £7.50 each — This Sunday 2pm-6pm!"
+            checkoutMessage={isAfternoon 
+              ? "🔥 Only 50 tickets left — £7.50 each — This Sunday 2pm-6pm!"
+              : "🔥 Tickets from just £7 — Friday 8pm-Midnight!"
+            }
           />
           
           {!hiddenSections.includes('faq') && (
-            <FaqSection />
+            <FaqSection isAfternoon={isAfternoon} />
           )}
         </main>
         
