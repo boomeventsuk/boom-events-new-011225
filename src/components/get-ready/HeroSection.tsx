@@ -15,6 +15,7 @@ interface HeroSectionProps {
     image: string;
     city: string;
     isSoldOut?: boolean;
+    isAfternoon?: boolean;
   };
 }
 
@@ -23,6 +24,19 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
+  
+  // Determine if this is an afternoon or evening event
+  const startHour = startDate.getHours();
+  const isAfternoon = event.isAfternoon ?? startHour < 18;
+  
+  // Dynamic badge and tagline based on time of day
+  const badgeText = isAfternoon ? "AFTERNOON SPECIAL" : "SUMMER SPECIAL";
+  const tagline = isAfternoon 
+    ? "Banish those January blues with four hours of legendary floorfillers"
+    : "Summer's hottest night out — four hours of legendary floorfillers";
+  const fallbackFomoText = isAfternoon
+    ? "🔥 LAST 50 TICKETS — Just £7.50 — This Sunday!"
+    : "🔥 TICKETS FROM £7 — Book Now!";
   
   const shareUrl = `https://boomevents.co.uk/event/${event.slug}/`;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -61,7 +75,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
           {/* LEFT: Event Poster */}
           <div className="flex justify-center lg:justify-end relative">
             <div className="absolute -top-3 -right-3 md:right-8 bg-amber-500 text-black px-4 py-2 rounded-full text-sm font-bold z-10 shadow-lg">
-              SUNDAY MATINEE
+              {badgeText}
             </div>
             <img
               src={event.image}
@@ -82,7 +96,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 60s/70s MOTOWN, SOUL & DISCO
               </p>
               <p className="text-lg text-foreground/80">
-                Banish those January blues with four hours of legendary floorfillers
+                {tagline}
               </p>
             </div>
 
@@ -111,7 +125,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
             ) : (
               <div className="bg-gradient-to-r from-red-500/20 to-amber-500/20 border border-red-500/40 rounded-lg p-4 animate-pulse">
                 <p className="text-red-300 font-bold text-lg">
-                  🔥 LAST 50 TICKETS — Just £7.50 — This Sunday!
+                  {fallbackFomoText}
                 </p>
               </div>
             )}

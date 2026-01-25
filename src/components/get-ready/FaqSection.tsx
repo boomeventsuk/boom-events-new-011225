@@ -7,7 +7,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-const faqs = [
+interface FaqSectionProps {
+  isAfternoon?: boolean;
+}
+
+const getAfternoonFaqs = () => [
   {
     question: "What kind of music will be played?",
     answer: "Our DJs will play four hours of the biggest Motown, Soul and Disco floorfillers from the 60s and 70s. Think The Jackson 5, Stevie Wonder, Diana Ross, Chic, Sister Sledge, James Brown, The Four Tops, The Temptations and many more legends."
@@ -34,7 +38,36 @@ const faqs = [
   }
 ];
 
-export const FaqSection = () => {
+const getEveningFaqs = () => [
+  {
+    question: "What kind of music will be played?",
+    answer: "Our DJs will play four hours of the biggest Motown, Soul and Disco floorfillers from the 60s and 70s. Think The Jackson 5, Stevie Wonder, Diana Ross, Chic, Sister Sledge, James Brown, The Four Tops, The Temptations and many more legends."
+  },
+  {
+    question: "What time does it start and finish?",
+    answer: "GET READY Summer Special runs from 8pm to Midnight — the perfect Friday night out! Four hours of non-stop Motown, Soul and Disco."
+  },
+  {
+    question: "Is there a dress code?",
+    answer: "No strict dress code, but we love seeing 60s and 70s inspired outfits! Afros, flares, disco collars - or just come as you are. The most important thing is comfortable dancing shoes!"
+  },
+  {
+    question: "Can I buy tickets on the door?",
+    answer: "We recommend booking online to guarantee entry. Tickets start from just £7. Our events often sell out completely!"
+  },
+  {
+    question: "Is the venue accessible?",
+    answer: "The Picturedrome has step-free access and accessible facilities. Please contact the venue directly if you have specific accessibility requirements."
+  },
+  {
+    question: "Can I get a refund if I can't make it?",
+    answer: "Tickets are handled through Eventbrite. Please check Eventbrite's refund policy when booking, or contact us directly and we'll do our best to help."
+  }
+];
+
+export const FaqSection = ({ isAfternoon = true }: FaqSectionProps) => {
+  const faqs = isAfternoon ? getAfternoonFaqs() : getEveningFaqs();
+  
   return (
     <section className="py-10 md:py-14">
       <div className="container mx-auto px-4">
