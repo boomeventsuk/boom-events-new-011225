@@ -8,6 +8,8 @@ interface Event {
   subtitle?: string;
   date: string;
   timeDisplay: string;
+  start?: string;
+  end?: string;
   venue: string;
   city: string;
   image: string;
@@ -66,19 +68,26 @@ const Tickets = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {events.filter(event => !event.isHidden && !isEventPassed(event)).map((event) => (
-            <EventCard
-              key={event.eventCode}
-              title={event.title}
-              date={event.date}
-              venue={`${event.venue}, ${event.city}`}
-              time={event.timeDisplay}
-              poster={event.image}
-              eventCode={event.eventCode}
-              isoDate={extractIsoDate(event.eventCode)}
-              badge={event.isSoldOut ? "SOLD OUT" : undefined}
-            />
-          ))}
+          {events
+            .filter(event => !event.isHidden && !isEventPassed(event))
+            .sort((a, b) => {
+              const dateA = a.start ? new Date(a.start).getTime() : 0;
+              const dateB = b.start ? new Date(b.start).getTime() : 0;
+              return dateA - dateB;
+            })
+            .map((event) => (
+              <EventCard
+                key={event.eventCode}
+                title={event.title}
+                date={event.date}
+                venue={`${event.venue}, ${event.city}`}
+                time={event.timeDisplay}
+                poster={event.image}
+                eventCode={event.eventCode}
+                isoDate={extractIsoDate(event.eventCode)}
+                badge={event.isSoldOut ? "SOLD OUT" : undefined}
+              />
+            ))}
         </div>
       </div>
     </section>
