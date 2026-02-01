@@ -16,34 +16,21 @@
     "fullDescription": "Remember when music made you MOVE? When every song on the radio had that irresistible groove that got your feet tapping before you even knew it?\n\nGET READY takes you back to the golden era of Motown, Soul and Disco — four hours of the biggest floorfillers from the 60s and 70s. The songs that defined a generation, played loud, with people who feel exactly the same way.\n\nThis Sunday matinee is your antidote to the January blues. No dark nights, no late finishes — just pure, joyful dancing from 2pm to 6pm. Home in time for dinner, buzzing for the rest of the week.",
     "highlights": "🔥 Last 50 Tickets: Just £7.50 each — grab yours before they're gone!|☀️ This Sunday: 2pm-6pm — banish those January blues and be home for dinner. All the fun, none of the late-night fatigue|🎵 Legendary Floorfillers: The Jacksons, Stevie Wonder, Chic, Diana Ross, James Brown and more — every song a certified classic|🏆 Boombastic Quality: From the team that's been selling out events for 10+ years. We know how to throw a party",
     "soundtrack": "The Jacksons · Al Wilson · Stevie Wonder · The Four Tops · Rick James · Chic · Sister Sledge · The Temptations · James Brown · Diana Ross · The Supremes · The Marvelettes · Martha Reeves · Ray Charles · Aretha Franklin · Marvin Gaye",
-    "isAfternoon": true
-  },
-  {
-    "eventCode": "260626-GR-NPTON",
-    "title": "GET READY - Summer Special",
-    "subtitle": "60s/70s Motown, Soul & Disco",
-    "date": "Friday, 26 June 2026",
-    "timeDisplay": "20:00 – 00:00",
-    "start": "2026-06-26T20:00:00",
-    "end": "2026-06-27T00:00:00",
-    "venue": "The Picturedrome",
-    "city": "Northampton",
-    "image": "https://boombastic-events.b-cdn.net/260626-GR-NPTON/260626-GR-NPTON%20ANNSQ.jpg",
-    "description": "GET READY Northampton — Summer Special featuring the biggest 60s/70s Motown, Soul & Disco hits! Tickets from £7.",
-    "eventbriteId": "1981517770994",
-    "isSoldOut": false,
-    "fullDescription": "Join us for a Summer special of GET READY featuring the BIGGEST hits of 60s/70s Motown, Soul and Disco! 🪩\n\nOur popular sell-out event is back! Come and join us at the Picturedrome, where we'll have a night of 1960s and 70s Motown, Soul and Disco hits!",
-    "highlights": "🪩 Summer Special: The perfect Friday night out — 8pm to Midnight!|🎵 Legendary Floorfillers: The Jacksons, Stevie Wonder, Chic, Diana Ross, James Brown and more|🎟 Tickets From £7: Great value for four hours of the biggest hits|🏆 Boombastic Quality: From the team that's been selling out events for 10+ years",
-    "soundtrack": "The Jacksons · Al Wilson · Stevie Wonder · The Four Tops · Rick James · Chic · Sister Sledge · The Temptations · James Brown · Diana Ross · The Supremes · The Marvelettes · Martha Reeves and the Vandellas · Ray Charles",
-    "hiddenSections": ["video", "gallery", "testimonials"],
-    "isAfternoon": false
+    "isAfternoon": true,
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
   },
   {
     "eventCode": "070226-2PM-LUT",
-    "title": "THE 2PM CLUB Luton",
+    "title": "THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco",
     "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
     "date": "Saturday, 7 February 2026",
     "timeDisplay": "14:00 – 18:00",
+    "start": "2026-02-07T14:00:00",
+    "end": "2026-02-07T18:00:00",
     "venue": "Hat Factory",
     "city": "Luton",
     "image": "https://boombastic-events.b-cdn.net/070226_2PM_LUT/070226_2PM_LUT_ANNSQ_deq25f.jpg",
@@ -51,7 +38,12 @@
     "eventbriteId": "1645025849599",
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
-    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
+    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
+    "fomoOverride": {
+      "tier": "critical",
+      "message": "LAST 25 TICKETS!",
+      "timeMessage": "THIS SATURDAY!"
+    }
   },
   {
     "eventCode": "140226-2PM-BED",
@@ -59,6 +51,8 @@
     "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
     "date": "Saturday, 14 February 2026",
     "timeDisplay": "14:00 – 18:00",
+    "start": "2026-02-14T14:00:00",
+    "end": "2026-02-14T18:00:00",
     "venue": "Bedford Esquires",
     "city": "Bedford",
     "image": "https://boombastic-events.b-cdn.net/140226_2PM_BED/140226_2PM_BED_ANNSQ.jpg",
@@ -66,7 +60,12 @@
     "eventbriteId": "1975982183904",
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
-    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
+    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
+    "fomoOverride": {
+      "tier": "urgent",
+      "message": "LAST 50 TICKETS!",
+      "timeMessage": "2 WEEKS TO GO!"
+    }
   },
   {
     "eventCode": "280226-2PM-NPTON",
@@ -74,6 +73,8 @@
     "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
     "date": "Saturday, 28 February 2026",
     "timeDisplay": "14:00 – 18:00",
+    "start": "2026-02-28T14:00:00",
+    "end": "2026-02-28T18:00:00",
     "venue": "The Picturedrome",
     "city": "Northampton",
     "image": "https://boombastic-events.b-cdn.net/280226_2PM_NPTON/280226_2PM_NPTON_ANNSQ_kvwa0w.jpg",
@@ -89,6 +90,8 @@
     "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
     "date": "Saturday, 7 March 2026",
     "timeDisplay": "14:00 – 18:00",
+    "start": "2026-03-07T14:00:00",
+    "end": "2026-03-07T18:00:00",
     "venue": "hmv Empire",
     "city": "Coventry",
     "image": "https://boombastic-events.b-cdn.net/070326_2PM_COV/070326_2PM_COV_ANNSQ.jpg",
@@ -96,7 +99,12 @@
     "eventbriteId": "1975984192913",
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
-    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
+    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
   },
   {
     "eventCode": "140326-2PM-MK",
@@ -113,7 +121,12 @@
     "eventbriteId": "1975983454705",
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
-    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
+    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
   },
   {
     "eventCode": "210326-FSD-NPTON",
@@ -152,7 +165,12 @@
         "description": "Recent (Clean) Chart and Trending Hits"
       }
     ],
-    "hiddenSections": ["video", "gallery", "testimonials"]
+    "hiddenSections": ["video", "gallery", "testimonials"],
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
   },
   {
     "eventCode": "210326-FL80-NPTON",
@@ -171,7 +189,12 @@
     "fullDescription": "Remember pressing record on your tape deck during the Top of the Pops countdown? Blasting Madonna's \"Like a Prayer\" through your headphones? Belting out Bon Jovi in your first car?\n\nFOOTLOOSE 80s is your ticket back to those moments - four hours of non-stop anthems from the greatest decade in music. The songs you know every word to, played loud, with people who feel exactly the same way.\n\nThis isn't just any 80s night. This is the real deal - a proper party where the dancefloor is full, the singalongs are epic, and the vibe is electric.",
     "highlights": "🎧 Wall-to-wall 80s anthems: Four hours, no filler - just hit after hit|📺 Giant screens: Authentic 80s videos - cheer when your favourites appear|🎉 Confetti & inflatables: Let loose with confetti cannons and inflatable mic moments|🕺 Dress your way: Bright, bold or casual - come as you like, but be ready to dance",
     "soundtrack": "Madonna · Queen · Wham! · Bon Jovi · Whitney Houston · A-ha · Duran Duran · Michael Jackson · Cyndi Lauper · Prince · Eurythmics · Rick Astley · Spandau Ballet · Depeche Mode · Def Leppard · The Human League · Culture Club · Tears For Fears · Simple Minds",
-    "hiddenSections": ["video", "gallery"]
+    "hiddenSections": ["video", "gallery"],
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
   },
   {
     "eventCode": "280326-FL80-BED",
@@ -190,7 +213,12 @@
     "fullDescription": "Remember pressing record on your tape deck during the Top of the Pops countdown? Blasting Madonna's \"Like a Prayer\" through your headphones? Belting out Bon Jovi in your first car?\n\nFOOTLOOSE 80s is your ticket back to those moments - four hours of non-stop anthems from the greatest decade in music. The songs you know every word to, played loud, with people who feel exactly the same way.\n\nThis isn't just any 80s night. This is the real deal - a proper party where the dancefloor is full, the singalongs are epic, and the vibe is electric.",
     "highlights": "🎧 Wall-to-wall 80s anthems: Four hours, no filler - just hit after hit|📺 Giant screens: Authentic 80s videos - cheer when your favourites appear|🎉 Confetti & inflatables: Let loose with confetti cannons and inflatable mic moments|🕺 Dress your way: Bright, bold or casual - come as you like, but be ready to dance",
     "soundtrack": "Madonna · Queen · Wham! · Bon Jovi · Whitney Houston · A-ha · Duran Duran · Michael Jackson · Cyndi Lauper · Prince · Eurythmics · Rick Astley · Spandau Ballet · Depeche Mode · Def Leppard · The Human League · Culture Club · Tears For Fears · Simple Minds",
-    "hiddenSections": ["video", "gallery"]
+    "hiddenSections": ["video", "gallery"],
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
   },
   {
     "eventCode": "250426-SD-NPTON",
@@ -231,6 +259,58 @@
         "artists": "Calvin Harris, Faithless, Robin S, Disclosure & more 🔊",
         "description": "Pure dancefloor energy. House, dance and club classics to keep you moving all night."
       }
-    ]
+    ],
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
+  },
+  {
+    "eventCode": "060626-2PM-NPTON",
+    "title": "THE 2PM CLUB Northampton — 80s 90s 00s Daytime Disco",
+    "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
+    "date": "Saturday, 6 June 2026",
+    "timeDisplay": "09:00 – 13:00",
+    "start": "2026-06-06T09:00:00",
+    "end": "2026-06-06T13:00:00",
+    "venue": "Cinch Stadium (Franklin's Gardens)",
+    "city": "Northampton",
+    "image": "https://boombastic-events.b-cdn.net/060626_2PM_NPTON/280226_2PM_NPTON_060626_2PM_NPTON%20ANNSQ.jpg",
+    "description": "THE 2PM CLUB Northampton — 4 hours of iconic 80s, 90s & 00s anthems at Franklin's Gardens. All the fun of a proper night out!",
+    "eventbriteId": "PLACEHOLDER",
+    "isSoldOut": false,
+    "fullDescription": "LET YOUR HAIR DOWN. WITHOUT THE NEXT-DAY REGRETS ✨\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nWe've found the way to make that happen once more!\n\nAfter our sellout visit in October, we're back at the home of Northampton Saints for an afternoon of iconic 80s 90s and 00s anthems!\n\n4 hours of the biggest hairbrush hits and sing-alongs, with night out energy, confetti moments, and a room full of people who know every word too.",
+    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall classics from Wham! to Whitney, Bon Jovi to Beyoncé. You WILL do the moves. You WILL lose your voice. You WILL text each other about it for weeks.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team. Club-level production, massive screens, dazzling lights, and confetti explosions - just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 FINALLY, A PLAN NOBODY BAILS ON: This is the plan that will escape the group chat. Four hours where everyone actually makes it - no babysitter dramas, no late-night worries. Adulting can wait.|😎 ALL THE FUN. STILL BUZZING BY WEDNESDAY: Last time, you walked out saying \"Let's do it again!\" This is the time to do it. This is your plan.|🏆 TRUST THE LEGACY: Created by Boombastic Events - 10+ years of consistent sell-outs across the Midlands, including previous smash-hit events right here at Franklin's Gardens.",
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
+  },
+  {
+    "eventCode": "260626-GR-NPTON",
+    "title": "GET READY - Summer Special",
+    "subtitle": "60s/70s Motown, Soul & Disco",
+    "date": "Friday, 26 June 2026",
+    "timeDisplay": "20:00 – 00:00",
+    "start": "2026-06-26T20:00:00",
+    "end": "2026-06-27T00:00:00",
+    "venue": "The Picturedrome",
+    "city": "Northampton",
+    "image": "https://boombastic-events.b-cdn.net/260626-GR-NPTON/260626-GR-NPTON%20ANNSQ.jpg",
+    "description": "GET READY Northampton — Summer Special featuring the biggest 60s/70s Motown, Soul & Disco hits! Tickets from £7.",
+    "eventbriteId": "1981517770994",
+    "isSoldOut": false,
+    "fullDescription": "Join us for a Summer special of GET READY featuring the BIGGEST hits of 60s/70s Motown, Soul and Disco! 🪩\n\nOur popular sell-out event is back! Come and join us at the Picturedrome, where we'll have a night of 1960s and 70s Motown, Soul and Disco hits!",
+    "highlights": "🪩 Summer Special: The perfect Friday night out — 8pm to Midnight!|🎵 Legendary Floorfillers: The Jacksons, Stevie Wonder, Chic, Diana Ross, James Brown and more|🎟 Tickets From £7: Great value for four hours of the biggest hits|🏆 Boombastic Quality: From the team that's been selling out events for 10+ years",
+    "soundtrack": "The Jacksons · Al Wilson · Stevie Wonder · The Four Tops · Rick James · Chic · Sister Sledge · The Temptations · James Brown · Diana Ross · The Supremes · The Marvelettes · Martha Reeves and the Vandellas · Ray Charles",
+    "hiddenSections": ["video", "gallery", "testimonials"],
+    "isAfternoon": false,
+    "fomoOverride": {
+      "tier": "selling_fast",
+      "message": "SELLING FAST!",
+      "timeMessage": null
+    }
   }
 ]
