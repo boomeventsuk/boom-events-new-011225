@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { EventCard } from './EventCard';
 import { isEventPassed } from '@/lib/eventUtils';
 
+interface FomoOverride {
+  tier: string;
+  message: string;
+  timeMessage?: string | null;
+}
+
 interface Event {
   eventCode: string;
   title: string;
@@ -19,6 +25,7 @@ interface Event {
   isHidden?: boolean;
   fullDescription?: string;
   highlights?: string[];
+  fomoOverride?: FomoOverride;
 }
 
 const isChristmasDay = () => {
@@ -86,6 +93,7 @@ const Tickets = () => {
                 eventCode={event.eventCode}
                 isoDate={extractIsoDate(event.eventCode)}
                 badge={event.isSoldOut ? "SOLD OUT" : undefined}
+                fomoOverride={event.fomoOverride}
               />
             ))}
         </div>

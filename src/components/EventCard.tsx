@@ -8,6 +8,12 @@ const isChristmasDay = () => {
   const today = new Date();
   return today.getMonth() === 11 && today.getDate() === 25;
 };
+export interface FomoOverride {
+  tier: string;
+  message: string;
+  timeMessage?: string | null;
+}
+
 export interface EventCardProps {
   title: string;
   date: string;
@@ -18,6 +24,7 @@ export interface EventCardProps {
   isoDate: string;
   badge?: string;
   buttonText?: string;
+  fomoOverride?: FomoOverride;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
@@ -30,13 +37,15 @@ export const EventCard: React.FC<EventCardProps> = ({
   isoDate,
   badge,
   buttonText,
+  fomoOverride,
 }) => {
   const { data: fomoData } = useEventFomoData(eventCode);
   const isSoldOut = fomoData?.is_sold_out || badge === "SOLD OUT";
   
-  // Use FOMO data if available, otherwise fallback to static badge
-  const displayBadge = fomoData?.fomo_message || badge;
-  const fomoTier = fomoData?.fomo_tier || (badge === "SOLD OUT" ? "sold_out" : "on_sale");
+  // Priority: fomoOverride (from JSON) > fomoData (from database) > static badge
+  const displayBadge = fomoOverride?.message || fomoData?.fomo_message || badge;
+  const fomoTier = fomoOverride?.tier || fomoData?.fomo_tier || (badge === "SOLD OUT" ? "sold_out" : "on_sale");
+  const timeMessage = fomoOverride?.timeMessage || fomoData?.time_message;
   
   const handleBookNow = () => {
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
@@ -68,7 +77,7 @@ export const EventCard: React.FC<EventCardProps> = ({
             <FomoBadge
               tier={fomoTier}
               message={displayBadge}
-              timeMessage={fomoData?.time_message}
+              timeMessage={timeMessage}
               size="sm"
             />
           </div>
