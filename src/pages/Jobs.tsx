@@ -47,8 +47,11 @@ const Jobs = () => {
             <h2 className="text-2xl md:text-3xl font-bebas text-primary mb-2">
               Event Assistant
             </h2>
-            <p className="text-muted-foreground font-poppins">
+            <p className="text-muted-foreground font-poppins mb-2">
               £15/hour | Weekends | Northampton, Bedford, Milton Keynes, Coventry & beyond
+            </p>
+            <p className="text-muted-foreground font-poppins">
+              No experience needed. No kit needed. We'll give you full training.
             </p>
           </section>
 
@@ -74,7 +77,7 @@ const Jobs = () => {
                 We run events a couple of times a month, sometimes more. A mix of daytime and evening events. We'll be flexible where we can, but we need people we can count on.
               </p>
               <p>
-                No experience needed. No kit needed. We'll give you full training. Just bring energy, initiative, and the instinct to know when to hit record.
+                Just bring energy, initiative, and the instinct to know when to hit record.
               </p>
             </div>
           </section>
