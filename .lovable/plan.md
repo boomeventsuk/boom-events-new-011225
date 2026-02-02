@@ -1,142 +1,115 @@
 
 
-## Plan: FOMO Badges, Title Fixes & New Northampton Event
+## Plan: Create "Work With Us" Jobs Page
 
-### Understanding the Current System
+### Overview
 
-The FOMO badge data comes from two sources:
-1. **Database (`events_fomo`)** - synced from Notion (currently shows "NOW ON SALE" for everything because Notion says full capacity)
-2. **Static `badge` prop** in JSON - used as fallback when no FOMO data exists
-
-Since the dynamic system isn't reflecting your actual ticket sales, I'll add manual override fields to the JSON that take precedence over the database data.
+Create a new `/jobs` page that matches the existing site styling (dark background, Poppins/Bebas typography, card sections with borders) and add a link to it in the Footer.
 
 ---
 
-### 1. Fix Luton Title
-**File:** `public/events-boombastic.json`
+### Files to Create/Update
 
-Current:
-```
-"title": "THE 2PM CLUB Luton"
-```
-
-Change to:
-```
-"title": "THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco"
-```
-
----
-
-### 2. Add Manual FOMO Override Fields to JSON
-
-Add new `fomoOverride` objects to relevant events that will take priority over database FOMO data:
-
-**Luton (This Saturday - 25 tickets left):**
-```json
-"fomoOverride": {
-  "tier": "critical",
-  "message": "LAST 25 TICKETS!",
-  "timeMessage": "THIS SATURDAY!"
-}
-```
-
-**Bedford (2 weeks - 50 tickets left):**
-```json
-"fomoOverride": {
-  "tier": "urgent", 
-  "message": "LAST 50 TICKETS!",
-  "timeMessage": "2 WEEKS TO GO!"
-}
-```
-
-**Coventry, Milton Keynes & other events:**
-```json
-"fomoOverride": {
-  "tier": "selling_fast",
-  "message": "SELLING FAST!",
-  "timeMessage": null
-}
-```
-
----
-
-### 3. Update EventCard to Respect JSON Overrides
-**File:** `src/components/EventCard.tsx`
-
-Add logic to check for `fomoOverride` from the event data and use it instead of database FOMO when present.
-
----
-
-### 4. Update Tickets Component to Pass Override
-**File:** `src/components/Tickets.tsx`
-
-Pass the `fomoOverride` data from JSON to `EventCard`.
-
----
-
-### 5. Add New June 2026 Northampton Event
-**File:** `public/events-boombastic.json`
-
-Based on the external site content:
-
-```json
-{
-  "eventCode": "060626-2PM-NPTON",
-  "title": "THE 2PM CLUB Northampton — 80s 90s 00s Daytime Disco",
-  "subtitle": "Your best night out, right in the middle of the afternoon...",
-  "date": "Saturday, 6 June 2026",
-  "timeDisplay": "09:00 – 13:00",
-  "start": "2026-06-06T09:00:00",
-  "end": "2026-06-06T13:00:00",
-  "venue": "Cinch Stadium (Franklin's Gardens)",
-  "city": "Northampton",
-  "image": "https://boombastic-events.b-cdn.net/060626_2PM_NPTON/280226_2PM_NPTON_060626_2PM_NPTON%20ANNSQ.jpg",
-  "description": "THE 2PM CLUB Northampton — 4 hours of iconic 80s, 90s & 00s anthems at Franklin's Gardens!",
-  "eventbriteId": "1234567890123",
-  "fullDescription": "...",
-  "highlights": "...",
-  "fomoOverride": {
-    "tier": "selling_fast",
-    "message": "SELLING FAST!",
-    "timeMessage": null
-  }
-}
-```
-
----
-
-### 6. Update Sitemap
-**File:** `public/sitemap.xml`
-
-Add the new event URL.
-
----
-
-### Summary of Changes
-
-| File | Change |
+| File | Action |
 |------|--------|
-| `public/events-boombastic.json` | Fix Luton title, add `fomoOverride` fields to all events, add new June 2026 Northampton event |
-| `src/components/EventCard.tsx` | Accept and prioritise `fomoOverride` data from props |
-| `src/components/Tickets.tsx` | Pass `fomoOverride` from event data to EventCard |
-| `public/sitemap.xml` | Add new event URL |
+| `src/pages/Jobs.tsx` | **Create** - New jobs page component |
+| `src/App.tsx` | **Update** - Add route for `/jobs` |
+| `src/components/Footer.tsx` | **Update** - Add "Work With Us" link |
+| `public/sitemap.xml` | **Update** - Add jobs page URL |
 
 ---
 
-### Visual Result
+### 1. Create Jobs Page (`src/pages/Jobs.tsx`)
 
-| Event | Badge | Time Badge |
-|-------|-------|------------|
-| Luton (7 Feb) | 🔴 LAST 25 TICKETS! (pulsing red) | THIS SATURDAY! |
-| Bedford (14 Feb) | 🟠 LAST 50 TICKETS! (amber) | 2 WEEKS TO GO! |
-| Coventry (7 Mar) | 🟡 SELLING FAST! | — |
-| Milton Keynes (14 Mar) | 🟡 SELLING FAST! | — |
-| Other events | 🟡 SELLING FAST! | — |
+Following the Privacy page pattern with:
+- Back navigation link to homepage
+- Hero section with headline and subheadline
+- Card-style content sections with dark backgrounds and borders
+- CTA button at the bottom
+
+**Structure:**
+```text
++------------------------------------------+
+|  ← Back to Events                        |
++------------------------------------------+
+|                                          |
+|         WORK WITH US                     |
+|  Be part of the Midlands' favourite      |
+|         daytime disco.                   |
+|                                          |
++------------------------------------------+
+|  [Card: Event Assistant role]            |
+|  - £15/hour | Weekends                   |
+|  - What you'll do section                |
+|  - Who we're looking for section         |
+|  - Availability info                     |
+|  - "This isn't for everyone" section     |
++------------------------------------------+
+|                                          |
+|    [Get In Touch Button]                 |
+|    mailto:hello@boomevents.co.uk         |
+|    ?subject=Event%20Assistant%20Role     |
+|                                          |
++------------------------------------------+
+```
+
+**Styling:**
+- Dark gradient background (`bg-gradient-to-br from-background via-background to-primary/5`)
+- Bebas font for headings (`font-bebas`)
+- Poppins font for body text (`font-poppins`)
+- Card sections with `bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border`
+- Primary colour accents for highlights
 
 ---
 
-### Technical Notes
+### 2. Update App.tsx
 
-- **Why override instead of fixing Notion?** This gives you immediate control without waiting for the Notion sync cron job. You can update urgency messaging instantly.
-- **Eventbrite ID needed:** The external site's Eventbrite ID wasn't visible in the scraped content. I'll need you to provide the Eventbrite ID for the June 6th event, or I can use a placeholder.
+Add the new route before the catch-all:
+```tsx
+import Jobs from "./pages/Jobs";
+// ...
+<Route path="/jobs" element={<Jobs />} />
+```
+
+---
+
+### 3. Update Footer
+
+Add "Work With Us" link to the Legal Links section:
+```tsx
+<Link to="/jobs" className="...">Work With Us</Link>
+<span className="text-muted-foreground">|</span>
+```
+
+---
+
+### 4. Update Sitemap
+
+Add the new page URL:
+```xml
+<url><loc>https://boomevents.co.uk/jobs/</loc></url>
+```
+
+---
+
+### Content Sections
+
+The job listing will be broken into clear, scannable sections:
+
+1. **Role Header** - "Event Assistant | £15/hour | Weekends"
+2. **Introduction** - Brief overview paragraph
+3. **What You'll Do** - Bullet points or structured list
+4. **Who We're Looking For** - Personality traits and requirements
+5. **Location & Availability** - Practical details
+6. **"This Isn't For Everyone"** - Final qualifying statement
+7. **CTA Button** - "Get In Touch" with mailto link
+
+---
+
+### Mobile Considerations
+
+- Responsive typography (smaller headings on mobile)
+- Full-width sections with appropriate padding
+- Touch-friendly CTA button size
+- Readable line lengths for body text
 
