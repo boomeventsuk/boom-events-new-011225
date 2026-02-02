@@ -27,7 +27,7 @@ const Jobs = () => {
           <h1 className="text-5xl md:text-7xl font-bebas text-foreground mb-4 tracking-wider">
             WORK WITH US
           </h1>
-          <p className="text-xl text-primary font-poppins mb-8">Be part of the Midlands' favourite daytime disco.</p>
+          <p className="text-xl text-primary font-poppins mb-8">Be part of the Boombastic Events team.</p>
           
           {/* Hero Image */}
           <div className="relative rounded-xl overflow-hidden mb-8">
