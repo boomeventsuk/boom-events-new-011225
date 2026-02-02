@@ -44,11 +44,11 @@ const Jobs = () => {
         <div className="space-y-8">
           {/* Role Header */}
           <section className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border">
-            <h2 className="text-2xl md:text-3xl font-bebas text-primary mb-4">
-              Event Assistant | £15/hour | Weekends
+            <h2 className="text-2xl md:text-3xl font-bebas text-primary mb-2">
+              Event Assistant
             </h2>
-            <p className="text-muted-foreground leading-relaxed font-poppins">
-              We need a couple of people to join us at events across Northampton, Bedford, Milton Keynes, Coventry and beyond.
+            <p className="text-muted-foreground font-poppins">
+              £15/hour | Weekends | Northampton, Bedford, Milton Keynes, Coventry & beyond
             </p>
           </section>
 
@@ -63,23 +63,18 @@ const Jobs = () => {
           {/* Who We're Looking For */}
           <section className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border">
             <h2 className="text-2xl md:text-3xl font-bebas text-primary mb-4">Who We're Looking For</h2>
-            <p className="text-muted-foreground leading-relaxed font-poppins">
-              Someone confident and bubbly who doesn't need to be told what to do. You see something that needs doing, you do it. You've got an eye for the moment worth capturing. You're the kind of person strangers open up to. You'd rather be in the thick of it than watching from the side.
-            </p>
-          </section>
-
-          {/* Location & Availability */}
-          <section className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border">
-            <h2 className="text-2xl md:text-3xl font-bebas text-primary mb-4">Location & Availability</h2>
-            <div className="text-muted-foreground leading-relaxed space-y-3 font-poppins">
+            <div className="text-muted-foreground leading-relaxed space-y-4 font-poppins">
+              <p>
+                Someone confident and bubbly who doesn't need to be told what to do. You see something that needs doing, you do it. You've got an eye for the moment worth capturing. You're the kind of person strangers open up to. You'd rather be in the thick of it than watching from the side.
+              </p>
               <p>
                 You'll need to be based in or around Northampton, or able to get yourself to events. Our DJs usually head out from Northampton, so you can travel with them if that works better.
               </p>
               <p>
-                We run events most weekends. You don't need to be available for all of them. Just let us know which ones work for you.
+                We run events a couple of times a month, sometimes more. A mix of daytime and evening events. We'll be flexible where we can, but we need people we can count on.
               </p>
               <p>
-                No experience needed. No kit needed. Just energy, initiative, and the instinct to know when to hit record.
+                No experience needed. No kit needed. We'll give you full training. Just bring energy, initiative, and the instinct to know when to hit record.
               </p>
             </div>
           </section>
