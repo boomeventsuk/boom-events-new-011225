@@ -131,7 +131,7 @@ const Jobs = () => {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-8 border border-primary/20">
             <h2 className="text-3xl md:text-4xl font-bebas text-foreground mb-4">Ready to Join Us?</h2>
-            <p className="text-muted-foreground mb-6 font-poppins">Drop us an email and tell us a bit about yourself.</p>
+            <p className="text-muted-foreground mb-6 font-poppins">Drop us an email and tell us why you'd be brilliant at this.</p>
             <a 
               href="mailto:hello@boomevents.co.uk?subject=Event%20Assistant%20Role"
               className="inline-block bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg transition-colors font-poppins"
