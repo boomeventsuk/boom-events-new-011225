@@ -18,9 +18,10 @@ export default {
 			}
 		},
 		extend: {
-			fontFamily: {
-				'poppins': ['Poppins', 'sans-serif'],
-			},
+		fontFamily: {
+			'poppins': ['Poppins', 'sans-serif'],
+			'bebas': ['Bebas Neue', 'cursive'],
+		},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
