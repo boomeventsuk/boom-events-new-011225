@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Jobs from "./pages/Jobs";
 import TicketsRedirect from "./components/TicketsRedirect";
 import EventTemplate from "./pages/EventTemplate";
 import CookieConsent from "./components/CookieConsent";
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/tickets" element={<TicketsRedirect />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/jobs" element={<Jobs />} />
           <Route path="/event/:eventCode" element={<EventTemplate />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

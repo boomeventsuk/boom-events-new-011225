@@ -65,6 +65,13 @@ const Footer = () => {
             >
               Terms & Conditions
             </Link>
+            <span className="text-muted-foreground">|</span>
+            <Link 
+              to="/jobs"
+              className="font-poppins text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Work With Us
+            </Link>
           </div>
           
           {/* Copyright */}
