@@ -91,6 +91,17 @@ const Jobs = () => {
               If you need a lot of direction or prefer to blend into the background, this isn't your thing. But if you want to be part of something that sells out, surrounded by people having the time of their lives, we want to hear from you.
             </p>
           </section>
+
+          {/* Primary CTA - Before Gallery */}
+          <div className="mt-10 text-center">
+            <a 
+              href="mailto:hello@boomevents.co.uk?subject=Event%20Assistant%20Role"
+              className="inline-block bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg transition-colors font-poppins text-lg"
+            >
+              Get In Touch
+            </a>
+            <p className="text-muted-foreground mt-3 text-sm font-poppins">Or scroll down to see what you'd be part of</p>
+          </div>
         </div>
       </main>
 
