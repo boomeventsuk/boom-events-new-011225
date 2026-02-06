@@ -1,115 +1,50 @@
 
+# Add 2PM Club Luton Event — May 23, 2026
 
-## Plan: Create "Work With Us" Jobs Page
-
-### Overview
-
-Create a new `/jobs` page that matches the existing site styling (dark background, Poppins/Bebas typography, card sections with borders) and add a link to it in the Footer.
+## Summary
+Add a new 2PM Club daytime disco event for Luton on Saturday, May 23, 2026, at The Hat Factory. The event will use the existing `TwoPmClubEventPage` template which automatically routes based on the `-2PM-` slug pattern.
 
 ---
 
-### Files to Create/Update
+## Event Details
 
-| File | Action |
-|------|--------|
-| `src/pages/Jobs.tsx` | **Create** - New jobs page component |
-| `src/App.tsx` | **Update** - Add route for `/jobs` |
-| `src/components/Footer.tsx` | **Update** - Add "Work With Us" link |
-| `public/sitemap.xml` | **Update** - Add jobs page URL |
+| Field | Value |
+|-------|-------|
+| Event Code | `230526-2PM-LUT` |
+| Title | THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco |
+| Date | Saturday, 23 May 2026 |
+| Time | 14:00 – 18:00 |
+| Venue | Hat Factory, Luton |
+| Eventbrite ID | 1982497843417 |
+| Image | `https://boombastic-events.b-cdn.net/230526-2PM-LUT/230526-2PM-LUT-060626_2PM_NPTON%20ANNSQ.jpg` |
 
 ---
 
-### 1. Create Jobs Page (`src/pages/Jobs.tsx`)
+## Implementation Steps
 
-Following the Privacy page pattern with:
-- Back navigation link to homepage
-- Hero section with headline and subheadline
-- Card-style content sections with dark backgrounds and borders
-- CTA button at the bottom
+### 1. Update `public/events-boombastic.json`
+Add a new event entry following the existing 2PM Club format (matching the structure of `070226-2PM-LUT`):
+- Standard 2PM Club title, subtitle, description, and fullDescription
+- Highlights using the established 5-point emoji format
+- ISO 8601 date/time strings for start and end
 
-**Structure:**
-```text
-+------------------------------------------+
-|  ← Back to Events                        |
-+------------------------------------------+
-|                                          |
-|         WORK WITH US                     |
-|  Be part of the Midlands' favourite      |
-|         daytime disco.                   |
-|                                          |
-+------------------------------------------+
-|  [Card: Event Assistant role]            |
-|  - £15/hour | Weekends                   |
-|  - What you'll do section                |
-|  - Who we're looking for section         |
-|  - Availability info                     |
-|  - "This isn't for everyone" section     |
-+------------------------------------------+
-|                                          |
-|    [Get In Touch Button]                 |
-|    mailto:hello@boomevents.co.uk         |
-|    ?subject=Event%20Assistant%20Role     |
-|                                          |
-+------------------------------------------+
+### 2. Update `public/sitemap.xml`
+Add the new event URL for SEO:
 ```
-
-**Styling:**
-- Dark gradient background (`bg-gradient-to-br from-background via-background to-primary/5`)
-- Bebas font for headings (`font-bebas`)
-- Poppins font for body text (`font-poppins`)
-- Card sections with `bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border`
-- Primary colour accents for highlights
-
----
-
-### 2. Update App.tsx
-
-Add the new route before the catch-all:
-```tsx
-import Jobs from "./pages/Jobs";
-// ...
-<Route path="/jobs" element={<Jobs />} />
+https://boomevents.co.uk/event/230526-2PM-LUT
 ```
 
 ---
 
-### 3. Update Footer
-
-Add "Work With Us" link to the Legal Links section:
-```tsx
-<Link to="/jobs" className="...">Work With Us</Link>
-<span className="text-muted-foreground">|</span>
-```
+## No Code Changes Required
+The routing already handles this automatically:
+- `EventTemplate.tsx` detects `-2PM-` in the slug
+- Routes to `TwoPmClubEventPage` component
+- Renders all sections (Hero, Description, Video, Highlights, Gallery, Testimonials, Checkout, FAQ, Sticky CTA)
 
 ---
 
-### 4. Update Sitemap
-
-Add the new page URL:
-```xml
-<url><loc>https://boomevents.co.uk/jobs/</loc></url>
-```
-
----
-
-### Content Sections
-
-The job listing will be broken into clear, scannable sections:
-
-1. **Role Header** - "Event Assistant | £15/hour | Weekends"
-2. **Introduction** - Brief overview paragraph
-3. **What You'll Do** - Bullet points or structured list
-4. **Who We're Looking For** - Personality traits and requirements
-5. **Location & Availability** - Practical details
-6. **"This Isn't For Everyone"** - Final qualifying statement
-7. **CTA Button** - "Get In Touch" with mailto link
-
----
-
-### Mobile Considerations
-
-- Responsive typography (smaller headings on mobile)
-- Full-width sections with appropriate padding
-- Touch-friendly CTA button size
-- Readable line lengths for body text
-
+## Technical Notes
+- The event will appear on the homepage Tickets section automatically (sorted by date)
+- FOMO badges will work via the existing Notion sync system
+- Eventbrite widget will use the provided ID with checkout tracking
