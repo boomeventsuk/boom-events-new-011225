@@ -1,50 +1,23 @@
 
-# Add 2PM Club Luton Event — May 23, 2026
+# Redirect Old FSD URL to Live Event
 
-## Summary
-Add a new 2PM Club daytime disco event for Luton on Saturday, May 23, 2026, at The Hat Factory. The event will use the existing `TwoPmClubEventPage` template which automatically routes based on the `-2PM-` slug pattern.
+## The Problem
+An ad is pointing to `boomevents.co.uk/event/071225-FSD-NPTON` (the old Christmas 2025 Family Silent Disco), which no longer exists. It needs to forward to the current live event.
 
----
+## The Fix
+Add one line to `public/_redirects`:
 
-## Event Details
-
-| Field | Value |
-|-------|-------|
-| Event Code | `230526-2PM-LUT` |
-| Title | THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco |
-| Date | Saturday, 23 May 2026 |
-| Time | 14:00 – 18:00 |
-| Venue | Hat Factory, Luton |
-| Eventbrite ID | 1982497843417 |
-| Image | `https://boombastic-events.b-cdn.net/230526-2PM-LUT/230526-2PM-LUT-060626_2PM_NPTON%20ANNSQ.jpg` |
-
----
-
-## Implementation Steps
-
-### 1. Update `public/events-boombastic.json`
-Add a new event entry following the existing 2PM Club format (matching the structure of `070226-2PM-LUT`):
-- Standard 2PM Club title, subtitle, description, and fullDescription
-- Highlights using the established 5-point emoji format
-- ISO 8601 date/time strings for start and end
-
-### 2. Update `public/sitemap.xml`
-Add the new event URL for SEO:
 ```
-https://boomevents.co.uk/event/230526-2PM-LUT
+/event/071225-FSD-NPTON    /event/210326-FSD-NPTON    301
 ```
 
----
+This is a permanent (301) redirect, so anyone clicking the ad link will be instantly forwarded to the live Family Silent Disco page (March 21, 2026 at The Picturedrome).
 
-## No Code Changes Required
-The routing already handles this automatically:
-- `EventTemplate.tsx` detects `-2PM-` in the slug
-- Routes to `TwoPmClubEventPage` component
-- Renders all sections (Hero, Description, Video, Highlights, Gallery, Testimonials, Checkout, FAQ, Sticky CTA)
+## Also Update Existing Legacy Redirect
+The file already has a redirect from the old long-form URL (`/events/christmas-family-silent-disco-northampton/*`) pointing to `071225-FSD-NPTON`. We should update that to point directly to `210326-FSD-NPTON` as well, so it doesn't chain through two redirects.
 
----
-
-## Technical Notes
-- The event will appear on the homepage Tickets section automatically (sorted by date)
-- FOMO badges will work via the existing Notion sync system
-- Eventbrite widget will use the provided ID with checkout tracking
+## Technical Details
+- File to edit: `public/_redirects`
+- Add new redirect line for `/event/071225-FSD-NPTON` to `/event/210326-FSD-NPTON`
+- Update existing line 8 to point the legacy URL directly to `210326-FSD-NPTON`
+- Both use 301 (permanent redirect) status
