@@ -3,13 +3,25 @@ interface DescriptionSectionProps {
     city: string;
     fullDescription: string;
   };
+  ticketsLeft?: number;
 }
 
-export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
+export const DescriptionSection = ({ event, ticketsLeft }: DescriptionSectionProps) => {
   return (
     <section className="py-10 md:py-14">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
+          {ticketsLeft && (
+            <div className="mb-8 bg-destructive/10 border-2 border-destructive rounded-xl p-6 text-center">
+              <p className="text-2xl md:text-3xl font-bold text-destructive">
+                ⚠️ ONLY {ticketsLeft} TICKETS LEFT
+              </p>
+              <p className="text-lg text-foreground/80 mt-2">
+                This event is nearly sold out — book now before they're gone.
+              </p>
+            </div>
+          )}
+
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
             🪩 {event.city.toUpperCase()}, YOUR FAVOURITE 80s NIGHT IS BACK!
           </h2>
