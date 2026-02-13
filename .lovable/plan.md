@@ -1,23 +1,27 @@
 
-# Redirect Old FSD URL to Live Event
 
-## The Problem
-An ad is pointing to `boomevents.co.uk/event/071225-FSD-NPTON` (the old Christmas 2025 Family Silent Disco), which no longer exists. It needs to forward to the current live event.
+# Update FOMO Badges for Three Events
 
-## The Fix
-Add one line to `public/_redirects`:
+## Summary
+Update the urgency messaging on three events to reflect current ticket availability.
 
-```
-/event/071225-FSD-NPTON    /event/210326-FSD-NPTON    301
-```
+## Changes to `public/events-boombastic.json`
 
-This is a permanent (301) redirect, so anyone clicking the ad link will be instantly forwarded to the live Family Silent Disco page (March 21, 2026 at The Picturedrome).
+### 1. Bedford 2PM Club (140226-2PM-BED)
+- **Current:** "LAST 50 TICKETS!" / "2 WEEKS TO GO!"
+- **New:** "LAST 25 TICKETS!" / "THIS SATURDAY!"
+- Tier changes from `urgent` to `critical` (adds pulse animation)
 
-## Also Update Existing Legacy Redirect
-The file already has a redirect from the old long-form URL (`/events/christmas-family-silent-disco-northampton/*`) pointing to `071225-FSD-NPTON`. We should update that to point directly to `210326-FSD-NPTON` as well, so it doesn't chain through two redirects.
+### 2. Footloose 80s Northampton (210326-FL80-NPTON)
+- **Current:** "SELLING FAST!" (no time message)
+- **New:** "LAST 50 TICKETS!"
+- Tier changes from `selling_fast` to `urgent`
 
-## Technical Details
-- File to edit: `public/_redirects`
-- Add new redirect line for `/event/071225-FSD-NPTON` to `/event/210326-FSD-NPTON`
-- Update existing line 8 to point the legacy URL directly to `210326-FSD-NPTON`
-- Both use 301 (permanent redirect) status
+### 3. Footloose 80s Bedford (280326-FL80-BED)
+- **Current:** "SELLING FAST!" (no time message)
+- **New:** "LAST 30 TICKETS!"
+- Tier changes from `selling_fast` to `urgent`
+
+## No code changes needed
+All updates are data-only in the JSON file. The existing `FomoBadge` component handles the styling automatically based on the tier.
+
