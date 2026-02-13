@@ -36,6 +36,7 @@ interface EventData {
   hiddenSections?: string[];
   // Footloose 80s specific fields
   soundtrack?: string;
+  checkoutMessage?: string;
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -125,6 +126,7 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       soundtrack: event.soundtrack,
       hiddenSections: event.hiddenSections,
+      checkoutMessage: event.checkoutMessage,
     };
     
     return <FootlooseEventPage event={footlooseEvent} />;

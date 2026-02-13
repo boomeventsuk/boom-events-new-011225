@@ -15,6 +15,7 @@ interface HeroSectionProps {
     image: string;
     city: string;
     isSoldOut?: boolean;
+    subtitle?: string;
   };
 }
 
@@ -79,7 +80,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 {event.city.toUpperCase()}
               </p>
               <p className="text-lg text-foreground/80">
-                Your favourite 80s night is back!
+                {event.subtitle || "Your favourite 80s night is back!"}
               </p>
             </div>
 

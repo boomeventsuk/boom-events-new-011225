@@ -29,6 +29,7 @@ export interface FootlooseEvent {
   highlights: string;
   soundtrack: string;
   hiddenSections?: string[];
+  checkoutMessage?: string;
 }
 
 interface FootlooseEventPageProps {
@@ -119,6 +120,7 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
             image: event.image,
             city: event.city,
             isSoldOut: event.isSoldOut,
+            subtitle: event.description,
           }} />
           
           <DescriptionSection event={{
@@ -146,7 +148,7 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
               promoCode: event.promoCode,
               isSoldOut: event.isSoldOut,
             }}
-            checkoutMessage="Round up your friends and book now. This is your night. 👇"
+            checkoutMessage={event.checkoutMessage || "Round up your friends and book now. This is your night. 👇"}
           />
           
           {!hiddenSections.includes('faq') && (
