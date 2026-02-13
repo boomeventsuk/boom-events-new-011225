@@ -4,9 +4,10 @@ import { trackBookClick } from '@/lib/dataLayer';
 
 interface StickyBookButtonProps {
   eventSlug: string;
+  urgencyText?: string;
 }
 
-export const StickyBookButton = ({ eventSlug }: StickyBookButtonProps) => {
+export const StickyBookButton = ({ eventSlug, urgencyText }: StickyBookButtonProps) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export const StickyBookButton = ({ eventSlug }: StickyBookButtonProps) => {
       size="lg"
       className="fixed top-20 right-4 z-40 shadow-xl shadow-primary/30 animate-fade-in"
     >
-      Book Tickets
+      {urgencyText || 'Book Tickets'}
     </Button>
   );
 };

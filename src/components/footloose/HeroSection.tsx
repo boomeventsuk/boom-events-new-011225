@@ -17,9 +17,10 @@ interface HeroSectionProps {
     isSoldOut?: boolean;
     subtitle?: string;
   };
+  ticketsLeft?: number;
 }
 
-export const HeroSection = ({ event }: HeroSectionProps) => {
+export const HeroSection = ({ event, ticketsLeft }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
@@ -82,6 +83,11 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               <p className="text-lg text-foreground/80">
                 {event.subtitle || "Your favourite 80s night is back!"}
               </p>
+              {ticketsLeft && (
+                <p className="text-destructive font-bold text-lg mt-1 animate-pulse">
+                  🔥 Only {ticketsLeft} tickets left!
+                </p>
+              )}
             </div>
 
             <div className="space-y-3 text-base">
@@ -114,7 +120,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               className="w-full md:w-auto text-lg px-8 py-6"
               onClick={handleBookClick}
             >
-              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : 'BOOK TICKETS'}
+              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : ticketsLeft ? 'GRAB YOUR TICKETS — ALMOST GONE' : 'BOOK TICKETS'}
             </Button>
 
             <div className="pt-4 border-t border-border/30">

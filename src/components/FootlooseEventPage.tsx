@@ -8,6 +8,7 @@ import { SoundtrackSection } from '@/components/footloose/SoundtrackSection';
 import { HighlightsSection } from '@/components/footloose/HighlightsSection';
 import { TestimonialsSection } from '@/components/footloose/TestimonialsSection';
 import { FaqSection } from '@/components/footloose/FaqSection';
+import { UrgencyBanner } from '@/components/footloose/UrgencyBanner';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import { trackEventPageView } from '@/lib/dataLayer';
@@ -30,6 +31,7 @@ export interface FootlooseEvent {
   soundtrack: string;
   hiddenSections?: string[];
   checkoutMessage?: string;
+  ticketsLeft?: number;
 }
 
 interface FootlooseEventPageProps {
@@ -111,6 +113,10 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
         <Header />
         
         <main>
+          {event.ticketsLeft && (
+            <UrgencyBanner message={`LAST ${event.ticketsLeft} TICKETS — Don't miss out!`} />
+          )}
+
           <HeroSection event={{
             slug: event.slug,
             title: event.title,
@@ -121,12 +127,12 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
             city: event.city,
             isSoldOut: event.isSoldOut,
             subtitle: event.description,
-          }} />
+          }} ticketsLeft={event.ticketsLeft} />
           
           <DescriptionSection event={{
             city: event.city,
             fullDescription: event.fullDescription,
-          }} />
+          }} ticketsLeft={event.ticketsLeft} />
           
           {!hiddenSections.includes('soundtrack') && (
             <SoundtrackSection soundtrack={event.soundtrack} />
@@ -158,7 +164,10 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
         
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} />
+        <StickyBookButton 
+          eventSlug={event.slug} 
+          urgencyText={event.ticketsLeft ? `LAST ${event.ticketsLeft} TICKETS — BOOK NOW` : undefined}
+        />
       </div>
     </>
   );
