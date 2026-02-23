@@ -1,26 +1,22 @@
 
 
-# Update Ticket Counts to Feel Like a Live Countdown
+# Update Footloose 80s Northampton to "Final 15 Tickets"
 
 ## Summary
-Change the ticket numbers to more specific, "odd" counts that feel like they're counting down in real-time rather than round numbers.
+Update all ticket count references for the Northampton Footloose 80s event (210326-FL80-NPTON) from 45 to **15** across the JSON data.
 
 ## Changes to `public/events-boombastic.json`
 
-### Footloose 80s Bedford (280326-FL80-BED)
-- `ticketsLeft`: 30 → **27**
-- `fomoOverride.message`: "LAST 30 TICKETS!" → **"LAST 27 TICKETS!"**
-- `description`: update "30 tickets" references → **"27 tickets"**
-- `subtitle`: update "30 tickets" → **"27 tickets"**
-- `checkoutMessage`: "Only 30 tickets left" → **"Only 27 tickets left — this is nearly sold out"**
+For event `210326-FL80-NPTON`, update:
 
-### Footloose 80s Northampton (210326-FL80-NPTON)
-- `ticketsLeft`: 50 → **45**
-- `fomoOverride.message`: "LAST 50 TICKETS!" → **"LAST 45 TICKETS!"**
-- `description`: update "50 tickets" references → **"45 tickets"**
-- `subtitle`: update "50 tickets" → **"45 tickets"**
-- `checkoutMessage`: "Only 50 tickets left" → **"Only 45 tickets left — grab yours before they're gone"**
+| Field | Current | New |
+|-------|---------|-----|
+| `ticketsLeft` | 45 | **15** |
+| `fomoOverride.message` | "LAST 45 TICKETS!" | **"FINAL 15 TICKETS!"** |
+| `subtitle` | "...Final 45 tickets remaining." | **"...Final 15 tickets remaining."** |
+| `description` | "...just 45 tickets left..." | **"...just 15 tickets left..."** |
+| `fullDescription` | "...Just 45 tickets remain..." | **"...Just 15 tickets remain..."** |
+| `checkoutMessage` | "Only 45 tickets left..." | **"Only 15 tickets left — grab yours before they're gone"** |
 
-## No code changes needed
-All updates are data-only. The components already pull `ticketsLeft` and `fomoOverride.message` dynamically, so the banner, hero, description callout, and sticky button will all automatically reflect the new numbers.
+No code changes needed — all components already render dynamically from these values.
 
