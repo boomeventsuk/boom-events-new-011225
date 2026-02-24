@@ -202,10 +202,10 @@ a.button:focus, button:focus {
   animation: christmas-shimmer 2s ease-in-out infinite;
 }
 
-/* Leicester Tigers Theme (Red & Green) */
+/* Leicester Tigers Theme (Green buttons, Gold accents) */
 .theme-leicester {
-  --primary: 0 72% 45%;
-  --secondary: 142 76% 36%;
-  --accent: 142 76% 36%;
-  --ring: 0 72% 45%;
+  --primary: 142 76% 36%;
+  --secondary: 45 93% 47%;
+  --accent: 45 93% 47%;
+  --ring: 142 76% 36%;
 }
