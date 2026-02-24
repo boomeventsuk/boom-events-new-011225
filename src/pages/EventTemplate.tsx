@@ -38,6 +38,8 @@ interface EventData {
   soundtrack?: string;
   checkoutMessage?: string;
   ticketsLeft?: number;
+  // Per-event colour theming
+  colorScheme?: string;
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -194,6 +196,7 @@ const EventTemplate = () => {
       promoCode: event.promoCode,
       isSoldOut: event.isSoldOut,
       waitingListUrl: event.waitingListUrl,
+      colorScheme: event.colorScheme,
       title: event.title,
       location: `${event.venue}, ${event.city}`,
       start: event.start || event.date,
