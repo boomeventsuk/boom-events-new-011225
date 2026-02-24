@@ -21,6 +21,7 @@ export interface TwoPmClubEvent {
   promoCode?: string;
   isSoldOut?: boolean;
   waitingListUrl?: string;
+  colorScheme?: string;
   title: string;
   location: string;
   start: string;
@@ -110,7 +111,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         </script>
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className={`min-h-screen bg-background ${event.colorScheme ? `theme-${event.colorScheme}` : ''}`}>
         <Header />
         
         <main>
