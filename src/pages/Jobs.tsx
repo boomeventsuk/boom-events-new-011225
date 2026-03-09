@@ -59,7 +59,7 @@ const Jobs = () => {
                     DJ – Boombastic Events
                   </h2>
                   <p className="text-muted-foreground font-poppins text-sm md:text-base">
-                    Good rate of pay + transport costs | Weekends | Northampton, Bedford, Coventry, Milton Keynes, Luton, Leicester & beyond
+                    Good rate of pay | Weekends | Northampton, Bedford, Coventry, Milton Keynes, Luton, Leicester & beyond
                   </p>
                 </div>
                 <ChevronDown className={`h-6 w-6 text-primary shrink-0 transition-transform duration-300 ${djOpen ? 'rotate-180' : ''}`} />
