@@ -1,76 +1,53 @@
 
-# Add THE 2PM CLUB Leicester Event with Leicester Tigers Colour Scheme
+
+# Revamp Jobs Page: Add DJ Role with Collapsible Cards + Header Link
 
 ## Summary
 
-Add a brand-new 2PM Club event for Leicester at Mattioli Woods Welford Road Stadium (Leicester Tigers' home ground) on Saturday 2 May 2026, 2pm-6pm. Since it's at the Tigers' venue, the page will use a **red and green colour scheme** (Leicester Tigers' brand colours) instead of the default electric blue/pink.
+Restructure the `/jobs` page to support two job listings (DJ role first, Event Assistant second) using collapsible/accordion cards that expand on click. Add a "Jobs" link to the site header navigation.
 
----
+## Changes
 
-## 1. Add Event Data to `public/events-boombastic.json`
+### 1. `src/pages/Jobs.tsx` -- Major restructure
 
-New entry with event code `020526-2PM-LEIC`:
+- Define an array of job listings, each with title, subtitle, and content sections
+- **Job 1 (DJ):** "DJ - Boombastic Events" with the provided copy, CTA links to a Typeform/video questions link (or mailto for now)
+- **Job 2 (Event Assistant):** The existing content, reorganised into the same structure
+- Use Radix `Collapsible` (already installed) or `Accordion` for expand/collapse behaviour
+- Each role card shows: role title, pay/location summary, and a "View Details" toggle
+- On click, the card smoothly expands to reveal the full description sections
+- Both default to collapsed so the page looks clean with two cards stacked
+- Keep the hero image, photo gallery, and video section below both listings
+- Primary CTA for DJ role: "Get In Touch" (mailto or a link you provide later)
+- Primary CTA for Event Assistant: existing mailto link
 
-- **Title:** THE 2PM CLUB Leicester -- 80s 90s 00s Daytime Disco
-- **Venue:** Mattioli Woods Welford Road Stadium, Leicester
-- **Date:** Saturday, 2 May 2026, 14:00-18:00
-- **Eventbrite ID:** 1983866397800
-- **Image:** `https://boombastic-events.b-cdn.net/020526-2PM-LEIC/020526-2PM-LEIC%20no%20badge.jpg`
-- **Slug:** `020526-2PM-LEIC`
-- **FOMO Override:** "JUST ANNOUNCED!" (new event)
-- Standard 2PM Club description, fullDescription, and highlights following the brand pattern
-- **New field:** `colorScheme: "leicester"` -- signals this event uses a custom colour palette
-
-## 2. Per-Event Colour Theming (Leicester Tigers Red/Green)
-
-Since there's no existing per-event theming, we need a lightweight mechanism. The approach:
-
-### `src/index.css` -- Add Leicester theme class
-
-Add a `.theme-leicester` class that overrides CSS custom properties:
-
+Visual structure:
 ```text
-.theme-leicester {
-  --primary: 0 72% 45%;           /* Leicester Tigers Red */
-  --secondary: 142 76% 36%;       /* Leicester Tigers Green */
-  --accent: 142 76% 36%;          /* Green accent */
-  --ring: 0 72% 45%;              /* Red ring */
-}
+┌─────────────────────────────┐
+│  WORK WITH US               │
+│  Subheadline + hero image   │
+├─────────────────────────────┤
+│ ▸ DJ - Boombastic Events    │  ← click to expand
+│   Rate TBC | Weekends | ... │
+├─────────────────────────────┤
+│ ▸ Event Assistant            │  ← click to expand
+│   £15/hour | Weekends | ... │
+├─────────────────────────────┤
+│  Photo Gallery               │
+│  Video Section               │
+│  Final CTA                   │
+└─────────────────────────────┘
 ```
 
-This means all `text-primary`, `bg-primary`, `border-primary` elements (CTA buttons, icons, accents, checkout section bg) automatically shift to red/green without touching any component code.
+### 2. `src/components/Header.tsx` -- Add Jobs nav link
 
-### `src/components/TwoPmClubEventPage.tsx` -- Apply theme class
+- Add a "Jobs" link to the desktop nav (as an `<a href="/jobs">`) after "About"
+- Add the same to the mobile menu
 
-- Add optional `colorScheme` field to the `TwoPmClubEvent` interface
-- When `colorScheme` is set (e.g. `"leicester"`), add `theme-leicester` class to the root wrapper `<div>`
-- This scopes the colour override to just this event page
-
-### `src/pages/EventTemplate.tsx` -- Pass `colorScheme` through
-
-- Add `colorScheme` to the `EventData` interface
-- Map it through to the `TwoPmClubEvent` object when building the 2PM Club event
-
-## 3. Add "LEIC" to City Code Handling
-
-The `EventTemplate.tsx` already splits event codes to extract city codes. No routing changes needed -- the existing `-2PM-` detection will match `020526-2PM-LEIC` automatically.
-
-## 4. Files Changed
+### 3. Files Changed
 
 | File | Change |
 |------|--------|
-| `public/events-boombastic.json` | Add new Leicester event entry with `colorScheme: "leicester"` |
-| `src/index.css` | Add `.theme-leicester` CSS custom property overrides |
-| `src/components/TwoPmClubEventPage.tsx` | Add `colorScheme` to interface; conditionally apply theme class |
-| `src/pages/EventTemplate.tsx` | Add `colorScheme` to `EventData` interface; pass through to 2PM Club mapping |
+| `src/pages/Jobs.tsx` | Restructure into accordion-style dual job listings with DJ role first |
+| `src/components/Header.tsx` | Add "Jobs" link to desktop and mobile navigation |
 
-## 5. What This Looks Like
-
-- CTA buttons: **red** instead of blue
-- Calendar/clock/pin icons: **red** accents
-- Checkout section background tint: **red/green**
-- Highlights section emojis and borders: **red/green**
-- Sticky book button: **red**
-- Everything else (dark background, white text, layout) stays the same
-
-The copy will use placeholder text for now (standard 2PM Club template wording mentioning Leicester). You mentioned you'll provide the Eventbrite copy once the page is created, at which point we can swap in the final description and fullDescription.
