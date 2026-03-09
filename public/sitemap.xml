@@ -1,39 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://boomevents.co.uk/</loc></url>
-  <url><loc>https://boomevents.co.uk/privacy/</loc></url>
-  <url><loc>https://boomevents.co.uk/terms/</loc></url>
-  <url><loc>https://boomevents.co.uk/jobs/</loc></url>
   <url><loc>https://boomevents.co.uk/faq/</loc></url>
-  <url><loc>https://boomevents.co.uk/event/210326-FSD-NPTON/</loc></url>
-  <url><loc>https://boomevents.co.uk/event/210326-FL80-NPTON/</loc></url>
-  <url><loc>https://boomevents.co.uk/event/280326-FL80-BED/</loc></url>
   <url><loc>https://boomevents.co.uk/events.json</loc></url>
   <url><loc>https://boomevents.co.uk/venues.json</loc></url>
   <url><loc>https://boomevents.co.uk/for-ai/</loc></url>
-  <url><loc>https://boomevents.co.uk/indexing-status/</loc></url>
-  
-  
-  <url><loc>https://boomevents.co.uk/events/christmas-silent-disco-northampton/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-northampton-christmas-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/boombastics-christmas-decades-party-northampton/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/christmas-family-silent-disco-northampton/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-milton-keynes-christmas-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-bedford-christmas-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/get-ready-60s-70s-motown-soul-disco-sunday-matinee-special/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-luton-80s-90s-00s-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-bedford-80s-90s-00s-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-milton-keynes-80s-90s-00s-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-northampton-80s-90s-00s-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/events/the-2pm-club-coventry-80s-90s-00s-daytime-disco/</loc></url>
-  <url><loc>https://boomevents.co.uk/event/250426-SD-NPTON/</loc></url>
-  <url><loc>https://boomevents.co.uk/event/060626-2PM-NPTON/</loc></url>
-  <url><loc>https://boomevents.co.uk/event/260626-GR-NPTON/</loc></url>
-  <url><loc>https://boomevents.co.uk/event/230526-2PM-LUT/</loc></url>
-  <url><loc>https://boomevents.co.uk/locations/milton-keynes/</loc></url>
-  <url><loc>https://boomevents.co.uk/locations/bedford/</loc></url>
-  <url><loc>https://boomevents.co.uk/locations/northampton/</loc></url>
-  <url><loc>https://boomevents.co.uk/locations/coventry/</loc></url>
-  <url><loc>https://boomevents.co.uk/locations/birmingham/</loc></url>
-  <url><loc>https://boomevents.co.uk/locations/luton/</loc></url>
 </urlset>
