@@ -133,6 +133,9 @@ const Header = () => {
           <button onClick={() => handleMobileNavClick('about')} className="text-white hover:text-primary text-lg py-3 w-full text-left transition-colors">
             About
           </button>
+          <a href="/jobs" onClick={closeMobileMenu} className="text-white hover:text-primary text-lg py-3 block transition-colors">
+            Jobs
+          </a>
           <hr style={{borderColor: "rgba(255,255,255,.08)"}} className="my-4" />
           <a href="https://facebook.com/boombastic.eventsuk" target="_blank" rel="noopener" className="text-white hover:text-primary text-lg py-3 block transition-colors">
             Facebook
