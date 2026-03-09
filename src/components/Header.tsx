@@ -75,6 +75,12 @@ const Header = () => {
             >
               About
             </button>
+            <a 
+              href="/jobs"
+              className="font-poppins text-muted-foreground hover:text-primary transition-colors"
+            >
+              Jobs
+            </a>
           </nav>
           
           {/* Social Icons */}
