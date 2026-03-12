@@ -208,19 +208,18 @@
     "image": "https://boombastic-events.b-cdn.net/280326-FL80-BED/280326-FL80-BED-ANNSQ.jpg",
     "description": "FOOTLOOSE 80s Bedford is nearly sold out — just 27 tickets left for four hours of non-stop 80s anthems.",
     "eventbriteId": "1979550056507",
-    "isSoldOut": false,
+    "isSoldOut": true,
     "start": "2026-03-28T20:00:00",
     "end": "2026-03-29T00:00:00",
-    "fullDescription": "⚠️ Nearly gone. Just 27 tickets left for FOOTLOOSE 80s Bedford — don't wait on this one.\n\nRemember pressing record on your tape deck during the Top of the Pops countdown? Blasting Madonna's \"Like a Prayer\" through your headphones? Belting out Bon Jovi in your first car?\n\nFOOTLOOSE 80s is your ticket back to those moments - four hours of non-stop anthems from the greatest decade in music. The songs you know every word to, played loud, with people who feel exactly the same way.\n\nThis isn't just any 80s night. This is the real deal - a proper party where the dancefloor is full, the singalongs are epic, and the vibe is electric.",
+    "fullDescription": "FOOTLOOSE 80s Bedford has SOLD OUT! Join the waiting list below in case any tickets become available.\n\nRemember pressing record on your tape deck during the Top of the Pops countdown? Blasting Madonna's \"Like a Prayer\" through your headphones? Belting out Bon Jovi in your first car?\n\nFOOTLOOSE 80s is your ticket back to those moments - four hours of non-stop anthems from the greatest decade in music. The songs you know every word to, played loud, with people who feel exactly the same way.\n\nThis isn't just any 80s night. This is the real deal - a proper party where the dancefloor is full, the singalongs are epic, and the vibe is electric.",
     "highlights": "🎧 Wall-to-wall 80s anthems: Four hours, no filler - just hit after hit|📺 Giant screens: Authentic 80s videos - cheer when your favourites appear|🎉 Confetti & inflatables: Let loose with confetti cannons and inflatable mic moments|🕺 Dress your way: Bright, bold or casual - come as you like, but be ready to dance",
     "soundtrack": "Madonna · Queen · Wham! · Bon Jovi · Whitney Houston · A-ha · Duran Duran · Michael Jackson · Cyndi Lauper · Prince · Eurythmics · Rick Astley · Spandau Ballet · Depeche Mode · Def Leppard · The Human League · Culture Club · Tears For Fears · Simple Minds",
     "hiddenSections": ["video", "gallery"],
-    "ticketsLeft": 27,
-    "checkoutMessage": "Only 27 tickets left — this is nearly sold out 👇",
+    "checkoutMessage": "This event has sold out! Join the waiting list below 👇",
     "fomoOverride": {
-      "tier": "urgent",
-      "message": "LAST 27 TICKETS!",
-      "timeMessage": "6 WEEKS TO GO!"
+      "tier": "sold_out",
+      "message": "SOLD OUT",
+      "timeMessage": null
     }
   },
   {
