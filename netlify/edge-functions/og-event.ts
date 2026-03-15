@@ -97,6 +97,10 @@ function toAbsoluteUrl(value: string, origin: string): string {
   }
 }
 
+function sanitize(s: string): string {
+  return s.replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim();
+}
+
 function esc(s: string): string {
   return s
     .replace(/&/g, "&amp;")
