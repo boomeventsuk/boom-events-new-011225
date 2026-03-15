@@ -6,6 +6,11 @@
 # Edge function for dynamic OG tags on event pages
 [[edge_functions]]
   function = "og-event"
+  path = "/event/*"
+
+# Backward compatibility if any old /events/ links exist
+[[edge_functions]]
+  function = "og-event"
   path = "/events/*"
 
 # SPA fallback for client-side routes — available to everyone
