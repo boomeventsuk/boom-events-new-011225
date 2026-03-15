@@ -1,27 +1,76 @@
 
+# Add THE 2PM CLUB Leicester Event with Leicester Tigers Colour Scheme
 
-## How Social Sharing Works (and Why We Need a Change)
+## Summary
 
-When you share a link on WhatsApp, it sends a bot to fetch the page and looks for a specific tag in the HTML called `og:image`. This bot does **not** run JavaScript — it just reads the raw HTML.
+Add a brand-new 2PM Club event for Leicester at Mattioli Woods Welford Road Stadium (Leicester Tigers' home ground) on Saturday 2 May 2026, 2pm-6pm. Since it's at the Tigers' venue, the page will use a **red and green colour scheme** (Leicester Tigers' brand colours) instead of the default electric blue/pink.
 
-Because this site is a single-page app (SPA), every page serves the same `index.html` with the same generic Boom Events image in that tag. Even though your React code sets the correct image when a user views the page in a browser, WhatsApp's bot never sees it.
+---
 
-**This is why you always get the generic image when sharing.**
+## 1. Add Event Data to `public/events-boombastic.json`
 
-## The Fix: Netlify Edge Function
+New entry with event code `020526-2PM-LEIC`:
 
-Since the site is on Netlify, we add a small server-side function that:
+- **Title:** THE 2PM CLUB Leicester -- 80s 90s 00s Daytime Disco
+- **Venue:** Mattioli Woods Welford Road Stadium, Leicester
+- **Date:** Saturday, 2 May 2026, 14:00-18:00
+- **Eventbrite ID:** 1983866397800
+- **Image:** `https://boombastic-events.b-cdn.net/020526-2PM-LEIC/020526-2PM-LEIC%20no%20badge.jpg`
+- **Slug:** `020526-2PM-LEIC`
+- **FOMO Override:** "JUST ANNOUNCED!" (new event)
+- Standard 2PM Club description, fullDescription, and highlights following the brand pattern
+- **New field:** `colorScheme: "leicester"` -- signals this event uses a custom colour palette
 
-1. Detects when WhatsApp/Facebook/Twitter bots request an event page
-2. Looks up the event in `events-boombastic.json`
-3. Returns the correct `og:image` tag with that event's poster image
-4. Normal users still get the regular site — no visible change
+## 2. Per-Event Colour Theming (Leicester Tigers Red/Green)
 
-This is the standard, widely-used approach for SPAs. There is no simpler alternative that works — WhatsApp will never execute your JavaScript to find the image.
+Since there's no existing per-event theming, we need a lightweight mechanism. The approach:
 
-## Implementation
+### `src/index.css` -- Add Leicester theme class
 
-1. **Create `netlify/edge-functions/og-event.ts`** — detects crawler user-agents, serves correct OG tags per event
-2. **Update `netlify.toml`** — route `/events/*` through the edge function
-3. No changes to React components needed
+Add a `.theme-leicester` class that overrides CSS custom properties:
 
+```text
+.theme-leicester {
+  --primary: 0 72% 45%;           /* Leicester Tigers Red */
+  --secondary: 142 76% 36%;       /* Leicester Tigers Green */
+  --accent: 142 76% 36%;          /* Green accent */
+  --ring: 0 72% 45%;              /* Red ring */
+}
+```
+
+This means all `text-primary`, `bg-primary`, `border-primary` elements (CTA buttons, icons, accents, checkout section bg) automatically shift to red/green without touching any component code.
+
+### `src/components/TwoPmClubEventPage.tsx` -- Apply theme class
+
+- Add optional `colorScheme` field to the `TwoPmClubEvent` interface
+- When `colorScheme` is set (e.g. `"leicester"`), add `theme-leicester` class to the root wrapper `<div>`
+- This scopes the colour override to just this event page
+
+### `src/pages/EventTemplate.tsx` -- Pass `colorScheme` through
+
+- Add `colorScheme` to the `EventData` interface
+- Map it through to the `TwoPmClubEvent` object when building the 2PM Club event
+
+## 3. Add "LEIC" to City Code Handling
+
+The `EventTemplate.tsx` already splits event codes to extract city codes. No routing changes needed -- the existing `-2PM-` detection will match `020526-2PM-LEIC` automatically.
+
+## 4. Files Changed
+
+| File | Change |
+|------|--------|
+| `public/events-boombastic.json` | Add new Leicester event entry with `colorScheme: "leicester"` |
+| `src/index.css` | Add `.theme-leicester` CSS custom property overrides |
+| `src/components/TwoPmClubEventPage.tsx` | Add `colorScheme` to interface; conditionally apply theme class |
+| `src/pages/EventTemplate.tsx` | Add `colorScheme` to `EventData` interface; pass through to 2PM Club mapping |
+
+## 5. What This Looks Like
+
+- CTA buttons: **red** instead of blue
+- Calendar/clock/pin icons: **red** accents
+- Checkout section background tint: **red/green**
+- Highlights section emojis and borders: **red/green**
+- Sticky book button: **red**
+- Everything else (dark background, white text, layout) stays the same
+
+The copy will use placeholder text for now (standard 2PM Club template wording mentioning Leicester). You mentioned you'll provide the Eventbrite copy once the page is created, at which point we can swap in the final description and fullDescription.

@@ -3,6 +3,11 @@
   command = "npm run build"
   publish = "dist"
 
+# Edge function for dynamic OG tags on event pages
+[[edge_functions]]
+  function = "og-event"
+  path = "/events/*"
+
 # SPA fallback for client-side routes — available to everyone
 [[redirects]]
   from = "/*"
