@@ -37,8 +37,8 @@ export default async function handler(request: Request, context: any) {
 
     if (!event) return context.next();
 
-    const title = String(event.title || "Boombastic Event");
-    const description = String(event.description || event.subtitle || "").slice(0, 200);
+    const title = sanitize(String(event.title || "Boombastic Event"));
+    const description = sanitize(String(event.description || event.subtitle || "")).slice(0, 200);
     const image = toAbsoluteUrl(String(event.image || ""), url.origin);
     const canonical = `${url.origin}${normalizedPath}${url.search}`;
 
@@ -95,6 +95,10 @@ function toAbsoluteUrl(value: string, origin: string): string {
   } catch {
     return "";
   }
+}
+
+function sanitize(s: string): string {
+  return s.replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim();
 }
 
 function esc(s: string): string {
