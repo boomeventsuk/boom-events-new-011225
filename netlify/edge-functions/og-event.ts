@@ -37,8 +37,8 @@ export default async function handler(request: Request, context: any) {
 
     if (!event) return context.next();
 
-    const title = String(event.title || "Boombastic Event");
-    const description = String(event.description || event.subtitle || "").slice(0, 200);
+    const title = sanitize(String(event.title || "Boombastic Event"));
+    const description = sanitize(String(event.description || event.subtitle || "")).slice(0, 200);
     const image = toAbsoluteUrl(String(event.image || ""), url.origin);
     const canonical = `${url.origin}${normalizedPath}${url.search}`;
 
