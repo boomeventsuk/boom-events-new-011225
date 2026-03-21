@@ -165,7 +165,11 @@
         "description": "Recent (Clean) Chart and Trending Hits"
       }
     ],
-    "hiddenSections": ["video", "gallery", "testimonials"],
+    "hiddenSections": [
+      "video",
+      "gallery",
+      "testimonials"
+    ],
     "fomoOverride": {
       "tier": "selling_fast",
       "message": "SELLING FAST!",
@@ -189,7 +193,10 @@
     "fullDescription": "FOOTLOOSE 80s Northampton has SOLD OUT! Join the waiting list below in case any tickets become available.\n\nRemember pressing record on your tape deck during the Top of the Pops countdown? Blasting Madonna's \"Like a Prayer\" through your headphones? Belting out Bon Jovi in your first car?\n\nFOOTLOOSE 80s is your ticket back to those moments - four hours of non-stop anthems from the greatest decade in music. The songs you know every word to, played loud, with people who feel exactly the same way.\n\nThis isn't just any 80s night. This is the real deal - a proper party where the dancefloor is full, the singalongs are epic, and the vibe is electric.",
     "highlights": "🎧 Wall-to-wall 80s anthems: Four hours, no filler - just hit after hit|📺 Giant screens: Authentic 80s videos - cheer when your favourites appear|🎉 Confetti & inflatables: Let loose with confetti cannons and inflatable mic moments|🕺 Dress your way: Bright, bold or casual - come as you like, but be ready to dance",
     "soundtrack": "Madonna · Queen · Wham! · Bon Jovi · Whitney Houston · A-ha · Duran Duran · Michael Jackson · Cyndi Lauper · Prince · Eurythmics · Rick Astley · Spandau Ballet · Depeche Mode · Def Leppard · The Human League · Culture Club · Tears For Fears · Simple Minds",
-    "hiddenSections": ["video", "gallery"],
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
     "checkoutMessage": "This event has sold out! Join the waiting list below 👇",
     "fomoOverride": {
       "tier": "sold_out",
@@ -214,7 +221,10 @@
     "fullDescription": "FOOTLOOSE 80s Bedford has SOLD OUT! Join the waiting list below in case any tickets become available.\n\nRemember pressing record on your tape deck during the Top of the Pops countdown? Blasting Madonna's \"Like a Prayer\" through your headphones? Belting out Bon Jovi in your first car?\n\nFOOTLOOSE 80s is your ticket back to those moments - four hours of non-stop anthems from the greatest decade in music. The songs you know every word to, played loud, with people who feel exactly the same way.\n\nThis isn't just any 80s night. This is the real deal - a proper party where the dancefloor is full, the singalongs are epic, and the vibe is electric.",
     "highlights": "🎧 Wall-to-wall 80s anthems: Four hours, no filler - just hit after hit|📺 Giant screens: Authentic 80s videos - cheer when your favourites appear|🎉 Confetti & inflatables: Let loose with confetti cannons and inflatable mic moments|🕺 Dress your way: Bright, bold or casual - come as you like, but be ready to dance",
     "soundtrack": "Madonna · Queen · Wham! · Bon Jovi · Whitney Houston · A-ha · Duran Duran · Michael Jackson · Cyndi Lauper · Prince · Eurythmics · Rick Astley · Spandau Ballet · Depeche Mode · Def Leppard · The Human League · Culture Club · Tears For Fears · Simple Minds",
-    "hiddenSections": ["video", "gallery"],
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
     "checkoutMessage": "This event has sold out! Join the waiting list below 👇",
     "fomoOverride": {
       "tier": "sold_out",
@@ -238,7 +248,12 @@
     "isSoldOut": false,
     "fullDescription": "Ten years of the most popular silent disco in the region!\n\nJoin us for a very special celebration of a decade of legendary nights filled with friends, party tunes, and epic headphone moments.\n\n3 DJs play 4 hours of the biggest hits – pick your vibe or switch it up! Your choice!",
     "highlights": "🎤 SING LIKE NOBODY'S LISTENING: Because they're not. They're too busy doing exactly the same thing. You'll be screaming Mr Brightside while your mate's lost in Show Me Love.|👯 THE NIGHT OUT WHERE EVERYONE WINS: No more arguing about music. No more splitting up to find different rooms. The pop fan, the indie kid, and the dance head - all on the same floor, all having the time of their lives. Switch whenever you want. Your headphones, your rules.|🤣 THE HEADPHONES-OFF MOMENT: Take them off for five seconds. Shuffling feet. Muffled singing. Someone shouting \"THIS SONG!\" before slamming their headphones back on. Three different songs happening at once. It's hilarious. It's brilliant.|🏆 TEN YEARS. STILL GOING STRONG: The most popular silent disco in the region for a decade. Created by Boombastic Events - the team behind 10+ years of sold-out events across the Midlands.",
-    "hiddenSections": ["video", "gallery", "testimonials", "faq"],
+    "hiddenSections": [
+      "video",
+      "gallery",
+      "testimonials",
+      "faq"
+    ],
     "channels": [
       {
         "color": "blue",
@@ -351,7 +366,11 @@
     "fullDescription": "Join us for a Summer special of GET READY featuring the BIGGEST hits of 60s/70s Motown, Soul and Disco! 🪩\n\nOur popular sell-out event is back! Come and join us at the Picturedrome, where we'll have a night of 1960s and 70s Motown, Soul and Disco hits!",
     "highlights": "🪩 Summer Special: The perfect Friday night out — 8pm to Midnight!|🎵 Legendary Floorfillers: The Jacksons, Stevie Wonder, Chic, Diana Ross, James Brown and more|🎟 Tickets From £7: Great value for four hours of the biggest hits|🏆 Boombastic Quality: From the team that's been selling out events for 10+ years",
     "soundtrack": "The Jacksons · Al Wilson · Stevie Wonder · The Four Tops · Rick James · Chic · Sister Sledge · The Temptations · James Brown · Diana Ross · The Supremes · The Marvelettes · Martha Reeves and the Vandellas · Ray Charles",
-    "hiddenSections": ["video", "gallery", "testimonials"],
+    "hiddenSections": [
+      "video",
+      "gallery",
+      "testimonials"
+    ],
     "isAfternoon": false,
     "fomoOverride": {
       "tier": "selling_fast",
@@ -393,6 +412,33 @@
     "colorScheme": "leicester",
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
+    "fomoOverride": {
+      "tier": "on_sale",
+      "message": "JUST ANNOUNCED!",
+      "timeMessage": null
+    }
+  },
+  {
+    "eventCode": "120926-FL80-NPTON",
+    "title": "FOOTLOOSE 80s Northampton",
+    "subtitle": "80s 90s 00s Daytime Disco",
+    "date": "Saturday, 12 September 2026",
+    "timeDisplay": "20:00 – 00:00",
+    "venue": "The Picturedrome",
+    "city": "Northampton",
+    "image": "https://boombastic-events.b-cdn.net/120926-FL80-NPTON/120926-FL80-NPTON%20ANNSQ.jpg",
+    "description": "Four hours of non-stop 80s anthems at The Picturedrome, Northampton. Every song a classic. Every moment made for the dancefloor.",
+    "eventbriteId": "1985640928469",
+    "isSoldOut": false,
+    "start": "2026-09-12T20:00:00",
+    "end": "2026-09-13T00:00:00",
+    "fullDescription": "Remember pressing record on your tape deck during the Top of the Pops countdown? Blasting Madonna's \"Like a Prayer\" through your headphones? Belting out Bon Jovi in your first car?\n\nFOOTLOOSE 80s is your ticket back to those moments - four hours of non-stop anthems from the greatest decade in music. The songs you know every word to, played loud, with people who feel exactly the same way.\n\nThis isn't just any 80s night. This is the real deal - a proper party where the dancefloor is full, the singalongs are epic, and the vibe is electric.",
+    "highlights": "🎧 Wall-to-wall 80s anthems: Four hours, no filler - just hit after hit|📺 Giant screens: Authentic 80s videos - cheer when your favourites appear|🎉 Confetti & inflatables: Let loose with confetti cannons and inflatable mic moments|🕺 Dress your way: Bright, bold or casual - come as you like, but be ready to dance",
+    "soundtrack": "Madonna · Queen · Wham! · Bon Jovi · Whitney Houston · A-ha · Duran Duran · Michael Jackson · Cyndi Lauper · Prince · Eurythmics · Rick Astley · Spandau Ballet · Depeche Mode · Def Leppard · The Human League · Culture Club · Tears For Fears · Simple Minds",
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
     "fomoOverride": {
       "tier": "on_sale",
       "message": "JUST ANNOUNCED!",
