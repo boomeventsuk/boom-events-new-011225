@@ -111,6 +111,30 @@ const EventTemplate = () => {
     
     return <GetReadyEventPage event={getReadyEvent} />;
   }
+
+  if (isBoombastic90sEvent && event.soundtrack) {
+    const b90Event: Boombastic90sEvent = {
+      slug: event.eventCode.toLowerCase(),
+      eventbriteId: event.eventbriteId,
+      promoCode: event.promoCode,
+      isSoldOut: event.isSoldOut,
+      title: event.title,
+      subtitle: event.subtitle,
+      location: `${event.venue}, ${event.city}`,
+      city: event.city,
+      start: event.start || event.date,
+      end: event.end || event.date,
+      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      image: event.image,
+      description: event.description,
+      fullDescription: event.fullDescription || event.description,
+      highlights: event.highlights || '',
+      soundtrack: event.soundtrack,
+      hiddenSections: event.hiddenSections,
+    };
+    
+    return <Boombastic90sEventPage event={b90Event} />;
+  }
   
   if (isFootlooseEvent && event.soundtrack) {
     // Map EventData to FootlooseEvent format
