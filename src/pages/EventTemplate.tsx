@@ -5,6 +5,7 @@ import TwoPmClubEventPage, { TwoPmClubEvent } from "@/components/TwoPmClubEventP
 import SilentDiscoEventPage, { SilentDiscoEvent, SilentDiscoChannel } from "@/components/SilentDiscoEventPage";
 import FamilySilentDiscoEventPage, { FamilySilentDiscoEvent } from "@/components/FamilySilentDiscoEventPage";
 import FootlooseEventPage, { FootlooseEvent } from "@/components/FootlooseEventPage";
+import Boombastic90sEventPage, { Boombastic90sEvent } from "@/components/Boombastic90sEventPage";
 import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
 import { isEventPassed } from "@/lib/eventUtils";
