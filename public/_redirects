@@ -17,5 +17,18 @@
 # Redirect /events/:slug pattern to /event/:slug (consolidate URL patterns)
 /events/:slug                                                          /event/:slug              301
 
+# Static pages — serve their own index.html, not the SPA
+/about/*              /about/index.html              200
+/silent-disco/*       /silent-disco/index.html       200
+/footloose-80s/*      /footloose-80s/index.html      200
+/get-ready/*          /get-ready/index.html          200
+/family-silent-disco/* /family-silent-disco/index.html 200
+/locations/northampton/*  /locations/northampton/index.html  200
+/locations/bedford/*      /locations/bedford/index.html      200
+/locations/milton-keynes/* /locations/milton-keynes/index.html 200
+/locations/coventry/*     /locations/coventry/index.html     200
+/locations/luton/*        /locations/luton/index.html        200
+/locations/leicester/*    /locations/leicester/index.html    200
+
 # SPA fallback - must be LAST
 /*                                                                     /index.html               200
