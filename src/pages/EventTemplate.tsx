@@ -5,6 +5,7 @@ import TwoPmClubEventPage, { TwoPmClubEvent } from "@/components/TwoPmClubEventP
 import SilentDiscoEventPage, { SilentDiscoEvent, SilentDiscoChannel } from "@/components/SilentDiscoEventPage";
 import FamilySilentDiscoEventPage, { FamilySilentDiscoEvent } from "@/components/FamilySilentDiscoEventPage";
 import FootlooseEventPage, { FootlooseEvent } from "@/components/FootlooseEventPage";
+import Boombastic90sEventPage, { Boombastic90sEvent } from "@/components/Boombastic90sEventPage";
 import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
 import { isEventPassed } from "@/lib/eventUtils";
@@ -83,6 +84,7 @@ const EventTemplate = () => {
   const isFamilySilentDiscoEvent = event.eventCode.includes('-FSD-');
   const isSilentDiscoEvent = event.eventCode.includes('-SD-') && !isFamilySilentDiscoEvent;
   const isFootlooseEvent = event.eventCode.includes('-FL80-');
+  const isBoombastic90sEvent = event.eventCode.includes('-B90-');
   const isGetReadyEvent = event.eventCode.includes('-GR-');
   
   if (isGetReadyEvent && event.soundtrack) {
@@ -108,6 +110,30 @@ const EventTemplate = () => {
     };
     
     return <GetReadyEventPage event={getReadyEvent} />;
+  }
+
+  if (isBoombastic90sEvent && event.soundtrack) {
+    const b90Event: Boombastic90sEvent = {
+      slug: event.eventCode.toLowerCase(),
+      eventbriteId: event.eventbriteId,
+      promoCode: event.promoCode,
+      isSoldOut: event.isSoldOut,
+      title: event.title,
+      subtitle: event.subtitle,
+      location: `${event.venue}, ${event.city}`,
+      city: event.city,
+      start: event.start || event.date,
+      end: event.end || event.date,
+      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      image: event.image,
+      description: event.description,
+      fullDescription: event.fullDescription || event.description,
+      highlights: event.highlights || '',
+      soundtrack: event.soundtrack,
+      hiddenSections: event.hiddenSections,
+    };
+    
+    return <Boombastic90sEventPage event={b90Event} />;
   }
   
   if (isFootlooseEvent && event.soundtrack) {
