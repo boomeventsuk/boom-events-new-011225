@@ -13,7 +13,80 @@
   function = "og-event"
   path = "/events/*"
 
-# SPA fallback for client-side routes — available to everyone
+# Static files — serve directly, bypass SPA fallback
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
+[[redirects]]
+  from = "/about/*"
+  to = "/about/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/silent-disco/*"
+  to = "/silent-disco/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/footloose-80s/*"
+  to = "/footloose-80s/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/get-ready/*"
+  to = "/get-ready/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/family-silent-disco/*"
+  to = "/family-silent-disco/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/locations/northampton/*"
+  to = "/locations/northampton/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/locations/bedford/*"
+  to = "/locations/bedford/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/locations/coventry/*"
+  to = "/locations/coventry/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/locations/milton-keynes/*"
+  to = "/locations/milton-keynes/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/locations/luton/*"
+  to = "/locations/luton/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/locations/leicester/*"
+  to = "/locations/leicester/index.html"
+  status = 200
+
+# No-cache header for sitemap so Google always gets the latest
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "application/xml"
+
+# SPA fallback for client-side routes — must be LAST
 [[redirects]]
   from = "/*"
   to = "/index.html"
