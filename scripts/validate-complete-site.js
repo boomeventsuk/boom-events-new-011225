@@ -23,12 +23,18 @@ const results = {
 console.log('🔍 Validating complete site for AEO/SEO/AIO/GEO compliance...\n');
 
 // Load events data
-const eventsPath = path.join(root, 'public', 'events.json');
+const eventsPath = path.join(root, 'public', 'events-boombastic.json');
 if (!fs.existsSync(eventsPath)) {
-  console.error('❌ events.json not found');
+  console.error('❌ events-boombastic.json not found');
   process.exit(1);
 }
-const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const rawEvents = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const events = rawEvents.map(ev => ({
+  ...ev,
+  id:       ev.id       || ev.eventCode,
+  location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
+  bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+}));
 
 // Validate each event
 console.log('📋 Validating Event Pages...');
@@ -138,7 +144,7 @@ console.log('\n🏗️ Validating Infrastructure...');
 const files = [
   'public/robots.txt',
   'public/sitemap.xml', 
-  'public/events.json',
+  'public/events-boombastic.json',
   'public/venues.json',
   'public/for-ai/index.html'
 ];
@@ -163,7 +169,7 @@ console.log('\n📊 Calculating Compliance Scores...');
 // AEO Score (AI Engine Optimization)
 const aeoFactors = [
   results.infrastructure.files['public/for-ai/index.html'], // AI-readable endpoints
-  results.infrastructure.files['public/events.json'], // Structured data feeds
+  results.infrastructure.files['public/events-boombastic.json'], // Structured data feeds
   results.homepage.hasOrganizationSchema, // Proper organization markup
   results.events.every(e => e.hasJson) // Per-event JSON availability
 ];

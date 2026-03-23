@@ -183,14 +183,20 @@ ${JSON.stringify(structuredData, null, 2)}
 // Main execution
 function generateAllEventPages() {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-  const eventsPath = path.join(__dirname, '..', 'public', 'events.json');
-  
+  const eventsPath = path.join(__dirname, '..', 'public', 'events-boombastic.json');
+
   if (!fs.existsSync(eventsPath)) {
-    console.error('Missing events.json at', eventsPath);
+    console.error('Missing events-boombastic.json at', eventsPath);
     process.exit(1);
   }
 
-  const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+  const rawEvents = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+  const events = rawEvents.map(ev => ({
+    ...ev,
+    id:       ev.id       || ev.eventCode,
+    location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
+    bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+  }));
   const results = {
     timestamp,
     totalEvents: events.length,

@@ -67,8 +67,8 @@ Allow: /
   writeFile(path.join(root,'public','robots.txt'), robots);
   actions.push('robots.txt updated');
 
-  // Build sitemap from public/events.json if present
-  const eventsJson = readJson(path.join(root,'public','events.json')) || [];
+  // Build sitemap from public/events-boombastic.json if present
+  const eventsJson = readJson(path.join(root,'public','events-boombastic.json')) || [];
   let urls = [
     `<url><loc>${SITE_URL}/</loc><changefreq>daily</changefreq></url>`,
     `<url><loc>${SITE_URL}/tickets</loc></url>`,
@@ -206,10 +206,16 @@ function html(ev,desc,slugStr){
 }
 
 (function run(){
-  const events = readJson(path.join(process.cwd(),'public','events.json'));
+  const rawEvents = readJson(path.join(process.cwd(),'public','events-boombastic.json'));
   const copy = readJson(path.join(process.cwd(),'content','event-copy.json')) || {};
   const outDir = path.join(process.cwd(),'public','events');
-  if(!events || !Array.isArray(events)){ console.log('No events.json found'); return; }
+  if(!rawEvents || !Array.isArray(rawEvents)){ console.log('No events-boombastic.json found'); return; }
+  const events = rawEvents.map(ev => ({
+    ...ev,
+    id:       ev.id       || ev.eventCode,
+    location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
+    bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+  }));
   if(!fs.existsSync(outDir)) fs.mkdirSync(outDir,{recursive:true});
   events.forEach(ev=>{
     const s = ev.slug || slug(ev.title||ev.id||'event');

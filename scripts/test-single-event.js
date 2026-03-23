@@ -3,8 +3,14 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const eventsPath = path.join(root, 'public', 'events.json');
-const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const eventsPath = path.join(root, 'public', 'events-boombastic.json');
+const rawEvents = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const events = rawEvents.map(ev => ({
+  ...ev,
+  id:       ev.id       || ev.eventCode,
+  location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
+  bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+}));
 
 // Test with the first event
 const testEvent = events[0];

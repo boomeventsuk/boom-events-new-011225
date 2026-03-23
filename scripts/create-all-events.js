@@ -30,8 +30,14 @@ function ensureDir(dirPath) {
 }
 
 // Load events
-const eventsPath = path.join(root, 'public', 'events.json');
-const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const eventsPath = path.join(root, 'public', 'events-boombastic.json');
+const rawEvents = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const events = rawEvents.map(ev => ({
+  ...ev,
+  id:       ev.id       || ev.eventCode,
+  location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
+  bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+}));
 
 let eventsWithHTML = 0;
 let eventsWithJSON = 0; 

@@ -1,1 +1,148 @@
-{}
+{
+  "Northampton": {
+    "city": "Northampton",
+    "eventCount": 8,
+    "venues": [
+      {
+        "name": "The Picturedrome",
+        "eventCount": 7,
+        "events": [
+          {
+            "slug": "get-ready-60s-70s-motown-soul-disco",
+            "title": "GET READY - 60s/70s Motown, Soul & Disco"
+          },
+          {
+            "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Northampton — 80s 90s 00s Daytime Disco"
+          },
+          {
+            "slug": "family-silent-disco-northampton",
+            "title": "FAMILY SILENT DISCO Northampton"
+          },
+          {
+            "slug": "footloose-80s-northampton",
+            "title": "FOOTLOOSE 80s Northampton"
+          },
+          {
+            "slug": "silent-disco-greatest-hits-is-10",
+            "title": "SILENT DISCO GREATEST HITS IS 10!"
+          },
+          {
+            "slug": "get-ready-summer-special",
+            "title": "GET READY - Summer Special"
+          },
+          {
+            "slug": "boombastic-90s-northampton",
+            "title": "BOOMBASTIC 90s Northampton"
+          }
+        ]
+      },
+      {
+        "name": "Cinch Stadium (Franklin's Gardens)",
+        "eventCount": 1,
+        "events": [
+          {
+            "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Northampton — 80s 90s 00s Daytime Disco"
+          }
+        ]
+      }
+    ]
+  },
+  "Luton": {
+    "city": "Luton",
+    "eventCount": 2,
+    "venues": [
+      {
+        "name": "Hat Factory",
+        "eventCount": 2,
+        "events": [
+          {
+            "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco"
+          },
+          {
+            "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco"
+          }
+        ]
+      }
+    ]
+  },
+  "Bedford": {
+    "city": "Bedford",
+    "eventCount": 3,
+    "venues": [
+      {
+        "name": "Bedford Esquires",
+        "eventCount": 3,
+        "events": [
+          {
+            "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Bedford — 80s 90s 00s Daytime Disco"
+          },
+          {
+            "slug": "footloose-80s-bedford",
+            "title": "FOOTLOOSE 80s Bedford"
+          },
+          {
+            "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Bedford — 80s 90s 00s Daytime Disco"
+          }
+        ]
+      }
+    ]
+  },
+  "Coventry": {
+    "city": "Coventry",
+    "eventCount": 2,
+    "venues": [
+      {
+        "name": "hmv Empire",
+        "eventCount": 2,
+        "events": [
+          {
+            "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Coventry — 80s 90s 00s Daytime Disco"
+          },
+          {
+            "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Coventry — 80s 90s 00s Daytime Disco"
+          }
+        ]
+      }
+    ]
+  },
+  "Milton Keynes": {
+    "city": "Milton Keynes",
+    "eventCount": 1,
+    "venues": [
+      {
+        "name": "MK11 Music Venue",
+        "eventCount": 1,
+        "events": [
+          {
+            "slug": "the-2pm-club-milton-keynes-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Milton Keynes — 80s 90s 00s Daytime Disco"
+          }
+        ]
+      }
+    ]
+  },
+  "Leicester": {
+    "city": "Leicester",
+    "eventCount": 1,
+    "venues": [
+      {
+        "name": "Mattioli Woods Welford Road Stadium",
+        "eventCount": 1,
+        "events": [
+          {
+            "slug": "the-2pm-club-leicester-80s-90s-00s-daytime-disco",
+            "title": "THE 2PM CLUB Leicester — 80s 90s 00s Daytime Disco"
+          }
+        ]
+      }
+    ]
+  }
+}

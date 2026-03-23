@@ -9,14 +9,20 @@ if (!slugArg) {
 }
 
 const root = path.resolve(__dirname, '..');
-const eventsPath = path.join(root, 'public', 'events.json');
+const eventsPath = path.join(root, 'public', 'events-boombastic.json');
 
 if (!fs.existsSync(eventsPath)) {
-  console.error('events.json not found at', eventsPath);
+  console.error('events-boombastic.json not found at', eventsPath);
   process.exit(3);
 }
 
-const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const rawEvents = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const events = rawEvents.map(ev => ({
+  ...ev,
+  id:       ev.id       || ev.eventCode,
+  location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
+  bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+}));
 const findEvent = e => (e.slug && e.slug === slugArg) || (e.id && String(e.id) === slugArg) || (slugify(e.title) === slugArg);
 const event = events.find(findEvent);
 

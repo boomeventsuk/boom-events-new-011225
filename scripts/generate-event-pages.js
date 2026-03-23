@@ -1,6 +1,6 @@
 /* Enhanced ESM generator: event pages + per-event JSON + venues + city pages + comprehensive sitemap
    Reads:
-     - public/events.json
+     - public/events-boombastic.json
      - content/event-copy.json (optional)
    Writes:
      - public/events/<slug>/index.html
@@ -299,7 +299,13 @@ function buildCityHtml(citySlug, cityName, events) {
 
 // ---------- main ----------
 async function run() {
-  const events = (await readJson(path.join(ROOT, "public", "events.json"))) || [];
+  const raw    = (await readJson(path.join(ROOT, "public", "events-boombastic.json"))) || [];
+  const events = raw.map(ev => ({
+    ...ev,
+    id:       ev.id       || ev.eventCode,
+    location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ""),
+    bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : "")
+  }));
   const copy   = (await readJson(path.join(ROOT, "content", "event-copy.json"))) || {};
   const outDir = path.join(ROOT, "public", "events");
   await ensureDir(outDir);
@@ -307,7 +313,7 @@ async function run() {
   const sitemapUrls = new Set([
     `${SITE_URL}/`,
     `${SITE_URL}/faq/`,
-    `${SITE_URL}/events.json`,
+    `${SITE_URL}/events-boombastic.json`,
     `${SITE_URL}/venues.json`,
     `${SITE_URL}/for-ai/`,
     // Format hub pages

@@ -96,22 +96,22 @@ if (fs.existsSync(indexPath)) {
   console.log('❌ index.html: Not found');
 }
 
-// Check events.json feed
-const eventsPath = path.join(root, 'public', 'events.json');
+// Check events-boombastic.json feed
+const eventsPath = path.join(root, 'public', 'events-boombastic.json');
 if (fs.existsSync(eventsPath)) {
   try {
     const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
     if (Array.isArray(events) && events.length > 0) {
-      console.log(`✅ events.json: ${events.length} events available`);
+      console.log(`✅ events-boombastic.json: ${events.length} events available`);
       score++;
     } else {
-      console.log('⚠️  events.json: Empty or invalid format');
+      console.log('⚠️  events-boombastic.json: Empty or invalid format');
     }
   } catch (e) {
-    console.log('❌ events.json: Invalid JSON');
+    console.log('❌ events-boombastic.json: Invalid JSON');
   }
 } else {
-  console.log('❌ events.json: Not found');
+  console.log('❌ events-boombastic.json: Not found');
 }
 
 // Check for-ai page

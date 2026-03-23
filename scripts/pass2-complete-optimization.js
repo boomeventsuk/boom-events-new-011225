@@ -352,7 +352,13 @@ if (!fs.existsSync(automationDir)) {
 }
 
 // Generate inventory
-const events = JSON.parse(fs.readFileSync(path.join(root, 'public/events.json'), 'utf8'));
+const rawEvents = JSON.parse(fs.readFileSync(path.join(root, 'public/events-boombastic.json'), 'utf8'));
+const events = rawEvents.map(ev => ({
+  ...ev,
+  id:       ev.id       || ev.eventCode,
+  location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
+  bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+}));
 const eventCount = events.length;
 const locationCount = Object.keys(venues).length;
 

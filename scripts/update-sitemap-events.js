@@ -9,8 +9,12 @@ function slugify(text = '') {
 }
 
 // Load events
-const eventsPath = path.join(root, 'public', 'events.json');
-const events = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const eventsPath = path.join(root, 'public', 'events-boombastic.json');
+const rawEvents = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+const events = rawEvents.map(ev => ({
+  ...ev,
+  id: ev.id || ev.eventCode
+}));
 
 // Generate sitemap URLs for events only
 const eventUrls = events
