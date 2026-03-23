@@ -14,7 +14,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
-const SITE_URL = process.env.SITE_URL || "https://boomevents.co.uk";
+const SITE_URL = process.env.SITE_URL || "https://www.boomevents.co.uk";
 
 // ---------- helpers ----------
 async function ensureDir(p) { await fs.mkdir(p, { recursive: true }).catch(() => {}); }
@@ -305,11 +305,24 @@ async function run() {
   await ensureDir(outDir);
 
   const sitemapUrls = new Set([
-    `${SITE_URL}/`, 
-    `${SITE_URL}/faq/`, 
+    `${SITE_URL}/`,
+    `${SITE_URL}/faq/`,
     `${SITE_URL}/events.json`,
     `${SITE_URL}/venues.json`,
-    `${SITE_URL}/for-ai/`
+    `${SITE_URL}/for-ai/`,
+    // Format hub pages
+    `${SITE_URL}/about/`,
+    `${SITE_URL}/silent-disco/`,
+    `${SITE_URL}/footloose-80s/`,
+    `${SITE_URL}/get-ready/`,
+    `${SITE_URL}/family-silent-disco/`,
+    // City hub pages
+    `${SITE_URL}/locations/northampton/`,
+    `${SITE_URL}/locations/bedford/`,
+    `${SITE_URL}/locations/milton-keynes/`,
+    `${SITE_URL}/locations/coventry/`,
+    `${SITE_URL}/locations/luton/`,
+    `${SITE_URL}/locations/leicester/`
   ]);
   const sample = [];
   const venueData = new Map(); // city -> {venue: string, events: Array}
@@ -395,10 +408,11 @@ async function run() {
     sitemapUrls.add(`${SITE_URL}/locations/${citySlug}/`);
   }
 
-  // Generate sitemap
+  // Generate sitemap with lastmod dates
+  const today = new Date().toISOString().slice(0, 10);
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[...sitemapUrls].map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
+${[...sitemapUrls].map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join('\n')}
 </urlset>
 `;
   await fs.writeFile(path.join(ROOT, "public", "sitemap.xml"), sitemap, "utf8");
