@@ -302,6 +302,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
       
       <Footer />
     </div>
+    </>
   );
 };
 
