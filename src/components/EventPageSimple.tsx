@@ -132,9 +132,28 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
     return <p className="text-base md:text-lg text-foreground/85">{trimmedLine}</p>;
   };
 
+  const canonicalUrl = `https://boomevents.co.uk/event/${event.eventCode}`;
+  const metaDescription = event.description.split('\n')[0].slice(0, 160);
+
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <>
+      <Helmet>
+        <title>{event.title} | Boombastic Events</title>
+        <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:type" content="event" />
+        <meta property="og:title" content={event.title} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content={event.image} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:site_name" content="Boombastic Events" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={event.title} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={event.image} />
+      </Helmet>
+      <div className="min-h-screen bg-background">
+        <Header />
       
       {/* Hero Section */}
       <section className="pt-32 md:pt-36 pb-8 bg-gradient-to-b from-background via-background to-muted/10">
