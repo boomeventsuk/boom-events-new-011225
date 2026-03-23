@@ -84,6 +84,7 @@ const EventTemplate = () => {
   const isFamilySilentDiscoEvent = event.eventCode.includes('-FSD-');
   const isSilentDiscoEvent = event.eventCode.includes('-SD-') && !isFamilySilentDiscoEvent;
   const isFootlooseEvent = event.eventCode.includes('-FL80-');
+  const isBoombastic90sEvent = event.eventCode.includes('-B90-');
   const isGetReadyEvent = event.eventCode.includes('-GR-');
   
   if (isGetReadyEvent && event.soundtrack) {
