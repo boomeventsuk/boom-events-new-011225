@@ -331,7 +331,6 @@ async function run() {
     `${SITE_URL}/locations/luton/`,
     `${SITE_URL}/locations/leicester/`
   ]);
-  const sample = [];
   const venueData = new Map(); // city -> {venue: string, events: Array}
 
   // Collect venue data and add event URLs to sitemap (no static HTML generated)
@@ -356,11 +355,6 @@ async function run() {
       cityData.venues.get(venue).events.push({ slug, title: ev.title });
     }
 
-    const tzOk = /"startDate"\s*:\s*".+?[+\-]\d{2}:\d{2}"/.test(html);
-    const offersUrlOk = /"offers"\s*:\s*{[^}]*"url"\s*:\s*".+?"/.test(html);
-    const priceNumeric = /"offers"\s*:\s*{[^}]*"price"\s*:\s*\d+/.test(html);
-    const hasValidFrom = /"validFrom"\s*:\s*".+?"/.test(html);
-    sample.push({ slug, tzOk, offersUrlOk, priceNumeric, hasValidFrom });
   }
 
   // Generate venues.json
@@ -417,12 +411,7 @@ ${[...sitemapUrls].map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}
   lines.push(`Total sitemap URLs: ${sitemapUrls.size}`);
   lines.push(`Venues.json cities: ${Object.keys(venuesJson).length}`, "");
   
-  lines.push("## Validation Checks (Sample Events)");
-  sample.slice(0,15).forEach(s => {
-    lines.push(`- ${s.slug}: timezone=${s.tzOk}, offers=${s.offersUrlOk}, price=${s.priceNumeric}, validFrom=${s.hasValidFrom}`);
-  });
-  
-  lines.push("", "## Generated Files");
+  lines.push("## Generated Files");
   lines.push("✅ Enhanced event pages with JSON links");
   lines.push("✅ Per-event JSON files (/events/*/index.json)");
   lines.push("✅ Venues summary (venues.json)");
