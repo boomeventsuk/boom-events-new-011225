@@ -3,7 +3,7 @@
 Event pages generated: 17
 Per-event JSON files: 17
 City pages generated: 6
-Total sitemap URLs: 33
+Total sitemap URLs: 34
 Venues.json cities: 6
 
 ## Generated Files
