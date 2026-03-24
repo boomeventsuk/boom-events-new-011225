@@ -307,8 +307,9 @@ async function run() {
     bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : "")
   }));
   const copy   = (await readJson(path.join(ROOT, "content", "event-copy.json"))) || {};
-  const outDir = path.join(ROOT, "public", "events");
-  await ensureDir(outDir);
+  // NOTE: Static event HTML pages removed. Event pages are handled by
+  // the Lovable React app at /event/{eventCode}. This script only generates
+  // sitemap, venues.json, and city location pages.
 
   const sitemapUrls = new Set([
     `${SITE_URL}/`,
@@ -333,29 +334,11 @@ async function run() {
   const sample = [];
   const venueData = new Map(); // city -> {venue: string, events: Array}
 
-  // Generate event pages and collect venue data
+  // Collect venue data and add event URLs to sitemap (no static HTML generated)
   for (const ev of events) {
     const slug = ev.slug || slugify(ev.title || ev.id || "event");
-    const desc = copy[String(ev.id)] || copy[slug] || ev.description || "";
-    const html = buildEventHtml(ev, desc, slug);
-    const dir  = path.join(outDir, slug);
-    await ensureDir(dir);
-    
-    // Write HTML page
-    await fs.writeFile(path.join(dir, "index.html"), html, "utf8");
-    
-    // Write per-event JSON
-    const eventJson = {
-      ...ev,
-      slug,
-      shareUrl: `${SITE_URL}/events/${slug}/`,
-      description: desc || ev.description || "",
-      startDate: withUkOffset(ev.start || ""),
-      endDate: withUkOffset(ev.end || "")
-    };
-    await fs.writeFile(path.join(dir, "index.json"), JSON.stringify(eventJson, null, 2), "utf8");
-    
-    // Use eventCode for canonical URL (matches /event/ route pattern)
+
+    // Add canonical event URL to sitemap using eventCode
     const eventCode = ev.eventCode || slug;
     sitemapUrls.add(`${SITE_URL}/event/${eventCode}`);
 
