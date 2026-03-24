@@ -355,7 +355,9 @@ async function run() {
     };
     await fs.writeFile(path.join(dir, "index.json"), JSON.stringify(eventJson, null, 2), "utf8");
     
-    sitemapUrls.add(`${SITE_URL}/events/${slug}/`);
+    // Use eventCode for canonical URL (matches /event/ route pattern)
+    const eventCode = ev.eventCode || slug;
+    sitemapUrls.add(`${SITE_URL}/event/${eventCode}`);
 
     // Collect venue data for venues.json
     const { venue, city } = splitVenueCity(ev.location || "");
