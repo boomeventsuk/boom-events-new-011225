@@ -73,68 +73,32 @@ else
   exit 1
 fi
 
-# Check if event pages were generated
-echo "Checking generated event pages..."
-if [ -d "public/events" ]; then
-  page_count=$(find public/events -name "index.html" | wc -l | tr -d ' ')
-  expected=$(node -e "
-const events = JSON.parse(require('fs').readFileSync('public/events-boombastic.json', 'utf8'));
-function slugify(s){return (s||'').toString().toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+\$/g,'');}
-const slugs = new Set(events.map(ev => ev.slug || slugify(ev.title)));
-console.log(slugs.size);
-")
-  echo "OK: Generated $page_count event pages (expected $expected unique slugs)"
-
-  if [ "$page_count" -lt "$expected" ]; then
-    echo "FAIL: Expected $expected event pages, found $page_count"
-    exit 1
-  fi
-else
-  echo "FAIL: Events directory not found"
-  exit 1
-fi
-
-# Test sitemap
-echo "Testing sitemap..."
-if grep -q "events/" public/sitemap.xml; then
-  echo "OK: Sitemap contains event URLs"
+# Check sitemap contains event URLs (React app serves /event/{eventCode})
+echo "Checking sitemap event URLs..."
+if grep -q "/event/" public/sitemap.xml; then
+  event_url_count=$(grep -c "/event/" public/sitemap.xml)
+  echo "OK: Sitemap contains $event_url_count event URLs"
 else
   echo "FAIL: Sitemap missing event URLs"
   exit 1
 fi
 
-# Test URL structure
-echo "Testing URL structure..."
-node -e "
-const events = JSON.parse(require('fs').readFileSync('public/events-boombastic.json', 'utf8'));
-
-function slugify(s) {
-  return (s || '').toString().toLowerCase().normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+\$/g, '');
-}
-
-events.forEach(event => {
-  const slug = event.slug || slugify(event.title);
-  const expectedPath = 'public/events/' + slug + '/index.html';
-
-  if (require('fs').existsSync(expectedPath)) {
-    console.log('OK: Event page exists:', slug);
-  } else {
-    console.log('FAIL: Event page missing:', expectedPath);
-    process.exit(1);
-  }
-});
-console.log('OK: All event page URLs are correctly structured');
-"
+# Verify city landing pages were generated
+echo "Checking city landing pages..."
+if [ -d "public/locations" ]; then
+  city_count=$(find public/locations -name "index.html" | wc -l | tr -d ' ')
+  echo "OK: $city_count city landing pages found"
+else
+  echo "FAIL: Locations directory not found"
+  exit 1
+fi
 
 echo ""
 echo "All QA tests passed!"
 echo "OK: Events data integrity verified"
 echo "OK: Build process working"
-echo "OK: Event pages generated"
+echo "OK: Sitemap contains event URLs"
+echo "OK: City landing pages generated"
 echo "OK: SEO structure implemented"
-echo "OK: URL structure validated"
 echo ""
 echo "Ready for deployment!"
