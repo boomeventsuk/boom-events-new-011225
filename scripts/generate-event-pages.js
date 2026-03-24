@@ -320,6 +320,7 @@ async function run() {
     // Format hub pages
     `${SITE_URL}/about/`,
     `${SITE_URL}/silent-disco/`,
+    `${SITE_URL}/boombastic-90s/`,
     `${SITE_URL}/footloose-80s/`,
     `${SITE_URL}/get-ready/`,
     `${SITE_URL}/family-silent-disco/`,

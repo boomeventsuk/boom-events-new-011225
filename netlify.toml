@@ -40,6 +40,11 @@
   status = 200
 
 [[redirects]]
+  from = "/boombastic-90s/*"
+  to = "/boombastic-90s/index.html"
+  status = 200
+
+[[redirects]]
   from = "/get-ready/*"
   to = "/get-ready/index.html"
   status = 200
