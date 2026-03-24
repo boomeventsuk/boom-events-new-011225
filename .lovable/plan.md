@@ -1,37 +1,61 @@
 
 
-## Update OG Meta Tags for All Event Pages
+## Revamp Header and Footer Navigation
 
-### Current State
-Five of six event page templates already have dynamic OG meta tags via `react-helmet-async`:
-- TwoPmClubEventPage — has OG tags
-- SilentDiscoEventPage — has OG tags
-- FamilySilentDiscoEventPage — has OG tags
-- FootlooseEventPage — has OG tags (from code context)
-- Boombastic90sEventPage — has OG tags
-- GetReadyEventPage — has OG tags
-- **EventPageSimple — MISSING OG tags entirely**
+### Summary
+Replace the current scroll-based nav with proper dropdown menus for "Our Parties" and "Locations", clean up redundancy (remove duplicate "Tickets"/"Book Tickets"), and restructure the Footer with link columns. All links use `<a href>` for static HTML pages.
 
-For social crawler previews (WhatsApp, Facebook), the Netlify edge function + backend function already serve dynamic OG HTML to bots. This works for all events because it reads from `events-boombastic.json`.
+### Header Changes (`src/components/Header.tsx`)
 
-The gap is **EventPageSimple**, which is the fallback template for events that don't match a specific type. It has no `Helmet` import and no OG tags at all.
+**Desktop nav** (inside `.primary-nav`):
+- **Our Parties** — hover dropdown with 6 links:
+  - BOOMBASTIC 90s -> `/boombastic-90s/`
+  - Silent Disco Greatest Hits -> `/silent-disco/`
+  - FOOTLOOSE 80s -> `/footloose-80s/`
+  - GET READY -> `/get-ready/`
+  - Family Silent Disco -> `/family-silent-disco/`
+  - THE 2PM CLUB -> `https://www.the2pmclub.co.uk` (external, opens new tab)
+- **Locations** — hover dropdown with 6 links:
+  - Northampton -> `/locations/northampton/`
+  - Bedford -> `/locations/bedford/`
+  - Milton Keynes -> `/locations/milton-keynes/`
+  - Coventry -> `/locations/coventry/`
+  - Luton -> `/locations/luton/`
+  - Leicester -> `/locations/leicester/`
+- Keep: **Reviews** (scroll), **About** (scroll), **Jobs** (`/jobs`)
+- Remove: "Tickets" button (redundant with "Book Tickets" CTA)
+- "Book Tickets" CTA button stays, scrolls to `#tickets`
 
-### Changes
+**Dropdowns implementation**: Pure CSS hover dropdowns using relative/absolute positioning. Styled to match the dark theme (`bg-popover`, `border-border`, rounded corners). Each dropdown item styled with `font-poppins text-muted-foreground hover:text-primary`. No external library needed.
 
-**1. `src/components/EventPageSimple.tsx`** — Add Helmet with dynamic OG tags
+**Mobile menu**: Replace flat link list with accordion-style sections:
+- "Our Parties" heading -> toggles list of 6 party links
+- "Locations" heading -> toggles list of 6 location links
+- Reviews, About, Jobs as flat links
+- Social links at bottom
+- Use React state for accordion open/close
 
-- Import `react-helmet-async`
-- Add `<Helmet>` block with:
-  - `og:title` → event title
-  - `og:description` → event description
-  - `og:image` → event image
-  - `og:url` → canonical URL (`https://boomevents.co.uk/event/{eventCode}`)
-  - `og:type` → "event"
-  - `og:site_name` → "Boombastic Events"
-  - Twitter card tags (summary_large_image)
-  - Canonical link
-  - Page title and meta description
-- Falls back to site-wide defaults from `index.html` if any field is missing (Helmet only overrides what's explicitly set)
+### Footer Changes (`src/components/Footer.tsx`)
 
-This is a single-file change. All other templates and the crawler-side edge functions are already correct.
+Replace single-column centered layout with a multi-column grid:
+- **Column 1**: Logo + email + social icons (existing content)
+- **Column 2**: "Our Parties" heading + 6 party links
+- **Column 3**: "Locations" heading + 6 location links
+- **Column 4**: "Company" heading with About (`/about/`), Jobs (`/jobs`), Privacy, Terms
+
+All links use `<a href>`. Remove `react-router-dom` Link imports.
+
+Copyright line spans full width below columns.
+
+### CSS Changes (`src/index.css`)
+
+Add styles for:
+- `.nav-dropdown` — the hover dropdown container (absolute positioned, dark bg, rounded, shadow)
+- `.nav-dropdown-item` — individual dropdown links
+- `.mobile-accordion` — collapsible sections in mobile menu
+- Update `.primary-nav` gap to accommodate dropdown triggers
+
+### Technical Detail
+
+Dropdowns are CSS-only on desktop (`:hover` on parent `<div>` shows child `<div>`). No Radix or external dropdown library needed — keeps it lightweight and matches the existing pattern of inline styles in `index.html`. Mobile accordion uses simple React `useState` toggles.
 
