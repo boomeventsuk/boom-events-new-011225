@@ -8,6 +8,11 @@
   function = "markdown-negotiate"
   path = "/*"
 
+# Homepage inject: JSON-LD, WebMCP shim, noscript agent block
+[[edge_functions]]
+  function = "homepage-inject"
+  path = "/"
+
 # Edge function for dynamic OG tags on event pages
 [[edge_functions]]
   function = "og-event"
