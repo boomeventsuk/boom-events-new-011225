@@ -1,0 +1,26 @@
+{
+  "serverInfo": {
+    "name": "Boombastic Events",
+    "version": "1.0.0",
+    "description": "Boombastic Events runs daytime and afternoon events across the Midlands under four sub-brands: THE 2PM CLUB (80s/90s/00s daytime disco), SILENT DISCO GREATEST HITS, FOOTLOOSE 80s, and FAMILY SILENT DISCO. Events run 2pm-6pm, cities include Northampton, Bedford, Milton Keynes, Coventry, Luton, and Leicester.",
+    "url": "https://www.boomevents.co.uk",
+    "contact": "hello@boomevents.co.uk"
+  },
+  "capabilities": {
+    "resources": [
+      {
+        "name": "events",
+        "description": "All upcoming Boombastic Events across all sub-brands and cities",
+        "uri": "https://www.boomevents.co.uk/events-boombastic.json",
+        "mimeType": "application/json"
+      },
+      {
+        "name": "venues",
+        "description": "Venue data grouped by city",
+        "uri": "https://www.boomevents.co.uk/venues.json",
+        "mimeType": "application/json"
+      }
+    ]
+  },
+  "transport": null
+}

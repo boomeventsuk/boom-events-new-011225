@@ -1,0 +1,181 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Boombastic Events API",
+    "description": "Read-only JSON API for Boombastic Events. Returns upcoming afternoon club night events across four sub-brands (THE 2PM CLUB, SILENT DISCO GREATEST HITS, FOOTLOOSE 80s, FAMILY SILENT DISCO) running across 6 Midlands cities. Events run 2pm to 6pm, every Saturday afternoon.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "hello@boomevents.co.uk"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.boomevents.co.uk",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/events-boombastic.json": {
+      "get": {
+        "operationId": "listEvents",
+        "summary": "List all events",
+        "description": "Returns all Boombastic Events across all sub-brands and cities. Filter client-side by city, sub-brand (title prefix), or start date. Book tickets at https://www.boomevents.co.uk/event/{eventCode}.",
+        "responses": {
+          "200": {
+            "description": "Array of events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/venues.json": {
+      "get": {
+        "operationId": "listVenues",
+        "summary": "List venues by city",
+        "description": "Returns venue data grouped by city, with event counts and event lists per venue.",
+        "responses": {
+          "200": {
+            "description": "Venues grouped by city",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/CityVenues"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Event": {
+        "type": "object",
+        "properties": {
+          "eventCode": {
+            "type": "string",
+            "description": "Unique event code used in booking URL (e.g. '250426-SD-NPTON'). Book at https://www.boomevents.co.uk/event/{eventCode}"
+          },
+          "title": {
+            "type": "string",
+            "description": "Full event title including sub-brand and city"
+          },
+          "subtitle": {
+            "type": "string",
+            "description": "Short tagline or description"
+          },
+          "date": {
+            "type": "string",
+            "description": "Human-readable date (e.g. 'Saturday, 26 April 2026')"
+          },
+          "timeDisplay": {
+            "type": "string",
+            "description": "Event time range (always '14:00 – 18:00' for afternoon events)"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 start datetime"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 end datetime"
+          },
+          "venue": {
+            "type": "string",
+            "description": "Venue name"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name",
+            "enum": ["Northampton", "Bedford", "Milton Keynes", "Coventry", "Luton", "Leicester", "Birmingham"]
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "Event image URL"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short event description"
+          },
+          "fullDescription": {
+            "type": "string",
+            "description": "Full event description"
+          },
+          "eventbriteId": {
+            "type": "string",
+            "description": "Eventbrite event ID"
+          },
+          "isSoldOut": {
+            "type": "boolean",
+            "description": "Whether the event is sold out"
+          },
+          "highlights": {
+            "type": "string",
+            "description": "Pipe-separated list of event highlights"
+          },
+          "soundtrack": {
+            "type": "string",
+            "description": "Dot-separated list of artists"
+          },
+          "isAfternoon": {
+            "type": "boolean",
+            "description": "Whether this is an afternoon event (always true)"
+          },
+          "fomoOverride": {
+            "type": "object",
+            "description": "Urgency messaging override",
+            "properties": {
+              "tier": { "type": "string" },
+              "message": { "type": "string" },
+              "timeMessage": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "required": ["eventCode", "title", "start", "end", "venue", "city"]
+      },
+      "CityVenues": {
+        "type": "object",
+        "properties": {
+          "city": { "type": "string" },
+          "eventCount": { "type": "integer" },
+          "venues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "eventCount": { "type": "integer" },
+                "events": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "slug": { "type": "string" },
+                      "title": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

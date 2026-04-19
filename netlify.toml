@@ -3,6 +3,11 @@
   command = "npm run build"
   publish = "dist"
 
+# Markdown negotiation — must be FIRST (intercepts Accept: text/markdown before other functions)
+[[edge_functions]]
+  function = "markdown-negotiate"
+  path = "/*"
+
 # Edge function for dynamic OG tags on event pages
 [[edge_functions]]
   function = "og-event"
@@ -83,6 +88,18 @@
   from = "/locations/leicester/*"
   to = "/locations/leicester/index.html"
   status = 200
+
+# Agent discovery headers on all pages (RFC 8288, RFC 9727)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Link = "</.well-known/api-catalog>; rel=\"api-catalog\", </llms.txt>; rel=\"alternate\"; type=\"text/markdown\", </openapi.json>; rel=\"service-desc\"; type=\"application/vnd.oai.openapi+json\""
+
+# api-catalog must return application/linkset+json not text/plain
+[[headers]]
+  for = "/.well-known/api-catalog"
+  [headers.values]
+    Content-Type = "application/linkset+json"
 
 # No-cache header for sitemap so Google always gets the latest
 [[headers]]

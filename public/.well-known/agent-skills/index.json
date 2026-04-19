@@ -1,0 +1,12 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
+  "skills": [
+    {
+      "name": "list-events",
+      "type": "skill-md",
+      "description": "Fetch upcoming Boombastic Events across all sub-brands (2PM CLUB, Silent Disco, Footloose 80s, Family Silent Disco) and 6 Midlands cities. Returns JSON with title, date, venue, city, booking URL, and event details.",
+      "url": "https://www.boomevents.co.uk/.well-known/agent-skills/list-events/SKILL.md",
+      "digest": "sha256:ea0af9735fc84395acb16a00a86985f9bd1666915cae200780bbe7a9aa2b3649"
+    }
+  ]
+}
