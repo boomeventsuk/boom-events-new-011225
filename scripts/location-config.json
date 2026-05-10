@@ -1,0 +1,151 @@
+{
+  "_comment": "Per-city copy and FAQ for location pages. Generator merges this with events-boombastic.json. Edit copy here, regenerate. citySlug must match slug used in URL.",
+  "cities": [
+    {
+      "citySlug": "bedford",
+      "cityName": "Bedford",
+      "primaryVenue": "Bedford Esquires",
+      "heroSubhead": "Boombastic Events have been throwing parties across the Midlands for over a decade. Here's what's coming up in Bedford.",
+      "aboutTitle": "Parties in Bedford",
+      "aboutBody": [
+        "Bedford has been one of our home cities for years. THE 2PM CLUB at Esquires sells out fast, and the crowd we get on a Saturday afternoon is genuinely special.",
+        "Whether it's a daytime disco, silent disco or a Footloose 80s night, our Bedford events are built for people who don't fancy a 2am finish."
+      ],
+      "metaDescription": "Upcoming Boombastic Events in Bedford. Daytime disco, silent disco and decades parties at Bedford Esquires.",
+      "faq": [
+        {
+          "q": "Where are Boombastic Events held in Bedford?",
+          "a": "Most of our Bedford events are held at Bedford Esquires, a long-standing live music venue in the centre of town."
+        },
+        {
+          "q": "What is THE 2PM CLUB?",
+          "a": "THE 2PM CLUB is a daytime disco. Four hours of 80s, 90s and 00s anthems from 2pm to 6pm. All the energy of a night out, home by 7-ish."
+        }
+      ]
+    },
+    {
+      "citySlug": "luton",
+      "cityName": "Luton",
+      "primaryVenue": "The Hat Factory",
+      "heroSubhead": "Boombastic Events bring daytime disco, silent disco and decades parties to Luton. Here's what's coming up.",
+      "aboutTitle": "Parties in Luton",
+      "aboutBody": [
+        "Luton is a Boombastic stronghold. The Hat Factory has hosted some of our best afternoons, and the local crowd shows up loud every time.",
+        "Daytime disco, silent disco, Footloose 80s, 90s parties — Luton gets the lot. Saturday afternoons that beat any night out."
+      ],
+      "metaDescription": "Upcoming Boombastic Events in Luton. Daytime disco, silent disco and decades parties at The Hat Factory.",
+      "faq": [
+        {
+          "q": "Where are Boombastic Events held in Luton?",
+          "a": "Our Luton events are held at The Hat Factory, the town's main cultural venue."
+        },
+        {
+          "q": "What time does THE 2PM CLUB Luton start?",
+          "a": "Doors open at 2pm and the party runs until 6pm. You'll be home for dinner."
+        }
+      ]
+    },
+    {
+      "citySlug": "coventry",
+      "cityName": "Coventry",
+      "primaryVenue": "HMV Empire",
+      "heroSubhead": "Coventry's home for daytime disco, silent disco and decades parties. Tickets selling fast.",
+      "aboutTitle": "Parties in Coventry",
+      "aboutBody": [
+        "Coventry has fully embraced the daytime disco. HMV Empire is one of our favourite rooms and the city centre crowd brings it every time.",
+        "Four hours of 80s, 90s and 00s floor-fillers, then home for tea. That's the Coventry formula and it works."
+      ],
+      "metaDescription": "Upcoming Boombastic Events in Coventry. Daytime disco and decades parties at HMV Empire.",
+      "faq": [
+        {
+          "q": "Where are Boombastic Events held in Coventry?",
+          "a": "Most Coventry events take place at HMV Empire, the city's main live music venue."
+        },
+        {
+          "q": "Is parking easy near HMV Empire?",
+          "a": "Yes — Coventry city centre car parks are a short walk away. Public transport is also excellent."
+        }
+      ]
+    },
+    {
+      "citySlug": "milton-keynes",
+      "cityName": "Milton Keynes",
+      "primaryVenue": "MK11 Live",
+      "heroSubhead": "Milton Keynes' home for daytime disco, silent disco and decades parties. Tickets selling fast.",
+      "aboutTitle": "Parties in Milton Keynes",
+      "aboutBody": [
+        "Milton Keynes has been one of our biggest cities for years. MK11 Live and other venues across the city have hosted some of our most memorable afternoons.",
+        "If you live in MK and you've never tried a daytime disco, fix that. You'll wonder why you ever bothered with nights out."
+      ],
+      "metaDescription": "Upcoming Boombastic Events in Milton Keynes. Daytime disco and decades parties.",
+      "faq": [
+        {
+          "q": "Where are Boombastic Events held in Milton Keynes?",
+          "a": "Our MK events take place across multiple venues including MK11 Live. Check each event listing for the specific venue."
+        },
+        {
+          "q": "What is THE 2PM CLUB Milton Keynes?",
+          "a": "A daytime disco for grown-ups. Four hours of 80s, 90s and 00s anthems, 2pm to 6pm. Home by 7-ish."
+        }
+      ]
+    },
+    {
+      "citySlug": "northampton",
+      "cityName": "Northampton",
+      "primaryVenue": "Cinch Stadium / The Picturedrome / Roadmender",
+      "heroSubhead": "Northampton is Boombastic's home town. Daytime disco, silent disco, decades parties — all of it, here.",
+      "aboutTitle": "Parties in Northampton",
+      "aboutBody": [
+        "Northampton is where it all started. Twelve years of Boombastic Events, hundreds of nights, tens of thousands of people through the doors.",
+        "Cinch Stadium, The Picturedrome, The Roadmender, Marquee on the Racecourse — we've thrown parties at every venue in town. And we're still going."
+      ],
+      "metaDescription": "Upcoming Boombastic Events in Northampton. Daytime disco, silent disco, 80s 90s 00s parties at the town's best venues.",
+      "faq": [
+        {
+          "q": "Where are Boombastic Events held in Northampton?",
+          "a": "Across multiple venues including Cinch Stadium, The Picturedrome, The Roadmender and the Marquee on the Racecourse. Each event listing shows the specific venue."
+        },
+        {
+          "q": "How long has Boombastic been running events in Northampton?",
+          "a": "Over 12 years. Northampton is our home town and we run more events here than anywhere else."
+        }
+      ]
+    },
+    {
+      "citySlug": "leicester",
+      "cityName": "Leicester",
+      "primaryVenue": "TBC",
+      "heroSubhead": "Boombastic Events in Leicester. Daytime disco and decades parties coming soon.",
+      "aboutTitle": "Parties in Leicester",
+      "aboutBody": [
+        "Leicester is one of our newer cities and we're scaling up. New events are added regularly.",
+        "Sign up below to be first to hear when the next Leicester party drops."
+      ],
+      "metaDescription": "Upcoming Boombastic Events in Leicester. Daytime disco and decades parties.",
+      "faq": [
+        {
+          "q": "When is the next Boombastic event in Leicester?",
+          "a": "Check the listings above. New Leicester dates are added throughout the year."
+        }
+      ]
+    },
+    {
+      "citySlug": "birmingham",
+      "cityName": "Birmingham",
+      "primaryVenue": "TBC",
+      "heroSubhead": "Boombastic Events in Birmingham. Daytime disco and decades parties coming soon.",
+      "aboutTitle": "Parties in Birmingham",
+      "aboutBody": [
+        "Birmingham is one of our newest cities. We're announcing dates throughout 2026.",
+        "Sign up below to be first to hear when the next Birmingham party drops."
+      ],
+      "metaDescription": "Upcoming Boombastic Events in Birmingham. Daytime disco and decades parties.",
+      "faq": [
+        {
+          "q": "When is the next Boombastic event in Birmingham?",
+          "a": "Birmingham dates are announced throughout the year. Check listings above for upcoming events."
+        }
+      ]
+    }
+  ]
+}

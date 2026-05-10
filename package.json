@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "postinstall": "node scripts/generate-event-pages.js || true",
-    "generate:events": "node scripts/generate-event-pages.js"
+    "generate:events": "node scripts/generate-event-pages.js",
+    "regenerate-locations": "node scripts/generate-location-pages.cjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
