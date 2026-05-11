@@ -102,7 +102,7 @@
           "city": {
             "type": "string",
             "description": "City name",
-            "enum": ["Northampton", "Bedford", "Milton Keynes", "Coventry", "Luton", "Leicester", "Birmingham"]
+            "enum": ["Northampton", "Bedford", "Milton Keynes", "Coventry", "Luton", "Leicester"]
           },
           "image": {
             "type": "string",

@@ -30,5 +30,11 @@
 /locations/luton/*        /locations/luton/index.html        200
 /locations/leicester/*    /locations/leicester/index.html    200
 
-# SPA fallback - must be LAST
-/*                                                                     /index.html               200
+# SPA routes — explicit React Router paths only, so unknown URLs fall through to 404
+/tickets              /index.html  200
+/terms                /index.html  200
+/jobs                 /index.html  200
+/event/*              /index.html  200
+
+# Catch-all 404 for genuinely unknown URLs — must be LAST
+/*                    /404.html    404

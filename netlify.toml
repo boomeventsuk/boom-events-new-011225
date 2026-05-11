@@ -3,10 +3,6 @@
   command = "npm run build"
   publish = "dist"
 
-[build.environment]
-  # Public browser pixel ID; keep secret scanning active for real private keys.
-  SECRETS_SCAN_OMIT_KEYS = "BOOM_META_PIXEL_ID"
-
 # Markdown negotiation — must be FIRST (intercepts Accept: text/markdown before other functions)
 [[edge_functions]]
   function = "markdown-negotiate"
@@ -103,6 +99,11 @@
   for = "/*"
   [headers.values]
     Link = "</.well-known/api-catalog>; rel=\"api-catalog\", </llms.txt>; rel=\"alternate\"; type=\"text/markdown\", </openapi.json>; rel=\"service-desc\"; type=\"application/vnd.oai.openapi+json\""
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(self)"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
 
 # api-catalog must return application/linkset+json not text/plain
 [[headers]]
@@ -117,8 +118,29 @@
     Cache-Control = "public, max-age=3600"
     Content-Type = "application/xml"
 
-# SPA fallback for client-side routes — must be LAST
+# SPA fallback for client-side routes — explicit React Router paths only
 [[redirects]]
-  from = "/*"
+  from = "/tickets"
   to = "/index.html"
   status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/jobs"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/event/*"
+  to = "/index.html"
+  status = 200
+
+# Catch-all 404 for genuinely unknown URLs — must be LAST
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
