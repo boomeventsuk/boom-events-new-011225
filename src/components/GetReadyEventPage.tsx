@@ -38,7 +38,14 @@ interface GetReadyEventPageProps {
 
 const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
   useEffect(() => {
-    trackEventPageView(event.slug, event.title);
+    trackEventPageView(event.slug, event.title, {
+      eventbriteId: event.eventbriteId,
+      city: event.city,
+      venue: event.location.split(',')[0]?.trim(),
+      startIso: event.start,
+      status: event.isSoldOut ? 'sold-out' : undefined,
+      source: 'event_page'
+    });
   }, [event.slug, event.title]);
 
   // Determine if this is an afternoon/daytime or evening event
@@ -118,6 +125,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
         <main>
           <HeroSection event={{
             slug: event.slug,
+            eventbriteId: event.eventbriteId,
             title: event.title,
             location: event.location,
             start: event.start,
@@ -166,7 +174,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
         
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
       </div>
     </>
   );

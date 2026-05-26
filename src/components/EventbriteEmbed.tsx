@@ -1,5 +1,10 @@
-import { useEffect } from 'react';
-import { pushToDataLayer } from '@/lib/dataLayer';
+import { useEffect, useRef } from 'react';
+import {
+  trackAddToCart,
+  trackBookClick,
+  trackCheckoutInteraction,
+  trackPurchase
+} from '@/lib/dataLayer';
 
 declare global {
   interface Window {
@@ -40,6 +45,42 @@ const EventbriteEmbed = ({
   promoCode, 
   height = 425 
 }: EventbriteEmbedProps) => {
+  const checkoutIntentTracked = useRef(false);
+  const checkoutSlug = eventSlug || eventbriteId;
+  const checkoutTitle = eventTitle || '';
+  const baseTrackingContext = {
+    eventbriteId,
+    source: 'eventbrite_embed'
+  };
+
+  const normaliseEventbriteValue = (order: any): number | undefined => {
+    const rawValue = order?.gross_total?.major_value ?? order?.gross_total?.value;
+    if (rawValue === undefined || rawValue === null) return undefined;
+    const numericValue = Number(rawValue);
+    if (Number.isNaN(numericValue)) return undefined;
+    return numericValue > 1000 ? numericValue / 100 : numericValue;
+  };
+
+  const trackCheckoutIntentOnce = (source: string) => {
+    if (checkoutIntentTracked.current) return;
+    checkoutIntentTracked.current = true;
+    trackBookClick(checkoutSlug, checkoutTitle, {
+      ...baseTrackingContext,
+      source
+    });
+  };
+
+  const handleOrderComplete = (order?: any) => {
+    const value = normaliseEventbriteValue(order);
+    const orderId = order?.id || order?.order_id;
+    debugLog('✅ Eventbrite onOrderComplete fired', { eventbriteId, eventSlug, eventTitle, orderId, value });
+
+    trackPurchase(checkoutSlug, checkoutTitle, value, orderId, {
+      ...baseTrackingContext,
+      source: 'eventbrite_order_complete'
+    });
+  };
+
   useEffect(() => {
     debugLog('🔧 EventbriteEmbed mounted', { eventbriteId, containerId, eventTitle, eventSlug, promoCode });
     
@@ -59,33 +100,7 @@ const EventbriteEmbed = ({
         eventId: eventbriteId,
         iframeContainerId: containerId,
         iframeContainerHeight: height,
-        onOrderComplete: () => {
-          debugLog('✅ Eventbrite onOrderComplete fired', { eventbriteId, eventSlug, eventTitle });
-          
-          pushToDataLayer({
-            event: 'purchase',
-            event_slug: eventSlug,
-            event_type: '2PM',
-            event_title: eventTitle
-          });
-          
-          // Meta Pixel: Purchase
-          debugLog('💳 About to fire Purchase, fbq exists:', typeof window.fbq);
-          if (window.fbq) {
-            try {
-              window.fbq('track', 'Purchase', {
-                content_name: eventTitle,
-                content_ids: [eventSlug],
-                currency: 'GBP'
-              });
-              debugLog('✅ Purchase event fired!');
-            } catch (err) {
-              debugLog('❌ Purchase fbq error:', err);
-            }
-          } else {
-            debugLog('❌ fbq not found for Purchase');
-          }
-        }
+        onOrderComplete: handleOrderComplete
       };
       
       if (promoCode) {
@@ -115,33 +130,7 @@ const EventbriteEmbed = ({
           eventId: eventbriteId,
           iframeContainerId: containerId,
           iframeContainerHeight: height,
-          onOrderComplete: () => {
-            debugLog('✅ Eventbrite onOrderComplete fired', { eventbriteId, eventSlug, eventTitle });
-            
-            pushToDataLayer({
-              event: 'purchase',
-              event_slug: eventSlug,
-              event_type: '2PM',
-              event_title: eventTitle
-            });
-            
-            // Meta Pixel: Purchase
-            debugLog('💳 About to fire Purchase, fbq exists:', typeof window.fbq);
-            if (window.fbq) {
-              try {
-                window.fbq('track', 'Purchase', {
-                  content_name: eventTitle,
-                  content_ids: [eventSlug],
-                  currency: 'GBP'
-                });
-                debugLog('✅ Purchase event fired!');
-              } catch (err) {
-                debugLog('❌ Purchase fbq error:', err);
-              }
-            } else {
-              debugLog('❌ fbq not found for Purchase');
-            }
-          }
+          onOrderComplete: handleOrderComplete
         };
         
         if (promoCode) {
@@ -179,11 +168,20 @@ const EventbriteEmbed = ({
         
         debugLog('📨 Eventbrite postMessage:', data);
         
-        // Forward events to dataLayer
-        if (data.event) {
-          pushToDataLayer({
-            event: `eb_${data.event}`,
-            ...data
+        const eventName = data.event || data.type;
+        if (eventName === 'checkout_started') {
+          trackCheckoutIntentOnce('eventbrite_checkout_started');
+          trackCheckoutInteraction(checkoutSlug, checkoutTitle, {
+            ...baseTrackingContext,
+            source: 'eventbrite_checkout_started'
+          });
+        }
+
+        if (eventName === 'ticket_selected') {
+          trackCheckoutIntentOnce('eventbrite_ticket_selected');
+          trackAddToCart(checkoutSlug, checkoutTitle, {
+            ...baseTrackingContext,
+            source: 'eventbrite_ticket_selected'
           });
         }
       } catch (e) {
@@ -217,30 +215,16 @@ const EventbriteEmbed = ({
         
         debugLog('🎯 Iframe focus detected - condition passed!');
         
-        pushToDataLayer({
-          event: 'eb_checkout_interaction',
-          eventbrite_id: eventbriteId,
-          event_title: eventTitle
+        trackCheckoutInteraction(checkoutSlug, checkoutTitle, {
+          ...baseTrackingContext,
+          source: 'eventbrite_iframe_focus'
         });
 
-        // Fire Meta Pixel AddToCart event when user interacts with checkout
-        debugLog('🛒 About to fire AddToCart, fbq exists:', typeof window.fbq);
-        debugLog('🛒 eventTitle:', eventTitle, 'eventSlug:', eventSlug);
-        
-        if (window.fbq) {
-          try {
-            window.fbq('track', 'AddToCart', {
-              content_name: eventTitle,
-              content_ids: [eventSlug],
-              currency: 'GBP'
-            });
-            debugLog('✅ AddToCart event fired!');
-          } catch (err) {
-            debugLog('❌ AddToCart fbq error:', err);
-          }
-        } else {
-          debugLog('❌ fbq not found on window');
-        }
+        trackCheckoutIntentOnce('eventbrite_iframe_focus');
+        trackAddToCart(checkoutSlug, checkoutTitle, {
+          ...baseTrackingContext,
+          source: 'eventbrite_iframe_focus'
+        });
       }
     };
     

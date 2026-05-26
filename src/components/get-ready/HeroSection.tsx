@@ -8,6 +8,7 @@ import { useEventFomoData } from '@/hooks/useEventFomoData';
 interface HeroSectionProps {
   event: {
     slug: string;
+    eventbriteId?: string;
     title: string;
     location: string;
     start: string;
@@ -42,7 +43,13 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   
   const handleBookClick = () => {
-    trackBookClick(event.slug);
+    trackBookClick(event.slug, event.title, {
+      eventbriteId: event.eventbriteId,
+      city: event.city,
+      venue,
+      startIso: event.start,
+      source: 'hero_button'
+    });
     const checkoutSection = document.getElementById('checkout-section');
     checkoutSection?.scrollIntoView({ behavior: 'smooth' });
   };

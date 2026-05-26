@@ -4,10 +4,12 @@ import { trackBookClick } from '@/lib/dataLayer';
 
 interface StickyBookButtonProps {
   eventSlug: string;
+  eventTitle?: string;
+  eventbriteId?: string;
   urgencyText?: string;
 }
 
-export const StickyBookButton = ({ eventSlug, urgencyText }: StickyBookButtonProps) => {
+export const StickyBookButton = ({ eventSlug, eventTitle, eventbriteId, urgencyText }: StickyBookButtonProps) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -36,7 +38,10 @@ export const StickyBookButton = ({ eventSlug, urgencyText }: StickyBookButtonPro
   }, []);
 
   const handleClick = () => {
-    trackBookClick(eventSlug);
+    trackBookClick(eventSlug, eventTitle || '', {
+      eventbriteId,
+      source: 'sticky_book_button'
+    });
     const checkoutSection = document.getElementById('checkout-section');
     checkoutSection?.scrollIntoView({ behavior: 'smooth' });
   };

@@ -40,7 +40,14 @@ interface FootlooseEventPageProps {
 
 const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
   useEffect(() => {
-    trackEventPageView(event.slug, event.title);
+    trackEventPageView(event.slug, event.title, {
+      eventbriteId: event.eventbriteId,
+      city: event.city,
+      venue: event.location.split(',')[0]?.trim(),
+      startIso: event.start,
+      status: event.isSoldOut ? 'sold-out' : undefined,
+      source: 'event_page'
+    });
   }, [event.slug, event.title]);
 
   const canonicalUrl = `https://boomevents.co.uk/event/${event.slug}/`;
@@ -119,6 +126,7 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
 
           <HeroSection event={{
             slug: event.slug,
+            eventbriteId: event.eventbriteId,
             title: event.title,
             location: event.location,
             start: event.start,
@@ -166,6 +174,8 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
         
         <StickyBookButton 
           eventSlug={event.slug} 
+          eventTitle={event.title}
+          eventbriteId={event.eventbriteId}
           urgencyText={event.ticketsLeft ? `LAST ${event.ticketsLeft} TICKETS — BOOK NOW` : undefined}
         />
       </div>
