@@ -39,7 +39,14 @@ interface FamilySilentDiscoEventPageProps {
 
 const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) => {
   useEffect(() => {
-    trackEventPageView(event.slug, event.title);
+    trackEventPageView(event.slug, event.title, {
+      eventbriteId: event.eventbriteId,
+      city: event.city,
+      venue: event.location.split(',')[0]?.trim(),
+      startIso: event.start,
+      status: event.isSoldOut ? 'sold-out' : undefined,
+      source: 'event_page'
+    });
   }, [event.slug, event.title]);
 
   const startDate = new Date(event.start);
@@ -131,6 +138,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
           <HeroSection
             event={{
               slug: event.slug,
+              eventbriteId: event.eventbriteId,
               title: event.title,
               subtitle: event.subtitle || 'Dance together, find your vibe!',
               location: event.location,
@@ -167,7 +175,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
         
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
       </div>
     </>
   );

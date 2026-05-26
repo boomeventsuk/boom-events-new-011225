@@ -46,7 +46,14 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
   const hiddenSections = event.hiddenSections || [];
   
   useEffect(() => {
-    trackEventPageView(event.slug, event.title);
+    trackEventPageView(event.slug, event.title, {
+      eventbriteId: event.eventbriteId,
+      city: event.location.split(',')[1]?.trim(),
+      venue: event.location.split(',')[0]?.trim(),
+      startIso: event.start,
+      status: event.isSoldOut ? 'sold-out' : undefined,
+      source: 'event_page'
+    });
   }, [event.slug, event.title]);
 
   const structuredData = {
@@ -127,7 +134,7 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
 
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
       </div>
     </>
   );

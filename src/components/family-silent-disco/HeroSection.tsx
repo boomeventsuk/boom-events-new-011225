@@ -7,6 +7,7 @@ import FomoBadge from '@/components/FomoBadge';
 interface HeroSectionProps {
   event: {
     slug: string;
+    eventbriteId?: string;
     title: string;
     subtitle?: string;
     location: string;
@@ -42,7 +43,13 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   });
 
   const handleBookClick = () => {
-    trackBookClick(event.slug);
+    trackBookClick(event.slug, event.title, {
+      eventbriteId: event.eventbriteId,
+      venue: event.location.split(',')[0]?.trim(),
+      city: event.location.split(',')[1]?.trim(),
+      startIso: event.start,
+      source: 'hero_button'
+    });
     const checkoutSection = document.getElementById('checkout-section');
     checkoutSection?.scrollIntoView({ behavior: 'smooth' });
   };
