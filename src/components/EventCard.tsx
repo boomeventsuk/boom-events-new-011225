@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { FomoBadge } from "@/components/FomoBadge";
 import { useEventFomoData } from "@/hooks/useEventFomoData";
+import { trackBookClick } from "@/lib/dataLayer";
 
 const isChristmasDay = () => {
   const today = new Date();
@@ -48,6 +49,14 @@ export const EventCard: React.FC<EventCardProps> = ({
   const timeMessage = fomoOverride ? fomoOverride.timeMessage : fomoData?.time_message;
   
   const handleBookNow = () => {
+    trackBookClick(eventCode, title, {
+      venue,
+      date,
+      status: fomoTier,
+      source: 'event_card_button',
+      brand: 'BoomEvents',
+    });
+
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
       (window as any).dataLayer.push({
         event: isSoldOut ? 'waiting_list_click' : 'book_now_click',
@@ -59,9 +68,26 @@ export const EventCard: React.FC<EventCardProps> = ({
     window.location.href = `/event/${eventCode}`;
   };
 
+  const handleImageClick = () => {
+    trackBookClick(eventCode, title, {
+      venue,
+      date,
+      status: fomoTier,
+      source: 'event_card_image',
+      brand: 'BoomEvents',
+    });
+  };
+
   return (
     <Card className={`bg-card border-border overflow-hidden hover:shadow-lg transition-shadow ${isSoldOut ? "opacity-80" : ""} ${isChristmasDay() ? "christmas-border christmas-glow" : ""}`}>
-      <Link to={`/event/${eventCode}`} className="block aspect-square overflow-hidden relative">
+      <Link
+        to={`/event/${eventCode}`}
+        onClick={handleImageClick}
+        className="block aspect-square overflow-hidden relative"
+        aria-label={`View tickets for ${title}`}
+        data-event-code={eventCode}
+        data-click-source="event-card-image"
+      >
         <img
           src={poster}
           alt={`${title} event poster`}

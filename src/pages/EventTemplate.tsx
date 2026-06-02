@@ -46,6 +46,8 @@ interface EventData {
     message: string;
     timeMessage?: string | null;
   };
+  price?: number;
+  priceLabel?: string;
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -229,6 +231,8 @@ const EventTemplate = () => {
       waitingListUrl: event.waitingListUrl,
       colorScheme: event.colorScheme,
       fomoOverride: event.fomoOverride,
+      price: event.price,
+      priceLabel: event.priceLabel,
       title: event.title,
       location: `${event.venue}, ${event.city}`,
       start: event.start || event.date,

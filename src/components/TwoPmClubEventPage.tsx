@@ -27,6 +27,8 @@ export interface TwoPmClubEvent {
     message: string;
     timeMessage?: string | null;
   };
+  price?: number;
+  priceLabel?: string;
   title: string;
   location: string;
   start: string;
@@ -58,6 +60,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
       city: event.location.split(',')[1]?.trim(),
       venue: event.location.split(',')[0]?.trim(),
       startIso: event.start,
+      price: event.price,
       status: event.isSoldOut ? 'sold-out' : undefined,
       source: 'event_page'
     });
@@ -91,6 +94,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
     "offers": {
       "@type": "Offer",
       "url": event.bookUrl,
+      "price": event.price,
       "priceCurrency": "GBP",
       "availability": "https://schema.org/InStock",
       "validFrom": new Date().toISOString()

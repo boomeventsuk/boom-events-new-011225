@@ -128,12 +128,12 @@
       "video"
     ],
     "fomoOverride": {
-      "tier": "urgent",
-      "message": "80S EDITION - EARLY RELEASE NOW ON SALE",
+      "tier": "selling_fast",
+      "message": "TICKETS SELLING FAST",
       "timeMessage": null
     },
-    "price": 10,
-    "priceLabel": "From £10.00",
+    "price": 12,
+    "priceLabel": "From £12.00",
     "venueAddress": {
       "streetAddress": "Keller Close, Kiln Farm",
       "addressLocality": "Milton Keynes",

@@ -1,4 +1,4 @@
-import { Calendar, Clock, MapPin, Share2 } from 'lucide-react';
+import { Calendar, Clock, MapPin, Share2, Ticket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { format } from 'date-fns';
@@ -17,6 +17,8 @@ interface HeroSectionProps {
     cityCode: string;
     isSoldOut?: boolean;
     subtitle?: string;
+    price?: number;
+    priceLabel?: string;
     fomoOverride?: {
       tier: string;
       message: string;
@@ -56,6 +58,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
       city,
       venue,
       startIso: event.start,
+      price: event.price,
       source: 'hero_button'
     });
     const checkoutSection = document.getElementById('checkout-section');
@@ -149,6 +152,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 <MapPin className="w-5 h-5 text-primary" />
                 <span>{venue}, {city}</span>
               </div>
+              {event.priceLabel && (
+                <div className="flex items-center gap-3">
+                  <Ticket className="w-5 h-5 text-primary" />
+                  <span>{event.priceLabel}</span>
+                </div>
+              )}
             </div>
 
             {displayFomo && (
