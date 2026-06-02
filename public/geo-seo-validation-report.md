@@ -1,9 +1,9 @@
 # Enhanced GEO/SEO Generation Report
 
-Event pages generated: 17
-Per-event JSON files: 17
+Event pages generated: 19
+Per-event JSON files: 19
 City pages generated: 6
-Total sitemap URLs: 34
+Total sitemap URLs: 36
 Venues.json cities: 6
 
 ## Generated Files

@@ -41,6 +41,11 @@ interface EventData {
   ticketsLeft?: number;
   // Per-event colour theming
   colorScheme?: string;
+  fomoOverride?: {
+    tier: string;
+    message: string;
+    timeMessage?: string | null;
+  };
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -223,6 +228,7 @@ const EventTemplate = () => {
       isSoldOut: event.isSoldOut,
       waitingListUrl: event.waitingListUrl,
       colorScheme: event.colorScheme,
+      fomoOverride: event.fomoOverride,
       title: event.title,
       location: `${event.venue}, ${event.city}`,
       start: event.start || event.date,
@@ -234,6 +240,7 @@ const EventTemplate = () => {
       subtitle: event.subtitle || '',
       fullDescription: event.fullDescription || event.description,
       highlights: event.highlights || '',
+      hiddenSections: event.hiddenSections,
     };
     
     return <TwoPmClubEventPage event={twoPmEvent} />;

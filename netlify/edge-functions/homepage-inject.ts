@@ -54,6 +54,7 @@ export default async function handler(request: Request, context: Context) {
       const today = new Date().toISOString().slice(0, 10);
       upcomingEvents = allEvents
         .filter((e) => e.start.slice(0, 10) >= today)
+        .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
         .slice(0, 20);
     }
   } catch (_e) {
@@ -199,8 +200,8 @@ export default async function handler(request: Request, context: Context) {
 <ul>
 <li>Northampton — The Picturedrome</li>
 <li>Bedford — Esquires</li>
-<li>Milton Keynes — The Pinnacle</li>
-<li>Coventry — The Tin</li>
+<li>Milton Keynes — MK11 Music Venue</li>
+<li>Coventry — hmv Empire</li>
 <li>Luton — Hat Factory</li>
 <li>Leicester — O2 Academy / Athena</li>
 </ul>

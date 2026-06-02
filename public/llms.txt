@@ -36,8 +36,8 @@ Event pages: https://www.boomevents.co.uk/event/{eventCode}
 
 - Northampton: The Picturedrome
 - Bedford: Esquires
-- Milton Keynes: The Pinnacle
-- Coventry: The Tin
+- Milton Keynes: MK11 Music Venue
+- Coventry: hmv Empire
 - Luton: Hat Factory
 - Leicester: O2 Academy / Athena
 

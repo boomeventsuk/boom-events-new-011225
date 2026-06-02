@@ -16,18 +16,38 @@ interface HeroSectionProps {
     image: string;
     cityCode: string;
     isSoldOut?: boolean;
+    subtitle?: string;
+    fomoOverride?: {
+      tier: string;
+      message: string;
+      timeMessage?: string | null;
+    };
   };
 }
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
   const isChristmas = event.title.toLowerCase().includes('christmas');
+  const isEightiesEdition = event.title.toLowerCase().includes('80s edition');
+  const displayFomo = event.fomoOverride
+    ? {
+        tier: event.fomoOverride.tier,
+        message: event.fomoOverride.message,
+        timeMessage: event.fomoOverride.timeMessage,
+      }
+    : fomoData?.fomo_tier && fomoData.fomo_message
+      ? {
+          tier: fomoData.fomo_tier,
+          message: fomoData.fomo_message,
+          timeMessage: fomoData.time_message,
+        }
+      : null;
   const city = event.location.split(',')[1]?.trim() || event.cityCode;
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
   
-  const shareUrl = `https://boomevents.co.uk/events/${event.slug}/`;
+  const shareUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   
   const handleBookClick = () => {
@@ -89,6 +109,18 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                     Iconic 80s 90s 00s Anthems plus Festive Classics
                   </p>
                 </>
+              ) : isEightiesEdition ? (
+                <>
+                  <h1 className="text-2xl md:text-3xl font-bold mb-1">
+                    THE 2PM CLUB
+                  </h1>
+                  <p className="text-lg md:text-xl text-primary font-bold">
+                    80s Edition {city.toUpperCase()}
+                  </p>
+                  <p className="text-lg md:text-xl text-foreground">
+                    {event.subtitle || 'A proper afternoon party built around the biggest 80s anthems'}
+                  </p>
+                </>
               ) : (
                 <>
                   <h1 className="text-2xl md:text-3xl font-bold mb-1">
@@ -119,11 +151,11 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
             </div>
 
-            {fomoData?.fomo_tier && fomoData.fomo_message && (
+            {displayFomo && (
               <FomoBadge
-                tier={fomoData.fomo_tier}
-                message={fomoData.fomo_message}
-                timeMessage={fomoData.time_message}
+                tier={displayFomo.tier}
+                message={displayFomo.message}
+                timeMessage={displayFomo.timeMessage}
                 size="lg"
               />
             )}

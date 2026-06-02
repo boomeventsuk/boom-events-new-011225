@@ -22,6 +22,11 @@ export interface TwoPmClubEvent {
   isSoldOut?: boolean;
   waitingListUrl?: string;
   colorScheme?: string;
+  fomoOverride?: {
+    tier: string;
+    message: string;
+    timeMessage?: string | null;
+  };
   title: string;
   location: string;
   start: string;
@@ -33,6 +38,7 @@ export interface TwoPmClubEvent {
   subtitle: string;
   fullDescription: string;
   highlights: string;
+  hiddenSections?: string[];
 }
 
 interface TwoPmClubEventPageProps {
@@ -40,7 +46,7 @@ interface TwoPmClubEventPageProps {
 }
 
 const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
-  const canonicalUrl = `https://boomevents.co.uk/events/${event.slug}/`;
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
   
   // Determine if this is a Christmas event (December events ending in "1225")
   const isChristmasEvent = event.slug.includes('1225');
@@ -124,9 +130,9 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         <main>
           <HeroSection event={event} />
           <DescriptionSection event={event} />
-          <VideoSection />
+          {!event.hiddenSections?.includes('video') && <VideoSection />}
           <HighlightsSection highlights={event.highlights} isChristmas={isChristmasEvent} />
-          <PhotoGallery />
+          {!event.hiddenSections?.includes('gallery') && <PhotoGallery />}
           <TestimonialsSection />
           <CheckoutSection event={event} />
           <FaqSection />
