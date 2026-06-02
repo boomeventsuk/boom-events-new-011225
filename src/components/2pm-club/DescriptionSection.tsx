@@ -9,7 +9,9 @@ interface DescriptionSectionProps {
 export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
   const isChristmas = event.title.toLowerCase().includes('christmas');
   const isEightiesEdition = event.title.toLowerCase().includes('80s edition');
+  const venue = event.location.split(',')[0]?.trim() || '';
   const city = event.location.split(',')[1]?.trim() || '';
+  const venueLocation = [venue, city].filter(Boolean).join(', ');
   const descriptionParagraphs = event.fullDescription
     .split('\n\n')
     .map((paragraph) => paragraph.trim())
@@ -58,7 +60,7 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
                 Your best 80s night out. In the middle of the afternoon.
               </p>
               <blockquote className="border-l-4 border-primary pl-6 py-4 mb-6 text-xl md:text-2xl italic text-foreground/90">
-                "THE 2PM CLUB goes full-on 80s at The Picturedrome, Northampton."
+                "THE 2PM CLUB goes full-on 80s at {venueLocation}."
               </blockquote>
               <div className="prose prose-invert prose-lg max-w-none space-y-4 text-foreground/80">
                 {descriptionParagraphs.map((paragraph, index) => (
