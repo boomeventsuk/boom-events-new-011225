@@ -107,6 +107,76 @@
     }
   },
   {
+    "eventCode": "120926-2PM-BED",
+    "title": "THE 2PM CLUB Bedford — 80s Edition Daytime Disco",
+    "subtitle": "Your best 80s night out. In the middle of the afternoon.",
+    "date": "Saturday, 12 September 2026",
+    "timeDisplay": "2pm – 6pm",
+    "start": "2026-09-12T14:00:00",
+    "end": "2026-09-12T18:00:00",
+    "venue": "Bedford Esquires",
+    "city": "Bedford",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/120926-2PM80s-BED/120926-2PM80s-BED-ANNSQ.jpg",
+    "description": "THE 2PM CLUB goes full-on 80s at Bedford Esquires. Your best 80s night out, in the middle of the afternoon.",
+    "eventbriteId": "1990916485803",
+    "bookUrl": "https://www.eventbrite.co.uk/e/the-2pm-club-daytime-disco-80s-edition-bedford-tickets-1990916485803?aff=BoomWeb",
+    "infoUrl": "https://www.facebook.com/events/TBD",
+    "isSoldOut": false,
+    "fullDescription": "THE 2PM CLUB goes full-on 80s for one afternoon only.\n\nWe are back at Bedford Esquires on Saturday 12 September, 2pm-6pm, and this time the whole dancefloor is 80s from start to finish.\n\nExpect Madonna, Michael Jackson, Wham!, Whitney Houston, Bon Jovi, Prince, Duran Duran, A-ha, The Human League, Tina Turner, George Michael, Cyndi Lauper, Eurythmics, Culture Club, Tears For Fears and Simple Minds.\n\nSame great 2PM Club format: doors at 2pm, four hours of big choruses, confetti moments and a room full of people who know every word. Home by 7 if you want to be.",
+    "highlights": "🎤 80S ONLY. WALL-TO-WALL: Madonna, Michael Jackson, Wham!, Whitney, Prince, Bon Jovi, Duran Duran, A-ha, Tina Turner and the songs everyone knows.|🕺 SAME 2PM CLUB FORMAT: Four hours of night-out energy in the afternoon. Big choruses, confetti moments, home by 7-ish.|👯 GROUP CHAT READY: One link, one plan, one Saturday afternoon everyone can actually make.|😎 NO SUNDAY REGRETS: A proper dance, your evening still intact, and Sunday not written off.|🏆 BEDFORD ESQUIRES: Back in a room that knows exactly how THE 2PM CLUB should feel.",
+    "hiddenSections": [
+      "video"
+    ],
+    "fomoOverride": {
+      "tier": "on_sale",
+      "message": "EARLY RELEASE",
+      "timeMessage": "JUST £10"
+    },
+    "price": 10,
+    "priceLabel": "From £10.00",
+    "venueAddress": {
+      "streetAddress": "60A Bromham Road",
+      "addressLocality": "Bedford",
+      "postalCode": "MK40 2QG",
+      "addressCountry": "GB"
+    }
+  },
+  {
+    "eventCode": "190926-2PM-COV",
+    "title": "THE 2PM CLUB Coventry — 80s Edition Daytime Disco",
+    "subtitle": "Your best 80s night out. In the middle of the afternoon.",
+    "date": "Saturday, 19 September 2026",
+    "timeDisplay": "2pm – 6pm",
+    "start": "2026-09-19T14:00:00",
+    "end": "2026-09-19T18:00:00",
+    "venue": "hmv Empire",
+    "city": "Coventry",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/190926-2PM80s-COV/190926-2PM80s-COV-ANNSQ.jpg",
+    "description": "THE 2PM CLUB goes full-on 80s at hmv Empire, Coventry. Your best 80s night out, in the middle of the afternoon.",
+    "eventbriteId": "1990916488812",
+    "bookUrl": "https://www.eventbrite.co.uk/e/the-2pm-club-daytime-disco-80s-edition-coventry-tickets-1990916488812?aff=BoomWeb",
+    "infoUrl": "https://www.facebook.com/events/TBD",
+    "isSoldOut": false,
+    "fullDescription": "THE 2PM CLUB goes full-on 80s for one afternoon only.\n\nWe are back at hmv Empire on Saturday 19 September, 2pm-6pm, and this time the whole dancefloor is 80s from start to finish.\n\nExpect Madonna, Michael Jackson, Wham!, Whitney Houston, Bon Jovi, Prince, Duran Duran, A-ha, The Human League, Tina Turner, George Michael, Cyndi Lauper, Eurythmics, Culture Club, Tears For Fears and Simple Minds.\n\nSame great 2PM Club format: doors at 2pm, four hours of big choruses, confetti moments and a room full of people who know every word. Home by 7 if you want to be.",
+    "highlights": "🎤 80S ONLY. WALL-TO-WALL: Madonna, Michael Jackson, Wham!, Whitney, Prince, Bon Jovi, Duran Duran, A-ha, Tina Turner and the songs everyone knows.|🕺 SAME 2PM CLUB FORMAT: Four hours of night-out energy in the afternoon. Big choruses, confetti moments, home by 7-ish.|👯 GROUP CHAT READY: One link, one plan, one Saturday afternoon everyone can actually make.|😎 NO SUNDAY REGRETS: A proper dance, your evening still intact, and Sunday not written off.|🏆 HMV EMPIRE, COVENTRY: Back in a room that knows exactly how THE 2PM CLUB should feel.",
+    "hiddenSections": [
+      "video"
+    ],
+    "fomoOverride": {
+      "tier": "on_sale",
+      "message": "EARLY RELEASE",
+      "timeMessage": "JUST £10"
+    },
+    "price": 10,
+    "priceLabel": "From £10.00",
+    "venueAddress": {
+      "streetAddress": "22 Hertford Street",
+      "addressLocality": "Coventry",
+      "postalCode": "CV1 1LF",
+      "addressCountry": "GB"
+    }
+  },
+  {
     "eventCode": "260926-2PM-MK",
     "title": "THE 2PM CLUB Milton Keynes — 80s Edition Daytime Disco",
     "subtitle": "Your best 80s night out. In the middle of the afternoon.",
