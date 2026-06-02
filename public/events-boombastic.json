@@ -108,24 +108,37 @@
   },
   {
     "eventCode": "260926-2PM-MK",
-    "title": "THE 2PM CLUB Milton Keynes — 80s 90s 00s Daytime Disco",
-    "subtitle": "Your best night out, right in the middle of the afternoon. 4 hours of 80s, 90s & 00s anthems. Home by 7-ish. Let your hair down. Properly!",
+    "title": "THE 2PM CLUB Milton Keynes — 80s Edition Daytime Disco",
+    "subtitle": "Your best 80s night out. In the middle of the afternoon.",
     "date": "Saturday, 26 September 2026",
-    "timeDisplay": "14:00 – 18:00",
+    "timeDisplay": "2pm – 6pm",
     "start": "2026-09-26T14:00:00",
     "end": "2026-09-26T18:00:00",
     "venue": "MK11 Music Venue",
     "city": "Milton Keynes",
-    "image": "https://boombastic-events.b-cdn.net/events/artwork/260926-2PM-MK/260926-2PM-MK-ANNSQ.jpg",
-    "description": "THE 2PM CLUB Milton Keynes — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/260926-2PM80s-MK/260926-2PM80s-MK-ANNSQ.jpg",
+    "description": "THE 2PM CLUB goes full-on 80s at MK11, Milton Keynes. Your best 80s night out, in the middle of the afternoon.",
     "eventbriteId": "1985171487358",
+    "bookUrl": "https://www.eventbrite.co.uk/e/the-2pm-club-daytime-disco-milton-keynes-iconic-80s-90s-00s-anthems-tickets-1985171487358?aff=BoomWeb",
+    "infoUrl": "https://www.facebook.com/events/898044663104211",
     "isSoldOut": false,
-    "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
-    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
+    "fullDescription": "THE 2PM CLUB goes full-on 80s for one afternoon only.\n\nWe are back at MK11 Music Venue on Saturday 26 September, 2pm-6pm, and this time the whole dancefloor is 80s from start to finish.\n\nExpect Madonna, Michael Jackson, Wham!, Whitney Houston, Bon Jovi, Prince, Duran Duran, A-ha, The Human League, Tina Turner, George Michael, Cyndi Lauper, Eurythmics, Culture Club, Tears For Fears and Simple Minds.\n\nSame great 2PM Club format: doors at 2pm, four hours of big choruses, confetti moments and a room full of people who know every word. Home by 7 if you want to be.",
+    "highlights": "🎤 80S ONLY. WALL-TO-WALL: Madonna, Michael Jackson, Wham!, Whitney, Prince, Bon Jovi, Duran Duran, A-ha, Tina Turner and the songs everyone knows.|🕺 SAME 2PM CLUB FORMAT: Four hours of night-out energy in the afternoon. Big choruses, confetti moments, home by 7-ish.|👯 GROUP CHAT READY: One link, one plan, one Saturday afternoon everyone can actually make.|😎 NO SUNDAY REGRETS: A proper dance, your evening still intact, and Sunday not written off.|🏆 MK11, MILTON KEYNES: A room that knows exactly how THE 2PM CLUB should feel.",
+    "hiddenSections": [
+      "video"
+    ],
     "fomoOverride": {
-      "tier": "selling_fast",
-      "message": "SELLING FAST!",
+      "tier": "urgent",
+      "message": "80S EDITION - EARLY RELEASE NOW ON SALE",
       "timeMessage": null
+    },
+    "price": 10,
+    "priceLabel": "From £10.00",
+    "venueAddress": {
+      "streetAddress": "Keller Close, Kiln Farm",
+      "addressLocality": "Milton Keynes",
+      "postalCode": "MK11 3LH",
+      "addressCountry": "GB"
     }
   },
   {
@@ -248,8 +261,8 @@
     "badge": "SOLD OUT",
     "isSoldOut": true,
     "fomoOverride": {
-      "tier": "sold_out",
-      "message": "SOLD OUT",
+      "tier": "on_sale",
+      "message": "JUST ANNOUNCED!",
       "timeMessage": null
     },
     "fullDescription": "Ten years of the most popular silent disco in the region!\n\nJoin us for a very special celebration of a decade of legendary nights filled with friends, party tunes, and epic headphone moments.\n\n3 DJs play 4 hours of the biggest hits – pick your vibe or switch it up! Your choice!",
@@ -282,12 +295,7 @@
         "artists": "Calvin Harris, Faithless, Robin S, Disclosure & more 🔊",
         "description": "Pure dancefloor energy. House, dance and club classics to keep you moving all night."
       }
-    ],
-    "fomoOverride": {
-      "tier": "on_sale",
-      "message": "JUST ANNOUNCED!",
-      "timeMessage": null
-    }
+    ]
   },
   {
     "eventCode": "260926-SD-NPTON",
