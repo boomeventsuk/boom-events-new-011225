@@ -130,17 +130,22 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         <main>
           <HeroSection event={event} />
           <DescriptionSection event={event} />
+          <CheckoutSection event={event} />
           {!event.hiddenSections?.includes('video') && <VideoSection />}
           <HighlightsSection highlights={event.highlights} isChristmas={isChristmasEvent} />
           {!event.hiddenSections?.includes('gallery') && <PhotoGallery />}
           <TestimonialsSection />
-          <CheckoutSection event={event} />
           <FaqSection />
         </main>
 
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
+        <StickyBookButton
+          eventSlug={event.slug}
+          eventTitle={event.title}
+          eventbriteId={event.eventbriteId}
+          urgencyText={event.fomoOverride?.message}
+        />
       </div>
     </>
   );

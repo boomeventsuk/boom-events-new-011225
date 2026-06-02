@@ -45,7 +45,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   // Priority: fomoOverride (from JSON) > fomoData (from database) > static badge
   const displayBadge = fomoOverride?.message || fomoData?.fomo_message || badge;
   const fomoTier = fomoOverride?.tier || fomoData?.fomo_tier || (badge === "SOLD OUT" ? "sold_out" : "on_sale");
-  const timeMessage = fomoOverride?.timeMessage || fomoData?.time_message;
+  const timeMessage = fomoOverride ? fomoOverride.timeMessage : fomoData?.time_message;
   
   const handleBookNow = () => {
     if (typeof window !== 'undefined' && (window as any).dataLayer) {
@@ -72,18 +72,17 @@ export const EventCard: React.FC<EventCardProps> = ({
           height="800"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
-        {displayBadge && (
-          <div className="absolute top-3 right-3">
-            <FomoBadge
-              tier={fomoTier}
-              message={displayBadge}
-              timeMessage={timeMessage}
-              size="sm"
-            />
-          </div>
-        )}
       </Link>
       <CardContent className="p-6">
+        {displayBadge && (
+          <FomoBadge
+            tier={fomoTier}
+            message={displayBadge}
+            timeMessage={timeMessage}
+            size="sm"
+            className="mb-3"
+          />
+        )}
         <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
           {isSoldOut && <span className="text-red-500 mr-2">SOLD OUT -</span>}
           {title}

@@ -43,6 +43,7 @@ export const FomoBadge: React.FC<FomoBadgeProps> = ({
       <span
         className={cn(
           "inline-flex items-center font-bold rounded-full shadow-lg uppercase tracking-wide",
+          "max-w-full whitespace-normal break-words leading-tight",
           badgeStyle,
           sizeStyles[size]
         )}
@@ -53,6 +54,7 @@ export const FomoBadge: React.FC<FomoBadgeProps> = ({
         <span
           className={cn(
             "inline-flex items-center font-bold rounded-full shadow-lg uppercase tracking-wide",
+            "max-w-full whitespace-normal break-words leading-tight",
             timeStyles,
             sizeStyles[size]
           )}

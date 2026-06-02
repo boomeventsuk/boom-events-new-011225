@@ -52,7 +52,7 @@ export const StickyBookButton = ({ eventSlug, eventTitle, eventbriteId, urgencyT
     <Button
       onClick={handleClick}
       size="lg"
-      className="fixed top-20 right-4 z-40 shadow-xl shadow-primary/30 animate-fade-in"
+      className="fixed bottom-4 left-4 right-4 z-40 min-h-12 whitespace-normal leading-tight shadow-xl shadow-primary/30 animate-fade-in md:left-auto md:bottom-auto md:top-20 md:right-4 md:w-auto md:max-w-sm"
     >
       {urgencyText || 'Book Tickets'}
     </Button>
