@@ -17,7 +17,13 @@
 # Redirect /events/:slug pattern to /event/:slug (consolidate URL patterns)
 /events/:slug                                                          /event/:slug              301
 
-# Static pages — serve their own index.html, not the SPA
+# Block dotfile probes, return real 404 before any fallback
+/.env*                 /404.html    404!
+/.env/*                /404.html    404!
+/.git/*                /404.html    404!
+/.DS_Store             /404.html    404!
+
+# Static pages - serve their own index.html, not the SPA
 /about/*              /about/index.html              200
 /silent-disco/*       /silent-disco/index.html       200
 /footloose-80s/*      /footloose-80s/index.html      200
@@ -30,11 +36,11 @@
 /locations/luton/*        /locations/luton/index.html        200
 /locations/leicester/*    /locations/leicester/index.html    200
 
-# SPA routes — explicit React Router paths only, so unknown URLs fall through to 404
+# SPA routes - explicit React Router paths only, so unknown URLs fall through to 404
 /tickets              /index.html  200
 /terms                /index.html  200
 /jobs                 /index.html  200
 /event/*              /index.html  200
 
-# Catch-all 404 for genuinely unknown URLs — must be LAST
+# Catch-all 404 for genuinely unknown URLs - must be LAST
 /*                    /404.html    404

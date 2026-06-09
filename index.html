@@ -44,6 +44,25 @@
     </script>
     <!-- End Google Analytics 4 -->
 
+    <!-- Eventbrite Event Tracking -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.addEventListener('message', function(event) {
+        if (event.origin && event.origin.indexOf('eventbrite') > -1) {
+          try {
+            var data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+            if (data && data.event) {
+              window.dataLayer.push({
+                event: 'eb_' + data.event,
+                eventbriteData: data
+              });
+            }
+          } catch(e) {}
+        }
+      });
+    </script>
+    <!-- End Eventbrite Event Tracking -->
+
     <!-- ===== Core document meta ===== -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,7 +83,9 @@
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://boombastic-events.b-cdn.net" crossorigin>
     <!-- Preload hero image -->
-    <link rel="preload" as="image" href="https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg">
+    <link rel="preload" as="image" href="https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg" fetchpriority="high">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
 
     <!-- Site icons (replace paths if you upload different filenames) -->
     <link rel="icon" type="image/x-icon" href="https://storage.googleapis.com/gpt-engineer-file-uploads/ykfD1GMCLLWQjbmKQ8aXDz3kB4x2/uploads/1757495932006-boom events favicon (1).jpg">
@@ -164,508 +185,177 @@
 
     <!-- ===== Events JSON-LD ===== -->
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Event",
-          "name": "GET READY - 60s/70s Motown, Soul & Disco",
-          "startDate": "2026-01-25T14:00:00+00:00",
-          "endDate": "2026-01-25T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "The Picturedrome",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "222 Kettering Road",
-              "addressLocality": "Northampton",
-              "postalCode": "NN1 4BN",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "GET READY Northampton — four hours of legendary 60s/70s Motown, Soul & Disco floorfillers. Banish the January blues!",
-          "image": ["https://boombastic-events.b-cdn.net/250126_GR_NPTON/250126_GR_NPTON_ANNSQ_f14szr.png"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1975285601407",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-02-07T14:00:00+00:00",
-          "endDate": "2026-02-07T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "Hat Factory Arts Centre",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "65-67 Bute Street",
-              "addressLocality": "Luton",
-              "postalCode": "LU1 2EY",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Luton — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/070226_2PM_LUT/070226_2PM_LUT_ANNSQ_deq25f.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1645025849599",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Bedford — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-02-14T14:00:00+00:00",
-          "endDate": "2026-02-14T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "Bedford Esquires",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "60A Bromham Road",
-              "addressLocality": "Bedford",
-              "postalCode": "MK40 2QG",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Bedford — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/140226_2PM_BED/140226_2PM_BED_ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1975982183904",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Northampton — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-02-28T14:00:00+00:00",
-          "endDate": "2026-02-28T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "The Picturedrome",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "222 Kettering Road",
-              "addressLocality": "Northampton",
-              "postalCode": "NN1 4BN",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Northampton — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/280226_2PM_NPTON/280226_2PM_NPTON_ANNSQ_kvwa0w.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1975984047478",
-            "availability": "https://schema.org/SoldOut"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Coventry — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-03-07T14:00:00+00:00",
-          "endDate": "2026-03-07T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "hmv Empire",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "22 Hertford Street",
-              "addressLocality": "Coventry",
-              "postalCode": "CV1 1LF",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Coventry — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/070326_2PM_COV/070326_2PM_COV_ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1975984192913",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Milton Keynes — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-03-14T14:00:00+00:00",
-          "endDate": "2026-03-14T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "MK11 Music Venue",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Keller Close, Kiln Farm",
-              "addressLocality": "Milton Keynes",
-              "postalCode": "MK11 3LH",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Milton Keynes — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/140326-2PM-MK/140326-2PM-MK_ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1975983454705",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "FAMILY SILENT DISCO Northampton",
-          "startDate": "2026-03-21T14:00:00+00:00",
-          "endDate": "2026-03-21T16:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "The Picturedrome",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "222 Kettering Road",
-              "addressLocality": "Northampton",
-              "postalCode": "NN1 4BN",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "FAMILY SILENT DISCO Northampton — Dance together while everyone finds their perfect vibe! Three channels of family-friendly fun.",
-          "image": ["https://boombastic-events.b-cdn.net/210326-FSD-NPTON/210326-FSD-NPTON-ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1980887034444",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "FOOTLOOSE 80s Northampton",
-          "startDate": "2026-03-21T20:00:00+00:00",
-          "endDate": "2026-03-22T00:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "The Picturedrome",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "222 Kettering Road",
-              "addressLocality": "Northampton",
-              "postalCode": "NN1 4BN",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "FOOTLOOSE 80s Northampton has SOLD OUT! Join the waiting list for cancellations.",
-          "image": ["https://boombastic-events.b-cdn.net/210326-FL80-NPTON/210325-FL80-NPTON_ANNSQ_oxuljw.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1977527798880",
-            "availability": "https://schema.org/SoldOut"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "FOOTLOOSE 80s Bedford",
-          "startDate": "2026-03-28T20:00:00+00:00",
-          "endDate": "2026-03-29T00:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "Bedford Esquires",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "60A Bromham Road",
-              "addressLocality": "Bedford",
-              "postalCode": "MK40 2QG",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "FOOTLOOSE 80s Bedford has SOLD OUT! Join the waiting list for cancellations.",
-          "image": ["https://boombastic-events.b-cdn.net/280326-FL80-BED/280326-FL80-BED-ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1979550056507",
-            "availability": "https://schema.org/SoldOut"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "SILENT DISCO GREATEST HITS IS 10!",
-          "startDate": "2026-04-25T20:30:00+00:00",
-          "endDate": "2026-04-26T00:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "The Picturedrome",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "222 Kettering Road",
-              "addressLocality": "Northampton",
-              "postalCode": "NN1 4BN",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "Ten years of the most popular silent disco in the region! 3 DJs play 4 hours of the biggest hits across Pop, Indie and Dance channels.",
-          "image": ["https://boombastic-events.b-cdn.net/250426-SD-NPTON/250426-SD-NPTON_ANNSQ_ws5iux.png"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1977024693077",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Leicester — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-05-02T14:00:00+00:00",
-          "endDate": "2026-05-02T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "Mattioli Woods Welford Road Stadium",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Aylestone Road",
-              "addressLocality": "Leicester",
-              "postalCode": "LE2 7TR",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Leicester — 4 hours of iconic 80s, 90s & 00s anthems at Mattioli Woods Welford Road Stadium. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/020526-2PM-LEIC/020526-2PM-LEIC%20no%20badge.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1983866397800",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Luton — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-05-23T14:00:00+00:00",
-          "endDate": "2026-05-23T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "Hat Factory Arts Centre",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "65-67 Bute Street",
-              "addressLocality": "Luton",
-              "postalCode": "LU1 2EY",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Luton — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/230526-2PM-LUT/230526-2PM-LUT%20ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1982497843417",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Coventry — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-06-06T14:00:00+00:00",
-          "endDate": "2026-06-06T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "hmv Empire",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "22 Hertford Street",
-              "addressLocality": "Coventry",
-              "postalCode": "CV1 1LF",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Coventry — 4 hours of iconic 80s, 90s & 00s anthems at hmv Empire. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/060626-2PM-COV/060626-2PM-COV%20ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1984666422696",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Northampton — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-06-06T14:00:00+00:00",
-          "endDate": "2026-06-06T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "Cinch Stadium (Franklin's Gardens)",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Weedon Road",
-              "addressLocality": "Northampton",
-              "postalCode": "NN5 5BG",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Northampton — 4 hours of iconic 80s, 90s & 00s anthems at Franklin's Gardens. All the fun of a proper night out!",
-          "image": ["https://boombastic-events.b-cdn.net/060626-2PM-NPTON/060626-2PM-NPTON%20ANNSQ.png"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1981781356385",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "THE 2PM CLUB Bedford — 80s 90s 00s Daytime Disco",
-          "startDate": "2026-06-13T14:00:00+00:00",
-          "endDate": "2026-06-13T18:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "Bedford Esquires",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "60A Bromham Road",
-              "addressLocality": "Bedford",
-              "postalCode": "MK40 2QG",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "THE 2PM CLUB Bedford — 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
-          "image": ["https://boombastic-events.b-cdn.net/130626-2PM-BED/130626-2PM-BED%20ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1983156002990",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
-        },
-        {
-          "@type": "Event",
-          "name": "GET READY - Summer Special",
-          "startDate": "2026-06-26T20:00:00+00:00",
-          "endDate": "2026-06-27T00:00:00+00:00",
-          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-          "eventStatus": "https://schema.org/EventScheduled",
-          "location": {
-            "@type": "Place",
-            "name": "The Picturedrome",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "222 Kettering Road",
-              "addressLocality": "Northampton",
-              "postalCode": "NN1 4BN",
-              "addressCountry": "GB"
-            }
-          },
-          "description": "GET READY Northampton — Summer Special featuring the biggest 60s/70s Motown, Soul & Disco hits!",
-          "image": ["https://boombastic-events.b-cdn.net/260626-GR-NPTON/260626-GR-NPTON%20ANNSQ.jpg"],
-          "offers": {
-            "@type": "Offer",
-            "url": "https://www.eventbrite.co.uk/e/1981517770994",
-            "availability": "https://schema.org/InStock"
-          },
-          "organizer": {
-            "@type": "Organization",
-            "name": "Boombastic Events",
-            "url": "https://www.boomevents.co.uk"
-          }
+      "@type": "Event",
+      "name": "THE 2PM CLUB Luton - 80s 90s 00s Daytime Disco",
+      "startDate": "2026-05-23T14:00:00+00:00",
+      "endDate": "2026-05-23T18:00:00+00:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "Hat Factory Arts Centre",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "65-67 Bute Street",
+          "addressLocality": "Luton",
+          "postalCode": "LU1 2EY",
+          "addressCountry": "GB"
         }
-      ]
+      },
+      "description": "THE 2PM CLUB Luton - 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
+      "image": [
+        "https://boombastic-events.b-cdn.net/230526-2PM-LUT/230526-2PM-LUT%20ANNSQ.jpg"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.boomevents.co.uk/event/230526-2PM-LUT",
+        "availability": "https://schema.org/InStock"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Boombastic Events",
+        "url": "https://www.boomevents.co.uk"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "THE 2PM CLUB Coventry - 80s 90s 00s Daytime Disco",
+      "startDate": "2026-06-06T14:00:00+00:00",
+      "endDate": "2026-06-06T18:00:00+00:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "hmv Empire",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "22 Hertford Street",
+          "addressLocality": "Coventry",
+          "postalCode": "CV1 1LF",
+          "addressCountry": "GB"
+        }
+      },
+      "description": "THE 2PM CLUB Coventry - 4 hours of iconic 80s, 90s & 00s anthems at hmv Empire. All the fun of a proper night out, home by 7-ish.",
+      "image": [
+        "https://boombastic-events.b-cdn.net/060626-2PM-COV/060626-2PM-COV%20ANNSQ.jpg"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.boomevents.co.uk/event/060626-2PM-COV",
+        "availability": "https://schema.org/InStock"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Boombastic Events",
+        "url": "https://www.boomevents.co.uk"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "THE 2PM CLUB Northampton - 80s 90s 00s Daytime Disco",
+      "startDate": "2026-06-06T14:00:00+00:00",
+      "endDate": "2026-06-06T18:00:00+00:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "Cinch Stadium (Franklin's Gardens)",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Weedon Road",
+          "addressLocality": "Northampton",
+          "postalCode": "NN5 5BG",
+          "addressCountry": "GB"
+        }
+      },
+      "description": "THE 2PM CLUB Northampton - 4 hours of iconic 80s, 90s & 00s anthems at Franklin's Gardens. All the fun of a proper night out!",
+      "image": [
+        "https://boombastic-events.b-cdn.net/060626-2PM-NPTON/060626-2PM-NPTON%20ANNSQ.png"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.boomevents.co.uk/event/060626-2PM-NPTON",
+        "availability": "https://schema.org/InStock"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Boombastic Events",
+        "url": "https://www.boomevents.co.uk"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "THE 2PM CLUB Bedford - 80s 90s 00s Daytime Disco",
+      "startDate": "2026-06-13T14:00:00+00:00",
+      "endDate": "2026-06-13T18:00:00+00:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "Bedford Esquires",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "60A Bromham Road",
+          "addressLocality": "Bedford",
+          "postalCode": "MK40 2QG",
+          "addressCountry": "GB"
+        }
+      },
+      "description": "THE 2PM CLUB Bedford - 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
+      "image": [
+        "https://boombastic-events.b-cdn.net/130626-2PM-BED/130626-2PM-BED%20ANNSQ.jpg"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.boomevents.co.uk/event/130626-2PM-BED",
+        "availability": "https://schema.org/InStock"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Boombastic Events",
+        "url": "https://www.boomevents.co.uk"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "GET READY - Summer Special",
+      "startDate": "2026-06-26T20:00:00+00:00",
+      "endDate": "2026-06-27T00:00:00+00:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "The Picturedrome",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "222 Kettering Road",
+          "addressLocality": "Northampton",
+          "postalCode": "NN1 4BN",
+          "addressCountry": "GB"
+        }
+      },
+      "description": "GET READY Northampton - Summer Special featuring the biggest 60s/70s Motown, Soul & Disco hits!",
+      "image": [
+        "https://boombastic-events.b-cdn.net/260626-GR-NPTON/260626-GR-NPTON%20ANNSQ.jpg"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.boomevents.co.uk/event/260626-GR-NPTON",
+        "availability": "https://schema.org/InStock"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Boombastic Events",
+        "url": "https://www.boomevents.co.uk"
+      }
     }
-    </script>
+  ]
+}
+</script>
 
 </head>
 
@@ -773,7 +463,7 @@ if (list) {
 
 <style>
 /* ======================================================
-   PARTY TILES — readable, smaller, no overlap
+   PARTY TILES - readable, smaller, no overlap
    ====================================================== */
 .party-tile,[data-party-tile]{position:relative;overflow:hidden;border-radius:16px}
 .party-tile>img,[data-party-tile]>img{width:100%;height:100%;object-fit:cover;display:block}
@@ -828,7 +518,7 @@ if (list) {
 }
 
 /* =========================
-   1) Spacing — close big gaps
+   1) Spacing - close big gaps
    ========================= */
 #hero{position:relative;padding-bottom:16px;}
 #parties{margin-top:0;padding-top:0px;padding-bottom:32px;}
@@ -846,7 +536,7 @@ section h2{margin-bottom:12px;}
 }
 
 /* ======================================================
-   MOBILE MENU — make hamburger work reliably
+   MOBILE MENU - make hamburger work reliably
    ====================================================== */
 /* Desktop */
 .mobile-menu{display:none}
@@ -876,7 +566,7 @@ section h2{margin-bottom:12px;}
 }
 
 /* =========================
-   3) Tickets rows — keep clean 3-column row (Poster | Details | Buttons)
+   3) Tickets rows - keep clean 3-column row (Poster | Details | Buttons)
    ========================= */
 #tickets-list{max-width:1100px;margin:0 auto;padding:0 16px;}
 .ticket-card{display:grid;grid-template-columns:200px 1fr 220px;align-items:center;gap:20px;
@@ -893,7 +583,7 @@ section h2{margin-bottom:12px;}
 }
 
 /* ======================================================
-   3) REVIEWS — event name at the top, then stars, then quote.
+   3) REVIEWS - event name at the top, then stars, then quote.
        Hide the small context line at the bottom.
    ====================================================== */
 .review-card { position: relative; }

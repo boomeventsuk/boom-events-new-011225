@@ -304,7 +304,7 @@ async function run() {
     ...ev,
     id:       ev.id       || ev.eventCode,
     location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ""),
-    bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : "")
+    bookUrl:  ev.bookUrl  || (ev.eventCode ? `https://www.boomevents.co.uk/event/${ev.eventCode}` : "")
   }));
   const copy   = (await readJson(path.join(ROOT, "content", "event-copy.json"))) || {};
   // NOTE: Static event HTML pages removed. Event pages are handled by

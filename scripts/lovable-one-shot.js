@@ -214,7 +214,7 @@ function html(ev,desc,slugStr){
     ...ev,
     id:       ev.id       || ev.eventCode,
     location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ''),
-    bookUrl:  ev.bookUrl  || (ev.eventbriteId ? `https://www.eventbrite.co.uk/e/${ev.eventbriteId}` : '')
+    bookUrl:  ev.bookUrl  || (ev.eventCode ? `https://www.boomevents.co.uk/event/${ev.eventCode}` : '')
   }));
   if(!fs.existsSync(outDir)) fs.mkdirSync(outDir,{recursive:true});
   events.forEach(ev=>{
