@@ -97,7 +97,7 @@ export default async function handler(request: Request, context: Context) {
     name: "Boombastic Events",
     url: "https://www.boomevents.co.uk",
     description:
-      "Midlands afternoon events company. 12+ years, 23,000+ attendees, 95% historic sell-through. Sub-brands: THE 2PM CLUB (80s/90s/00s daytime disco), SILENT DISCO GREATEST HITS (headphone multi-channel), FOOTLOOSE 80s (pure 80s themed), FAMILY SILENT DISCO (all-ages), GET READY (60s/70s Motown Soul Disco). All events 2pm to 6pm.",
+      "Midlands afternoon events company. 12+ years, 23,000+ attendees, regular sell-outs across the region. Sub-brands: THE 2PM CLUB (80s/90s/00s daytime disco), SILENT DISCO GREATEST HITS (headphone multi-channel), FOOTLOOSE 80s (pure 80s themed), FAMILY SILENT DISCO (all-ages), GET READY (60s/70s Motown Soul Disco). All events 2pm to 6pm.",
     contactPoint: {
       "@type": "ContactPoint",
       email: "hello@boomevents.co.uk",
@@ -177,7 +177,7 @@ export default async function handler(request: Request, context: Context) {
   const noscriptBlock = `<noscript>
 <div id="boombastic-agent-data" style="display:none" aria-hidden="true">
 <h1>Boombastic Events</h1>
-<p>Midlands afternoon events company. 12+ years, 23,000+ attendees, 95% historic sell-through rate, 4.9/5 rating. All events run 2pm to 6pm on weekends.</p>
+<p>Midlands afternoon events company. 12+ years, 23,000+ attendees, regular sell-outs across the region, 4.9/5 rating. All events run 2pm to 6pm on weekends.</p>
 <p>Contact: hello@boomevents.co.uk</p>
 
 <h2>Sub-brands</h2>

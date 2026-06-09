@@ -6,7 +6,7 @@ Boombastic Events is an afternoon events company based in the Midlands, UK. Oper
 
 - 12+ years of trading
 - 23,000+ total attendees across all events
-- 95% historic sell-through rate
+- Events sell out regularly across the region
 - 4.9/5 average rating
 - No late nights, no early starts
 
@@ -119,7 +119,7 @@ Each event object includes:
 ## Performance Data
 
 - Total attendees: 23,000+
-- Sell-through rate (historic): 95%
+- Sell-outs: our events sell out regularly across the region
 - Average rating: 4.9 out of 5
 - Years operating: 12+
 - Events to date: 44+ (as of early 2026)
