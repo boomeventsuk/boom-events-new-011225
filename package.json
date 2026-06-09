@@ -13,7 +13,8 @@
     "postinstall": "node scripts/generate-event-pages.js || true",
     "generate:events": "node scripts/generate-event-pages.js",
     "regenerate-locations": "node scripts/generate-location-pages.cjs",
-    "generate:brands": "node scripts/generate-brand-pages.js"
+    "generate:brands": "node scripts/generate-brand-pages.js",
+    "postbuild": "node scripts/prerender-events.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

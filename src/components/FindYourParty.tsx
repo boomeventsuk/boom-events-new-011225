@@ -39,7 +39,7 @@ const FindYourParty = () => {
           {parties.map((party, index) => (
             <div key={index} className="party-tile aspect-video hover:shadow-lg transition-all duration-300 group" data-party-tile>
               <img 
-                src={party.image}
+                src={`${party.image}?width=800&quality=75`}
                 alt={party.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"

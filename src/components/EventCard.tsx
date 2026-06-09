@@ -5,6 +5,10 @@ import { FomoBadge } from "@/components/FomoBadge";
 import { useEventFomoData } from "@/hooks/useEventFomoData";
 import { trackBookClick } from "@/lib/dataLayer";
 
+// Bunny Optimizer params for CDN-hosted images
+const optimised = (url: string, width: number) =>
+  url.includes("b-cdn.net") ? `${url}${url.includes("?") ? "&" : "?"}width=${width}&quality=75` : url;
+
 const isChristmasDay = () => {
   const today = new Date();
   return today.getMonth() === 11 && today.getDate() === 25;
@@ -89,7 +93,8 @@ export const EventCard: React.FC<EventCardProps> = ({
         data-click-source="event-card-image"
       >
         <img
-          src={poster}
+          src={optimised(poster, 800)}
+          srcSet={`${optimised(poster, 400)} 400w, ${optimised(poster, 800)} 800w`}
           alt={`${title} event poster`}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
           loading="lazy"
