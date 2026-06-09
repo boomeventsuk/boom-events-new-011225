@@ -41,7 +41,7 @@ function todayISO() {
 }
 
 function parseStart(s) {
-  // start strings look like "2026-06-13T14:00:00" — naive UK local
+  // start strings look like "2026-06-13T14:00:00", naive UK local
   return new Date(s);
 }
 
@@ -180,7 +180,7 @@ function renderJsonLD(cityCfg, events) {
   const business = {
     "@context": "https://schema.org",
     "@type": "EntertainmentBusiness",
-    "name": `Boombastic Events — ${cityCfg.cityName}`,
+    "name": `Boombastic Events - ${cityCfg.cityName}`,
     "url": `${SITE_URL}/locations/${cityCfg.citySlug}/`,
     "areaServed": { "@type": "City", "name": cityCfg.cityName },
     "address": { "@type": "PostalAddress", "addressLocality": cityCfg.cityName, "addressCountry": "GB" }

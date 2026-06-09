@@ -168,7 +168,7 @@ ${og}
         </div>
         <div class="text-xs text-[var(--muted)] pt-2">Share & Data</div>
         <div class="flex gap-3 text-sm flex-wrap">
-          <a class="underline" href="https://wa.me/?text=${encodeURIComponent(safeTitle + ' — ' + share)}" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="underline" href="https://wa.me/?text=${encodeURIComponent(safeTitle + ' - ' + share)}" target="_blank" rel="noopener">WhatsApp</a>
           <a class="underline" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(share)}" target="_blank" rel="noopener">Facebook</a>
           <a class="underline" href="${share}" onclick="navigator.clipboard?.writeText('${share}'); return false;">Copy link</a>
           <a class="underline" href="${share}index.json" rel="nofollow">Event data (JSON)</a>
