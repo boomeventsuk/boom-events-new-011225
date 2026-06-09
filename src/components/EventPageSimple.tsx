@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EventbriteEmbed from '@/components/EventbriteEmbed';
+import TrustStrip from '@/components/TrustStrip';
 
 interface EventData {
   eventCode: string;
@@ -32,7 +33,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   };
 
 
-  const shareUrl = `https://boomevents.co.uk/event/${event.eventCode}`;
+  const shareUrl = `https://www.boomevents.co.uk/event/${event.eventCode}`;
   const whatsappText = encodeURIComponent(`Check out ${event.title} at ${shareUrl}`);
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
   
@@ -132,7 +133,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
     return <p className="text-base md:text-lg text-foreground/85">{trimmedLine}</p>;
   };
 
-  const canonicalUrl = `https://boomevents.co.uk/event/${event.eventCode}`;
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.eventCode}`;
   const metaDescription = event.description.split('\n')[0].slice(0, 160);
 
   return (
@@ -271,6 +272,8 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
         </div>
       </section>
       
+      <TrustStrip />
+
       {/* Embedded Checkout Section */}
       <section id="checkout-section" className="py-10 md:py-14">
         <div className="container mx-auto px-4">

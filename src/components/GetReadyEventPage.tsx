@@ -10,6 +10,7 @@ import { TestimonialsSection } from '@/components/get-ready/TestimonialsSection'
 import { FaqSection } from '@/components/get-ready/FaqSection';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
+import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
 
 export interface GetReadyEvent {
@@ -52,7 +53,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
   const startHour = new Date(event.start).getHours();
   const isAfternoon = event.isAfternoon ?? startHour < 18;
 
-  const canonicalUrl = `https://boomevents.co.uk/event/${event.slug}/`;
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
   const pageTitle = `GET READY ${event.city} | 60s/70s Motown, Soul & Disco`;
   const timeOfDay = isAfternoon ? "afternoon" : "evening";
   const pageDescription = `${event.description} Book tickets for the ultimate 60s/70s ${timeOfDay} at ${event.location}.`;
@@ -84,7 +85,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
     },
     "offers": {
       "@type": "Offer",
-      "url": event.bookUrl,
+      "url": canonicalUrl,
       "availability": event.isSoldOut 
         ? "https://schema.org/SoldOut" 
         : "https://schema.org/InStock"
@@ -153,6 +154,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
             <TestimonialsSection />
           )}
           
+          <TrustStrip />
           <CheckoutSection 
             event={{
               slug: event.slug,
@@ -174,7 +176,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
         
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} start={event.start} venue={event.location.split(',')[0]?.trim()} />
       </div>
     </>
   );

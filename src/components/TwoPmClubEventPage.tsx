@@ -12,6 +12,7 @@ import { TestimonialsSection } from '@/components/2pm-club/TestimonialsSection';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { FaqSection } from '@/components/2pm-club/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
+import TrustStrip from '@/components/TrustStrip';
 
 export interface TwoPmClubEvent {
   slug: string;
@@ -85,11 +86,11 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
     "organizer": {
       "@type": "Organization",
       "name": "Boombastic Events",
-      "url": "https://boomevents.co.uk"
+      "url": "https://www.boomevents.co.uk"
     },
     "offers": {
       "@type": "Offer",
-      "url": event.bookUrl,
+      "url": canonicalUrl,
       "priceCurrency": "GBP",
       "availability": "https://schema.org/InStock",
       "validFrom": new Date().toISOString()
@@ -133,6 +134,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
           <HighlightsSection highlights={event.highlights} isChristmas={isChristmasEvent} />
           <PhotoGallery />
           <TestimonialsSection />
+          <TrustStrip />
           <CheckoutSection event={event} />
           <FaqSection />
         </main>
@@ -144,6 +146,8 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
           eventTitle={event.title}
           eventbriteId={event.eventbriteId}
           urgencyText={event.fomoOverride?.message}
+          start={event.start}
+          venue={event.location.split(',')[0]?.trim()}
         />
       </div>
     </>

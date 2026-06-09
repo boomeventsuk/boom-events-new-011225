@@ -21,7 +21,7 @@ const Hero = () => {
     }
   };
 
-  return <section id="hero" className={`relative min-h-screen flex items-center justify-center overflow-hidden ${isChristmasDay() ? 'christmas-theme' : ''}`}>
+  return <section id="hero" className={`relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-24 pb-12 ${isChristmasDay() ? 'christmas-theme' : ''}`}>
       {/* Background Image with Overlay */}
       <img src={heroImageUrl} alt="Boombastic Events crowd at a party with colorful lights" className="absolute inset-0 w-full h-full object-cover" onError={e => {
       e.currentTarget.src = fallbackHero;

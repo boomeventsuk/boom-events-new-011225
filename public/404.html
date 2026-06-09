@@ -4,40 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, follow" />
-    <title>Page not found - Boombastic Events</title>
+    <title>That one's gone | Boombastic Events</title>
     <link rel="canonical" href="https://www.boomevents.co.uk/" />
     <link rel="icon" href="/favicon.ico" />
     <style>
       body {
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         background: #0a0a0a;
         color: #f5f5f5;
         min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
+        padding: 48px 24px;
+        box-sizing: border-box;
       }
       .wrap {
-        max-width: 560px;
+        max-width: 720px;
+        margin: 0 auto;
         text-align: center;
       }
       h1 {
-        font-size: 96px;
-        margin: 0 0 8px;
-        letter-spacing: -2px;
+        font-size: 40px;
+        margin: 0 0 4px;
+        text-transform: uppercase;
+        letter-spacing: -1px;
       }
-      h2 {
-        font-size: 24px;
+      .next {
+        font-size: 22px;
         margin: 0 0 16px;
         font-weight: 600;
+        color: #ff3366;
       }
-      p {
-        color: #b5b5b5;
-        line-height: 1.5;
-        margin: 0 0 24px;
-      }
+      p { color: #b5b5b5; line-height: 1.5; margin: 0 0 24px; }
       a.btn {
         display: inline-block;
         background: #ff3366;
@@ -48,16 +45,74 @@
         font-weight: 600;
       }
       a.btn:hover { background: #e62958; }
-      .links { margin-top: 24px; font-size: 14px; }
+      .events { margin: 32px 0 8px; display: grid; gap: 12px; text-align: left; }
+      .event-card {
+        display: block;
+        border: 1px solid #2a2a2a;
+        border-radius: 8px;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: #f5f5f5;
+        background: #141414;
+      }
+      .event-card:hover { border-color: #ff3366; }
+      .event-card .date { color: #ff3366; font-weight: 600; font-size: 14px; }
+      .event-card .title { font-weight: 700; margin: 2px 0; }
+      .event-card .venue { color: #b5b5b5; font-size: 14px; }
+      form { margin: 28px auto 0; max-width: 480px; display: flex; flex-direction: column; gap: 10px; }
+      form h3 { margin: 0 0 2px; font-size: 18px; }
+      form .sub { color: #b5b5b5; font-size: 14px; margin: 0 0 6px; }
+      select, input[type="email"] {
+        padding: 12px 14px;
+        border-radius: 6px;
+        border: 1px solid #333;
+        background: #141414;
+        color: #f5f5f5;
+        font-size: 15px;
+      }
+      button.btn {
+        background: #ff3366;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 6px;
+        border: 0;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      button.btn:hover { background: #e62958; }
+      .links { margin-top: 28px; font-size: 14px; }
       .links a { color: #b5b5b5; margin: 0 8px; }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <h1>404</h1>
-      <h2>Page not found</h2>
-      <p>The page you were looking for doesn't exist or has moved. Head back to the homepage to find upcoming events.</p>
-      <a class="btn" href="/">Back to home</a>
+      <h1>That one's gone.</h1>
+      <p class="next">Here's what's next.</p>
+      <p>The page you were after has moved or the event has been and gone. The party has not stopped though.</p>
+      <a class="btn" href="/">See all upcoming parties</a>
+
+      <div class="events" id="next-events" hidden></div>
+
+      <form name="city-waitlist" method="POST" action="/thanks.html" data-netlify="true">
+        <h3>Tell us your city, hear first when dates drop</h3>
+        <p class="sub">No spam. Just tickets and dates for your city.</p>
+        <input type="hidden" name="form-name" value="city-waitlist" />
+        <select name="city" required>
+          <option value="" disabled selected>Your city</option>
+          <option>Bedford</option>
+          <option>Birmingham</option>
+          <option>Coventry</option>
+          <option>Leicester</option>
+          <option>Luton</option>
+          <option>Milton Keynes</option>
+          <option>Northampton</option>
+          <option>Somewhere else</option>
+        </select>
+        <input type="email" name="email" required placeholder="Your email" />
+        <button type="submit" class="btn">Keep me posted</button>
+      </form>
+
       <div class="links">
         <a href="/locations/northampton/">Northampton</a>
         <a href="/locations/bedford/">Bedford</a>
@@ -67,5 +122,42 @@
         <a href="/locations/leicester/">Leicester</a>
       </div>
     </div>
+    <script>
+      (function () {
+        var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        function fmt(iso) {
+          var d = new Date(iso);
+          var day = d.getDate();
+          var suffix = day % 100 >= 11 && day % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][day % 10] || "th";
+          return days[d.getDay()] + " " + day + suffix + " " + months[d.getMonth()];
+        }
+        function esc(s) {
+          return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+        fetch("/events-boombastic.json")
+          .then(function (r) { return r.json(); })
+          .then(function (events) {
+            var now = new Date();
+            var upcoming = events
+              .filter(function (e) { return !e.isHidden && new Date(e.end || e.start) > now; })
+              .sort(function (a, b) { return a.start < b.start ? -1 : 1; })
+              .slice(0, 3);
+            if (!upcoming.length) return;
+            var box = document.getElementById("next-events");
+            box.innerHTML = upcoming
+              .map(function (e) {
+                return '<a class="event-card" href="/event/' + esc(e.eventCode) + '">' +
+                  '<span class="date">' + esc(fmt(e.start)) + '</span>' +
+                  '<div class="title">' + esc(e.title) + '</div>' +
+                  '<span class="venue">' + esc(e.venue) + ', ' + esc(e.city) + '</span>' +
+                  '</a>';
+              })
+              .join("");
+            box.hidden = false;
+          })
+          .catch(function () {});
+      })();
+    </script>
   </body>
 </html>

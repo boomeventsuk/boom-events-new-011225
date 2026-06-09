@@ -10,6 +10,7 @@ import { TestimonialsSection } from '@/components/boombastic-90s/TestimonialsSec
 import { FaqSection } from '@/components/boombastic-90s/FaqSection';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
+import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
 
 export interface Boombastic90sEvent {
@@ -48,7 +49,7 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
     });
   }, [event.slug, event.title]);
 
-  const canonicalUrl = `https://boomevents.co.uk/event/${event.slug}/`;
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
   const pageTitle = `BOOMBASTIC 90s ${event.city} | All of the Nineties`;
   const pageDescription = `${event.description} Book tickets for the ultimate 90s night at ${event.location}.`;
 
@@ -78,7 +79,7 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
     },
     "offers": {
       "@type": "Offer",
-      "url": event.bookUrl,
+      "url": canonicalUrl,
       "availability": event.isSoldOut 
         ? "https://schema.org/SoldOut" 
         : "https://schema.org/InStock"
@@ -141,6 +142,7 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
             <TestimonialsSection />
           )}
           
+          <TrustStrip />
           <CheckoutSection 
             event={{
               slug: event.slug,
@@ -159,7 +161,7 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
         
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} start={event.start} venue={event.location.split(',')[0]?.trim()} />
       </div>
     </>
   );

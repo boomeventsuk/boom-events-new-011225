@@ -1,10 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import NextEventsStrip from "@/components/NextEventsStrip";
+import TrustStrip from "@/components/TrustStrip";
 import FindYourParty from "@/components/FindYourParty";
 import Tickets from "@/components/Tickets";
 import About from "@/components/About";
 import Reviews from "@/components/Reviews";
+import CityEmailCapture from "@/components/CityEmailCapture";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -15,11 +18,14 @@ const Index = () => {
       </Helmet>
       <Header />
       <Hero />
+      <NextEventsStrip />
+      <TrustStrip />
       <Tickets />
       <FindYourParty />
       <About />
       <Reviews />
-      
+      <CityEmailCapture />
+
       {/* Jobs callout */}
       <section className="py-8 bg-card border-t border-border">
         <div className="container mx-auto px-4 text-center">

@@ -56,7 +56,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
 
   const handleShare = (platform: 'WhatsApp' | 'Facebook' | 'Messenger') => {
     trackShare(platform, event.title);
-    const eventUrl = `https://boomevents.co.uk/event/${event.slug.toUpperCase()}`;
+    const eventUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
     const text = `🎧 Family Silent Disco! ${event.title} - ${formattedDate}. Dance together, find your vibe!`;
     
     const urls = {

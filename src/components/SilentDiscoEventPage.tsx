@@ -9,6 +9,7 @@ import { ChannelsSection } from '@/components/silent-disco/ChannelsSection';
 import { HighlightsSection } from '@/components/2pm-club/HighlightsSection';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
+import TrustStrip from '@/components/TrustStrip';
 
 export interface SilentDiscoChannel {
   color: 'blue' | 'green' | 'red';
@@ -42,7 +43,7 @@ interface SilentDiscoEventPageProps {
 }
 
 const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
-  const canonicalUrl = `https://boomevents.co.uk/event/${event.slug}`;
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
   const hiddenSections = event.hiddenSections || [];
   
   useEffect(() => {
@@ -82,7 +83,7 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
     },
     "offers": {
       "@type": "Offer",
-      "url": event.bookUrl,
+      "url": canonicalUrl,
       "priceCurrency": "GBP",
       "availability": "https://schema.org/InStock",
       "validFrom": new Date().toISOString()
@@ -126,6 +127,7 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
               sectionTitle="Why People Love Our Silent Discos"
             />
           )}
+          <TrustStrip />
           <CheckoutSection 
             event={event} 
             checkoutMessage="10 years of sell-out parties. Don't miss out!"
@@ -134,7 +136,7 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
 
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} start={event.start} venue={event.location.split(',')[0]?.trim()} />
       </div>
     </>
   );

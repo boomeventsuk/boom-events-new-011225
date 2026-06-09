@@ -9,6 +9,7 @@ import { HighlightsSection } from '@/components/2pm-club/HighlightsSection';
 import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { FaqSection } from '@/components/family-silent-disco/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
+import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
 import { SilentDiscoChannel } from '@/components/SilentDiscoEventPage';
 
@@ -92,7 +93,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
     },
     offers: {
       '@type': 'Offer',
-      url: event.bookUrl || canonicalUrl,
+      url: canonicalUrl,
       availability: event.isSoldOut ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
       priceCurrency: 'GBP',
     },
@@ -159,6 +160,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
             sectionTitle="Why Parents Love Family Silent Disco"
           />
           
+          <TrustStrip />
           <CheckoutSection
             event={{
               slug: event.slug,
@@ -175,7 +177,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
         
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} start={event.start} venue={event.location.split(',')[0]?.trim()} />
       </div>
     </>
   );
