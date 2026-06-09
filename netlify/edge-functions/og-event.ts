@@ -8,7 +8,7 @@ const SUPABASE_URL = 'https://loizstloeokvkfuooakm.supabase.co';
 export default async function handler(request: Request, context: any) {
   const ua = request.headers.get('user-agent') || '';
 
-  // Only intercept crawlers — real users get the normal SPA
+  // Only intercept crawlers - real users get the normal SPA
   if (!CRAWLER_UA.test(ua)) {
     return context.next();
   }

@@ -58,7 +58,7 @@ export default async function handler(request: Request, context: Context) {
         .slice(0, 20);
     }
   } catch (_e) {
-    // Events fetch failed — proceed without structured data
+    // Events fetch failed - proceed without structured data
   }
 
   // Event JSON-LD is NOT injected here. The build-time prerender
@@ -125,7 +125,7 @@ export default async function handler(request: Request, context: Context) {
         upcomingEvents
           .map(
             (e) =>
-              `<li>${e.title} — ${e.date}, ${e.venue}, ${e.city}${e.isSoldOut ? " [SOLD OUT]" : ""} — <a href="https://www.boomevents.co.uk/event/${e.eventCode.toLowerCase()}/">Book tickets</a></li>`
+              `<li>${e.title} - ${e.date}, ${e.venue}, ${e.city}${e.isSoldOut ? " [SOLD OUT]" : ""} - <a href="https://www.boomevents.co.uk/event/${e.eventCode.toLowerCase()}/">Book tickets</a></li>`
           )
           .join("") +
         `</ul>`
@@ -155,12 +155,12 @@ export default async function handler(request: Request, context: Context) {
 
 <h2>Cities</h2>
 <ul>
-<li>Northampton — The Picturedrome</li>
-<li>Bedford — Esquires</li>
-<li>Milton Keynes — MK11 Music Venue</li>
-<li>Coventry — hmv Empire</li>
-<li>Luton — Hat Factory</li>
-<li>Leicester — O2 Academy / Athena</li>
+<li>Northampton - The Picturedrome</li>
+<li>Bedford - Esquires</li>
+<li>Milton Keynes - MK11 Music Venue</li>
+<li>Coventry - hmv Empire</li>
+<li>Luton - Hat Factory</li>
+<li>Leicester - O2 Academy / Athena</li>
 </ul>
 
 <h2>Upcoming Events</h2>
