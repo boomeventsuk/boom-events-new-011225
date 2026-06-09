@@ -31,6 +31,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Sanitise events JSON (no em dashes)
+        run: node scripts/sanitise-events-json.js
+
       - name: Regenerate location pages
         run: node scripts/generate-location-pages.cjs
 
@@ -38,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/locations/
+          git add public/events-boombastic.json public/locations/
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
