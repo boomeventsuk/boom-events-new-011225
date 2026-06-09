@@ -61,35 +61,11 @@ export default async function handler(request: Request, context: Context) {
     // Events fetch failed — proceed without structured data
   }
 
-  // --- Build JSON-LD for each upcoming event ---
-  const eventSchemas = upcomingEvents.map((e) => ({
-    "@type": "MusicEvent",
-    name: e.title,
-    startDate: e.start,
-    endDate: e.end,
-    location: {
-      "@type": "Place",
-      name: e.venue,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: e.city,
-        addressCountry: "GB",
-      },
-    },
-    organizer: {
-      "@type": "Organization",
-      name: "Boombastic Events",
-      url: "https://www.boomevents.co.uk",
-    },
-    url: `https://www.boomevents.co.uk/event/${e.eventCode}`,
-    ...(e.image ? { image: e.image } : {}),
-    ...(e.description ? { description: e.description } : {}),
-    eventStatus: e.isSoldOut
-      ? "https://schema.org/EventSoldOut"
-      : "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    isAccessibleForFree: false,
-  }));
+  // Event JSON-LD is NOT injected here. The build-time prerender
+  // (scripts/prerender-events.js) already writes a richer static Event @graph
+  // into dist/index.html (offers, organizer sameAs, venue street addresses);
+  // a second MusicEvent block here duplicated the schema. upcomingEvents is
+  // still used for the noscript crawler block below.
 
   const orgSchema = {
     "@context": "https://schema.org",
@@ -113,26 +89,7 @@ export default async function handler(request: Request, context: Context) {
     ],
   };
 
-  const eventListSchema =
-    upcomingEvents.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          name: "Upcoming Boombastic Events",
-          itemListElement: eventSchemas.map((e, i) => ({
-            "@type": "ListItem",
-            position: i + 1,
-            item: e,
-          })),
-        }
-      : null;
-
-  const jsonLdBlock = [
-    `<script type="application/ld+json">${JSON.stringify(orgSchema)}</script>`,
-    eventListSchema
-      ? `<script type="application/ld+json">${JSON.stringify(eventListSchema)}</script>`
-      : "",
-  ].join("\n");
+  const jsonLdBlock = `<script type="application/ld+json">${JSON.stringify(orgSchema)}</script>`;
 
   // --- WebMCP shim (classic script, for agents reading raw HTML) ---
   const webMcpShim = `<script>
@@ -168,7 +125,7 @@ export default async function handler(request: Request, context: Context) {
         upcomingEvents
           .map(
             (e) =>
-              `<li>${e.title} — ${e.date}, ${e.venue}, ${e.city}${e.isSoldOut ? " [SOLD OUT]" : ""} — <a href="https://www.boomevents.co.uk/event/${e.eventCode}">Book tickets</a></li>`
+              `<li>${e.title} — ${e.date}, ${e.venue}, ${e.city}${e.isSoldOut ? " [SOLD OUT]" : ""} — <a href="https://www.boomevents.co.uk/event/${e.eventCode.toLowerCase()}/">Book tickets</a></li>`
           )
           .join("") +
         `</ul>`
