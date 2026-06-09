@@ -3,6 +3,11 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  # BOOM_META_PIXEL_ID is a public browser pixel ID baked into index.html.
+  # Omit it from secret scanning or the build fails; real private keys stay scanned.
+  SECRETS_SCAN_OMIT_KEYS = "BOOM_META_PIXEL_ID"
+
 # Markdown negotiation - must be FIRST (intercepts Accept: text/markdown before other functions)
 [[edge_functions]]
   function = "markdown-negotiate"
