@@ -1,4 +1,4 @@
-/* Lovable One-Shot — GEO/SEO fixer, generator, reporter
+/* Lovable One-Shot - GEO/SEO fixer, generator, reporter
 
 Safe to run multiple times. Requires Node (common in CI).
 
@@ -142,7 +142,7 @@ ${urls.join('\n')}
   // FAQ (visible + JSON-LD)
   writeFile(path.join(root,'public','faq','index.html'),
     `<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FAQ — Boombastic Events</title>
+<title>FAQ - Boombastic Events</title>
 <meta name="description" content="Short FAQs about tickets, locations and support.">
 <link rel="canonical" href="${SITE_URL}/faq/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage",
@@ -154,13 +154,13 @@ ${urls.join('\n')}
 <body><main style="max-width:980px;margin:20px auto;font-family:system-ui,sans-serif">
 <h1>Frequently Asked Questions</h1>
 <h2>How do I buy tickets?</h2><p>Open the event page, click the Buy tickets link and complete checkout. You'll receive a confirmation email and e-ticket.</p>
-<h2>Where do your events take place?</h2><p>We run events across Northamptonshire and nearby towns — check the event page for exact details.</p>
+<h2>Where do your events take place?</h2><p>We run events across Northamptonshire and nearby towns, check the event page for exact details.</p>
 <h2>Can I change or refund my ticket?</h2><p>Policies are set by the ticket provider; contact us if you need help.</p>
 </main></body></html>`);
   actions.push('public/faq/index.html ready');
 
   // Generator: write (no external deps)
-  const generator = `/* scripts/generate-event-pages.js — generates public/events/<slug>/index.html with clean JSON-LD */
+  const generator = `/* scripts/generate-event-pages.js - generates public/events/<slug>/index.html with clean JSON-LD */
 const fs = require('fs');
 const path = require('path');
 const SITE_URL = process.env.SITE_URL || '${SITE_URL}';
