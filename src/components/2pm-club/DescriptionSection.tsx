@@ -9,9 +9,7 @@ interface DescriptionSectionProps {
 export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
   const isChristmas = event.title.toLowerCase().includes('christmas');
   const isEightiesEdition = event.title.toLowerCase().includes('80s edition');
-  const venue = event.location.split(',')[0]?.trim() || '';
   const city = event.location.split(',')[1]?.trim() || '';
-  const venueLocation = [venue, city].filter(Boolean).join(', ');
   const descriptionParagraphs = event.fullDescription
     .split('\n\n')
     .map((paragraph) => paragraph.trim())
@@ -34,7 +32,7 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
               </blockquote>
               <div className="prose prose-invert prose-lg max-w-none space-y-4 text-foreground/80">
                 <p>
-                  Welcome to THE 2PM CLUB Christmas Daytime Disco — the festive get-together your group chat 
+                  Welcome to THE 2PM CLUB Christmas Daytime Disco, the festive get-together your group chat 
                   can actually agree on. From 2PM sharp, we're upgrading your December with neon fairy lights 
                   and wall-shaking 80s, 90s & 00s anthems, spiked with the festive bangers you've been miming 
                   in the car since November.
@@ -43,11 +41,11 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
                   Your best night out is NOW in the afternoon.
                 </p>
                 <p>
-                  This isn't your work's half-hearted Secret Santa do. This is full club production — confetti 
+                  This isn't your work's half-hearted Secret Santa do. This is full club production, confetti 
                   cannons, dazzling lights, and DJs who know exactly when to drop "All I Want For Christmas Is You." 
                   By 7pm, you'll be back on the sofa, glowing like Rudolph, still humming Mariah. Whether you're 
                   ditching the office party or finally doing something that doesn't involve being polite to Dave 
-                  from accounts — this is how you do Christmas.
+                  from accounts, this is how you do Christmas.
                 </p>
               </div>
             </>
@@ -60,7 +58,7 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
                 Your best 80s night out. In the middle of the afternoon.
               </p>
               <blockquote className="border-l-4 border-primary pl-6 py-4 mb-6 text-xl md:text-2xl italic text-foreground/90">
-                "THE 2PM CLUB goes full-on 80s at {venueLocation}."
+                "THE 2PM CLUB goes full-on 80s at The Picturedrome, Northampton."
               </blockquote>
               <div className="prose prose-invert prose-lg max-w-none space-y-4 text-foreground/80">
                 {descriptionParagraphs.map((paragraph, index) => (
@@ -82,11 +80,20 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
                 "Remember when going OUT OUT didn't require a week's recovery?"
               </blockquote>
               <div className="prose prose-invert prose-lg max-w-none space-y-4 text-foreground/80">
-                {descriptionParagraphs.map((paragraph, index) => (
-                  <p key={paragraph} className={index === 0 ? 'font-bold text-foreground' : undefined}>
-                    {paragraph}
-                  </p>
-                ))}
+                <p>
+                  Welcome to THE 2PM CLUB, the daytime disco revolution that's taking the UK by storm. 
+                  Four hours of pure nostalgia, singalong anthems, and confetti moments. All the energy 
+                  of a Saturday night out, but you'll be home by 7pm to watch Strictly.
+                </p>
+                <p>
+                  This isn't some watered-down afternoon tea disco. This is a full-blown club experience 
+                  with professional sound, lighting, and DJs who know exactly how to work a crowd. The 
+                  only difference? You'll actually remember it in the morning.
+                </p>
+                <p>
+                  Whether you're celebrating a birthday, hen do, or just fancy a proper day out that 
+                  doesn't write off your entire weekend, this is your new favourite thing.
+                </p>
               </div>
             </>
           )}

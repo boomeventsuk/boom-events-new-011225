@@ -373,34 +373,43 @@ export const trackPurchase = (
   orderId?: string,
   context: EventTrackingContext = {}
 ) => {
+  const purchaseValue = Number.isFinite(value) && value && value > 0
+    ? value
+    : Number.isFinite(context.price) && context.price && context.price > 0
+      ? context.price
+      : undefined;
   const eventId = createEventId('Purchase', slug, orderId);
   const eventContext = buildEventContext(slug, title, context);
   const metaParams = buildMetaParams(slug, title, context, {
-    value: value || 0,
-    currency: 'GBP'
+    value: purchaseValue,
+    currency: purchaseValue !== undefined ? 'GBP' : undefined
   });
   pushToDataLayer({
     event: 'purchase',
     event_id: eventId,
     ...eventContext,
-    transaction_value: value,
-    currency: 'GBP',
+    transaction_value: purchaseValue,
+    currency: purchaseValue !== undefined ? 'GBP' : undefined,
     order_id: orderId
   });
   
   // Meta Pixel: Purchase
-  trackFbConversion('Purchase', metaParams, eventId);
-  sendServerEvent('Purchase', eventId, metaParams, eventContext, {
-    transaction_value: value,
-    order_id: orderId
-  });
+  if (purchaseValue !== undefined) {
+    trackFbConversion('Purchase', metaParams, eventId);
+    sendServerEvent('Purchase', eventId, metaParams, eventContext, {
+      transaction_value: purchaseValue,
+      order_id: orderId
+    });
+  }
   
   // GA4: purchase
-  trackGaEvent('purchase', {
-    transaction_id: orderId,
-    value: value || 0,
-    currency: 'GBP',
-    event_id: eventId,
-    items: [{ item_id: slug, item_name: title }]
-  });
+  if (purchaseValue !== undefined) {
+    trackGaEvent('purchase', {
+      transaction_id: orderId,
+      value: purchaseValue,
+      currency: 'GBP',
+      event_id: eventId,
+      items: [{ item_id: slug, item_name: title }]
+    });
+  }
 };

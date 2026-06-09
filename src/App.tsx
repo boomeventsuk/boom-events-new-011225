@@ -11,6 +11,7 @@ import Jobs from "./pages/Jobs";
 import TicketsRedirect from "./components/TicketsRedirect";
 import EventTemplate from "./pages/EventTemplate";
 import CookieConsent from "./components/CookieConsent";
+import RouteChangeTracker from "./components/RouteChangeTracker";
 import { initConsentOnLoad } from "./lib/cookieConsent";
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <RouteChangeTracker />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/tickets" element={<TicketsRedirect />} />

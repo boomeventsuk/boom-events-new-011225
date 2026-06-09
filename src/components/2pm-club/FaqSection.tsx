@@ -9,7 +9,7 @@ export const FaqSection = () => {
     },
     {
       question: "What music will be played?",
-      answer: "80s, 90s and 00s anthems. Wall-to-wall songs you know every word to. The DJ builds the energy across the afternoon—starting with solid, accessible tracks and building toward peak moments. Think Whitney, Wham!, Spice Girls, Beyoncé, Take That, The Killers, Oasis."
+      answer: "80s, 90s and 00s anthems. Wall-to-wall songs you know every word to. The DJ builds the energy across the afternoon-starting with solid, accessible tracks and building toward peak moments. Think Whitney, Wham!, Spice Girls, Beyoncé, Take That, The Killers, Oasis."
     },
     {
       question: "Why do you start at 2pm?",
@@ -17,11 +17,11 @@ export const FaqSection = () => {
     },
     {
       question: "Do you offer group tickets?",
-      answer: "Yes. We offer group tickets for groups of four or more. People come to celebrate all sorts—birthdays, hen dos, work dos. But honestly, you don't need an excuse. The biggest thing is getting your friends together for a proper afternoon out. That's what this is for."
+      answer: "Yes. We offer group tickets for groups of four or more. People come to celebrate all sorts-birthdays, hen dos, work dos. But honestly, you don't need an excuse. The biggest thing is getting your friends together for a proper afternoon out. That's what this is for."
     },
     {
       question: "What's the crowd like?",
-      answer: "Predominantly female, predominantly over 30. Everyone's welcome. Everyone's here for the same reason—to have a proper afternoon out with good music and good people. The atmosphere is genuinely welcoming."
+      answer: "Predominantly female, predominantly over 30. Everyone's welcome. Everyone's here for the same reason-to have a proper afternoon out with good music and good people. The atmosphere is genuinely welcoming."
     },
     {
       question: "What should I wear?",

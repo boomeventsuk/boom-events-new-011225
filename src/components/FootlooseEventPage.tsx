@@ -121,7 +121,7 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
         
         <main>
           {event.ticketsLeft && (
-            <UrgencyBanner message={`LAST ${event.ticketsLeft} TICKETS — Don't miss out!`} />
+            <UrgencyBanner message={`LAST ${event.ticketsLeft} TICKETS, Don't miss out!`} />
           )}
 
           <HeroSection event={{
@@ -176,7 +176,7 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
           eventSlug={event.slug} 
           eventTitle={event.title}
           eventbriteId={event.eventbriteId}
-          urgencyText={event.ticketsLeft ? `LAST ${event.ticketsLeft} TICKETS — BOOK NOW` : undefined}
+          urgencyText={event.ticketsLeft ? `LAST ${event.ticketsLeft} TICKETS, BOOK NOW` : undefined}
         />
       </div>
     </>

@@ -11,7 +11,7 @@ export const FaqSection = () => {
   const faqs = [
     {
       question: "What kind of music will be played?",
-      answer: "All of the 90s! Pop perfection from the Spice Girls, Britpop anthems from Oasis and Blur, dance floor euphoria from Faithless and Robin S, hip-hop swagger from TLC and Will Smith — the whole decade, no filler."
+      answer: "All of the 90s! Pop perfection from the Spice Girls, Britpop anthems from Oasis and Blur, dance floor euphoria from Faithless and Robin S, hip-hop swagger from TLC and Will Smith, the whole decade, no filler."
     },
     {
       question: "What time does it start and finish?",

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import {
+  pushToDataLayer,
   trackAddToCart,
   trackBookClick,
   trackCheckoutInteraction,
@@ -168,6 +169,14 @@ const EventbriteEmbed = ({
         
         debugLog('📨 Eventbrite postMessage:', data);
         
+        // Forward events to dataLayer
+        if (data.event) {
+          pushToDataLayer({
+            event: `eb_${data.event}`,
+            ...data
+          });
+        }
+
         const eventName = data.event || data.type;
         if (eventName === 'checkout_started') {
           trackCheckoutIntentOnce('eventbrite_checkout_started');

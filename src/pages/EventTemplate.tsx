@@ -46,8 +46,6 @@ interface EventData {
     message: string;
     timeMessage?: string | null;
   };
-  price?: number;
-  priceLabel?: string;
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -93,6 +91,7 @@ const EventTemplate = () => {
   const isFootlooseEvent = event.eventCode.includes('-FL80-');
   const isBoombastic90sEvent = event.eventCode.includes('-B90-');
   const isGetReadyEvent = event.eventCode.includes('-GR-');
+  const siteEventUrl = `https://www.boomevents.co.uk/event/${event.eventCode}`;
   
   if (isGetReadyEvent && event.soundtrack) {
     // Map EventData to GetReadyEvent format
@@ -106,7 +105,7 @@ const EventTemplate = () => {
       city: event.city,
       start: event.start || event.date,
       end: event.end || event.date,
-      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      bookUrl: event.bookUrl || siteEventUrl,
       image: event.image,
       description: event.description,
       fullDescription: event.fullDescription || event.description,
@@ -131,7 +130,7 @@ const EventTemplate = () => {
       city: event.city,
       start: event.start || event.date,
       end: event.end || event.date,
-      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      bookUrl: event.bookUrl || siteEventUrl,
       image: event.image,
       description: event.description,
       fullDescription: event.fullDescription || event.description,
@@ -155,7 +154,7 @@ const EventTemplate = () => {
       city: event.city,
       start: event.start || event.date,
       end: event.end || event.date,
-      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      bookUrl: event.bookUrl || siteEventUrl,
       image: event.image,
       description: event.description,
       fullDescription: event.fullDescription || event.description,
@@ -183,7 +182,7 @@ const EventTemplate = () => {
       start: event.start || event.date,
       end: event.end || event.date,
       doorsTime: event.doorsTime,
-      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      bookUrl: event.bookUrl || siteEventUrl,
       image: event.image,
       description: event.description,
       fullDescription: event.fullDescription || event.description,
@@ -206,7 +205,7 @@ const EventTemplate = () => {
       location: `${event.venue}, ${event.city}`,
       start: event.start || event.date,
       end: event.end || event.date,
-      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      bookUrl: event.bookUrl || siteEventUrl,
       image: event.image,
       description: event.description,
       subtitle: event.subtitle || '',
@@ -231,20 +230,17 @@ const EventTemplate = () => {
       waitingListUrl: event.waitingListUrl,
       colorScheme: event.colorScheme,
       fomoOverride: event.fomoOverride,
-      price: event.price,
-      priceLabel: event.priceLabel,
       title: event.title,
       location: `${event.venue}, ${event.city}`,
       start: event.start || event.date,
       end: event.end || event.date,
-      bookUrl: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
-      infoUrl: event.infoUrl || event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      bookUrl: event.bookUrl || siteEventUrl,
+      infoUrl: event.infoUrl || event.bookUrl || siteEventUrl,
       image: event.image,
       description: event.description,
       subtitle: event.subtitle || '',
       fullDescription: event.fullDescription || event.description,
       highlights: event.highlights || '',
-      hiddenSections: event.hiddenSections,
     };
     
     return <TwoPmClubEventPage event={twoPmEvent} />;

@@ -162,8 +162,8 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
               isSoldOut: event.isSoldOut,
             }}
             checkoutMessage={isAfternoon 
-              ? "🔥 Only 50 tickets left — £7.50 each — This Sunday 2pm-6pm!"
-              : "🔥 Tickets from just £7 — Friday 8pm-Midnight!"
+              ? "🔥 Only 50 tickets left, £7.50 each, This Sunday 2pm-6pm!"
+              : "🔥 Tickets from just £7, Friday 8pm-Midnight!"
             }
           />
           

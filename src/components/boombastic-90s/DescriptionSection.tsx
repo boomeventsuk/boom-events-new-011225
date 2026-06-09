@@ -23,7 +23,7 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
               
             <p className="leading-relaxed">
               <strong className="text-primary">BOOMBASTIC: ALL OF THE NINETIES</strong> is four hours of that. 
-              Pop perfection, Britpop anthems, dance floor euphoria, hip-hop swagger — the whole decade, 
+              Pop perfection, Britpop anthems, dance floor euphoria, hip-hop swagger, the whole decade, 
               played exactly the way it should be. No filler. No apologies. No guilty pleasures, 
               because in the 90s none of it was guilty.
             </p>

@@ -59,7 +59,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
 
   const pageTitle = `${event.title} | ${formattedDate} | Family Silent Disco`;
   const pageDescription = event.description;
-  const canonicalUrl = `https://boomevents.co.uk/event/${event.slug.toUpperCase()}`;
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
 
   // Schema.org Event structured data
   const eventSchema = {
@@ -92,7 +92,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
     },
     offers: {
       '@type': 'Offer',
-      url: event.bookUrl || `https://www.eventbrite.co.uk/e/${event.eventbriteId}`,
+      url: event.bookUrl || canonicalUrl,
       availability: event.isSoldOut ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
       priceCurrency: 'GBP',
     },

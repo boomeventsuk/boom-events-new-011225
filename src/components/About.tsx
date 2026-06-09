@@ -7,7 +7,7 @@ const About = () => {
             About Boombastic Events
           </h2>
           <p className="lead font-poppins text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Boombastic Events produces quality, inclusive sing-along parties across the Midlands —
+            Boombastic Events produces quality, inclusive sing-along parties across the Midlands -
             from <strong className="text-primary">The 2PM Club™ Daytime Disco</strong> to <strong className="text-primary">Family Silent Disco</strong>,
             after-dark <strong className="text-primary">Silent Disco</strong> and <strong className="text-primary">Decades</strong> nights.
             Established in 2014, we've delivered 250+ shows with a 95% sell-out rate across trusted venues

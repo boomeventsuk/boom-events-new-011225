@@ -123,7 +123,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
 
             <div className="pt-4 border-t border-border/30">
               <p className="text-sm text-foreground/70 mb-3">
-                Round up your friends — Share this event
+                Round up your friends, Share this event
               </p>
               <div className="flex items-center gap-2">
                 <button

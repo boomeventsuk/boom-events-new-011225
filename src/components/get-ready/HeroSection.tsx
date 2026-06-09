@@ -34,10 +34,10 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const badgeText = isAfternoon ? "AFTERNOON SPECIAL" : "SUMMER SPECIAL";
   const tagline = isAfternoon 
     ? "Banish those January blues with four hours of legendary floorfillers"
-    : "Summer's hottest night out — four hours of legendary floorfillers";
+    : "Summer's hottest night out, four hours of legendary floorfillers";
   const fallbackFomoText = isAfternoon
-    ? "🔥 LAST 50 TICKETS — Just £7.50 — This Sunday!"
-    : "🔥 TICKETS FROM £7 — Book Now!";
+    ? "🔥 LAST 50 TICKETS, Just £7.50, This Sunday!"
+    : "🔥 TICKETS FROM £7, Book Now!";
   
   const shareUrl = `https://boomevents.co.uk/event/${event.slug}/`;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -148,7 +148,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
 
             <div className="pt-4 border-t border-border/30">
               <p className="text-sm text-foreground/70 mb-3">
-                Round up your friends — Share this event
+                Round up your friends, Share this event
               </p>
               <div className="flex items-center gap-2">
                 <button

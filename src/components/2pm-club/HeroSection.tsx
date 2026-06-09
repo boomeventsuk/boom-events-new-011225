@@ -1,4 +1,4 @@
-import { Calendar, Clock, MapPin, Share2, Ticket } from 'lucide-react';
+import { Calendar, Clock, MapPin, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { format } from 'date-fns';
@@ -17,8 +17,6 @@ interface HeroSectionProps {
     cityCode: string;
     isSoldOut?: boolean;
     subtitle?: string;
-    price?: number;
-    priceLabel?: string;
     fomoOverride?: {
       tier: string;
       message: string;
@@ -29,8 +27,6 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
-  const isChristmas = event.title.toLowerCase().includes('christmas');
-  const isEightiesEdition = event.title.toLowerCase().includes('80s edition');
   const displayFomo = event.fomoOverride
     ? {
         tier: event.fomoOverride.tier,
@@ -44,12 +40,14 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
           timeMessage: fomoData.time_message,
         }
       : null;
+  const isChristmas = event.title.toLowerCase().includes('christmas');
+  const isEightiesEdition = event.title.toLowerCase().includes('80s edition');
   const city = event.location.split(',')[1]?.trim() || event.cityCode;
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
   
-  const shareUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
+  const shareUrl = `https://boomevents.co.uk/events/${event.slug}/`;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   
   const handleBookClick = () => {
@@ -58,7 +56,6 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
       city,
       venue,
       startIso: event.start,
-      price: event.price,
       source: 'hero_button'
     });
     const checkoutSection = document.getElementById('checkout-section');
@@ -152,12 +149,6 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 <MapPin className="w-5 h-5 text-primary" />
                 <span>{venue}, {city}</span>
               </div>
-              {event.priceLabel && (
-                <div className="flex items-center gap-3">
-                  <Ticket className="w-5 h-5 text-primary" />
-                  <span>{event.priceLabel}</span>
-                </div>
-              )}
             </div>
 
             {displayFomo && (
@@ -180,7 +171,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
 
             <div className="pt-4 border-t border-border/30">
               <p className="text-sm text-foreground/70 mb-3">
-                Be the group chat hero — Share this event
+                Be the group chat hero, Share this event
               </p>
               <div className="flex items-center gap-2">
                 <button

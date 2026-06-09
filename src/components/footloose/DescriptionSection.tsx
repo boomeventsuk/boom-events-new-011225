@@ -17,7 +17,7 @@ export const DescriptionSection = ({ event, ticketsLeft }: DescriptionSectionPro
                 ⚠️ ONLY {ticketsLeft} TICKETS LEFT
               </p>
               <p className="text-lg text-foreground/80 mt-2">
-                This event is nearly sold out — book now before they're gone.
+                This event is nearly sold out, book now before they're gone.
               </p>
             </div>
           )}
@@ -33,14 +33,14 @@ export const DescriptionSection = ({ event, ticketsLeft }: DescriptionSectionPro
           </p>
             
             <p className="leading-relaxed">
-              <strong className="text-primary">FOOTLOOSE 80s</strong> is your ticket back to those moments — 
+              <strong className="text-primary">FOOTLOOSE 80s</strong> is your ticket back to those moments, 
               four hours of non-stop anthems from the greatest decade in music. 
               The songs you know every word to, played loud, with people who feel exactly the same way.
             </p>
             
             <blockquote className="border-l-4 border-primary pl-6 py-2 my-8 bg-muted/30 rounded-r-lg">
               <p className="text-xl italic">
-                "This isn't just any 80s night. This is the real deal — a proper party where 
+                "This isn't just any 80s night. This is the real deal, a proper party where 
                 the dancefloor is full, the singalongs are epic, and the vibe is electric." ✨
               </p>
             </blockquote>

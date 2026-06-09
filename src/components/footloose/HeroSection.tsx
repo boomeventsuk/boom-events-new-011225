@@ -127,12 +127,12 @@ export const HeroSection = ({ event, ticketsLeft }: HeroSectionProps) => {
               className="w-full md:w-auto text-lg px-8 py-6"
               onClick={handleBookClick}
             >
-              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : ticketsLeft ? 'GRAB YOUR TICKETS — ALMOST GONE' : 'BOOK TICKETS'}
+              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : ticketsLeft ? 'GRAB YOUR TICKETS, ALMOST GONE' : 'BOOK TICKETS'}
             </Button>
 
             <div className="pt-4 border-t border-border/30">
               <p className="text-sm text-foreground/70 mb-3">
-                Round up your friends — Share this event
+                Round up your friends, Share this event
               </p>
               <div className="flex items-center gap-2">
                 <button

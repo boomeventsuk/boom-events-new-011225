@@ -27,8 +27,6 @@ export interface TwoPmClubEvent {
     message: string;
     timeMessage?: string | null;
   };
-  price?: number;
-  priceLabel?: string;
   title: string;
   location: string;
   start: string;
@@ -40,7 +38,6 @@ export interface TwoPmClubEvent {
   subtitle: string;
   fullDescription: string;
   highlights: string;
-  hiddenSections?: string[];
 }
 
 interface TwoPmClubEventPageProps {
@@ -60,7 +57,6 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
       city: event.location.split(',')[1]?.trim(),
       venue: event.location.split(',')[0]?.trim(),
       startIso: event.start,
-      price: event.price,
       status: event.isSoldOut ? 'sold-out' : undefined,
       source: 'event_page'
     });
@@ -94,7 +90,6 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
     "offers": {
       "@type": "Offer",
       "url": event.bookUrl,
-      "price": event.price,
       "priceCurrency": "GBP",
       "availability": "https://schema.org/InStock",
       "validFrom": new Date().toISOString()
@@ -134,11 +129,11 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         <main>
           <HeroSection event={event} />
           <DescriptionSection event={event} />
-          <CheckoutSection event={event} />
-          {!event.hiddenSections?.includes('video') && <VideoSection />}
+          <VideoSection />
           <HighlightsSection highlights={event.highlights} isChristmas={isChristmasEvent} />
-          {!event.hiddenSections?.includes('gallery') && <PhotoGallery />}
+          <PhotoGallery />
           <TestimonialsSection />
+          <CheckoutSection event={event} />
           <FaqSection />
         </main>
 

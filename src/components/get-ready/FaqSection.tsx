@@ -26,7 +26,7 @@ const getAfternoonFaqs = () => [
   },
   {
     question: "Can I buy tickets on the door?",
-    answer: "We recommend booking online now — only 50 tickets remain! Tickets are £7.50 each. This event often sells out completely."
+    answer: "We recommend booking online now, only 50 tickets remain! Tickets are £7.50 each. This event often sells out completely."
   },
   {
     question: "Is the venue accessible?",
@@ -45,7 +45,7 @@ const getEveningFaqs = () => [
   },
   {
     question: "What time does it start and finish?",
-    answer: "GET READY Summer Special runs from 8pm to Midnight — the perfect Friday night out! Four hours of non-stop Motown, Soul and Disco."
+    answer: "GET READY Summer Special runs from 8pm to Midnight, the perfect Friday night out! Four hours of non-stop Motown, Soul and Disco."
   },
   {
     question: "Is there a dress code?",
