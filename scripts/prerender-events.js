@@ -52,8 +52,15 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// Netlify serves these shells at the lowercase, trailing-slash pretty URL
+// (uppercase requests 301 to it), so every emitted URL must match that form
+// or the canonical self-redirects.
+function eventUrlFor(eventCode) {
+  return `${SITE_URL}/event/${eventCode.toLowerCase()}/`;
+}
+
 function eventJsonLd(ev) {
-  const url = `${SITE_URL}/event/${ev.eventCode}`;
+  const url = eventUrlFor(ev.eventCode);
   const extra = VENUE_ADDRESSES[ev.venue] || {};
   return {
     "@context": "https://schema.org",
@@ -124,7 +131,7 @@ async function main() {
 
   let written = 0;
   for (const ev of upcoming) {
-    const url = `${SITE_URL}/event/${ev.eventCode}`;
+    const url = eventUrlFor(ev.eventCode);
     const title = `${ev.title} | ${formatDate(ev.start)} | Boombastic Events`;
     const description = (ev.description || ev.subtitle || "").slice(0, 160);
 
@@ -148,7 +155,7 @@ async function main() {
     ].join("\n");
     html = html.replace("</head>", `${extra}\n</head>`);
 
-    const dir = path.join(DIST, "event", ev.eventCode);
+    const dir = path.join(DIST, "event", ev.eventCode.toLowerCase());
     await fs.mkdir(dir, { recursive: true });
     await fs.writeFile(path.join(dir, "index.html"), html);
     written++;
