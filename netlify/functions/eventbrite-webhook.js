@@ -25,10 +25,9 @@ const EVENTS_FILE = 'public/events-boombastic.json';
 const DEFAULT_SITE_URL = 'https://www.boomevents.co.uk';
 
 const getProvidedSecret = (event) => {
-  const headers = event.headers || {};
   const queryToken = event.queryStringParameters?.token;
-  const headerToken = headers['x-webhook-token'] || headers['X-Webhook-Token'];
-  const auth = headers.authorization || headers.Authorization || '';
+  const headerToken = event.headers['x-webhook-token'];
+  const auth = event.headers.authorization || '';
   const bearer = auth.startsWith('Bearer ') ? auth.slice('Bearer '.length) : undefined;
   return queryToken || headerToken || bearer;
 };
@@ -42,9 +41,6 @@ export const handler = async (event) => {
   }
 
   const requiredSecret = process.env.EVENTBRITE_WEBHOOK_SECRET;
-  if (!requiredSecret) {
-    return jsonResponse(503, { ok: false, error: 'missing_EVENTBRITE_WEBHOOK_SECRET' });
-  }
   if (requiredSecret && getProvidedSecret(event) !== requiredSecret) {
     return jsonResponse(401, { ok: false, error: 'unauthorized' });
   }

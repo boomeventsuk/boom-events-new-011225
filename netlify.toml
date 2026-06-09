@@ -1,9 +1,9 @@
-# netlify.toml — put at repository root
+# netlify.toml - put at repository root
 [build]
   command = "npm run build"
   publish = "dist"
 
-# Markdown negotiation — must be FIRST (intercepts Accept: text/markdown before other functions)
+# Markdown negotiation - must be FIRST (intercepts Accept: text/markdown before other functions)
 [[edge_functions]]
   function = "markdown-negotiate"
   path = "/*"
@@ -23,7 +23,7 @@
   function = "og-event"
   path = "/events/*"
 
-# Static files — serve directly, bypass SPA fallback
+# Static files - serve directly, bypass SPA fallback
 [[redirects]]
   from = "/sitemap.xml"
   to = "/sitemap.xml"
@@ -118,7 +118,7 @@
     Cache-Control = "public, max-age=3600"
     Content-Type = "application/xml"
 
-# SPA fallback for client-side routes — explicit React Router paths only
+# SPA fallback for client-side routes - explicit React Router paths only
 [[redirects]]
   from = "/tickets"
   to = "/index.html"
@@ -139,7 +139,7 @@
   to = "/index.html"
   status = 200
 
-# Catch-all 404 for genuinely unknown URLs — must be LAST
+# Catch-all 404 for genuinely unknown URLs - must be LAST
 [[redirects]]
   from = "/*"
   to = "/404.html"
