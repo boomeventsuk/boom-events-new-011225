@@ -1,30 +1,30 @@
 import { Button } from "@/components/ui/button";
 
 const FindYourParty = () => {
-  const scrollToTickets = () => {
-    document.getElementById('tickets')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const parties = [
     {
       title: "The 2PM Club™ Daytime Disco",
       description: "The Midland's most popular Day Party! Iconic 80s 90s 00s Anthems - Your best night out ever now happens in the afternoon.",
-      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/2PM%20Crowd%20Web.jpg"
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/2PM%20Crowd%20Web.jpg",
+      href: "https://www.the2pmclub.co.uk"
     },
     {
       title: "Silent Disco Parties",
       description: "10 years of Silent Chaos! Three DJs. Three channels. No compromise needed. Greatest Hits or Decades formats",
-      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/SDB_EVT_CROWD.jpg"
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/SDB_EVT_CROWD.jpg",
+      href: "/silent-disco/"
     },
     {
       title: "Family Silent Disco",
       description: "Something for the whole family. 3 channels to choose from 🔵Party 🔴Throwback 🟢Charts. Everyone finds their vibe!",
-      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FSD%20Crowd%20Web.jpg"
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FSD%20Crowd%20Web.jpg",
+      href: "/family-silent-disco/"
     },
     {
       title: "Decades Parties",
-      description: "Pick your decade: Footloose 80s, Boombastic 90s, Hey‑Ya 2000s.",
-      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FL80s%20Crowd%20Web.jpg"
+      description: "Pick your decade: Footloose 80s or Boombastic 90s.",
+      image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FL80s%20Crowd%20Web.jpg",
+      href: "/footloose-80s/"
     }
   ];
 
@@ -51,11 +51,11 @@ const FindYourParty = () => {
                 <p className="font-poppins text-white leading-relaxed tile-blurb">
                   {party.description}
                 </p>
-                <Button 
-                  onClick={scrollToTickets}
+                <Button
+                  asChild
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-semibold tile-cta"
                 >
-                  See dates
+                  <a href={party.href}>See dates</a>
                 </Button>
               </div>
             </div>

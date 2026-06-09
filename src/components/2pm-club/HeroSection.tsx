@@ -47,7 +47,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
   
-  const shareUrl = `https://boomevents.co.uk/events/${event.slug}/`;
+  const shareUrl = `https://www.boomevents.co.uk/event/${event.slug}`;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   
   const handleBookClick = () => {

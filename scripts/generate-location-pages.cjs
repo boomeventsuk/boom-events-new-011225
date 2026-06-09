@@ -18,7 +18,7 @@ const ROOT = path.resolve(__dirname, '..');
 const EVENTS_PATH = path.join(ROOT, 'public', 'events-boombastic.json');
 const CONFIG_PATH = path.join(ROOT, 'scripts', 'location-config.json');
 const OUT_DIR = path.join(ROOT, 'public', 'locations');
-const SITE_URL = 'https://boomevents.co.uk';
+const SITE_URL = 'https://www.boomevents.co.uk';
 
 // --- helpers ---
 function esc(s) {
