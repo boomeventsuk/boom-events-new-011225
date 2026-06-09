@@ -99,7 +99,7 @@ function renderEventCard(event) {
           </div>
           <h3>${esc(event.title)}</h3>
           <p class="desc">${esc(event.subtitle || event.description || '')}</p>
-          <a href="/event/${esc(event.eventCode)}" class="cta">View Event &amp; Book →</a>
+          <a href="/event/${esc(event.eventCode.toLowerCase())}/" class="cta">View Event &amp; Book →</a>
         </div>
       </article>`;
 }
@@ -140,7 +140,7 @@ function renderJsonLD(cityCfg, events) {
     "itemListElement": events.map((e, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "url": `${SITE_URL}/event/${e.eventCode}`,
+      "url": `${SITE_URL}/event/${e.eventCode.toLowerCase()}/`,
       "name": e.title
     }))
   };
@@ -166,7 +166,7 @@ function renderJsonLD(cityCfg, events) {
     "description": e.description || e.subtitle || '',
     "offers": {
       "@type": "Offer",
-      "url": `${SITE_URL}/event/${e.eventCode}`,
+      "url": `${SITE_URL}/event/${e.eventCode.toLowerCase()}/`,
       "availability": availabilitySchema(e),
       "priceCurrency": "GBP"
     },

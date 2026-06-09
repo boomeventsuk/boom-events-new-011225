@@ -304,7 +304,7 @@ async function run() {
     ...ev,
     id:       ev.id       || ev.eventCode,
     location: ev.location || (ev.venue && ev.city ? `${ev.venue}, ${ev.city}` : ev.city || ev.venue || ""),
-    bookUrl:  ev.bookUrl  || (ev.eventCode ? `https://www.boomevents.co.uk/event/${ev.eventCode}` : "")
+    bookUrl:  ev.bookUrl  || (ev.eventCode ? `https://www.boomevents.co.uk/event/${ev.eventCode.toLowerCase()}/` : "")
   }));
   const copy   = (await readJson(path.join(ROOT, "content", "event-copy.json"))) || {};
   // NOTE: Static event HTML pages removed. Event pages are handled by
@@ -340,7 +340,7 @@ async function run() {
 
     // Add canonical event URL to sitemap using eventCode
     const eventCode = ev.eventCode || slug;
-    sitemapUrls.add(`${SITE_URL}/event/${eventCode}`);
+    sitemapUrls.add(`${SITE_URL}/event/${eventCode.toLowerCase()}/`);
 
     // Collect venue data for venues.json
     const { venue, city } = splitVenueCity(ev.location || "");

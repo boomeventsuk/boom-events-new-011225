@@ -93,7 +93,7 @@ function eventJsonLd(ev) {
       "@type": "Organization",
       name: "Boombastic Events",
       url: `${SITE_URL}/`,
-      sameAs: ["https://www.facebook.com/boombasticevents", "https://www.instagram.com/boombastic_events"],
+      sameAs: ["https://www.facebook.com/boombastic.eventsuk", "https://www.instagram.com/boombastic.eventsuk"],
     },
   };
 }

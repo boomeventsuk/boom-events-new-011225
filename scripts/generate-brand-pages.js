@@ -54,8 +54,8 @@ function eventCard(ev) {
   const soldOut = !!ev.isSoldOut;
   const fomo = !soldOut && ev.fomoOverride && ev.fomoOverride.message ? ev.fomoOverride.message : null;
   const btn = soldOut
-    ? `<a href="/event/${esc(ev.eventCode)}" class="btn" style="background:#555;">Sold Out</a>`
-    : `<a href="/event/${esc(ev.eventCode)}" class="btn">Book Tickets</a>`;
+    ? `<a href="/event/${esc(ev.eventCode.toLowerCase())}/" class="btn" style="background:#555;">Sold Out</a>`
+    : `<a href="/event/${esc(ev.eventCode.toLowerCase())}/" class="btn">Book Tickets</a>`;
   return `            <div class="event-card">
                 <div class="event-info">
                     <h3>${esc(ev.title)}${soldOut ? ' <span style="color:#FF1493;">(SOLD OUT)</span>' : ""}</h3>
@@ -109,7 +109,7 @@ function eventJsonLd(ev) {
     description: ev.description,
     offers: {
       "@type": "Offer",
-      url: `${SITE_URL}/event/${ev.eventCode}`,
+      url: `${SITE_URL}/event/${ev.eventCode.toLowerCase()}/`,
       availability: ev.isSoldOut ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
       priceCurrency: "GBP",
     },
@@ -117,7 +117,7 @@ function eventJsonLd(ev) {
       "@type": "Organization",
       name: "Boombastic Events",
       url: `${SITE_URL}/`,
-      sameAs: ["https://www.facebook.com/boombasticevents", "https://www.instagram.com/boombastic_events"],
+      sameAs: ["https://www.facebook.com/boombastic.eventsuk", "https://www.instagram.com/boombastic.eventsuk"],
     },
   };
 }
