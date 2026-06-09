@@ -1,0 +1,16 @@
+<!doctype html>
+<!-- Static form definitions for Netlify build-time form detection.
+     The live form is rendered by React (CityEmailCapture.tsx); Netlify only
+     registers forms it finds in static HTML at deploy, so this file must
+     mirror the form name and fields exactly. Not linked from anywhere. -->
+<html>
+  <head><meta name="robots" content="noindex" /><title>forms</title></head>
+  <body>
+    <form name="city-waitlist" netlify netlify-honeypot="bot-field" action="/thanks.html" method="POST" hidden>
+      <input type="hidden" name="form-name" value="city-waitlist" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="city" />
+      <input type="email" name="email" />
+    </form>
+  </body>
+</html>
