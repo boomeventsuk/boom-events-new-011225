@@ -17,7 +17,16 @@
     "highlights": "🔥 Last 50 Tickets: Just £7.50 each - grab yours before they're gone!|☀️ This Sunday: 2pm-6pm - banish those January blues and be home for dinner. All the fun, none of the late-night fatigue|🎵 Legendary Floorfillers: The Jacksons, Stevie Wonder, Chic, Diana Ross, James Brown and more - every song a certified classic|🏆 Boombastic Quality: From the team that's been selling out events for 10+ years. We know how to throw a party",
     "soundtrack": "The Jacksons · Al Wilson · Stevie Wonder · The Four Tops · Rick James · Chic · Sister Sledge · The Temptations · James Brown · Diana Ross · The Supremes · The Marvelettes · Martha Reeves · Ray Charles · Aretha Franklin · Marvin Gaye",
     "isAfternoon": true,
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 6,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £6.00",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Selling fast",
+    "tierLabels": [
+      "General Admission Ticket sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:22.217Z"
   },
   {
     "eventCode": "070226-2PM-LUT",
@@ -35,7 +44,18 @@
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 8.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £8.50",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "75% sold",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:22.874Z"
   },
   {
     "eventCode": "140226-2PM-BED",
@@ -53,7 +73,18 @@
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 8.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £8.50",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "75% sold",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:23.582Z"
   },
   {
     "eventCode": "280226-2PM-NPTON",
@@ -70,7 +101,20 @@
     "eventbriteId": "1975984047478",
     "isSoldOut": true,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
-    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter."
+    "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
+    "price": 7.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £7.50",
+    "availability": "https://schema.org/SoldOut",
+    "statusLabel": "Join waiting list",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Final Release Group Ticket for 4 People sold out",
+      "Final Release Ticket sold out",
+      "Final Release Ticket for 2 People sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:24.225Z"
   },
   {
     "eventCode": "070326-2PM-COV",
@@ -88,7 +132,18 @@
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 8.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £8.50",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "75% sold",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:24.845Z"
   },
   {
     "eventCode": "120926-2PM-BED",
@@ -123,7 +178,11 @@
       "addressLocality": "Bedford",
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
-    }
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced",
+    "priceLastSync": "2026-06-10T09:00:25.451Z"
   },
   {
     "eventCode": "190926-2PM-COV",
@@ -158,7 +217,11 @@
       "addressLocality": "Coventry",
       "postalCode": "CV1 1LF",
       "addressCountry": "GB"
-    }
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced",
+    "priceLastSync": "2026-06-10T09:00:26.146Z"
   },
   {
     "eventCode": "260926-2PM-MK",
@@ -193,7 +256,19 @@
       "addressLocality": "Milton Keynes",
       "postalCode": "MK11 3LH",
       "addressCountry": "GB"
-    }
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced",
+    "tierLabels": [
+      "Early Release Ticket sold out"
+    ],
+    "groupTicket": {
+      "size": 4,
+      "price": 40,
+      "label": "Group of 4: £40 (save £8)"
+    },
+    "priceLastSync": "2026-06-10T09:00:26.781Z"
   },
   {
     "eventCode": "210326-FSD-NPTON",
@@ -237,7 +312,13 @@
       "gallery",
       "testimonials"
     ],
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 8,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £8.00",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "75% sold",
+    "priceLastSync": "2026-06-10T09:00:27.400Z"
   },
   {
     "eventCode": "210326-FL80-NPTON",
@@ -261,7 +342,19 @@
       "gallery"
     ],
     "checkoutMessage": "This event has sold out! Join the waiting list below 👇",
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 8,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £8.00",
+    "availability": "https://schema.org/SoldOut",
+    "statusLabel": "Join waiting list",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out",
+      "Final Release Ticket sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:28.141Z"
   },
   {
     "eventCode": "280326-FL80-BED",
@@ -285,7 +378,19 @@
       "gallery"
     ],
     "checkoutMessage": "This event has sold out! Join the waiting list below 👇",
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 8.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £8.50",
+    "availability": "https://schema.org/SoldOut",
+    "statusLabel": "Join waiting list",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out",
+      "Final Release Ticket sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:28.785Z"
   },
   {
     "eventCode": "250426-SD-NPTON",
@@ -333,7 +438,19 @@
         "artists": "Calvin Harris, Faithless, Robin S, Disclosure & more 🔊",
         "description": "Pure dancefloor energy. House, dance and club classics to keep you moving all night."
       }
-    ]
+    ],
+    "price": 10,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £10.00",
+    "availability": "https://schema.org/SoldOut",
+    "statusLabel": "Join waiting list",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Final  Release Ticket sold out",
+      "Group Ticket for 4 People sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:29.433Z"
   },
   {
     "eventCode": "260926-SD-NPTON",
@@ -384,7 +501,21 @@
       "tier": "on_sale",
       "message": "JUST ANNOUNCED!",
       "timeMessage": null
-    }
+    },
+    "price": 12.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £12.50",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "Final release",
+    "tierLabels": [
+      "Early Release Ticket sold out"
+    ],
+    "groupTicket": {
+      "size": 4,
+      "price": 44,
+      "label": "Group of 4: £44 (save £6)"
+    },
+    "priceLastSync": "2026-06-10T09:00:30.041Z"
   },
   {
     "eventCode": "060626-2PM-COV",
@@ -405,14 +536,21 @@
     "fomoOverride": null,
     "bookUrl": "https://www.eventbrite.co.uk/e/1984666422696?aff=BoomWeb",
     "infoUrl": "https://www.facebook.com/events/TBD",
-    "price": 12,
-    "priceLabel": "From £12.00",
+    "price": 10,
+    "priceLabel": "From £10.00",
     "venueAddress": {
       "streetAddress": "22 Hertford Street",
       "addressLocality": "Coventry",
       "postalCode": "CV1 1LF",
       "addressCountry": "GB"
-    }
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Selling fast",
+    "tierLabels": [
+      "Early Release Ticket sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:30.854Z"
   },
   {
     "eventCode": "060626-2PM-NPTON",
@@ -433,14 +571,24 @@
     "fomoOverride": null,
     "bookUrl": "https://www.eventbrite.co.uk/e/1981781356385?aff=BoomWeb",
     "infoUrl": "https://www.facebook.com/events/TBD",
-    "price": 15,
-    "priceLabel": "From £15.00",
+    "price": 10,
+    "priceLabel": "From £10.00",
     "venueAddress": {
       "streetAddress": "Weedon Road",
       "addressLocality": "Northampton",
       "postalCode": "NN5 5BG",
       "addressCountry": "GB"
-    }
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "75% sold",
+    "tierLabels": [
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out",
+      "Final Release Group Ticket for 4 People sold out",
+      "Final Release Ticket sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:31.457Z"
   },
   {
     "eventCode": "130626-2PM-BED",
@@ -472,7 +620,17 @@
       "addressLocality": "Bedford",
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
-    }
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "Final release: 15 left",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out",
+      "Final Release Group Ticket for 4 People sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:32.082Z"
   },
   {
     "eventCode": "250726-2PM-NPTON",
@@ -500,14 +658,21 @@
       "message": "80S EDITION - EARLY RELEASE NOW ON SALE",
       "timeMessage": null
     },
-    "price": 10,
-    "priceLabel": "From £10.00",
+    "price": 12,
+    "priceLabel": "From £12.00",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
       "postalCode": "NN1 4BN",
       "addressCountry": "GB"
-    }
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced",
+    "tierLabels": [
+      "Early Release Ticket sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:32.760Z"
   },
   {
     "eventCode": "260626-GR-NPTON",
@@ -532,7 +697,21 @@
       "testimonials"
     ],
     "isAfternoon": false,
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 8.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £8.50",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Selling fast",
+    "tierLabels": [
+      "Early Release Ticket sold out"
+    ],
+    "groupTicket": {
+      "size": 4,
+      "price": 30,
+      "label": "Group of 4: £30 (save £4)"
+    },
+    "priceLastSync": "2026-06-10T09:00:33.364Z"
   },
   {
     "eventCode": "230526-2PM-LUT",
@@ -550,7 +729,18 @@
     "isSoldOut": false,
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 10,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £10.00",
+    "availability": "https://schema.org/LimitedAvailability",
+    "statusLabel": "75% sold",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:33.973Z"
   },
   {
     "eventCode": "020526-2PM-LEIC",
@@ -565,11 +755,23 @@
     "image": "https://boombastic-events.b-cdn.net/020526-2PM-LEIC/020526-2PM-LEIC.jpg",
     "description": "THE 2PM CLUB Leicester - 4 hours of iconic 80s, 90s & 00s anthems at Mattioli Woods Welford Road Stadium. All the fun of a proper night out, home by 7-ish.",
     "eventbriteId": "1983866397800",
-    "isSoldOut": false,
+    "isSoldOut": true,
     "colorScheme": "leicester",
     "fullDescription": "LET YOUR HAIR DOWN. PROPERLY\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nThe 2PM Club is the night out that never gets cancelled. No more 47-message group chats. No more \"maybe next time.\" Everyone says yes to this one.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall 80s, 90s and 00s. Belting out lyrics with other people who know every word too. That moment when the whole room feels like family – that's what you're booking.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team, Club-level production and confetti moments – just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 THE 'NIGHT OUT' EVERYONE SAYS YES TO: No more 47-message threads. No more \"maybe next time.\" Four hours where everyone actually makes it.|😎 NO SUNDAY REGRETS - JUST A GLOW: Perfect Sunday! You'll still be buzzing after a full night's sleep. A hoarse voice from belting out all the bangers is the only hangover we're talking about. Get all the buzz of a massive night out, but wake up fresh.|🏆 TRUST THE LEGACY: Created by Boombastic Events – 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
-    "fomoOverride": null
+    "fomoOverride": null,
+    "price": 10,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £10.00",
+    "availability": "https://schema.org/SoldOut",
+    "statusLabel": "Join waiting list",
+    "tierLabels": [
+      "Early Release Ticket sold out",
+      "General Release Ticket sold out",
+      "Group Ticket for 4 People sold out",
+      "Final Release Ticket sold out"
+    ],
+    "priceLastSync": "2026-06-10T09:00:34.619Z"
   },
   {
     "eventCode": "120926-B90-NPTON",
@@ -596,6 +798,20 @@
       "tier": "on_sale",
       "message": "JUST ANNOUNCED!",
       "timeMessage": null
-    }
+    },
+    "price": 12,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £12.00",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced",
+    "tierLabels": [
+      "Early Release Ticket sold out"
+    ],
+    "groupTicket": {
+      "size": 4,
+      "price": 40,
+      "label": "Group of 4: £40 (save £8)"
+    },
+    "priceLastSync": "2026-06-10T09:00:35.226Z"
   }
 ]

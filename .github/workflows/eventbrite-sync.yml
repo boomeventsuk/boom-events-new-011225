@@ -1,0 +1,49 @@
+name: Eventbrite sync
+
+# Cloud ticket-truth automation (JD, 2026-06-10).
+# Pulls live prices, tier states and ticket counts from Eventbrite,
+# recomputes badge labels and group pricing, and commits the updated
+# events-boombastic.json. The commit triggers Netlify to rebuild and deploy, which
+# regenerates hubs, sitemap and per-event shells from the fresh data.
+# Runs at 04:00 and 12:00 UTC so counts stay honest through the
+# evening booking window. No Mac involved anywhere in the loop.
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eventbrite-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Sync prices and availability from Eventbrite
+        env:
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: node scripts/sync-eventbrite-prices.js
+
+      - name: Commit if changed
+        run: |
+          git config user.name "eventbrite-sync[bot]"
+          git config user.email "hello@boomevents.co.uk"
+          if git diff --quiet public/events-boombastic.json; then
+            echo "No changes."
+          else
+            git add public/events-boombastic.json
+            git commit -m "chore: sync Eventbrite prices and availability [automated]"
+            git push
+          fi
