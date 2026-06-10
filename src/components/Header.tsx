@@ -41,6 +41,20 @@ const Header = () => {
     }
   };
 
+  // Book Tickets CTA: on event pages scroll to the checkout embed,
+  // on the homepage scroll to #tickets, anywhere else go to /#tickets.
+  const handleBookTicketsClick = () => {
+    if (window.location.pathname.startsWith('/event/')) {
+      scrollToSection('checkout-section');
+      return;
+    }
+    if (document.getElementById('tickets')) {
+      scrollToSection('tickets');
+      return;
+    }
+    window.location.href = '/#tickets';
+  };
+
   const toggleMobileMenu = () => {
     document.body.classList.toggle('nav-open');
   };
@@ -150,8 +164,8 @@ const Header = () => {
           </div>
           
           {/* CTA Button */}
-          <Button 
-            onClick={() => scrollToSection('tickets')}
+          <Button
+            onClick={handleBookTicketsClick}
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-semibold book-cta"
           >
             Book Tickets
