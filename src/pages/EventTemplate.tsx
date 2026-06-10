@@ -91,7 +91,7 @@ const EventTemplate = () => {
   const isFootlooseEvent = event.eventCode.includes('-FL80-');
   const isBoombastic90sEvent = event.eventCode.includes('-B90-');
   const isGetReadyEvent = event.eventCode.includes('-GR-');
-  const siteEventUrl = `https://www.boomevents.co.uk/event/${event.eventCode}`;
+  const siteEventUrl = `https://www.boomevents.co.uk/event/${event.eventCode.toLowerCase()}/`;
   
   if (isGetReadyEvent && event.soundtrack) {
     // Map EventData to GetReadyEvent format

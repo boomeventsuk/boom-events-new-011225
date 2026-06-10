@@ -11,6 +11,7 @@ import { FaqSection } from '@/components/family-silent-disco/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
+import { formatHouseDate } from '@/lib/eventUtils';
 import { SilentDiscoChannel } from '@/components/SilentDiscoEventPage';
 
 export interface FamilySilentDiscoEvent {
@@ -50,17 +51,13 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
     });
   }, [event.slug, event.title]);
 
-  const startDate = new Date(event.start);
-  const formattedDate = startDate.toLocaleDateString('en-GB', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-
-  const pageTitle = `${event.title} | ${formattedDate} | Family Silent Disco`;
+  const dateLabel = formatHouseDate(event.start);
+  // Keep the date in the hydrated title so Helmet matches the static shell
+  const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const pageDescription = event.description;
-  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
+  // Canonical form: lowercase, trailing slash. Matches the prerendered
+  // static shell; the uppercase no-slash form 301s, never emit it.
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toLowerCase()}/`;
 
   // Schema.org Event structured data
   const eventSchema = {

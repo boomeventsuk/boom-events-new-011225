@@ -12,6 +12,7 @@ import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
+import { formatHouseDate } from '@/lib/eventUtils';
 
 export interface GetReadyEvent {
   slug: string;
@@ -53,8 +54,12 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
   const startHour = new Date(event.start).getHours();
   const isAfternoon = event.isAfternoon ?? startHour < 18;
 
-  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
-  const pageTitle = `GET READY ${event.city} | 60s/70s Motown, Soul & Disco`;
+  // Canonical form: lowercase, trailing slash. Matches the prerendered
+  // static shell; the uppercase no-slash form 301s, never emit it.
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toLowerCase()}/`;
+  const dateLabel = formatHouseDate(event.start);
+  // Keep the date in the hydrated title so Helmet matches the static shell
+  const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const timeOfDay = isAfternoon ? "afternoon" : "evening";
   const pageDescription = `${event.description} Book tickets for the ultimate 60s/70s ${timeOfDay} at ${event.location}.`;
 

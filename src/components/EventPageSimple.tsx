@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EventbriteEmbed from '@/components/EventbriteEmbed';
 import TrustStrip from '@/components/TrustStrip';
+import { formatHouseDate } from '@/lib/eventUtils';
 
 interface EventData {
   eventCode: string;
@@ -12,6 +13,7 @@ interface EventData {
   subtitle?: string;
   date: string;
   timeDisplay: string;
+  start?: string;
   venue: string;
   city: string;
   image: string;
@@ -33,7 +35,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   };
 
 
-  const shareUrl = `https://www.boomevents.co.uk/event/${event.eventCode}`;
+  const shareUrl = `https://www.boomevents.co.uk/event/${event.eventCode.toLowerCase()}/`;
   const whatsappText = encodeURIComponent(`Check out ${event.title} at ${shareUrl}`);
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
   
@@ -133,23 +135,28 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
     return <p className="text-base md:text-lg text-foreground/85">{trimmedLine}</p>;
   };
 
-  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.eventCode}`;
+  // Canonical form: lowercase, trailing slash. Matches the prerendered
+  // static shell; the uppercase no-slash form 301s, never emit it.
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.eventCode.toLowerCase()}/`;
+  const dateLabel = formatHouseDate(event.start);
+  // Keep the date in the hydrated title so Helmet matches the static shell
+  const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const metaDescription = event.description.split('\n')[0].slice(0, 160);
 
   return (
     <>
       <Helmet>
-        <title>{event.title} | Boombastic Events</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={metaDescription} />
         <link rel="canonical" href={canonicalUrl} />
         <meta property="og:type" content="event" />
-        <meta property="og:title" content={event.title} />
+        <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={event.image} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content="Boombastic Events" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={event.title} />
+        <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={event.image} />
       </Helmet>

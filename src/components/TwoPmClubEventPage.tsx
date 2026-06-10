@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { trackEventPageView } from '@/lib/dataLayer';
+import { formatHouseDate } from '@/lib/eventUtils';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { HeroSection } from '@/components/2pm-club/HeroSection';
@@ -46,7 +47,11 @@ interface TwoPmClubEventPageProps {
 }
 
 const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
-  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
+  // Canonical form: lowercase, trailing slash. Matches the prerendered
+  // static shell; the uppercase no-slash form 301s, never emit it.
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toLowerCase()}/`;
+  const dateLabel = formatHouseDate(event.start);
+  const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   
   // Determine if this is a Christmas event (December events ending in "1225")
   const isChristmasEvent = event.slug.includes('1225');
@@ -100,13 +105,13 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
   return (
     <>
       <Helmet>
-        <title>{event.title} | Boombastic Events</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={event.description} />
         <link rel="canonical" href={canonicalUrl} />
-        
+
         {/* Open Graph */}
         <meta property="og:type" content="event" />
-        <meta property="og:title" content={event.title} />
+        <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={event.description} />
         <meta property="og:image" content={event.image} />
         <meta property="og:url" content={canonicalUrl} />
@@ -114,7 +119,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={event.title} />
+        <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={event.description} />
         <meta name="twitter:image" content={event.image} />
         

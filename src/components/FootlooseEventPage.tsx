@@ -13,6 +13,7 @@ import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
+import { formatHouseDate } from '@/lib/eventUtils';
 
 export interface FootlooseEvent {
   slug: string;
@@ -51,8 +52,12 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
     });
   }, [event.slug, event.title]);
 
-  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
-  const pageTitle = `FOOTLOOSE 80s ${event.city} | Four Hours of 80s Anthems`;
+  // Canonical form: lowercase, trailing slash. Matches the prerendered
+  // static shell; the uppercase no-slash form 301s, never emit it.
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toLowerCase()}/`;
+  const dateLabel = formatHouseDate(event.start);
+  // Keep the date in the hydrated title so Helmet matches the static shell
+  const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const pageDescription = `${event.description} Book tickets for the ultimate 80s night at ${event.location}.`;
 
   // Structured data for SEO
