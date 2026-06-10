@@ -106,6 +106,32 @@ function mustReplace(html, re, to, code) {
 // Matches the homepage "Events JSON-LD" block (comment + script)
 const EVENTS_GRAPH_RE = /<!-- ===== Events JSON-LD ===== -->\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/;
 
+// "From £10.00" -> "From £10" (keeps non-zero pence)
+function cleanPrice(label) {
+  return label ? label.replace(/\.00\b/, "") : "";
+}
+
+// Visible above-fold hero injected inside <div id="root"> so slow
+// connections see event facts instead of a black screen while the JS
+// bundle loads. React's createRoot().render() replaces the container's
+// children on mount, so there is no duplicate once the app hydrates.
+function shellHeroHtml(ev) {
+  const price = cleanPrice(ev.priceLabel);
+  const group = ev.groupTicket && ev.groupTicket.label ? ev.groupTicket.label : "";
+  return [
+    `<div style="min-height:70vh;display:flex;align-items:center;justify-content:center;background:#0B0B0F;color:#fff;font-family:Poppins,Arial,sans-serif;text-align:center;">`,
+    `<div style="padding:96px 24px 48px;max-width:640px;">`,
+    `<p style="color:#FF3CAC;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:0.85rem;margin:0 0 12px;">${esc(formatDate(ev.start))}</p>`,
+    `<h1 style="font-size:1.75rem;line-height:1.25;margin:0 0 12px;">${esc(ev.title)}</h1>`,
+    `<p style="color:rgba(255,255,255,0.8);margin:0 0 6px;">${esc(ev.venue)}, ${esc(ev.city)}</p>`,
+    price ? `<p style="color:rgba(255,255,255,0.8);font-weight:600;margin:0 0 4px;">${esc(price)}</p>` : "",
+    group ? `<p style="color:rgba(255,255,255,0.65);font-size:0.9rem;margin:0 0 4px;">${esc(group)}</p>` : "",
+    `<p style="margin:20px 0 0;"><a href="#checkout-section" style="display:inline-block;background:#FF3CAC;color:#fff;font-weight:600;padding:12px 28px;border-radius:999px;text-decoration:none;">${ev.isSoldOut ? "Join the waiting list" : "Book Tickets"}</a></p>`,
+    `</div>`,
+    `</div>`,
+  ].filter(Boolean).join("");
+}
+
 // Minimal noindex "gone" shell for expired events. Served with a 410 via
 // the forced redirect lines appended to dist/_redirects below.
 function goneShellHtml(ev) {
@@ -215,6 +241,14 @@ async function main() {
       `<script type="application/ld+json">\n${JSON.stringify(eventJsonLd(ev), null, 2)}\n</script>`,
     ].join("\n");
     html = html.replace("</head>", `${extra}\n</head>`);
+
+    // Visible above-fold content inside the root div (replaced on hydration)
+    html = mustReplace(
+      html,
+      /<div id="root"><\/div>/,
+      `<div id="root">${shellHeroHtml(ev)}</div>`,
+      ev.eventCode
+    );
 
     const dir = path.join(DIST, "event", ev.eventCode.toLowerCase());
     await fs.mkdir(dir, { recursive: true });
