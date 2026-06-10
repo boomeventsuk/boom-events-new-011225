@@ -2,17 +2,17 @@ export const TestimonialsSection = () => {
   const testimonials = [
     {
       quote: "Brilliant music, not just clubbing anthems the whole time",
-      author: "JOSIE L",
+      author: "ATTENDEE",
       location: "NORTHAMPTON"
     },
     {
       quote: "Finally able to get all my friends together, when's the next one?",
-      author: "MARIE T",
-      location: "COVENTRY"
+      author: "ATTENDEE",
+      location: "NORTHAMPTON"
     },
     {
       quote: "Don't think I've danced and laughed so much in a long time. Thank you!",
-      author: "TRACEY M",
+      author: "ATTENDEE",
       location: "BEDFORD"
     }
   ];

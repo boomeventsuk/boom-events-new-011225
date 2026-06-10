@@ -2,12 +2,12 @@ export const TestimonialsSection = () => {
   const testimonials = [
     {
       quote: "I forgot how much I loved that decade until I was in a room full of people who felt exactly the same. Absolutely brilliant.",
-      author: "EMMA R",
+      author: "ATTENDEE",
       location: "NORTHAMPTON"
     },
     {
       quote: "Best 90s night I've been to. Every single song was a banger. Can't wait for the next one!",
-      author: "JAMES K",
+      author: "ATTENDEE",
       location: "NORTHAMPTON"
     }
   ];

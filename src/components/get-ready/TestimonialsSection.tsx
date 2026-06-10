@@ -1,17 +1,17 @@
 const testimonials = [
   {
     quote: "Took me right back to my youth! The DJ knew exactly what we wanted to hear. Can't wait for the next one.",
-    name: "Sandra M",
+    name: "Attendee",
     location: "Northampton"
   },
   {
     quote: "Best Sunday afternoon I've had in years. My feet haven't stopped tapping since!",
-    name: "Derek P",
+    name: "Attendee",
     location: "Bedford"
   },
   {
     quote: "The atmosphere was incredible - everyone singing along to every song. Pure magic.",
-    name: "Christine T",
+    name: "Attendee",
     location: "Milton Keynes"
   }
 ];
