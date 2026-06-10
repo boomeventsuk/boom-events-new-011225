@@ -1,7 +1,11 @@
 // Netlify Edge Function: thin proxy that detects social crawlers
 // and forwards to Lovable Cloud backend function for OG meta tags
 
-const CRAWLER_UA = /facebookexternalhit|Facebot|Twitterbot|WhatsApp|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest|Googlebot/i;
+// Social/link-unfurl crawlers only. Googlebot deliberately NOT included:
+// search engines must see the real origin responses (prerendered shells
+// with correct canonicals, and 410s for expired events) - the Lovable OG
+// proxy returns 200 for any slug, which created soft-404s in Google.
+const CRAWLER_UA = /facebookexternalhit|Facebot|Twitterbot|WhatsApp|LinkedInBot|Slackbot|TelegramBot|Discordbot|Pinterest/i;
 
 const SUPABASE_URL = 'https://loizstloeokvkfuooakm.supabase.co';
 
