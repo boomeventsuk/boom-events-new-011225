@@ -200,6 +200,10 @@ function extractPriceData(ticketClasses, eventDate, location) {
   } else if (finalPhase) {
     statusLabel = 'Final release';
     schemaAvailability = 'https://schema.org/LimitedAvailability';
+  } else if (tiers.some(t => /early/i.test(t.name) && t.status === 'SOLD_OUT') && anyAvailable) {
+    // Early tier gone, later tiers live: the honest FOMO state
+    statusLabel = 'Early release sold out';
+    schemaAvailability = 'https://schema.org/LimitedAvailability';
   } else if (isEventWeek) {
     // Event week, plenty of stock: generic urgency
     statusLabel = 'Final tickets';
@@ -331,10 +335,23 @@ async function main() {
         event.priceCurrency = priceData.public.priceCurrency;
         event.priceLabel = priceData.public.priceLabel;
         event.availability = priceData.public.availability;
-        // statusLabel is always the computed v4 label. fomoOverride (the
-        // structured manual layer the current UI reads) is never touched by
-        // this sync; the card rebuild reads statusLabel when no override.
+        // statusLabel is always the computed v4 label.
         event.statusLabel = priceData.public.statusLabel;
+        // fomoOverride (the structured manual layer the UI prefers) is
+        // cleared the moment a sold-out tier contradicts its message, so a
+        // hand-set "EARLY RELEASE" can never outlive the early release.
+        const fomoMsg = String(event.fomoOverride?.message || '').toLowerCase();
+        if (fomoMsg) {
+          const contradicted = (priceData.internal.tiers || []).some(t => {
+            if (t.status !== 'SOLD_OUT') return false;
+            const tier = String(t.name || '').toLowerCase().replace(/\s*tickets?\s*$/, '');
+            return tier && fomoMsg.includes(tier.replace(/ ticket.*/, ''));
+          });
+          if (contradicted) {
+            console.log(`    FOMO OVERRIDE CLEARED: "${event.fomoOverride.message}" contradicted by sold-out tier`);
+            event.fomoOverride = null;
+          }
+        }
         if (priceData.public.tierLabels) {
           event.tierLabels = priceData.public.tierLabels;
         } else {
