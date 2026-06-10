@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <!-- Tracking block injected from /index.html source of truth. Mirror of head-snippets/event-head.html intent. -->
@@ -50,22 +50,21 @@
     <title>Frequently Asked Questions - Silent Disco & Party Events</title>
     <meta name="description" content="Get answers to common questions about our silent disco and party events. Learn about headphones, venues, bookings, and what to expect at our events.">
     <meta name="keywords" content="silent disco FAQ, party events questions, headphone parties, event booking help">
-    
+
     <!-- Open Graph -->
     <meta property="og:title" content="Frequently Asked Questions - Silent Disco & Party Events">
     <meta property="og:description" content="Get answers to common questions about our silent disco and party events. Learn about headphones, venues, bookings, and what to expect at our events.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://boomevents.co.uk/faq/">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Frequently Asked Questions - Silent Disco & Party Events">
     <meta name="twitter:description" content="Get answers to common questions about our silent disco and party events. Learn about headphones, venues, bookings, and what to expect at our events.">
-    
+
     <link rel="canonical" href="https://boomevents.co.uk/faq/">
     <link rel="icon" href="/favicon.ico">
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- FAQPage Structured Data -->
     <script type="application/ld+json">
     {
@@ -81,7 +80,7 @@
                 }
             },
             {
-                "@type": "Question", 
+                "@type": "Question",
                 "name": "How do the headphones work?",
                 "acceptedAnswer": {
                     "@type": "Answer",
@@ -123,26 +122,139 @@
         ]
     }
     </script>
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap');
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0B0B0F;
+            color: #fff;
             min-height: 100vh;
         }
-        
-        .faq-item {
-            transition: all 0.3s ease;
+
+        a { color: #FF3CAC; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(11,11,15,0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
-        
+        .nav-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            color: #FF3CAC;
+            letter-spacing: 2px;
+        }
+        .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+        .nav-links a { color: #ccc; font-size: 0.9rem; font-weight: 400; }
+        .nav-links a:hover { color: #FF3CAC; text-decoration: none; }
+
+        .breadcrumb {
+            padding: 0.5rem 2rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .breadcrumb a { color: #aaa; }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            background: linear-gradient(180deg, rgba(255,60,172,0.15) 0%, rgba(11,11,15,1) 100%);
+        }
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+        .hero p { max-width: 700px; margin: 0 auto; color: #ccc; font-size: 1.1rem; line-height: 1.7; }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+
+        .section { padding: 3rem 0; }
+
+        .faq-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.25s ease, transform 0.25s ease;
+        }
         .faq-item:hover {
+            border-color: rgba(255,60,172,0.5);
             transform: translateY(-2px);
+        }
+        .faq-item h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 1.5px;
+            color: #FF3CAC;
+            margin-bottom: 0.75rem;
+        }
+        .faq-item p { color: #ccc; line-height: 1.8; }
+
+        .cta-section {
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            margin: 0 0 4rem;
+        }
+        .cta-section h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+        .cta-section p { color: #ccc; margin-bottom: 1.5rem; }
+        .btn {
+            display: inline-block;
+            background: #FF3CAC;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+        .btn:hover { background: #e62e98; text-decoration: none; }
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 2.5rem 2rem 1.5rem;
+            background: #0B0B0F;
+        }
+        .footer-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .footer-col h4 { font-size: 0.9rem; margin-bottom: 1rem; color: #fff; }
+        .footer-col a { display: block; color: #888; font-size: 0.85rem; margin-bottom: 0.5rem; }
+        .footer-col a:hover { color: #FF3CAC; }
+        .footer-bottom {
+            max-width: 960px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #666;
+            font-size: 0.8rem;
+            text-align: center;
         }
     </style>
 </head>
-<body class="text-white">
+<body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJGV534N"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -153,82 +265,112 @@
     src="https://www.facebook.com/tr?id=1947538679159165&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel (noscript) -->
 
-    <div class="container mx-auto px-4 py-8">
-        <!-- Navigation -->
-        <nav class="mb-8">
-            <a href="/" class="inline-flex items-center text-white hover:text-gray-200 transition-colors">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-                Back to Events
-            </a>
-        </nav>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="/" class="nav-logo">BOOMBASTIC</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/#tickets">Events</a>
+            <a href="/silent-disco/">Silent Disco</a>
+            <a href="/footloose-80s/">FOOTLOOSE</a>
+            <a href="/get-ready/">GET READY</a>
+            <a href="https://www.the2pmclub.co.uk">THE 2PM CLUB</a>
+        </div>
+    </nav>
 
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4" style="font-family: 'Bebas Neue', cursive;">
-                Frequently Asked Questions
-            </h1>
-            <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                Everything you need to know about our silent disco and party events
-            </p>
-        </header>
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="/">Home</a> / FAQ
+    </div>
 
-        <!-- FAQ Content -->
-        <div class="max-w-4xl mx-auto space-y-6">
-            <div class="faq-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <h3 class="text-xl font-semibold mb-3">What is a silent disco?</h3>
-                <p class="text-gray-200">
+    <!-- Header -->
+    <header class="hero">
+        <h1>Frequently Asked Questions</h1>
+        <p>Everything you need to know about our silent disco and party events</p>
+    </header>
+
+    <!-- FAQ Content -->
+    <div class="container">
+        <section class="section" style="padding-top: 1rem;">
+            <div class="faq-item">
+                <h3>What is a silent disco?</h3>
+                <p>
                     A silent disco is an event where people dance to music played through wireless headphones rather than traditional speakers. Each person can control their own volume and often choose between different music channels.
                 </p>
             </div>
 
-            <div class="faq-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <h3 class="text-xl font-semibold mb-3">How do the headphones work?</h3>
-                <p class="text-gray-200">
+            <div class="faq-item">
+                <h3>How do the headphones work?</h3>
+                <p>
                     Our wireless headphones receive audio signals from our DJ equipment. Most events feature multiple channels (usually 3) that you can switch between using buttons on the headphones. LED lights on the headphones show which channel you're listening to.
                 </p>
             </div>
 
-            <div class="faq-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <h3 class="text-xl font-semibold mb-3">What should I expect at a silent disco event?</h3>
-                <p class="text-gray-200">
+            <div class="faq-item">
+                <h3>What should I expect at a silent disco event?</h3>
+                <p>
                     You'll receive wireless headphones at the entrance and can dance to multiple music channels. Events typically feature different genres on each channel - pop, indie, dance, or themed decades music. You can switch channels and control volume as you like.
                 </p>
             </div>
 
-            <div class="faq-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <h3 class="text-xl font-semibold mb-3">Are the events suitable for families?</h3>
-                <p class="text-gray-200">
+            <div class="faq-item">
+                <h3>Are the events suitable for families?</h3>
+                <p>
                     Yes! We host many family-friendly events including daytime discos and special family sessions. These events are designed to be enjoyable for all ages with appropriate music and earlier finish times.
                 </p>
             </div>
 
-            <div class="faq-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <h3 class="text-xl font-semibold mb-3">How do I book tickets?</h3>
-                <p class="text-gray-200">
+            <div class="faq-item">
+                <h3>How do I book tickets?</h3>
+                <p>
                     Tickets can be booked through our event pages via Eventbrite or other ticketing platforms. Each event page has a direct booking link. We recommend booking in advance as events often sell out.
                 </p>
             </div>
 
-            <div class="faq-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <h3 class="text-xl font-semibold mb-3">What happens if I lose or break the headphones?</h3>
-                <p class="text-gray-200">
+            <div class="faq-item">
+                <h3>What happens if I lose or break the headphones?</h3>
+                <p>
                     Please take care of the headphones during the event. If headphones are lost or damaged, replacement charges may apply. Our staff will explain this when you collect your headphones.
                 </p>
             </div>
-        </div>
+        </section>
 
         <!-- CTA Section -->
-        <div class="text-center mt-12 p-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 max-w-2xl mx-auto">
-            <h2 class="text-2xl font-bold mb-4">Ready to Experience a Silent Disco?</h2>
-            <p class="text-gray-200 mb-6">
+        <section class="cta-section">
+            <h2>Ready to Experience a Silent Disco?</h2>
+            <p>
                 Check out our upcoming events and book your tickets today!
             </p>
-            <a href="/" class="inline-block bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-                View Events
-            </a>
-        </div>
+            <a href="/#tickets" class="btn">View Events</a>
+        </section>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>Event Formats</h4>
+                <a href="/silent-disco/">Silent Disco Greatest Hits</a>
+                <a href="/footloose-80s/">FOOTLOOSE 80s</a>
+                <a href="/get-ready/">GET READY - 60s/70s</a>
+                <a href="/family-silent-disco/">Family Silent Disco</a>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="/">Home</a>
+                <a href="/#tickets">Upcoming Events</a>
+                <a href="/faq/">FAQ</a>
+                <a href="/privacy/">Privacy Policy</a>
+            </div>
+            <div class="footer-col">
+                <h4>More from Boombastic</h4>
+                <a href="https://www.the2pmclub.co.uk">THE 2PM CLUB</a>
+                <a href="https://www.boomevents.co.uk">boomevents.co.uk</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Boombastic Events. All rights reserved.
+        </div>
+    </footer>
 </body>
 </html>
