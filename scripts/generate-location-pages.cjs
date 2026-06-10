@@ -20,6 +20,62 @@ const CONFIG_PATH = path.join(ROOT, 'scripts', 'location-config.json');
 const OUT_DIR = path.join(ROOT, 'public', 'locations');
 const SITE_URL = 'https://www.boomevents.co.uk';
 
+// Tracking block mirrored from the brand pages (source of truth: /index.html).
+// GTM + Meta Pixel + GA4, consent-defaulted to denied for GDPR.
+const TRACKING_HEAD = `  <!-- Tracking block injected from /index.html source of truth. Mirror of the brand pages. -->
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PJGV534N');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('consent', 'revoke');
+  fbq('init', '1947538679159165');
+  </script>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FE0H4X5BBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Default to denied for GDPR compliance
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied'
+    });
+
+    gtag('js', new Date());
+    gtag('config', 'G-FE0H4X5BBS', {
+      'anonymize_ip': true,
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- End Google Analytics 4 -->`;
+
+const TRACKING_NOSCRIPT = `  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJGV534N"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- Meta Pixel (noscript) -->
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1947538679159165&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel (noscript) -->`;
+
 // --- helpers ---
 function esc(s) {
   return String(s == null ? '' : s)
@@ -251,6 +307,8 @@ function renderHTML(cityCfg, events) {
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
+${TRACKING_HEAD}
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(cityCfg.metaDescription)}">
@@ -317,6 +375,7 @@ function renderHTML(cityCfg, events) {
   </style>
 </head>
 <body>
+${TRACKING_NOSCRIPT}
 
   <header class="site-header">
     <div class="header-inner">
