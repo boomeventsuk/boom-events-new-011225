@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
+import { formatHouseDate } from '@/lib/eventUtils';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 import FomoBadge from '@/components/FomoBadge';
 
@@ -25,12 +26,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
   
-  const formattedDate = startDate.toLocaleDateString('en-GB', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
+  const formattedDate = formatHouseDate(event.start);
   
   const startTime = startDate.toLocaleTimeString('en-GB', {
     hour: '2-digit',

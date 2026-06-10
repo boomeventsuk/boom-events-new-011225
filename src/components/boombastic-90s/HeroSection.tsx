@@ -2,6 +2,7 @@ import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { format } from 'date-fns';
+import { formatHouseDate } from '@/lib/eventUtils';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 
@@ -91,7 +92,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
             <div className="space-y-3 text-base">
               <div className="flex items-center gap-3">
                 <Calendar className="w-5 h-5 text-primary" />
-                <span>{format(startDate, 'EEEE, d MMMM yyyy')}</span>
+                <span>{formatHouseDate(event.start)}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary" />
