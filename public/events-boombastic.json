@@ -26,7 +26,7 @@
     "tierLabels": [
       "General Admission Ticket sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:13.790Z"
+    "priceLastSync": "2026-06-10T18:32:05.280Z"
   },
   {
     "eventCode": "070226-2PM-LUT",
@@ -55,7 +55,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:14.385Z"
+    "priceLastSync": "2026-06-10T18:32:05.884Z"
   },
   {
     "eventCode": "140226-2PM-BED",
@@ -84,7 +84,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:14.961Z"
+    "priceLastSync": "2026-06-10T18:32:06.470Z"
   },
   {
     "eventCode": "280226-2PM-NPTON",
@@ -114,7 +114,7 @@
       "Final Release Ticket sold out",
       "Final Release Ticket for 2 People sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:15.560Z"
+    "priceLastSync": "2026-06-10T18:32:07.098Z"
   },
   {
     "eventCode": "070326-2PM-COV",
@@ -143,7 +143,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:16.148Z"
+    "priceLastSync": "2026-06-10T18:32:07.665Z"
   },
   {
     "eventCode": "120926-2PM-BED",
@@ -182,7 +182,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Just announced",
-    "priceLastSync": "2026-06-10T12:50:16.750Z"
+    "priceLastSync": "2026-06-10T18:32:08.279Z"
   },
   {
     "eventCode": "190926-2PM-COV",
@@ -221,7 +221,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Just announced",
-    "priceLastSync": "2026-06-10T12:50:17.342Z"
+    "priceLastSync": "2026-06-10T18:32:08.862Z"
   },
   {
     "eventCode": "260926-2PM-MK",
@@ -268,7 +268,7 @@
       "price": 40,
       "label": "Group of 4: £40 (save £8)"
     },
-    "priceLastSync": "2026-06-10T12:50:17.968Z"
+    "priceLastSync": "2026-06-10T18:32:09.448Z"
   },
   {
     "eventCode": "210326-FSD-NPTON",
@@ -318,7 +318,7 @@
     "priceLabel": "From £8.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "75% sold",
-    "priceLastSync": "2026-06-10T12:50:18.675Z"
+    "priceLastSync": "2026-06-10T18:32:10.028Z"
   },
   {
     "eventCode": "210326-FL80-NPTON",
@@ -354,7 +354,7 @@
       "Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:19.246Z"
+    "priceLastSync": "2026-06-10T18:32:10.600Z"
   },
   {
     "eventCode": "280326-FL80-BED",
@@ -390,7 +390,7 @@
       "Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:19.813Z"
+    "priceLastSync": "2026-06-10T18:32:11.236Z"
   },
   {
     "eventCode": "250426-SD-NPTON",
@@ -450,7 +450,7 @@
       "Final  Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:20.435Z"
+    "priceLastSync": "2026-06-10T18:32:11.808Z"
   },
   {
     "eventCode": "260926-SD-NPTON",
@@ -515,7 +515,7 @@
       "price": 44,
       "label": "Group of 4: £44 (save £6)"
     },
-    "priceLastSync": "2026-06-10T12:50:21.011Z"
+    "priceLastSync": "2026-06-10T18:32:12.389Z"
   },
   {
     "eventCode": "060626-2PM-COV",
@@ -550,7 +550,7 @@
     "tierLabels": [
       "Early Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:21.723Z"
+    "priceLastSync": "2026-06-10T18:32:13.008Z"
   },
   {
     "eventCode": "060626-2PM-NPTON",
@@ -584,11 +584,10 @@
     "statusLabel": "75% sold",
     "tierLabels": [
       "General Release Ticket sold out",
-      "Group Ticket for 4 People sold out",
       "Final Release Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:22.392Z"
+    "priceLastSync": "2026-06-10T18:32:13.605Z"
   },
   {
     "eventCode": "130626-2PM-BED",
@@ -630,7 +629,7 @@
       "Group Ticket for 4 People sold out",
       "Final Release Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:22.977Z"
+    "priceLastSync": "2026-06-10T18:32:14.237Z"
   },
   {
     "eventCode": "250726-2PM-NPTON",
@@ -672,7 +671,7 @@
     "tierLabels": [
       "Early Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:23.592Z"
+    "priceLastSync": "2026-06-10T18:32:14.800Z"
   },
   {
     "eventCode": "260626-GR-NPTON",
@@ -711,7 +710,7 @@
       "price": 30,
       "label": "Group of 4: £30 (save £4)"
     },
-    "priceLastSync": "2026-06-10T12:50:24.382Z"
+    "priceLastSync": "2026-06-10T18:32:15.430Z"
   },
   {
     "eventCode": "230526-2PM-LUT",
@@ -740,7 +739,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:24.956Z"
+    "priceLastSync": "2026-06-10T18:32:15.995Z"
   },
   {
     "eventCode": "020526-2PM-LEIC",
@@ -771,7 +770,7 @@
       "Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-10T12:50:25.682Z"
+    "priceLastSync": "2026-06-10T18:32:16.604Z"
   },
   {
     "eventCode": "120926-B90-NPTON",
@@ -812,6 +811,6 @@
       "price": 40,
       "label": "Group of 4: £40 (save £8)"
     },
-    "priceLastSync": "2026-06-10T12:50:26.254Z"
+    "priceLastSync": "2026-06-10T18:32:17.206Z"
   }
 ]
