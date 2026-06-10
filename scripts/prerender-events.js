@@ -86,7 +86,9 @@ function eventJsonLd(ev) {
     offers: {
       "@type": "Offer",
       url,
-      availability: ev.isSoldOut ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+      availability: ev.isSoldOut
+        ? "https://schema.org/SoldOut"
+        : (ev.availability || "https://schema.org/InStock"),
       priceCurrency: "GBP",
     },
     organizer: {

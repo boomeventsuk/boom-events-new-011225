@@ -91,7 +91,9 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
       "@type": "Offer",
       "url": canonicalUrl,
       "priceCurrency": "GBP",
-      "availability": "https://schema.org/InStock",
+      "availability": event.isSoldOut
+        ? "https://schema.org/SoldOut"
+        : "https://schema.org/InStock",
       "validFrom": new Date().toISOString()
     }
   };

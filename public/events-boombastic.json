@@ -244,11 +244,7 @@
     "hiddenSections": [
       "video"
     ],
-    "fomoOverride": {
-      "tier": "selling_fast",
-      "message": "TICKETS SELLING FAST",
-      "timeMessage": null
-    },
+    "fomoOverride": null,
     "price": 12,
     "priceLabel": "From £12.00",
     "venueAddress": {
@@ -497,11 +493,7 @@
         "description": "Lose yourself completely. Pure dancefloor energy, house, dance and club classics."
       }
     ],
-    "fomoOverride": {
-      "tier": "on_sale",
-      "message": "JUST ANNOUNCED!",
-      "timeMessage": null
-    },
+    "fomoOverride": null,
     "price": 12.5,
     "priceCurrency": "GBP",
     "priceLabel": "From £12.50",
@@ -592,7 +584,7 @@
   {
     "eventCode": "130626-2PM-BED",
     "title": "THE 2PM CLUB Bedford: 80s 90s 00s Daytime Disco",
-    "subtitle": "15 tickets left. Your best night out, right in the middle of the afternoon.",
+    "subtitle": "10 tickets left. Your best night out, right in the middle of the afternoon.",
     "date": "Saturday, 13 June 2026",
     "timeDisplay": "2pm – 6pm",
     "start": "2026-06-13T14:00:00",
@@ -600,14 +592,14 @@
     "venue": "Bedford Esquires",
     "city": "Bedford",
     "image": "https://boombastic-events.b-cdn.net/130626-2PM-BED/130626-2PM-BED%20ANNSQ.jpg",
-    "description": "15 TICKETS LEFT. THE 2PM CLUB Bedford. 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
+    "description": "10 TICKETS LEFT. THE 2PM CLUB Bedford. 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
     "eventbriteId": "1983156002990",
     "isSoldOut": false,
-    "fullDescription": "15 TICKETS LEFT. THIS WILL SELL OUT 🎟️\n\nLET YOUR HAIR DOWN. WITHOUT THE NEXT-DAY REGRETS ✨\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nWe've found the way to make that happen once more!\n\n4 hours of the biggest hairbrush hits and sing-alongs, with night out energy, confetti moments, and a room full of people who know every word too.\n\nOnly 15 tickets left. Once they're gone, that's it. Get yours and the group's sorted.",
+    "fullDescription": "10 TICKETS LEFT. THIS WILL SELL OUT 🎟️\n\nLET YOUR HAIR DOWN. WITHOUT THE NEXT-DAY REGRETS ✨\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nWe've found the way to make that happen once more!\n\n4 hours of the biggest hairbrush hits and sing-alongs, with night out energy, confetti moments, and a room full of people who know every word too.\n\nOnly 10 tickets left. Once they're gone, that's it. Get yours and the group's sorted.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall classics from Wham! to Whitney, Bon Jovi to Beyoncé. You WILL do the moves. You WILL lose your voice. You WILL text each other about it for weeks.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team. Club-level production, massive screens, dazzling lights, and confetti explosions - just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 FINALLY, A PLAN NOBODY BAILS ON: This is the plan that will escape the group chat. Four hours where everyone actually makes it - no babysitter dramas, no late-night worries. Adulting can wait.|😎 ALL THE FUN. STILL BUZZING BY WEDNESDAY: Last time, you walked out saying \"Let's do it again!\" This is the time to do it. This is your plan.|🏆 TRUST THE LEGACY: Created by Boombastic Events - 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
     "fomoOverride": {
       "tier": "critical",
-      "message": "LAST 15 TICKETS",
+      "message": "LAST 10 TICKETS",
       "timeMessage": null
     },
     "bookUrl": "https://www.eventbrite.co.uk/e/1983156002990?aff=BoomWeb",
@@ -789,11 +781,7 @@
       "video",
       "gallery"
     ],
-    "fomoOverride": {
-      "tier": "on_sale",
-      "message": "JUST ANNOUNCED!",
-      "timeMessage": null
-    },
+    "fomoOverride": null,
     "price": 12,
     "priceCurrency": "GBP",
     "priceLabel": "From £12.00",

@@ -7,6 +7,7 @@ interface StickyBookButtonProps {
   eventTitle?: string;
   eventbriteId?: string;
   urgencyText?: string;
+  statusLabel?: string;
   start?: string;
   venue?: string;
 }
@@ -21,7 +22,7 @@ const formatShortDate = (iso: string) => {
   return `${days[d.getDay()]} ${day}${suffix} ${months[d.getMonth()]}`;
 };
 
-export const StickyBookButton = ({ eventSlug, eventTitle, eventbriteId, urgencyText, start, venue }: StickyBookButtonProps) => {
+export const StickyBookButton = ({ eventSlug, eventTitle, eventbriteId, urgencyText, statusLabel, start, venue }: StickyBookButtonProps) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -71,8 +72,8 @@ export const StickyBookButton = ({ eventSlug, eventTitle, eventbriteId, urgencyT
               {venue || ''}
             </p>
           )}
-          {urgencyText && (
-            <p className="text-xs font-semibold text-primary truncate">{urgencyText}</p>
+          {(statusLabel || urgencyText) && (
+            <p className="text-xs font-semibold text-primary truncate">{statusLabel || urgencyText}</p>
           )}
         </div>
         <Button onClick={handleClick} size="lg" className="shrink-0 shadow-lg shadow-primary/30">

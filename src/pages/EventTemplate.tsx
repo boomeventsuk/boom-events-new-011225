@@ -46,6 +46,7 @@ interface EventData {
     message: string;
     timeMessage?: string | null;
   };
+  statusLabel?: string;
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -230,6 +231,7 @@ const EventTemplate = () => {
       waitingListUrl: event.waitingListUrl,
       colorScheme: event.colorScheme,
       fomoOverride: event.fomoOverride,
+      statusLabel: event.statusLabel,
       title: event.title,
       location: `${event.venue}, ${event.city}`,
       start: event.start || event.date,

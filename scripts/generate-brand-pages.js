@@ -110,7 +110,9 @@ function eventJsonLd(ev) {
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/event/${ev.eventCode.toLowerCase()}/`,
-      availability: ev.isSoldOut ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+      availability: ev.isSoldOut
+        ? "https://schema.org/SoldOut"
+        : (ev.availability || "https://schema.org/InStock"),
       priceCurrency: "GBP",
     },
     organizer: {

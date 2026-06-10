@@ -129,6 +129,8 @@ function endISO(event) {
 
 function availabilitySchema(event) {
   if (event.isSoldOut) return 'https://schema.org/SoldOut';
+  // Prefer the synced availability field; fall back to fomoOverride tier heuristic
+  if (event.availability) return event.availability;
   const tier = event.fomoOverride && event.fomoOverride.tier;
   if (tier === 'critical' || tier === 'selling_fast') return 'https://schema.org/LimitedAvailability';
   return 'https://schema.org/InStock';
