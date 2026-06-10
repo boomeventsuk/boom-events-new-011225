@@ -10,8 +10,8 @@ const About = () => {
             Boombastic Events produces quality, inclusive sing-along parties across the Midlands -
             from <strong className="text-primary">The 2PM Club™ Daytime Disco</strong> to <strong className="text-primary">Family Silent Disco</strong>,
             after-dark <strong className="text-primary">Silent Disco</strong> and <strong className="text-primary">Decades</strong> nights.
-            Established in 2014, we've welcomed 23,000+ party people through the doors, rated 4.9/5 by 250+
-            verified attendees, across trusted venues in Northampton, Bedford, Milton Keynes, Coventry, Luton and Leicester.
+            Established in 2014, we've welcomed 23,000+ party people through the doors, rated 4.9/5 from 250+
+            reviews, across trusted venues in Northampton, Bedford, Milton Keynes, Coventry, Luton and Leicester.
           </p>
         </div>
       </div>
