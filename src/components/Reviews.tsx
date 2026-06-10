@@ -44,18 +44,18 @@ const Reviews = () => {
                 backgroundPosition: 'center'
               }}
             >
-              <div className="absolute inset-0 bg-white/70"></div>
+              <div className="absolute inset-0 bg-card/90"></div>
               <div className="relative z-10 p-6">
-                <h4 className="review-event font-poppins text-3xl font-bold text-black mb-2">
+                <h4 className="review-event font-poppins text-3xl font-bold text-primary mb-2">
                   {quote.event}
                 </h4>
-                <div className="stars mb-3 text-primary" aria-label="5 out of 5">
+                <div className="stars mb-3 text-secondary" aria-label="5 out of 5">
                   ★★★★★
                 </div>
-                <blockquote className="quote font-poppins font-bold text-black mb-4 leading-relaxed">
+                <blockquote className="quote font-poppins font-bold text-foreground mb-4 leading-relaxed">
                   "{quote.text}"
                 </blockquote>
-                <div className="reviewer font-poppins font-bold text-black">
+                <div className="reviewer font-poppins font-bold text-foreground">
                   {quote.author}
                 </div>
                 <div className="context font-poppins text-sm text-muted-foreground">
