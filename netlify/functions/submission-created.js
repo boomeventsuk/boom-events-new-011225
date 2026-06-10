@@ -17,6 +17,28 @@ const WAITLIST_LISTS = {
 };
 const FALLBACK_LIST = 10533411; // WAITLIST-BOOM-OTHER, also catches "Somewhere else"
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// POST with backoff on Mailjet rate limiting (429). Three attempts, waits of
+// ~1.5s/3s between them: stays well inside the 10s function budget. Honours
+// Retry-After when Mailjet sends one (capped so we never blow the budget).
+async function mailjetPost(url, auth, payload) {
+  let res;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: { Authorization: auth, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.status !== 429) return res;
+    const retryAfter = Number(res.headers.get('retry-after')) || 0;
+    const waitMs = Math.min(retryAfter * 1000 || 1500 * (attempt + 1), 3000);
+    console.warn(`[submission-created] Mailjet 429, retrying in ${waitMs}ms (attempt ${attempt + 1}/3)`);
+    await sleep(waitMs);
+  }
+  return res; // still 429 after retries: caller logs the payload, Forms tab keeps it
+}
+
 export const handler = async (event) => {
   let submission = null;
   try {
@@ -45,19 +67,16 @@ export const handler = async (event) => {
     const listId = WAITLIST_LISTS[city.toLowerCase()] || FALLBACK_LIST;
 
     // Single call: creates the contact if new, sets properties, adds to list.
-    // addnoforce respects prior unsubscribes.
-    const res = await fetch(`${MAILJET_BASE}/contactslist/${listId}/managecontact`, {
-      method: 'POST',
-      headers: { Authorization: auth, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        Email: email,
-        Action: 'addnoforce',
-        Properties: {
-          city,
-          signup_source: 'city-waitlist',
-          signup_date: new Date().toISOString().slice(0, 10)
-        }
-      })
+    // addnoforce respects prior unsubscribes; existing contacts are added to
+    // the list, never errored (idempotent). 429s retried with backoff.
+    const res = await mailjetPost(`${MAILJET_BASE}/contactslist/${listId}/managecontact`, auth, {
+      Email: email,
+      Action: 'addnoforce',
+      Properties: {
+        city,
+        signup_source: 'city-waitlist',
+        signup_date: new Date().toISOString().slice(0, 10)
+      }
     });
 
     if (!res.ok) {
