@@ -21,7 +21,7 @@ const tierStyles: Record<string, string> = {
   sold_out: "bg-red-600 text-white",
 };
 
-const timeStyles = "bg-blue-500 text-white";
+const timeStyles = "bg-primary text-primary-foreground";
 
 const sizeStyles = {
   sm: "text-xs px-2 py-0.5",

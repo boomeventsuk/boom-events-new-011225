@@ -171,7 +171,7 @@ for (const event of events) {
             color: white;
         }
         .btn-primary {
-            background: linear-gradient(135deg, #35A7FF, #FF3CAC);
+            background: linear-gradient(135deg, #FF3CAC, #FFB347);
             border: none;
             padding: 12px 24px;
             border-radius: 12px;

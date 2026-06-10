@@ -33,13 +33,13 @@ a.button:focus, button:focus {
     --card: 240 12% 8%; /* #13131A */
     --card-foreground: 0 0% 100%;
     
-    /* Primary brand - Electric blue */
-    --primary: 207 100% 60%; /* #35A7FF */
+    /* Primary brand - Hot pink */
+    --primary: 324 96% 62%; /* #FF3CAC */
     --primary-foreground: 0 0% 100%;
-    
-    /* Secondary brand - Pink accent */
-    --secondary: 324 96% 62%; /* #FF3CAC */
-    --secondary-foreground: 0 0% 100%;
+
+    /* Secondary brand - Warm orange/gold for badges and highlights */
+    --secondary: 35 100% 64%; /* #FFB347 */
+    --secondary-foreground: 240 12% 8%; /* dark text on gold */
     
     /* Muted elements */
     --muted: 240 12% 15%;
@@ -56,7 +56,7 @@ a.button:focus, button:focus {
     /* Borders and inputs */
     --border: 240 12% 20%;
     --input: 240 12% 20%;
-    --ring: 207 100% 60%;
+    --ring: 324 96% 62%;
     
     /* Popover */
     --popover: 240 12% 12%;
