@@ -466,7 +466,8 @@ if (list) {
 /* ======================================================
    PARTY TILES - readable, smaller, no overlap
    ====================================================== */
-.party-tile,[data-party-tile]{position:relative;overflow:hidden;border-radius:16px}
+.party-tile,[data-party-tile]{position:relative;overflow:hidden;border-radius:16px;border:1px solid rgba(255,255,255,.06);transition:border-color .25s ease,box-shadow .25s ease}
+.party-tile:hover,[data-party-tile]:hover{border-color:rgba(255,60,172,.6);box-shadow:0 0 30px rgba(255,60,172,.25)}
 .party-tile>img,[data-party-tile]>img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* Darker overlay, especially on small screens */
@@ -501,7 +502,7 @@ if (list) {
   padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.5);
   text-align:center;max-width:min(520px,88%);
   font-size:clamp(14px,1.3vw,16px); line-height:1.35;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
   text-shadow:0 1px 0 rgba(0,0,0,.25);
 }
 

@@ -4,19 +4,19 @@ const FindYourParty = () => {
   const parties = [
     {
       title: "The 2PM Club™ Daytime Disco",
-      description: "The Midland's most popular Day Party! Iconic 80s 90s 00s Anthems - Your best night out ever now happens in the afternoon.",
+      description: "The Midlands' most popular day party. Iconic 80s 90s 00s anthems in the afternoon.",
       image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/2PM%20Crowd%20Web.jpg",
       href: "https://www.the2pmclub.co.uk"
     },
     {
       title: "Silent Disco Parties",
-      description: "10 years of Silent Chaos! Three DJs. Three channels. No compromise needed. Greatest Hits or Decades formats",
+      description: "10 years of silent chaos. Three DJs, three channels, no compromise needed.",
       image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/SDB_EVT_CROWD.jpg",
       href: "/silent-disco/"
     },
     {
       title: "Family Silent Disco",
-      description: "Something for the whole family. 3 channels to choose from 🔵Party 🔴Throwback 🟢Charts. Everyone finds their vibe!",
+      description: "Three channels: Party, Throwback, Charts. The whole family finds their vibe.",
       image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/FSD%20Crowd%20Web.jpg",
       href: "/family-silent-disco/"
     },
