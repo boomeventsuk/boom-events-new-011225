@@ -2,13 +2,13 @@
 
 ## About
 
-Boombastic Events is an afternoon events company based in the Midlands, UK. Operating since 2013. All events run 2pm to 6pm on weekends, afternoon start, home by 7pm.
+Boombastic Events is an events company based in the Midlands, UK. Operating since 2013. The flagship THE 2PM CLUB daytime discos run 2pm to 6pm on weekend afternoons, home by 7pm. The other sub-brands also run evening events, typically starting 8pm or 8:30pm.
 
 - 12+ years of trading
 - 23,000+ total attendees across all events
 - Events sell out regularly across the region
 - 4.9/5 average rating
-- No late nights, no early starts
+- Daytime flagship format plus evening events across the other sub-brands
 
 Contact: hello@boomevents.co.uk
 Website: https://www.boomevents.co.uk
@@ -20,7 +20,7 @@ Website: https://www.boomevents.co.uk
 Boombastic Events is the umbrella. Each sub-brand has a distinct format, audience, and musical scope.
 
 ### THE 2PM CLUB
-Format: 80s, 90s and 00s daytime disco. Saturday afternoons, 2pm to 6pm. Club-level production, DJ, confetti, full dance floor.
+Format: 80s, 90s and 00s daytime disco. Saturday afternoons, 2pm to 6pm. Night-out energy in the afternoon. DJ, confetti, full dance floor.
 Audience: 30s to 50s. People who want the energy of a proper night out without the late-night fallout.
 Duration: 4 hours (14:00 to 18:00)
 Typical venues: mid-size seated-to-standing venues, 200 to 500 capacity
@@ -33,21 +33,21 @@ Key message: "Your best night out, right in the middle of the afternoon."
 ### SILENT DISCO GREATEST HITS
 Format: Headphone-based silent disco. Multiple audio channels, each playing a different genre or era. Attendees switch channels and can hear only what they choose. No speakers.
 Audience: Broad. Works for groups with mixed musical tastes. Also attractive to venues with noise restrictions.
-Duration: 4 hours (14:00 to 18:00)
+Duration: 4 hours, evening format (typically 20:30 to 00:30)
 Booking: https://www.boomevents.co.uk/event/{eventCode}
 Format hub: https://www.boomevents.co.uk/silent-disco
 
 ### FOOTLOOSE 80s
 Format: Pure 1980s themed event. Every track from the decade. Fancy dress strongly encouraged. High energy, nostalgic, immersive.
 Audience: 1980s enthusiasts. Those who want total era immersion rather than a mixed-decade set.
-Duration: 4 hours (14:00 to 18:00)
+Duration: 4 hours, evening format (typically 20:00 to 00:00)
 Booking: https://www.boomevents.co.uk/event/{eventCode}
 Format hub: https://www.boomevents.co.uk/footloose-80s
 
 ### FAMILY SILENT DISCO
 Format: All-ages daytime silent disco using the same headphone format. Volume controlled per listener, so children and adults share the same floor safely.
 Audience: Families. Mixed age groups. Weekend afternoons.
-Duration: 4 hours (14:00 to 18:00)
+Duration: typically 2 hours, weekend afternoons (e.g. 14:00 to 16:00)
 Booking: https://www.boomevents.co.uk/event/{eventCode}
 Format hub: https://www.boomevents.co.uk/family-silent-disco
 
@@ -55,7 +55,7 @@ Format hub: https://www.boomevents.co.uk/family-silent-disco
 Format: 60s and 70s Motown, Soul and Disco. Full four hours of floor-fillers from the golden era.
 Audience: Those who want the pre-disco era: The Jacksons, Stevie Wonder, Chic, Diana Ross, Aretha Franklin, Marvin Gaye, The Temptations.
 Running: From 2026
-Duration: 4 hours (14:00 to 18:00)
+Duration: 4 hours, afternoon (14:00 to 18:00) or evening (20:00 to 00:00) dates
 Booking: https://www.boomevents.co.uk/event/{eventCode}
 Format hub: https://www.boomevents.co.uk/get-ready
 
@@ -129,7 +129,7 @@ Each event object includes:
 ## FAQ
 
 **What time do events start and end?**
-All events run 2pm to 6pm. Doors typically open 30 minutes before.
+THE 2PM CLUB runs 2pm to 6pm. Evening events from the other sub-brands typically run 8pm to midnight or 8:30pm to 12:30am. Doors typically open 30 minutes before. Check the event page for exact times.
 
 **Are events family-friendly?**
 The FAMILY SILENT DISCO sub-brand is explicitly all-ages. Other sub-brands are adults-oriented (18+).

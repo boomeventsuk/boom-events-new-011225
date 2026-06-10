@@ -1,6 +1,6 @@
 # Boombastic Events
 
-Boombastic Events is a Midlands-based afternoon events company with 12+ years of trading, 23,000+ attendees across all events, and events that sell out regularly across the region. It operates as an umbrella brand running four distinct sub-brands, each targeting a specific audience and musical era. All events run 2pm to 6pm on weekends. No late nights.
+Boombastic Events is a Midlands-based events company with 12+ years of trading, 23,000+ attendees across all events, and events that sell out regularly across the region. It operates as an umbrella brand running five distinct sub-brands, each targeting a specific audience and musical era. THE 2PM CLUB daytime discos run 2pm to 6pm on Saturday afternoons. The other brands also run evening events: FOOTLOOSE 80s typically 8pm to midnight, SILENT DISCO GREATEST HITS typically 8:30pm to 12:30am, and GET READY runs both afternoon and evening dates.
 
 Contact: hello@boomevents.co.uk
 Website: https://www.boomevents.co.uk
@@ -11,15 +11,15 @@ Events data (machine-readable): https://www.boomevents.co.uk/events-boombastic.j
 ## Sub-brands
 
 ### THE 2PM CLUB
-80s, 90s and 00s daytime disco. Saturday afternoons, 2pm to 6pm. The flagship brand. Four hours of anthems, club-level production, confetti moments. The crowd: 30s to 50s who want a proper night out without the late-night fallout. Home by 7pm. Cities: Northampton, Bedford, Milton Keynes, Coventry, Luton, Leicester.
+80s, 90s and 00s daytime disco. Saturday afternoons, 2pm to 6pm. The flagship brand. Four hours of anthems and confetti moments. Night-out energy in the afternoon. The crowd: 30s to 50s who want a proper night out without the late-night fallout. Home by 7pm. Cities: Northampton, Bedford, Milton Keynes, Coventry, Luton, Leicester.
 Event pages: https://www.boomevents.co.uk/event/{eventCode}
 
 ### SILENT DISCO GREATEST HITS
-Headphone-based silent disco with multiple channels covering different eras and genres. No speakers, everyone on headphones, choose your channel. Works in venues that couldn't host a conventional club night. Same afternoon format: 2pm to 6pm.
+Headphone-based silent disco with multiple channels covering different eras and genres. No speakers, everyone on headphones, choose your channel. Works in venues that couldn't host a conventional club night. Evening format, typically 8:30pm to 12:30am.
 Event pages: https://www.boomevents.co.uk/event/{eventCode}
 
 ### FOOTLOOSE 80s
-Pure 1980s themed event. Every track from the decade, fancy dress encouraged, high-energy. 2pm to 6pm. For audiences who want the full 80s immersion rather than a mixed-era set.
+Pure 1980s themed event. Every track from the decade, fancy dress encouraged, high-energy. Evening format, typically 8pm to midnight. For audiences who want the full 80s immersion rather than a mixed-era set.
 Event pages: https://www.boomevents.co.uk/event/{eventCode}
 
 ### FAMILY SILENT DISCO
@@ -27,7 +27,7 @@ All-ages daytime silent disco for families. Children welcome. Uses the same head
 Event pages: https://www.boomevents.co.uk/event/{eventCode}
 
 ### GET READY
-60s and 70s Motown, Soul and Disco. The fifth sub-brand, running as of 2026. Four hours of the biggest floorfillers from the golden era: The Jacksons, Stevie Wonder, Chic, Diana Ross, Aretha Franklin. Same afternoon format.
+60s and 70s Motown, Soul and Disco. The fifth sub-brand, running as of 2026. Four hours of the biggest floorfillers from the golden era: The Jacksons, Stevie Wonder, Chic, Diana Ross, Aretha Franklin. Runs both afternoon (2pm to 6pm) and evening (8pm to midnight) dates.
 Event pages: https://www.boomevents.co.uk/event/{eventCode}
 
 ---
