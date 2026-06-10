@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
-import { FomoBadge } from "@/components/FomoBadge";
-import { useEventFomoData } from "@/hooks/useEventFomoData";
-import { trackBookClick } from "@/lib/dataLayer";
+import { eventPath, formatHouseDate, formatPriceLabel } from "@/lib/eventUtils";
+import { pushToDataLayer } from "@/lib/dataLayer";
 
 // Bunny Optimizer params for CDN-hosted images
 const optimised = (url: string, width: number) =>
@@ -13,125 +11,121 @@ const isChristmasDay = () => {
   const today = new Date();
   return today.getMonth() === 11 && today.getDate() === 25;
 };
+
 export interface FomoOverride {
   tier: string;
   message: string;
   timeMessage?: string | null;
 }
 
+export interface GroupTicket {
+  size: number;
+  price: number;
+  label: string;
+}
+
 export interface EventCardProps {
   title: string;
-  date: string;
+  start: string;
+  city: string;
   venue: string;
-  time: string;
   poster: string;
   eventCode: string;
-  isoDate: string;
-  badge?: string;
-  buttonText?: string;
-  fomoOverride?: FomoOverride;
+  isSoldOut?: boolean;
+  statusLabel?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
+  fomoOverride?: FomoOverride | null;
 }
 
 export const EventCard: React.FC<EventCardProps> = ({
   title,
-  date,
+  start,
+  city,
   venue,
-  time,
   poster,
   eventCode,
-  isoDate,
-  badge,
-  buttonText,
+  isSoldOut,
+  statusLabel,
+  priceLabel,
+  groupTicket,
   fomoOverride,
 }) => {
-  const { data: fomoData } = useEventFomoData(eventCode);
-  const isSoldOut = fomoData?.is_sold_out || badge === "SOLD OUT";
-  
-  // Priority: fomoOverride (from JSON) > fomoData (from database) > static badge
-  const displayBadge = fomoOverride?.message || fomoData?.fomo_message || badge;
-  const fomoTier = fomoOverride?.tier || fomoData?.fomo_tier || (badge === "SOLD OUT" ? "sold_out" : "on_sale");
-  const timeMessage = fomoOverride ? fomoOverride.timeMessage : fomoData?.time_message;
-  
-  const handleBookNow = () => {
-    trackBookClick(eventCode, title, {
-      venue,
-      date,
-      status: fomoTier,
-      source: 'event_card_button',
-      brand: 'BoomEvents',
-    });
+  // ONE badge: sold out wins, then synced statusLabel, then fomoOverride fallback
+  const badge = isSoldOut ? "SOLD OUT" : statusLabel || fomoOverride?.message;
+  const price = formatPriceLabel(priceLabel);
 
-    if (typeof window !== 'undefined' && (window as any).dataLayer) {
-      (window as any).dataLayer.push({
-        event: isSoldOut ? 'waiting_list_click' : 'book_now_click',
-        event_category: isSoldOut ? 'Waiting List' : 'Tickets',
-        event_label: title,
-        event_date: isoDate,
-      });
-    }
-    window.location.href = `/event/${eventCode}`;
-  };
-
-  const handleImageClick = () => {
-    trackBookClick(eventCode, title, {
-      venue,
-      date,
-      status: fomoTier,
-      source: 'event_card_image',
-      brand: 'BoomEvents',
+  const handleClick = () => {
+    pushToDataLayer({
+      event: "select_item",
+      item_list_id: "homepage_event_grid",
+      item_list_name: "Homepage Event Grid",
+      items: [
+        {
+          item_id: eventCode,
+          item_name: title,
+          item_category: city,
+          item_variant: isSoldOut ? "sold_out" : "on_sale",
+        },
+      ],
     });
   };
 
   return (
-    <Card className={`bg-card border-border overflow-hidden hover:shadow-lg transition-shadow ${isSoldOut ? "opacity-80" : ""} ${isChristmasDay() ? "christmas-border christmas-glow" : ""}`}>
-      <Link
-        to={`/event/${eventCode}`}
-        onClick={handleImageClick}
-        className="block aspect-square overflow-hidden relative"
-        aria-label={`View tickets for ${title}`}
-        data-event-code={eventCode}
-        data-click-source="event-card-image"
-      >
-        <img
-          src={optimised(poster, 800)}
-          srcSet={`${optimised(poster, 400)} 400w, ${optimised(poster, 800)} 800w`}
-          alt={`${title} event poster`}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-          loading="lazy"
-          decoding="async"
-          width="800"
-          height="800"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
-      </Link>
-      <CardContent className="p-6">
-        {displayBadge && (
-          <FomoBadge
-            tier={fomoTier}
-            message={displayBadge}
-            timeMessage={timeMessage}
-            size="sm"
-            className="mb-3"
-          />
-        )}
-        <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
-          {isSoldOut && <span className="text-red-500 mr-2">SOLD OUT -</span>}
-          {title}
-        </h3>
-        
-        <div className="space-y-1 text-muted-foreground mb-4">
-          <p className="text-sm">{date}</p>
-          <p className="text-sm">{time}</p>
-          <p className="text-sm">{venue}</p>
-        </div>
+    <Link
+      to={eventPath(eventCode)}
+      onClick={handleClick}
+      className={`group relative block aspect-square overflow-hidden rounded-xl border border-border bg-card shadow-sm hover:shadow-lg transition-shadow ${isChristmasDay() ? "christmas-border christmas-glow" : ""}`}
+      aria-label={`${title}, ${formatHouseDate(start)}, ${venue}, ${city}${isSoldOut ? ", sold out, join the waiting list" : ""}`}
+      data-event-code={eventCode}
+      data-click-source="event-card"
+    >
+      <img
+        src={optimised(poster, 800)}
+        srcSet={`${optimised(poster, 400)} 400w, ${optimised(poster, 800)} 800w`}
+        alt={`${title} event poster`}
+        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 ${isSoldOut ? "grayscale" : ""}`}
+        loading="lazy"
+        decoding="async"
+        width="800"
+        height="800"
+        sizes="(max-width: 1024px) 50vw, 33vw"
+      />
 
-        <button
-          onClick={handleBookNow}
-          className={`w-full transition-colors px-4 py-2 rounded-md font-medium ${isChristmasDay() ? "bg-gradient-to-r from-red-600 to-green-600 hover:from-red-500 hover:to-green-500 text-white" : "bg-primary text-primary-foreground hover:bg-primary/90"}`}
-        >
-          {isSoldOut ? "Join Waiting List" : (buttonText || "Book Now")}
-        </button>
-      </CardContent>
-    </Card>
+      <h3 className="sr-only">{title}</h3>
+
+      {/* Top row: badge left, price pill right - flex so they never overlap */}
+      <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-1.5 p-2">
+        {badge ? (
+          <span
+            className={`min-w-0 rounded-full px-2.5 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wide leading-tight shadow-md ${isSoldOut ? "bg-red-600 text-white" : "bg-primary text-primary-foreground"}`}
+          >
+            {badge}
+          </span>
+        ) : (
+          <span />
+        )}
+        {price && !isSoldOut && (
+          <span className="shrink-0 whitespace-nowrap rounded-full bg-black/70 px-2.5 py-1 text-[10px] sm:text-xs font-semibold text-white shadow-md backdrop-blur-sm">
+            {price}
+          </span>
+        )}
+      </div>
+
+      {/* Bottom gradient overlay: date + city, optional group line, CTA */}
+      <div className="absolute inset-x-0 bottom-0 flex h-[28%] min-h-[72px] flex-col justify-end bg-gradient-to-t from-black/95 via-black/60 to-transparent px-3 pb-2.5 sm:px-4 sm:pb-3">
+        <p className="text-xs sm:text-sm font-semibold text-white leading-tight">
+          {formatHouseDate(start, false)} · {city}
+        </p>
+        {!isSoldOut && groupTicket?.label && (
+          <p className="text-[10px] sm:text-xs text-white/80 leading-tight mt-0.5">
+            {groupTicket.label}
+          </p>
+        )}
+        <p className="mt-1 text-xs sm:text-sm font-bold text-white/80 transition-colors group-hover:text-white group-active:text-white">
+          {isSoldOut ? "Join the waiting list" : "Book tickets →"}
+        </p>
+      </div>
+    </Link>
   );
 };

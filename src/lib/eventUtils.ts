@@ -1,3 +1,36 @@
+const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+const ordinalSuffix = (n: number): string => {
+  if (n % 100 >= 11 && n % 100 <= 13) return "th";
+  return ["th", "st", "nd", "rd"][n % 10] || "th";
+};
+
+/**
+ * House date style: "Sat 13th Jun 2026" (short day, ordinal, short month).
+ * Pass withYear=false for the card-overlay form "Sat 13th Jun".
+ */
+export const formatHouseDate = (iso?: string, withYear = true): string => {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  const base = `${DAYS[d.getDay()]} ${d.getDate()}${ordinalSuffix(d.getDate())} ${MONTHS[d.getMonth()]}`;
+  return withYear ? `${base} ${d.getFullYear()}` : base;
+};
+
+/**
+ * Canonical site path for an event: lowercase, trailing slash.
+ * Always link to this form - uppercase /event/{CODE} 301s.
+ */
+export const eventPath = (eventCode: string): string =>
+  `/event/${eventCode.toLowerCase()}/`;
+
+/**
+ * "From £10.00" -> "From £10" (keeps non-zero pence: "From £8.50").
+ */
+export const formatPriceLabel = (label?: string): string =>
+  label ? label.replace(/\.00\b/, "") : "";
+
 /**
  * Check if an event has passed based on its end time or start time
  * @param event - Event object with start/end fields or eventCode for date extraction

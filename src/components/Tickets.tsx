@@ -8,6 +8,12 @@ interface FomoOverride {
   timeMessage?: string | null;
 }
 
+interface GroupTicket {
+  size: number;
+  price: number;
+  label: string;
+}
+
 interface Event {
   eventCode: string;
   title: string;
@@ -25,7 +31,10 @@ interface Event {
   isHidden?: boolean;
   fullDescription?: string;
   highlights?: string[];
-  fomoOverride?: FomoOverride;
+  fomoOverride?: FomoOverride | null;
+  statusLabel?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
 }
 
 const isChristmasDay = () => {
@@ -60,6 +69,9 @@ const Tickets = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const startIso = (event: Event): string =>
+    event.start || `${extractIsoDate(event.eventCode)}T14:00:00`;
+
   return (
     <section id="tickets" className="py-16 bg-background">
       <div className="container mx-auto px-4">
@@ -74,7 +86,7 @@ const Tickets = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-6 mb-12">
           {events
             .filter(event => !event.isHidden && !isEventPassed(event))
             .sort((a, b) => {
@@ -86,13 +98,15 @@ const Tickets = () => {
               <EventCard
                 key={event.eventCode}
                 title={event.title}
-                date={event.date}
-                venue={`${event.venue}, ${event.city}`}
-                time={event.timeDisplay}
+                start={startIso(event)}
+                city={event.city}
+                venue={event.venue}
                 poster={event.image}
                 eventCode={event.eventCode}
-                isoDate={extractIsoDate(event.eventCode)}
-                badge={event.isSoldOut ? "SOLD OUT" : undefined}
+                isSoldOut={event.isSoldOut}
+                statusLabel={event.statusLabel}
+                priceLabel={event.priceLabel}
+                groupTicket={event.groupTicket}
                 fomoOverride={event.fomoOverride}
               />
             ))}

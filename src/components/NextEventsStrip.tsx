@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin } from "lucide-react";
-import { isEventPassed } from "@/lib/eventUtils";
+import { eventPath, isEventPassed } from "@/lib/eventUtils";
 
 interface StripEvent {
   eventCode: string;
@@ -60,7 +60,7 @@ const NextEventsStrip = () => {
             : events.map((ev) => (
                 <Link
                   key={ev.eventCode}
-                  to={`/event/${ev.eventCode}`}
+                  to={eventPath(ev.eventCode)}
                   className="rounded-lg border border-border bg-card p-4 hover:border-primary transition-colors group"
                 >
                   <p className="font-poppins text-sm font-semibold text-primary flex items-center gap-1.5">
