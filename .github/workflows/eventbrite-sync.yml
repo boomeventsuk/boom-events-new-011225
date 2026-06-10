@@ -5,13 +5,14 @@ name: Eventbrite sync
 # recomputes badge labels and group pricing, and commits the updated
 # events-boombastic.json. The commit triggers Netlify to rebuild and deploy, which
 # regenerates hubs, sitemap and per-event shells from the fresh data.
-# Runs at 04:00 and 12:00 UTC so counts stay honest through the
+# Runs 04:00, 10:00 and 16:00 UTC so counts stay honest through the
 # evening booking window. No Mac involved anywhere in the loop.
 
 on:
   schedule:
     - cron: '0 4 * * *'
-    - cron: '0 12 * * *'
+    - cron: '0 10 * * *'
+    - cron: '0 16 * * *'
   workflow_dispatch:
 
 permissions:
