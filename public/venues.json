@@ -59,7 +59,7 @@
   },
   "Luton": {
     "city": "Luton",
-    "eventCount": 2,
+    "eventCount": 3,
     "venues": [
       {
         "name": "Hat Factory",
@@ -72,6 +72,16 @@
           {
             "slug": "the-2pm-club-luton-80s-90s-00s-daytime-disco",
             "title": "THE 2PM CLUB Luton: 80s 90s 00s Daytime Disco"
+          }
+        ]
+      },
+      {
+        "name": "Hat Factory Arts Centre",
+        "eventCount": 1,
+        "events": [
+          {
+            "slug": "the-2pm-club-luton-80s-edition-daytime-disco",
+            "title": "THE 2PM CLUB Luton: 80s Edition Daytime Disco"
           }
         ]
       }

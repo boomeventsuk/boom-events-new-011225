@@ -267,6 +267,44 @@
     "priceLastSync": "2026-06-12T12:50:22.213Z"
   },
   {
+    "eventCode": "031026-2PM-LUT",
+    "title": "THE 2PM CLUB Luton: 80s Edition Daytime Disco",
+    "subtitle": "Your best 80s night out. In the middle of the afternoon.",
+    "date": "Saturday, 3 October 2026",
+    "timeDisplay": "2pm - 6pm",
+    "start": "2026-10-03T14:00:00",
+    "end": "2026-10-03T18:00:00",
+    "venue": "Hat Factory Arts Centre",
+    "city": "Luton",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/031026-2PM-LUT/031026-2PM-LUT-ANNSQ.jpg",
+    "description": "THE 2PM CLUB goes full-on 80s at Hat Factory, Luton. Your best 80s night out. In the middle of the afternoon.",
+    "eventbriteId": "1991790128893",
+    "bookUrl": "https://www.the2pmclub.co.uk/events/031026-2PM-LUT/",
+    "infoUrl": "https://www.facebook.com/events/TBD",
+    "isSoldOut": false,
+    "fullDescription": "THE 2PM CLUB Daytime Disco is back at Hat Factory on Saturday 3rd October, 2pm-6pm. This one is different: for one afternoon, every song is 80s.\n\nEXPECT TO HEAR\n\nMadonna, Michael Jackson, Wham!, Whitney Houston, Bon Jovi, Prince, Duran Duran, A-ha, The Human League, Tina Turner, George Michael, Cyndi Lauper, Eurythmics, Culture Club, Tears For Fears and Simple Minds.\n\nThe ones everyone knows. The ones where the room comes in before the chorus has properly started.\n\nHOW IT WORKS\n\nDoors at 2pm. Four hours of 80s anthems back to back, with your people.\n\nHome by 7 if you want to be. Pub, food or sofa after if the afternoon does what it usually does.\n\nWHAT PEOPLE SAY\n\n\"It felt like 2am not 2pm!\"\n\n\"Absolutely fantastic afternoon out. Great music, fab people and a really safe environment\"\n\n\"Great music, great atmosphere everyone was happy and friendly and we still had the evening to carry on!!\"\n\nThat is the point: a proper night-out feeling, just at a time that works.\n\nTHE DETAILS\n\nHat Factory Arts Centre, Luton\nSaturday 3rd October 2026\n2pm-6pm\nOver 18s only\n\nFAQs\n\nIs this different to the normal 2PM Club?\nYes. Same daytime disco format, but this date is 80s-only for one afternoon.\n\nIs it fancy dress?\nCome as dressed-up or dressed-down as you like. The 80s are in the music, not a costume requirement.\n\nWhat time does it finish?\nLast song is 6pm. Plenty of time to go for food, carry on somewhere else, or be home by 7.\n\nWho is it for?\nGrown-ups who want a proper Saturday dance without giving Sunday away.\n\nAre tickets refundable?\nTickets are non-refundable unless the event is cancelled.\n\nSend it to the group chat and get it booked.",
+    "highlights": "🎤 EXPECT TO HEAR: Madonna, Michael Jackson, Wham!, Whitney Houston, Bon Jovi, Prince, Duran Duran, A-ha, The Human League, Tina Turner, George Michael, Cyndi Lauper, Eurythmics, Culture Club, Tears For Fears and Simple Minds.|🕺 HOW IT WORKS: Doors at 2pm. Four hours of 80s anthems back to back, with your people.|🏠 HOME BY 7 IF YOU WANT TO BE: Pub, food or sofa after if the afternoon does what it usually does.|💬 WHAT PEOPLE SAY: \"It felt like 2am not 2pm!\" A proper night-out feeling, just at a time that works.|🏆 HAT FACTORY: THE 2PM CLUB goes full-on 80s in Luton for one Saturday afternoon.",
+    "hiddenSections": [
+      "video"
+    ],
+    "fomoOverride": {
+      "tier": "on_sale",
+      "message": "EARLY RELEASE",
+      "timeMessage": "JUST £10"
+    },
+    "price": 10,
+    "priceLabel": "From £10.00",
+    "venueAddress": {
+      "streetAddress": "65-67 Bute Street",
+      "addressLocality": "Luton",
+      "postalCode": "LU1 2EY",
+      "addressCountry": "GB"
+    },
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced"
+  },
+  {
     "eventCode": "210326-FSD-NPTON",
     "title": "FAMILY SILENT DISCO Northampton",
     "subtitle": "Dance together, find your vibe!",
