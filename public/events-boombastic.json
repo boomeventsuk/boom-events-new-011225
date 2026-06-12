@@ -26,7 +26,7 @@
     "tierLabels": [
       "General Admission Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:20.115Z"
+    "priceLastSync": "2026-06-12T08:14:25.400Z"
   },
   {
     "eventCode": "070226-2PM-LUT",
@@ -55,7 +55,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:20.672Z"
+    "priceLastSync": "2026-06-12T08:14:25.979Z"
   },
   {
     "eventCode": "140226-2PM-BED",
@@ -84,7 +84,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:21.224Z"
+    "priceLastSync": "2026-06-12T08:14:26.550Z"
   },
   {
     "eventCode": "280226-2PM-NPTON",
@@ -114,7 +114,7 @@
       "Final Release Ticket sold out",
       "Final Release Ticket for 2 People sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:21.779Z"
+    "priceLastSync": "2026-06-12T08:14:27.157Z"
   },
   {
     "eventCode": "070326-2PM-COV",
@@ -143,7 +143,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:22.342Z"
+    "priceLastSync": "2026-06-12T08:14:27.728Z"
   },
   {
     "eventCode": "120926-2PM-BED",
@@ -182,7 +182,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Just announced",
-    "priceLastSync": "2026-06-11T18:48:22.903Z"
+    "priceLastSync": "2026-06-12T08:14:28.329Z"
   },
   {
     "eventCode": "190926-2PM-COV",
@@ -221,7 +221,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Just announced",
-    "priceLastSync": "2026-06-11T18:48:23.458Z"
+    "priceLastSync": "2026-06-12T08:14:28.899Z"
   },
   {
     "eventCode": "260926-2PM-MK",
@@ -264,7 +264,7 @@
       "price": 40,
       "label": "Group of 4: £40 (save £8)"
     },
-    "priceLastSync": "2026-06-11T18:48:24.003Z"
+    "priceLastSync": "2026-06-12T08:14:29.442Z"
   },
   {
     "eventCode": "210326-FSD-NPTON",
@@ -314,7 +314,7 @@
     "priceLabel": "From £8.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "75% sold",
-    "priceLastSync": "2026-06-11T18:48:24.575Z"
+    "priceLastSync": "2026-06-12T08:14:29.963Z"
   },
   {
     "eventCode": "210326-FL80-NPTON",
@@ -350,7 +350,7 @@
       "Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:25.146Z"
+    "priceLastSync": "2026-06-12T08:14:30.543Z"
   },
   {
     "eventCode": "280326-FL80-BED",
@@ -386,7 +386,7 @@
       "Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:25.672Z"
+    "priceLastSync": "2026-06-12T08:14:31.100Z"
   },
   {
     "eventCode": "250426-SD-NPTON",
@@ -446,7 +446,7 @@
       "Final  Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:26.216Z"
+    "priceLastSync": "2026-06-12T08:14:31.695Z"
   },
   {
     "eventCode": "260926-SD-NPTON",
@@ -507,7 +507,7 @@
       "price": 44,
       "label": "Group of 4: £44 (save £6)"
     },
-    "priceLastSync": "2026-06-11T18:48:26.809Z"
+    "priceLastSync": "2026-06-12T08:14:32.259Z"
   },
   {
     "eventCode": "060626-2PM-COV",
@@ -542,7 +542,7 @@
     "tierLabels": [
       "Early Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:27.356Z"
+    "priceLastSync": "2026-06-12T08:14:32.771Z"
   },
   {
     "eventCode": "060626-2PM-NPTON",
@@ -579,7 +579,7 @@
       "Final Release Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:27.925Z"
+    "priceLastSync": "2026-06-12T08:14:33.367Z"
   },
   {
     "eventCode": "130626-2PM-BED",
@@ -594,7 +594,7 @@
     "image": "https://boombastic-events.b-cdn.net/130626-2PM-BED/130626-2PM-BED%20ANNSQ.jpg",
     "description": "10 TICKETS LEFT. THE 2PM CLUB Bedford. 4 hours of iconic 80s, 90s & 00s anthems. All the fun of a proper night out, home by 7-ish.",
     "eventbriteId": "1983156002990",
-    "isSoldOut": false,
+    "isSoldOut": true,
     "fullDescription": "10 TICKETS LEFT. THIS WILL SELL OUT 🎟️\n\nLET YOUR HAIR DOWN. WITHOUT THE NEXT-DAY REGRETS ✨\n\nRemember when going OUT OUT didn't require a week's recovery? When you could sing every word, lose your voice, and still feel human the next day?\n\nWe've found the way to make that happen once more!\n\n4 hours of the biggest hairbrush hits and sing-alongs, with night out energy, confetti moments, and a room full of people who know every word too.\n\nOnly 10 tickets left. Once they're gone, that's it. Get yours and the group's sorted.",
     "highlights": "🎤 ICONIC ANTHEMS. NONSTOP ENERGY: Wall-to-wall classics from Wham! to Whitney, Bon Jovi to Beyoncé. You WILL do the moves. You WILL lose your voice. You WILL text each other about it for weeks.|🕺 DAYTIME PARTY, NIGHT-OUT VIBES: Same Boombastic team. Club-level production, massive screens, dazzling lights, and confetti explosions - just at people-friendly hours. Dance freely, laugh loudly, and still be home by 7pm.|👯 FINALLY, A PLAN NOBODY BAILS ON: This is the plan that will escape the group chat. Four hours where everyone actually makes it - no babysitter dramas, no late-night worries. Adulting can wait.|😎 ALL THE FUN. STILL BUZZING BY WEDNESDAY: Last time, you walked out saying \"Let's do it again!\" This is the time to do it. This is your plan.|🏆 TRUST THE LEGACY: Created by Boombastic Events - 10+ years of consistent sell-outs across the UK because we know how to create moments that matter.",
     "fomoOverride": {
@@ -604,8 +604,8 @@
     },
     "bookUrl": "https://www.eventbrite.co.uk/e/1983156002990?aff=BoomWeb",
     "infoUrl": "https://www.facebook.com/events/TBD",
-    "price": 12.5,
-    "priceLabel": "From £12.50",
+    "price": 9,
+    "priceLabel": "From £9.00",
     "venueAddress": {
       "streetAddress": "60A Bromham Road",
       "addressLocality": "Bedford",
@@ -613,15 +613,16 @@
       "addressCountry": "GB"
     },
     "priceCurrency": "GBP",
-    "availability": "https://schema.org/LimitedAvailability",
-    "statusLabel": "Last few tickets",
+    "availability": "https://schema.org/SoldOut",
+    "statusLabel": "Join waiting list",
     "tierLabels": [
       "Early Release Ticket sold out",
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out",
-      "Final Release Group Ticket for 4 People sold out"
+      "Final Release Group Ticket for 4 People sold out",
+      "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:28.529Z"
+    "priceLastSync": "2026-06-12T08:14:33.918Z"
   },
   {
     "eventCode": "250726-2PM-NPTON",
@@ -659,7 +660,7 @@
     "tierLabels": [
       "Early Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:29.143Z"
+    "priceLastSync": "2026-06-12T08:14:34.525Z"
   },
   {
     "eventCode": "260626-GR-NPTON",
@@ -698,7 +699,7 @@
       "price": 30,
       "label": "Group of 4: £30 (save £4)"
     },
-    "priceLastSync": "2026-06-11T18:48:29.668Z"
+    "priceLastSync": "2026-06-12T08:14:35.069Z"
   },
   {
     "eventCode": "230526-2PM-LUT",
@@ -727,7 +728,7 @@
       "General Release Ticket sold out",
       "Group Ticket for 4 People sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:30.556Z"
+    "priceLastSync": "2026-06-12T08:14:35.652Z"
   },
   {
     "eventCode": "020526-2PM-LEIC",
@@ -758,7 +759,7 @@
       "Group Ticket for 4 People sold out",
       "Final Release Ticket sold out"
     ],
-    "priceLastSync": "2026-06-11T18:48:31.117Z"
+    "priceLastSync": "2026-06-12T08:14:36.192Z"
   },
   {
     "eventCode": "120926-B90-NPTON",
@@ -795,6 +796,6 @@
       "price": 40,
       "label": "Group of 4: £40 (save £8)"
     },
-    "priceLastSync": "2026-06-11T18:48:31.660Z"
+    "priceLastSync": "2026-06-12T08:14:36.752Z"
   }
 ]
