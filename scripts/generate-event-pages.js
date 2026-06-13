@@ -46,41 +46,6 @@ function splitVenueCity(loc) {
 }
 function esc(s) { return (s || "").toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-const CURRENT_EIGHTIES_CAMPAIGN_START = new Date("2026-06-13T00:00:00").getTime();
-const EIGHTIES_EVENT_SUBLINE = "Your best 80s night out. In the middle of the afternoon.";
-
-function isTwoPmEightiesEdition(ev) {
-  const searchable = [
-    ev.eventCode,
-    ev.slug,
-    ev.title,
-    ev.subtitle,
-    ev.description,
-    ev.fullDescription,
-    ev.highlights,
-    ev.image,
-  ].filter(Boolean).join(" ");
-  const startTime = ev.start ? new Date(ev.start).getTime() : Number.NaN;
-  return /80s edition|2pm80s|2pm-80s|goes full-on 80s|your best 80s night out/i.test(searchable)
-    || (/-2pm-/i.test(searchable) && Number.isFinite(startTime) && startTime >= CURRENT_EIGHTIES_CAMPAIGN_START);
-}
-
-function displayTitle(ev) {
-  if (!isTwoPmEightiesEdition(ev)) return ev.title || "";
-  const { city } = splitVenueCity(ev.location || "");
-  const eventCity = ev.city || city || ev.eventCode?.split("-")[2] || "";
-  return `THE 2PM CLUB ${eventCity}: 80s Edition Daytime Disco`.replace(/\s+:/, ":").trim();
-}
-
-function displayDescription(ev) {
-  if (!isTwoPmEightiesEdition(ev)) return ev.description || ev.subtitle || "";
-  const { venue, city } = splitVenueCity(ev.location || "");
-  const place = [ev.venue || venue, ev.city || city].filter(Boolean).join(", ");
-  return place
-    ? `THE 2PM CLUB goes full-on 80s at ${place}. ${EIGHTIES_EVENT_SUBLINE}`
-    : EIGHTIES_EVENT_SUBLINE;
-}
-
 // ---------- event page template ----------
 function buildEventHtml(ev, desc, slug) {
   const { venue, city } = splitVenueCity(ev.location || "");
@@ -235,7 +200,7 @@ function buildCityHtml(citySlug, cityName, events) {
     "itemListElement": events.map((ev, idx) => ({
       "@type": "ListItem",
       "position": idx + 1,
-      "name": displayTitle(ev) || "Event",
+      "name": ev.title || "Event",
       "url": `${SITE_URL}/events/${ev.slug}/`
     }))
   };
@@ -308,11 +273,11 @@ function buildCityHtml(citySlug, cityName, events) {
             <div class="event-item bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
                 <h3 class="text-xl font-semibold mb-2">
                     <a href="/events/${ev.slug}/" class="text-white hover:text-blue-300 transition-colors">
-                        ${esc(displayTitle(ev) || "Event")}
+                        ${esc(ev.title || "Event")}
                     </a>
                 </h3>
                 ${date ? `<p class="text-gray-300 text-sm mb-2">📅 ${date}</p>` : ""}
-                ${displayDescription(ev) ? `<p class="text-gray-200 text-sm">${esc(displayDescription(ev).slice(0, 150))}${displayDescription(ev).length > 150 ? "..." : ""}</p>` : ""}
+                ${ev.description ? `<p class="text-gray-200 text-sm">${esc(ev.description.slice(0, 150))}${ev.description.length > 150 ? "..." : ""}</p>` : ""}
             </div>`;
             }).join("")}
         </div>
@@ -388,7 +353,7 @@ async function run() {
       if (!cityData.venues.has(venue)) {
         cityData.venues.set(venue, { venue, events: [] });
       }
-      cityData.venues.get(venue).events.push({ slug, title: displayTitle(ev) });
+      cityData.venues.get(venue).events.push({ slug, title: ev.title });
     }
 
   }

@@ -2,7 +2,7 @@ import { Calendar, Clock, MapPin, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { formatHouseDate } from '@/lib/eventUtils';
-import { EIGHTIES_EVENT_SUBLINE, EIGHTIES_MUSIC_LINE, isTwoPmEightiesEdition } from '@/lib/twoPmEdition';
+import { EIGHTIES_EVENT_SUBLINE, isTwoPmEightiesEdition } from '@/lib/twoPmEdition';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 
@@ -131,7 +131,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                     Daytime Disco {city.toUpperCase()}
                   </p>
                   <p className="text-lg md:text-xl text-foreground">
-                    {EIGHTIES_MUSIC_LINE}
+                    Iconic 80s 90s 00s Anthems
                   </p>
                 </>
               )}

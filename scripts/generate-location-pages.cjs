@@ -86,39 +86,6 @@ function esc(s) {
     .replace(/'/g, '&#39;');
 }
 
-const CURRENT_EIGHTIES_CAMPAIGN_START = new Date('2026-06-13T00:00:00').getTime();
-const EIGHTIES_EVENT_SUBLINE = 'Your best 80s night out. In the middle of the afternoon.';
-
-function isTwoPmEightiesEdition(event) {
-  const searchable = [
-    event.eventCode,
-    event.slug,
-    event.title,
-    event.subtitle,
-    event.description,
-    event.fullDescription,
-    event.highlights,
-    event.image,
-  ].filter(Boolean).join(' ');
-  const startTime = event.start ? new Date(event.start).getTime() : Number.NaN;
-  return /80s edition|2pm80s|2pm-80s|goes full-on 80s|your best 80s night out/i.test(searchable)
-    || (/-2pm-/i.test(searchable) && Number.isFinite(startTime) && startTime >= CURRENT_EIGHTIES_CAMPAIGN_START);
-}
-
-function displayTitle(event) {
-  if (!isTwoPmEightiesEdition(event)) return event.title || '';
-  const city = event.city || event.eventCode?.split('-')[2] || '';
-  return `THE 2PM CLUB ${city}: 80s Edition Daytime Disco`.replace(/\s+:/, ':').trim();
-}
-
-function displayDescription(event) {
-  if (!isTwoPmEightiesEdition(event)) return event.subtitle || event.description || '';
-  const place = [event.venue, event.city].filter(Boolean).join(', ');
-  return place
-    ? `THE 2PM CLUB goes full-on 80s at ${place}. ${EIGHTIES_EVENT_SUBLINE}`
-    : EIGHTIES_EVENT_SUBLINE;
-}
-
 function ensureDir(p) {
   if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
 }
@@ -172,8 +139,6 @@ function availabilitySchema(event) {
 // --- render ---
 function renderEventCard(event) {
   const fomo = fomoBadge(event);
-  const title = displayTitle(event);
-  const description = displayDescription(event);
   const fomoClass = fomo
     ? `fomo-${fomo.tier.replace(/_/g, '-')}`
     : '';
@@ -183,7 +148,7 @@ function renderEventCard(event) {
   return `
       <article class="event-card">
         <div class="image-wrap">
-          <img src="${esc(event.image)}" alt="${esc(title)}" loading="lazy">
+          <img src="${esc(event.image)}" alt="${esc(event.title)}" loading="lazy">
           ${fomoHtml}
         </div>
         <div class="body">
@@ -192,8 +157,8 @@ function renderEventCard(event) {
             <span>${esc(event.timeDisplay || '')}</span>
             <span>${esc(event.venue || '')}</span>
           </div>
-          <h3>${esc(title)}</h3>
-          <p class="desc">${esc(description)}</p>
+          <h3>${esc(event.title)}</h3>
+          <p class="desc">${esc(event.subtitle || event.description || '')}</p>
           <a href="/event/${esc(event.eventCode.toLowerCase())}/" class="cta">View Event &amp; Book →</a>
         </div>
       </article>`;
@@ -236,14 +201,14 @@ function renderJsonLD(cityCfg, events) {
       "@type": "ListItem",
       "position": i + 1,
       "url": `${SITE_URL}/event/${e.eventCode.toLowerCase()}/`,
-      "name": displayTitle(e)
+      "name": e.title
     }))
   };
 
   const eventLDs = events.map(e => ({
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": displayTitle(e),
+    "name": e.title,
     "startDate": e.start,
     "endDate": endISO(e),
     "eventStatus": e.isSoldOut ? "https://schema.org/EventScheduled" : "https://schema.org/EventScheduled",
@@ -258,7 +223,7 @@ function renderJsonLD(cityCfg, events) {
       }
     },
     "image": e.image,
-    "description": displayDescription(e),
+    "description": e.description || e.subtitle || '',
     "offers": {
       "@type": "Offer",
       "url": `${SITE_URL}/event/${e.eventCode.toLowerCase()}/`,

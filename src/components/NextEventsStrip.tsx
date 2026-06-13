@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin } from "lucide-react";
 import { eventPath, isEventPassed } from "@/lib/eventUtils";
-import { normaliseTwoPmEditionEvent } from "@/lib/twoPmEdition";
 
 interface StripEvent {
   eventCode: string;
@@ -35,8 +34,7 @@ const NextEventsStrip = () => {
         const upcoming = data
           .filter((e) => !e.isHidden && !isEventPassed(e))
           .sort((a, b) => a.start.localeCompare(b.start))
-          .slice(0, 3)
-          .map((e) => normaliseTwoPmEditionEvent(e));
+          .slice(0, 3);
         setEvents(upcoming);
       })
       .catch(() => setEvents([]));

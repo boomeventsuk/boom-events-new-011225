@@ -14,7 +14,7 @@ import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { FaqSection } from '@/components/2pm-club/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
-import { normaliseTwoPmEditionEvent } from '@/lib/twoPmEdition';
+import { isTwoPmEightiesEdition, normaliseTwoPmEditionEvent } from '@/lib/twoPmEdition';
 
 export interface TwoPmClubEvent {
   slug: string;
@@ -50,6 +50,7 @@ interface TwoPmClubEventPageProps {
 
 const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
   const displayEvent = normaliseTwoPmEditionEvent(event);
+  const isEightiesEdition = isTwoPmEightiesEdition(displayEvent);
   // Canonical form: lowercase, trailing slash. Matches the prerendered
   // static shell; the uppercase no-slash form 301s, never emit it.
   const canonicalUrl = `https://www.boomevents.co.uk/event/${displayEvent.slug.toLowerCase()}/`;
@@ -153,7 +154,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
           <TestimonialsSection />
           <TrustStrip />
           <CheckoutSection event={displayEvent} />
-          <FaqSection />
+          <FaqSection isEightiesEdition={isEightiesEdition} />
         </main>
 
         <Footer />

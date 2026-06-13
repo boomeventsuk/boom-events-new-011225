@@ -73,7 +73,7 @@ export default async function handler(request: Request, context: Context) {
     name: "Boombastic Events",
     url: "https://www.boomevents.co.uk",
     description:
-      "Midlands afternoon events company. 12+ years, 23,000+ attendees, regular sell-outs across the region. Sub-brands: THE 2PM CLUB (current 80s Edition daytime disco), SILENT DISCO GREATEST HITS (headphone multi-channel), FOOTLOOSE 80s (pure 80s themed), FAMILY SILENT DISCO (all-ages), GET READY (60s/70s Motown Soul Disco). All events 2pm to 6pm.",
+      "Midlands afternoon events company. 12+ years, 23,000+ attendees, regular sell-outs across the region. Sub-brands: THE 2PM CLUB (80s/90s/00s daytime disco), SILENT DISCO GREATEST HITS (headphone multi-channel), FOOTLOOSE 80s (pure 80s themed), FAMILY SILENT DISCO (all-ages), GET READY (60s/70s Motown Soul Disco). All events 2pm to 6pm.",
     contactPoint: {
       "@type": "ContactPoint",
       email: "hello@boomevents.co.uk",
@@ -119,31 +119,13 @@ export default async function handler(request: Request, context: Context) {
 </script>`;
 
   // --- Noscript HTML block with full brand content for crawlers ---
-  const displayEventTitle = (event: any) => {
-    const searchable = [
-      event.eventCode,
-      event.slug,
-      event.title,
-      event.subtitle,
-      event.description,
-      event.fullDescription,
-      event.highlights,
-      event.image,
-    ].filter(Boolean).join(" ");
-    const startTime = event.start ? new Date(event.start).getTime() : Number.NaN;
-    const isEighties = /80s edition|2pm80s|2pm-80s|goes full-on 80s|your best 80s night out/i.test(searchable)
-      || (/-2pm-/i.test(searchable) && Number.isFinite(startTime) && startTime >= new Date("2026-06-13T00:00:00").getTime());
-    if (!isEighties) return event.title;
-    return `THE 2PM CLUB ${event.city}: 80s Edition Daytime Disco`;
-  };
-
   const upcomingHtml =
     upcomingEvents.length > 0
       ? `<ul>` +
         upcomingEvents
           .map(
             (e) =>
-              `<li>${displayEventTitle(e)} - ${e.date}, ${e.venue}, ${e.city}${e.isSoldOut ? " [SOLD OUT]" : ""} - <a href="https://www.boomevents.co.uk/event/${e.eventCode.toLowerCase()}/">Book tickets</a></li>`
+              `<li>${e.title} - ${e.date}, ${e.venue}, ${e.city}${e.isSoldOut ? " [SOLD OUT]" : ""} - <a href="https://www.boomevents.co.uk/event/${e.eventCode.toLowerCase()}/">Book tickets</a></li>`
           )
           .join("") +
         `</ul>`
@@ -157,7 +139,7 @@ export default async function handler(request: Request, context: Context) {
 
 <h2>Sub-brands</h2>
 <h3>THE 2PM CLUB</h3>
-<p>Current 80s Edition daytime disco. Saturday afternoons 2pm to 6pm. Club-level production, confetti, full dance floor. Cities: Northampton, Bedford, Milton Keynes, Coventry, Luton, Leicester.</p>
+<p>80s, 90s and 00s daytime disco. Saturday afternoons 2pm to 6pm. Club-level production, confetti, full dance floor. Cities: Northampton, Bedford, Milton Keynes, Coventry, Luton, Leicester.</p>
 
 <h3>SILENT DISCO GREATEST HITS</h3>
 <p>Headphone-based silent disco. Multiple audio channels. No speakers. 2pm to 6pm.</p>

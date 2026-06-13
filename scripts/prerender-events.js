@@ -52,7 +52,6 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-const CURRENT_EIGHTIES_CAMPAIGN_START = new Date("2026-06-13T00:00:00").getTime();
 const EIGHTIES_EVENT_SUBLINE = "Your best 80s night out. In the middle of the afternoon.";
 
 function isTwoPmEightiesEdition(ev) {
@@ -66,9 +65,7 @@ function isTwoPmEightiesEdition(ev) {
     ev.highlights,
     ev.image,
   ].filter(Boolean).join(" ");
-  const startTime = ev.start ? new Date(ev.start).getTime() : Number.NaN;
-  return /80s edition|2pm80s|2pm-80s|goes full-on 80s|your best 80s night out/i.test(searchable)
-    || (/-2pm-/i.test(searchable) && Number.isFinite(startTime) && startTime >= CURRENT_EIGHTIES_CAMPAIGN_START);
+  return /80s edition|2pm80s|2pm-80s|goes full-on 80s|your best 80s night out/i.test(searchable);
 }
 
 function displayTitle(ev) {
