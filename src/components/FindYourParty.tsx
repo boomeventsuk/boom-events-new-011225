@@ -4,7 +4,7 @@ const FindYourParty = () => {
   const parties = [
     {
       title: "The 2PM Club™ Daytime Disco",
-      description: "The Midlands' most popular day party. Iconic 80s 90s 00s anthems in the afternoon.",
+      description: "The Midlands' most popular day party. Iconic 80s anthems in the afternoon.",
       image: "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/2PM%20Crowd%20Web.jpg",
       href: "https://www.the2pmclub.co.uk"
     },

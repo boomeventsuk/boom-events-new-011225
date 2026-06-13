@@ -9,7 +9,7 @@ export const FaqSection = () => {
     },
     {
       question: "What music will be played?",
-      answer: "80s, 90s and 00s anthems. Wall-to-wall songs you know every word to. The DJ builds the energy across the afternoon-starting with solid, accessible tracks and building toward peak moments. Think Whitney, Wham!, Spice Girls, Beyoncé, Take That, The Killers, Oasis."
+      answer: "80s anthems. Wall-to-wall songs you know every word to. Think Whitney, Wham!, Madonna, Bon Jovi, Queen, Cyndi Lauper and A-ha."
     },
     {
       question: "Why do you start at 2pm?",

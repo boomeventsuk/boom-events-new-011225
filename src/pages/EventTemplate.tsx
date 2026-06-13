@@ -9,6 +9,7 @@ import Boombastic90sEventPage, { Boombastic90sEvent } from "@/components/Boombas
 import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
 import { isEventPassed } from "@/lib/eventUtils";
+import { normaliseTwoPmEditionEvent } from "@/lib/twoPmEdition";
 
 interface EventData {
   eventCode: string;
@@ -220,29 +221,30 @@ const EventTemplate = () => {
   }
   
   if (is2PMClubEvent) {
+    const displayEvent = normaliseTwoPmEditionEvent(event);
     // Map EventData to TwoPmClubEvent format
     const twoPmEvent: TwoPmClubEvent = {
-      slug: event.eventCode.toLowerCase(),
-      eventType: event.eventCode.split('-')[1] || '2PM',
-      cityCode: event.eventCode.split('-')[2] || '',
-      eventbriteId: event.eventbriteId,
-      promoCode: event.promoCode,
-      isSoldOut: event.isSoldOut,
-      waitingListUrl: event.waitingListUrl,
-      colorScheme: event.colorScheme,
-      fomoOverride: event.fomoOverride,
-      statusLabel: event.statusLabel,
-      title: event.title,
-      location: `${event.venue}, ${event.city}`,
-      start: event.start || event.date,
-      end: event.end || event.date,
-      bookUrl: event.bookUrl || siteEventUrl,
-      infoUrl: event.infoUrl || event.bookUrl || siteEventUrl,
-      image: event.image,
-      description: event.description,
-      subtitle: event.subtitle || '',
-      fullDescription: event.fullDescription || event.description,
-      highlights: event.highlights || '',
+      slug: displayEvent.eventCode.toLowerCase(),
+      eventType: displayEvent.eventCode.split('-')[1] || '2PM',
+      cityCode: displayEvent.eventCode.split('-')[2] || '',
+      eventbriteId: displayEvent.eventbriteId,
+      promoCode: displayEvent.promoCode,
+      isSoldOut: displayEvent.isSoldOut,
+      waitingListUrl: displayEvent.waitingListUrl,
+      colorScheme: displayEvent.colorScheme,
+      fomoOverride: displayEvent.fomoOverride,
+      statusLabel: displayEvent.statusLabel,
+      title: displayEvent.title,
+      location: `${displayEvent.venue}, ${displayEvent.city}`,
+      start: displayEvent.start || displayEvent.date,
+      end: displayEvent.end || displayEvent.date,
+      bookUrl: displayEvent.bookUrl || siteEventUrl,
+      infoUrl: displayEvent.infoUrl || displayEvent.bookUrl || siteEventUrl,
+      image: displayEvent.image,
+      description: displayEvent.description,
+      subtitle: displayEvent.subtitle || '',
+      fullDescription: displayEvent.fullDescription || displayEvent.description,
+      highlights: displayEvent.highlights || '',
     };
     
     return <TwoPmClubEventPage event={twoPmEvent} />;
