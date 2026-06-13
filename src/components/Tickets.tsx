@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { EventCard } from './EventCard';
 import { isEventPassed } from '@/lib/eventUtils';
-import { normaliseTwoPmEditionEvent } from '@/lib/twoPmEdition';
 
 interface FomoOverride {
   tier: string;
@@ -95,7 +94,6 @@ const Tickets = () => {
               const dateB = b.start ? new Date(b.start).getTime() : 0;
               return dateA - dateB;
             })
-            .map((event) => normaliseTwoPmEditionEvent(event))
             .map((event) => (
               <EventCard
                 key={event.eventCode}

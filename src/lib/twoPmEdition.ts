@@ -13,7 +13,6 @@ export interface TwoPmEditionEvent {
   image?: string;
 }
 
-const CURRENT_EIGHTIES_CAMPAIGN_START = new Date("2026-06-13T00:00:00").getTime();
 const EIGHTIES_PATTERN = /80s edition|2pm80s|2pm-80s|goes full-on 80s|your best 80s night out/i;
 const OLD_DECADES_PATTERN = /80s\s*,?\s*90s|90s\s*(and|&)\s*00s|80s\/90s\/00s|00s anthems/i;
 
@@ -47,9 +46,7 @@ export const isTwoPmEightiesEdition = (event?: TwoPmEditionEvent | null): boolea
     event.image,
   ].filter(Boolean).join(" ");
 
-  const startTime = event.start ? new Date(event.start).getTime() : Number.NaN;
-  return EIGHTIES_PATTERN.test(searchable)
-    || (/-2pm-/i.test(searchable) && Number.isFinite(startTime) && startTime >= CURRENT_EIGHTIES_CAMPAIGN_START);
+  return EIGHTIES_PATTERN.test(searchable);
 };
 
 export const twoPmDisplayTitle = (event: TwoPmEditionEvent): string => {

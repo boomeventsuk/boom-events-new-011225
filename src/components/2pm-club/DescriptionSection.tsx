@@ -73,7 +73,7 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
                 THE 2PM CLUB DAYTIME DISCO RETURNS TO {city.toUpperCase()}.
               </p>
               <p className="text-2xl md:text-3xl font-bold text-primary mb-6">
-                An Afternoon of Iconic 80s Anthems!
+                An Afternoon of Iconic Anthems from the 80s 90s 00s!
               </p>
               <blockquote className="border-l-4 border-primary pl-6 py-4 mb-6 text-xl md:text-2xl italic text-foreground/90">
                 "Remember when going OUT OUT didn't require a week's recovery?"
