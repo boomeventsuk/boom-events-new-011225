@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
-import fallbackHero from "@/assets/hero-crowd.jpg";
 
-const heroImageUrl = "https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg";
+const heroLqip = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCAASACADASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAQBAgMF/8QAIBAAAgEEAgMBAAAAAAAAAAAAAAERAgMEIQUSMkFCUf/EABgBAAMBAQAAAAAAAAAAAAAAAAABAgME/8QAGREBAQEAAwAAAAAAAAAAAAAAAAERAhJB/9oADAMBAAIRAxEAPwCb3J1NQhGrIbcsVdxtyyruTo0tdM5Y3ryJY7jci7dPWTkdthLWydHb1Poz+gAEUfpZ+CABU4//2Q==";
 
 const isChristmasDay = () => {
   const today = new Date();
@@ -22,10 +21,21 @@ const Hero = () => {
   };
 
   return <section id="hero" className={`relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-24 pb-12 ${isChristmasDay() ? 'christmas-theme' : ''}`}>
-      {/* Background Image with Overlay */}
-      <img src={`${heroImageUrl}?width=1280&quality=75`} srcSet={`${heroImageUrl}?width=768&quality=75 768w, ${heroImageUrl}?width=1280&quality=75 1280w, ${heroImageUrl}?width=1920&quality=75 1920w`} sizes="100vw" fetchPriority="high" decoding="async" alt="Boombastic Events crowd at a party with colorful lights" className="absolute inset-0 w-full h-full object-cover" onError={e => {
-      e.currentTarget.src = fallbackHero;
-    }} />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroLqip})` }}
+      />
+      <img
+        src="/img/boom-hero-party-1280.webp"
+        srcSet="/img/boom-hero-party-768.webp 768w, /img/boom-hero-party-1280.webp 1280w, /img/boom-hero-party-1920.webp 1920w"
+        sizes="100vw"
+        fetchPriority="high"
+        decoding="async"
+        alt="Boombastic Events crowd singing and dancing at a packed party"
+        className="absolute inset-0 w-full h-full object-cover object-center brightness-125 saturate-110"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/45 via-background/5 to-transparent" />
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-4">
@@ -34,11 +44,9 @@ const Hero = () => {
             🎄 Merry Christmas from Boombastic! 🎅
           </div>
         )}
-        <h1 className={`font-poppins text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-2 leading-tight uppercase ${isChristmasDay() ? 'christmas-gradient-text' : ''}`}>THE MIDLANDS' FAVOURITE PARTY STARTERS SINCE 2014.</h1>
+        <h1 className={`font-poppins text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 leading-tight uppercase drop-shadow-[0_5px_28px_rgba(0,0,0,0.95)] ${isChristmasDay() ? 'christmas-gradient-text' : ''}`}>HUGE SINGALONGS AT 2PM. BEAUTIFUL CHAOS AT 11PM.</h1>
         
-        <h2 className="font-poppins text-3xl md:text-5xl font-bold text-primary mb-6 leading-tight uppercase lg:text-5xl">TRUSTED BY THOUSANDS.</h2>
-        
-        <p className="font-poppins text-base text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto md:text-2xl">Whether you're after huge singalongs at 2pm or the beautiful chaos of a Silent Disco at 11pm, you're in the right place.</p>
+        <p className="font-poppins text-base text-foreground/90 mb-8 leading-relaxed max-w-3xl mx-auto drop-shadow-[0_4px_18px_rgba(0,0,0,0.95)] md:text-2xl">The Midlands' favourite party starters since 2014. Trusted by thousands.</p>
         
         <Button onClick={() => scrollToSection('tickets')} size="lg" className={`font-semibold text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all uppercase tracking-wide ${isChristmasDay() ? 'bg-gradient-to-r from-red-600 to-green-600 hover:from-red-500 hover:to-green-500 text-foreground christmas-glow' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}>
           UPCOMING PARTIES
