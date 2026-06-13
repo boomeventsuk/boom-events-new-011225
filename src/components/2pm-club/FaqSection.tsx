@@ -1,7 +1,12 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
+import { EIGHTIES_MUSIC_FAQ } from '@/lib/twoPmEdition';
 
-export const FaqSection = () => {
+interface FaqSectionProps {
+  isEightiesEdition?: boolean;
+}
+
+export const FaqSection = ({ isEightiesEdition = false }: FaqSectionProps) => {
   const faqs = [
     {
       question: "Is it really like a night out clubbing in the afternoon?",
@@ -9,7 +14,9 @@ export const FaqSection = () => {
     },
     {
       question: "What music will be played?",
-      answer: "80s, 90s and 00s anthems. Wall-to-wall songs you know every word to. The DJ builds the energy across the afternoon-starting with solid, accessible tracks and building toward peak moments. Think Whitney, Wham!, Spice Girls, Beyoncé, Take That, The Killers, Oasis."
+      answer: isEightiesEdition
+        ? EIGHTIES_MUSIC_FAQ
+        : "80s, 90s and 00s anthems. Wall-to-wall songs you know every word to. The DJ builds the energy across the afternoon-starting with solid, accessible tracks and building toward peak moments. Think Whitney, Wham!, Spice Girls, Beyoncé, Take That, The Killers, Oasis."
     },
     {
       question: "Why do you start at 2pm?",

@@ -2,6 +2,7 @@ import { Calendar, Clock, MapPin, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { formatHouseDate } from '@/lib/eventUtils';
+import { EIGHTIES_EVENT_SUBLINE, isTwoPmEightiesEdition } from '@/lib/twoPmEdition';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 
@@ -41,7 +42,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
         }
       : null;
   const isChristmas = event.title.toLowerCase().includes('christmas');
-  const isEightiesEdition = event.title.toLowerCase().includes('80s edition');
+  const isEightiesEdition = isTwoPmEightiesEdition(event);
   const city = event.location.split(',')[1]?.trim() || event.cityCode;
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
@@ -118,7 +119,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                     80s Edition {city.toUpperCase()}
                   </p>
                   <p className="text-lg md:text-xl text-foreground">
-                    {event.subtitle || 'A proper afternoon party built around the biggest 80s anthems'}
+                    {event.subtitle || EIGHTIES_EVENT_SUBLINE}
                   </p>
                 </>
               ) : (

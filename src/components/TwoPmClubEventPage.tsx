@@ -14,6 +14,7 @@ import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { FaqSection } from '@/components/2pm-club/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
+import { isTwoPmEightiesEdition, normaliseTwoPmEditionEvent } from '@/lib/twoPmEdition';
 
 export interface TwoPmClubEvent {
   slug: string;
@@ -48,47 +49,56 @@ interface TwoPmClubEventPageProps {
 }
 
 const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
+  const displayEvent = normaliseTwoPmEditionEvent(event);
+  const isEightiesEdition = isTwoPmEightiesEdition(displayEvent);
   // Canonical form: lowercase, trailing slash. Matches the prerendered
   // static shell; the uppercase no-slash form 301s, never emit it.
-  const canonicalUrl = `https://www.boomevents.co.uk/event/${event.slug.toLowerCase()}/`;
-  const dateLabel = formatHouseDate(event.start);
-  const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
+  const canonicalUrl = `https://www.boomevents.co.uk/event/${displayEvent.slug.toLowerCase()}/`;
+  const dateLabel = formatHouseDate(displayEvent.start);
+  const pageTitle = [displayEvent.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   
   // Determine if this is a Christmas event (December events ending in "1225")
-  const isChristmasEvent = event.slug.includes('1225');
+  const isChristmasEvent = displayEvent.slug.includes('1225');
   
   useEffect(() => {
     // Track page view on mount
-    trackEventPageView(event.slug, event.title, {
-      eventbriteId: event.eventbriteId,
-      city: event.location.split(',')[1]?.trim(),
-      venue: event.location.split(',')[0]?.trim(),
-      startIso: event.start,
-      status: event.isSoldOut ? 'sold-out' : undefined,
+    trackEventPageView(displayEvent.slug, displayEvent.title, {
+      eventbriteId: displayEvent.eventbriteId,
+      city: displayEvent.location.split(',')[1]?.trim(),
+      venue: displayEvent.location.split(',')[0]?.trim(),
+      startIso: displayEvent.start,
+      status: displayEvent.isSoldOut ? 'sold-out' : undefined,
       source: 'event_page'
     });
-  }, [event.slug, event.title]);
+  }, [
+    displayEvent.slug,
+    displayEvent.title,
+    displayEvent.eventbriteId,
+    displayEvent.location,
+    displayEvent.start,
+    displayEvent.isSoldOut,
+  ]);
 
   // JSON-LD structured data
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": event.title,
-    "startDate": event.start,
-    "endDate": event.end,
+    "name": displayEvent.title,
+    "startDate": displayEvent.start,
+    "endDate": displayEvent.end,
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
     "location": {
       "@type": "Place",
-      "name": event.location.split(',')[0]?.trim(),
+      "name": displayEvent.location.split(',')[0]?.trim(),
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": event.location.split(',')[1]?.trim(),
+        "addressLocality": displayEvent.location.split(',')[1]?.trim(),
         "addressCountry": "GB"
       }
     },
-    "image": event.image,
-    "description": event.description,
+    "image": displayEvent.image,
+    "description": displayEvent.description,
     "organizer": {
       "@type": "Organization",
       "name": "Boombastic Events",
@@ -98,7 +108,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
       "@type": "Offer",
       "url": canonicalUrl,
       "priceCurrency": "GBP",
-      "availability": event.isSoldOut
+      "availability": displayEvent.isSoldOut
         ? "https://schema.org/SoldOut"
         : "https://schema.org/InStock",
       "validFrom": new Date().toISOString()
@@ -109,22 +119,22 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
     <>
       <Helmet>
         <title>{pageTitle}</title>
-        <meta name="description" content={event.description} />
+        <meta name="description" content={displayEvent.description} />
         <link rel="canonical" href={canonicalUrl} />
 
         {/* Open Graph */}
         <meta property="og:type" content="event" />
         <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={event.description} />
-        <meta property="og:image" content={event.image} />
+        <meta property="og:description" content={displayEvent.description} />
+        <meta property="og:image" content={displayEvent.image} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content="Boombastic Events" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={event.description} />
-        <meta name="twitter:image" content={event.image} />
+        <meta name="twitter:description" content={displayEvent.description} />
+        <meta name="twitter:image" content={displayEvent.image} />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
@@ -132,31 +142,31 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         </script>
       </Helmet>
 
-      <div className={`min-h-screen bg-background ${event.colorScheme ? `theme-${event.colorScheme}` : ''}`}>
+      <div className={`min-h-screen bg-background ${displayEvent.colorScheme ? `theme-${displayEvent.colorScheme}` : ''}`}>
         <Header />
         
         <main>
-          <HeroSection event={event} />
-          <DescriptionSection event={event} />
+          <HeroSection event={displayEvent} />
+          <DescriptionSection event={displayEvent} />
           <VideoSection />
-          <HighlightsSection highlights={event.highlights} isChristmas={isChristmasEvent} />
+          <HighlightsSection highlights={displayEvent.highlights} isChristmas={isChristmasEvent} />
           <PhotoGallery />
           <TestimonialsSection />
           <TrustStrip />
-          <CheckoutSection event={event} />
-          <FaqSection />
+          <CheckoutSection event={displayEvent} />
+          <FaqSection isEightiesEdition={isEightiesEdition} />
         </main>
 
         <Footer />
         
         <StickyBookButton
-          eventSlug={event.slug}
-          eventTitle={event.title}
-          eventbriteId={event.eventbriteId}
-          urgencyText={event.fomoOverride?.message}
-          statusLabel={event.statusLabel}
-          start={event.start}
-          venue={event.location.split(',')[0]?.trim()}
+          eventSlug={displayEvent.slug}
+          eventTitle={displayEvent.title}
+          eventbriteId={displayEvent.eventbriteId}
+          urgencyText={displayEvent.fomoOverride?.message}
+          statusLabel={displayEvent.statusLabel}
+          start={displayEvent.start}
+          venue={displayEvent.location.split(',')[0]?.trim()}
         />
       </div>
     </>
