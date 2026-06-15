@@ -15,6 +15,8 @@ import { FaqSection } from '@/components/2pm-club/FaqSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
 import { isTwoPmEightiesEdition, normaliseTwoPmEditionEvent } from '@/lib/twoPmEdition';
+import { formatPriceLabel, buildFeedUrgency } from '@/lib/eventUtils';
+import type { GroupTicket } from '@/components/EventCard';
 
 export interface TwoPmClubEvent {
   slug: string;
@@ -42,7 +44,16 @@ export interface TwoPmClubEvent {
   subtitle: string;
   fullDescription: string;
   highlights: string;
+  timeDisplay?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
 }
+
+// Extract the numeric value from a feed price label: "From £8.50" -> "8.50".
+const priceFromLabel = (label?: string): string | undefined => {
+  const m = label?.match(/(\d+(?:\.\d{2})?)/);
+  return m ? m[1] : undefined;
+};
 
 interface TwoPmClubEventPageProps {
   event: TwoPmClubEvent;
@@ -59,6 +70,8 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
   
   // Determine if this is a Christmas event (December events ending in "1225")
   const isChristmasEvent = displayEvent.slug.includes('1225');
+  // Booking urgency / pricing from the live feed only.
+  const feedUrgency = buildFeedUrgency(displayEvent);
   
   useEffect(() => {
     // Track page view on mount
@@ -108,6 +121,10 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
       "@type": "Offer",
       "url": canonicalUrl,
       "priceCurrency": "GBP",
+      // Lowest ticket price from the live feed (omit when not synced).
+      ...(priceFromLabel(displayEvent.priceLabel)
+        ? { "price": priceFromLabel(displayEvent.priceLabel) }
+        : {}),
       "availability": displayEvent.isSoldOut
         ? "https://schema.org/SoldOut"
         : "https://schema.org/InStock",
@@ -153,7 +170,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
           <PhotoGallery />
           <TestimonialsSection />
           <TrustStrip />
-          <CheckoutSection event={displayEvent} />
+          <CheckoutSection event={displayEvent} checkoutMessage={feedUrgency} />
           <FaqSection isEightiesEdition={isEightiesEdition} />
         </main>
 

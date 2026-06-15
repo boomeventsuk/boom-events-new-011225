@@ -13,7 +13,8 @@ import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, buildFeedUrgency } from '@/lib/eventUtils';
+import type { GroupTicket } from '@/components/EventCard';
 
 export interface FootlooseEvent {
   slug: string;
@@ -34,6 +35,10 @@ export interface FootlooseEvent {
   hiddenSections?: string[];
   checkoutMessage?: string;
   ticketsLeft?: number;
+  timeDisplay?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
+  statusLabel?: string;
 }
 
 interface FootlooseEventPageProps {
@@ -59,6 +64,11 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
   // Keep the date in the hydrated title so Helmet matches the static shell
   const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const pageDescription = `${event.description} Book tickets for the ultimate 80s night at ${event.location}.`;
+
+  // Urgency / pricing line from the live feed only.
+  const feedUrgency = buildFeedUrgency(event);
+  // Banner shows the synced status line for live events (not sold out).
+  const bannerMessage = !event.isSoldOut && event.statusLabel ? event.statusLabel : undefined;
 
   // Structured data for SEO
   const eventSchema = {
@@ -126,8 +136,8 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
         <Header />
         
         <main>
-          {event.ticketsLeft && (
-            <UrgencyBanner message={`LAST ${event.ticketsLeft} TICKETS, Don't miss out!`} />
+          {bannerMessage && (
+            <UrgencyBanner message={bannerMessage} />
           )}
 
           <HeroSection event={{
@@ -141,12 +151,16 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
             city: event.city,
             isSoldOut: event.isSoldOut,
             subtitle: event.description,
-          }} ticketsLeft={event.ticketsLeft} />
-          
+            timeDisplay: event.timeDisplay,
+            priceLabel: event.priceLabel,
+            groupTicket: event.groupTicket,
+            statusLabel: event.statusLabel,
+          }} />
+
           <DescriptionSection event={{
             city: event.city,
             fullDescription: event.fullDescription,
-          }} ticketsLeft={event.ticketsLeft} />
+          }} statusLabel={bannerMessage} />
           
           {!hiddenSections.includes('soundtrack') && (
             <SoundtrackSection soundtrack={event.soundtrack} />
@@ -161,7 +175,7 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
           )}
           
           <TrustStrip />
-          <CheckoutSection 
+          <CheckoutSection
             event={{
               slug: event.slug,
               eventbriteId: event.eventbriteId,
@@ -169,23 +183,26 @@ const FootlooseEventPage = ({ event }: FootlooseEventPageProps) => {
               promoCode: event.promoCode,
               isSoldOut: event.isSoldOut,
             }}
-            checkoutMessage={event.checkoutMessage || "Round up your friends and book now. This is your night. 👇"}
+            checkoutMessage={feedUrgency || event.checkoutMessage}
           />
-          
+
           {!hiddenSections.includes('faq') && (
-            <FaqSection />
+            <FaqSection
+              venue={event.location.split(',')[0]?.trim()}
+              timeDisplay={event.timeDisplay}
+            />
           )}
         </main>
         
         <Footer />
         
-        <StickyBookButton 
-          eventSlug={event.slug} 
+        <StickyBookButton
+          eventSlug={event.slug}
           eventTitle={event.title}
           eventbriteId={event.eventbriteId}
           start={event.start}
           venue={event.location.split(',')[0]?.trim()}
-          urgencyText={event.ticketsLeft ? `LAST ${event.ticketsLeft} TICKETS, BOOK NOW` : undefined}
+          statusLabel={event.statusLabel}
         />
       </div>
     </>

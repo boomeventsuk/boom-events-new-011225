@@ -7,7 +7,20 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-export const FaqSection = () => {
+interface FaqSectionProps {
+  venue?: string;
+  timeDisplay?: string;
+}
+
+export const FaqSection = ({ venue, timeDisplay }: FaqSectionProps) => {
+  const cleanTime = timeDisplay ? timeDisplay.replace(/\s*[–—]\s*/g, ' to ') : null;
+  const timeAnswer = cleanTime
+    ? `Doors open and we party for four hours of non-stop 80s anthems. This date runs ${cleanTime}.`
+    : "Doors open and we party for four hours of non-stop 80s anthems. Check the event details above for this date's start and finish times.";
+  const accessAnswer = venue
+    ? `${venue} has full accessibility. If you have specific requirements, please contact us in advance and we'll do everything we can to help.`
+    : "Our venues have full accessibility. If you have specific requirements, please contact us in advance and we'll do everything we can to help.";
+
   const faqs = [
     {
       question: "What kind of music will be played?",
@@ -15,7 +28,7 @@ export const FaqSection = () => {
     },
     {
       question: "What time does it start and finish?",
-      answer: "Doors open at 8pm and we party until midnight. Four hours of non-stop 80s anthems!"
+      answer: timeAnswer
     },
     {
       question: "Is there a dress code?",
@@ -31,7 +44,7 @@ export const FaqSection = () => {
     },
     {
       question: "Is it accessible?",
-      answer: "Yes! The Picturedrome has full accessibility. If you have specific requirements, please contact us in advance and we'll do everything we can to help."
+      answer: accessAnswer
     },
     {
       question: "Can I book for a group or birthday?",

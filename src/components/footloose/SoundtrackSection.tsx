@@ -11,10 +11,10 @@ export const SoundtrackSection = ({ soundtrack }: SoundtrackSectionProps) => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            🎵 THE SOUNDTRACK
+            THE SOUNDTRACK
           </h2>
           <p className="text-lg text-foreground/80 mb-8">
-            Every song an anthem. Every moment made for the dancefloor. 💃
+            Every song an anthem. Every moment made for the dancefloor.
           </p>
           
           <div className="flex flex-wrap justify-center gap-3 md:gap-4">

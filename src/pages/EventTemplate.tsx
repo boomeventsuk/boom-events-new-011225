@@ -10,6 +10,7 @@ import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage
 import NotFound from "./NotFound";
 import { isEventPassed } from "@/lib/eventUtils";
 import { normaliseTwoPmEditionEvent } from "@/lib/twoPmEdition";
+import type { GroupTicket } from "@/components/EventCard";
 
 interface EventData {
   eventCode: string;
@@ -47,7 +48,11 @@ interface EventData {
     message: string;
     timeMessage?: string | null;
   };
+  // Live feed pricing / urgency (machine-owned, never hardcode)
   statusLabel?: string;
+  priceLabel?: string;
+  price?: number;
+  groupTicket?: GroupTicket | null;
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -115,8 +120,12 @@ const EventTemplate = () => {
       soundtrack: event.soundtrack,
       hiddenSections: event.hiddenSections,
       isAfternoon: event.isAfternoon,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <GetReadyEventPage event={getReadyEvent} />;
   }
 
@@ -139,8 +148,12 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       soundtrack: event.soundtrack,
       hiddenSections: event.hiddenSections,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <Boombastic90sEventPage event={b90Event} />;
   }
   
@@ -165,8 +178,12 @@ const EventTemplate = () => {
       hiddenSections: event.hiddenSections,
       checkoutMessage: event.checkoutMessage,
       ticketsLeft: event.ticketsLeft,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <FootlooseEventPage event={footlooseEvent} />;
   }
   
@@ -191,8 +208,12 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       channels: event.channels,
       hiddenSections: event.hiddenSections,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <FamilySilentDiscoEventPage event={familySDEvent} />;
   }
 
@@ -215,8 +236,12 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       channels: event.channels,
       hiddenSections: event.hiddenSections,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <SilentDiscoEventPage event={silentDiscoEvent} />;
   }
   
@@ -245,8 +270,11 @@ const EventTemplate = () => {
       subtitle: displayEvent.subtitle || '',
       fullDescription: displayEvent.fullDescription || displayEvent.description,
       highlights: displayEvent.highlights || '',
+      timeDisplay: displayEvent.timeDisplay,
+      priceLabel: displayEvent.priceLabel,
+      groupTicket: displayEvent.groupTicket,
     };
-    
+
     return <TwoPmClubEventPage event={twoPmEvent} />;
   }
   

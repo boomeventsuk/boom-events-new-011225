@@ -1,4 +1,5 @@
 import { SilentDiscoChannel } from '@/components/SilentDiscoEventPage';
+import { stripEmoji } from '@/lib/eventUtils';
 
 interface ChannelsSectionProps {
   channels: SilentDiscoChannel[];
@@ -48,18 +49,17 @@ export const ChannelsSection = ({ channels }: ChannelsSectionProps) => {
                   className={`${styles.bg} ${styles.border} border-l-4 rounded-xl p-6 shadow-lg ${styles.glow} hover:scale-[1.02] transition-transform duration-300`}
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-2xl">🎧</span>
                     <h3 className={`text-xl font-bold ${styles.text}`}>
-                      {channel.name}
+                      {stripEmoji(channel.name)}
                     </h3>
                   </div>
                   {channel.description && (
                     <p className="text-foreground/90 mb-2">
-                      {channel.description}
+                      {stripEmoji(channel.description)}
                     </p>
                   )}
                   <p className={`text-sm ${styles.text} font-medium`}>
-                    {channel.artists}
+                    {stripEmoji(channel.artists)}
                   </p>
                 </div>
               );

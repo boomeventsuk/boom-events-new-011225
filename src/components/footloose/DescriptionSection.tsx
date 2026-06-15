@@ -3,27 +3,27 @@ interface DescriptionSectionProps {
     city: string;
     fullDescription: string;
   };
-  ticketsLeft?: number;
+  statusLabel?: string;
 }
 
-export const DescriptionSection = ({ event, ticketsLeft }: DescriptionSectionProps) => {
+export const DescriptionSection = ({ event, statusLabel }: DescriptionSectionProps) => {
   return (
     <section className="py-10 md:py-14">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          {ticketsLeft && (
+          {statusLabel && (
             <div className="mb-8 bg-destructive/10 border-2 border-destructive rounded-xl p-6 text-center">
               <p className="text-2xl md:text-3xl font-bold text-destructive">
-                ⚠️ ONLY {ticketsLeft} TICKETS LEFT
+                {statusLabel}
               </p>
               <p className="text-lg text-foreground/80 mt-2">
-                This event is nearly sold out, book now before they're gone.
+                Book now before they're gone.
               </p>
             </div>
           )}
 
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-            🪩 {event.city.toUpperCase()}, YOUR FAVOURITE 80s NIGHT IS BACK!
+            {event.city.toUpperCase()}, YOUR FAVOURITE 80s NIGHT IS BACK!
           </h2>
           
           <div className="space-y-6 text-lg text-foreground/90">
@@ -40,8 +40,8 @@ export const DescriptionSection = ({ event, ticketsLeft }: DescriptionSectionPro
             
             <blockquote className="border-l-4 border-primary pl-6 py-2 my-8 bg-muted/30 rounded-r-lg">
               <p className="text-xl italic">
-                "This isn't just any 80s night. This is the real deal, a proper party where 
-                the dancefloor is full, the singalongs are epic, and the vibe is electric." ✨
+                "This isn't just any 80s night. This is the real deal, a proper party where
+                the dancefloor is full, the singalongs are epic, and the vibe is electric."
               </p>
             </blockquote>
           </div>

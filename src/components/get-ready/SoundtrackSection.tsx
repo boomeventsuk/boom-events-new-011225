@@ -11,10 +11,10 @@ export const SoundtrackSection = ({ soundtrack }: SoundtrackSectionProps) => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            🎵 THE LEGENDS
+            THE LEGENDS
           </h2>
           <p className="text-lg text-foreground/80 mb-8">
-            The Motown, Soul & Disco icons who created the soundtrack to a generation 🕺
+            The Motown, Soul & Disco icons who created the soundtrack to a generation
           </p>
           
           <div className="flex flex-wrap justify-center gap-3 md:gap-4">

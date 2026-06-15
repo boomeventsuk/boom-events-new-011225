@@ -52,6 +52,29 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// Emoji ranges + ZWJ/variation selectors, matching src/lib/eventUtils.ts.
+const EMOJI_RE =
+  /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{2300}-\u{23FF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu;
+
+// Sanitise machine-owned feed copy for static output: strip emoji, drop any
+// stale hardcoded "Tickets from £X" fragment (price comes from the feed
+// priceLabel, never baked into prose), and tidy whitespace / em dashes.
+function sanitiseCopy(s) {
+  return String(s || "")
+    .replace(EMOJI_RE, "")
+    .replace(/\bTickets?\s+from\s+(?:just\s+)?£\d+(?:\.\d{2})?\.?/gi, "")
+    .replace(/[–—]/g, "-")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([.,!?])/g, "$1")
+    .trim();
+}
+
+// "From £8.50" -> "8.50" for JSON-LD offers.price.
+function priceFromLabel(label) {
+  const m = (label || "").match(/(\d+(?:\.\d{2})?)/);
+  return m ? m[1] : undefined;
+}
+
 const EIGHTIES_EVENT_SUBLINE = "Your best 80s night out. In the middle of the afternoon.";
 
 function isTwoPmEightiesEdition(ev) {
@@ -75,7 +98,7 @@ function displayTitle(ev) {
 }
 
 function displayDescription(ev) {
-  if (!isTwoPmEightiesEdition(ev)) return ev.description || ev.subtitle || "";
+  if (!isTwoPmEightiesEdition(ev)) return sanitiseCopy(ev.description || ev.subtitle || "");
   const venue = ev.venue || "";
   const city = ev.city || ev.location?.split(",").pop()?.trim() || "";
   const place = [venue, city].filter(Boolean).join(", ");
@@ -122,6 +145,8 @@ function eventJsonLd(ev) {
         ? "https://schema.org/SoldOut"
         : (ev.availability || "https://schema.org/InStock"),
       priceCurrency: "GBP",
+      // Lowest ticket price from the feed (omit when not synced).
+      ...(priceFromLabel(ev.priceLabel) ? { price: priceFromLabel(ev.priceLabel) } : {}),
     },
     organizer: {
       "@type": "Organization",

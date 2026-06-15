@@ -2,9 +2,10 @@ import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { format } from 'date-fns';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, buildFeedUrgency } from '@/lib/eventUtils';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
+import type { GroupTicket } from '@/components/EventCard';
 
 interface HeroSectionProps {
   event: {
@@ -18,6 +19,10 @@ interface HeroSectionProps {
     city: string;
     isSoldOut?: boolean;
     isAfternoon?: boolean;
+    timeDisplay?: string;
+    priceLabel?: string;
+    groupTicket?: GroupTicket | null;
+    statusLabel?: string;
   };
 }
 
@@ -33,13 +38,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   
   // Dynamic badge and tagline based on time of day
   const badgeText = isAfternoon ? "AFTERNOON SPECIAL" : "SUMMER SPECIAL";
-  const tagline = isAfternoon 
+  const tagline = isAfternoon
     ? "Banish those January blues with four hours of legendary floorfillers"
     : "Summer's hottest night out, four hours of legendary floorfillers";
-  const fallbackFomoText = isAfternoon
-    ? "🔥 LAST 50 TICKETS, Just £7.50, This Sunday!"
-    : "🔥 TICKETS FROM £7, Book Now!";
-  
+  // Urgency comes from the live feed only (statusLabel + price + group).
+  const fallbackFomoText = buildFeedUrgency(event);
+
   const shareUrl = `https://www.boomevents.co.uk/event/${event.slug}`;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   
@@ -72,9 +76,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
     window.open(url, '_blank');
   };
 
-  // Format time display
+  // Format time display: prefer the feed's timeDisplay, else derive from start/end
   const startTime = format(startDate, 'ha').toLowerCase();
   const endTime = format(endDate, 'ha').toLowerCase();
+  const timeDisplay = event.timeDisplay
+    ? event.timeDisplay.replace(/\s*[–—]\s*/g, ' - ')
+    : `${startTime} - ${endTime}`;
 
   return (
     <section className="py-10 md:py-16">
@@ -115,7 +122,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-amber-400" />
-                <span>{startTime} – {endTime}</span>
+                <span>{timeDisplay}</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-amber-400" />
@@ -130,13 +137,13 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 timeMessage={fomoData.time_message}
                 size="lg"
               />
-            ) : (
-              <div className="bg-gradient-to-r from-red-500/20 to-amber-500/20 border border-red-500/40 rounded-lg p-4 animate-pulse">
+            ) : fallbackFomoText ? (
+              <div className="bg-gradient-to-r from-red-500/20 to-amber-500/20 border border-red-500/40 rounded-lg p-4">
                 <p className="text-red-300 font-bold text-lg">
                   {fallbackFomoText}
                 </p>
               </div>
-            )}
+            ) : null}
 
             <Button
               id="hero-book-button"

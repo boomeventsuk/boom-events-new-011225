@@ -5,6 +5,7 @@ import { formatHouseDate } from '@/lib/eventUtils';
 import { EIGHTIES_EVENT_SUBLINE, isTwoPmEightiesEdition } from '@/lib/twoPmEdition';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
+import type { GroupTicket } from '@/components/EventCard';
 
 interface HeroSectionProps {
   event: {
@@ -18,6 +19,9 @@ interface HeroSectionProps {
     cityCode: string;
     isSoldOut?: boolean;
     subtitle?: string;
+    timeDisplay?: string;
+    priceLabel?: string;
+    groupTicket?: GroupTicket | null;
     fomoOverride?: {
       tier: string;
       message: string;
@@ -47,6 +51,10 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
+  // Prefer the feed's timeDisplay; fall back to the 2pm-6pm default.
+  const timeDisplay = event.timeDisplay
+    ? event.timeDisplay.replace(/\s*[–—]\s*/g, ' - ')
+    : '2pm - 6pm';
   
   const shareUrl = `https://www.boomevents.co.uk/event/${event.slug}`;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -144,7 +152,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary" />
-                <span>2pm – 6pm</span>
+                <span>{timeDisplay}</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary" />

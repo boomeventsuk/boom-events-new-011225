@@ -9,9 +9,21 @@ import {
 
 interface FaqSectionProps {
   isAfternoon?: boolean;
+  priceLabel?: string;
+  statusLabel?: string;
 }
 
-const getAfternoonFaqs = () => [
+// Booking line built from live feed fields only: status + price.
+// No hardcoded ticket counts or prices.
+const doorBookingAnswer = (priceLabel?: string, statusLabel?: string) => {
+  const sentences = ["We recommend booking online to guarantee entry."];
+  if (statusLabel) sentences.push(`${statusLabel}.`);
+  if (priceLabel) sentences.push(`Tickets ${priceLabel.toLowerCase()}.`);
+  sentences.push("Our events often sell out completely.");
+  return sentences.join(" ");
+};
+
+const getAfternoonFaqs = (priceLabel?: string, statusLabel?: string) => [
   {
     question: "What kind of music will be played?",
     answer: "Our DJs will play four hours of the biggest Motown, Soul and Disco floorfillers from the 60s and 70s. Think The Jackson 5, Stevie Wonder, Diana Ross, Chic, Sister Sledge, James Brown, The Four Tops, The Temptations and many more legends."
@@ -26,7 +38,7 @@ const getAfternoonFaqs = () => [
   },
   {
     question: "Can I buy tickets on the door?",
-    answer: "We recommend booking online now, only 50 tickets remain! Tickets are £7.50 each. This event often sells out completely."
+    answer: doorBookingAnswer(priceLabel, statusLabel)
   },
   {
     question: "Is the venue accessible?",
@@ -38,7 +50,7 @@ const getAfternoonFaqs = () => [
   }
 ];
 
-const getEveningFaqs = () => [
+const getEveningFaqs = (priceLabel?: string, statusLabel?: string) => [
   {
     question: "What kind of music will be played?",
     answer: "Our DJs will play four hours of the biggest Motown, Soul and Disco floorfillers from the 60s and 70s. Think The Jackson 5, Stevie Wonder, Diana Ross, Chic, Sister Sledge, James Brown, The Four Tops, The Temptations and many more legends."
@@ -53,7 +65,7 @@ const getEveningFaqs = () => [
   },
   {
     question: "Can I buy tickets on the door?",
-    answer: "We recommend booking online to guarantee entry. Tickets start from just £7. Our events often sell out completely!"
+    answer: doorBookingAnswer(priceLabel, statusLabel)
   },
   {
     question: "Is the venue accessible?",
@@ -65,8 +77,10 @@ const getEveningFaqs = () => [
   }
 ];
 
-export const FaqSection = ({ isAfternoon = true }: FaqSectionProps) => {
-  const faqs = isAfternoon ? getAfternoonFaqs() : getEveningFaqs();
+export const FaqSection = ({ isAfternoon = true, priceLabel, statusLabel }: FaqSectionProps) => {
+  const faqs = isAfternoon
+    ? getAfternoonFaqs(priceLabel, statusLabel)
+    : getEveningFaqs(priceLabel, statusLabel);
   
   return (
     <section className="py-10 md:py-14">

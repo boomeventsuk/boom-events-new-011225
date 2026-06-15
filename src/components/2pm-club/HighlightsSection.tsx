@@ -1,3 +1,5 @@
+import { stripEmoji } from '@/lib/eventUtils';
+
 interface HighlightsSectionProps {
   highlights: string;
   isChristmas?: boolean;
@@ -8,10 +10,11 @@ export const HighlightsSection = ({ highlights, isChristmas = false, sectionTitl
   const parsedHighlights = highlights.split('|').map(h => {
     const colonIndex = h.indexOf(':');
     if (colonIndex === -1) return { title: '', description: '' };
-    
-    const title = h.substring(0, colonIndex).trim();
-    const description = h.substring(colonIndex + 1).trim();
-    
+
+    // Feed highlight copy may carry decorative emoji; strip them.
+    const title = stripEmoji(h.substring(0, colonIndex));
+    const description = stripEmoji(h.substring(colonIndex + 1));
+
     return { title, description };
   }).filter(h => h.title && h.description);
 

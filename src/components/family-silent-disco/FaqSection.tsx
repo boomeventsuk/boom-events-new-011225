@@ -12,11 +12,11 @@ const faqs = [
   },
   {
     question: "How do the headphones work?",
-    answer: "Each person gets a pair of wireless headphones that connect to three different music channels. Simply switch between channels using the buttons on the headphones – it's so easy that even young children can do it! The headphones are lightweight and adjustable to fit all head sizes."
+    answer: "Each person gets a pair of wireless headphones that connect to three different music channels. Simply switch between channels using the buttons on the headphones, it's so easy that even young children can do it! The headphones are lightweight and adjustable to fit all head sizes."
   },
   {
     question: "What music is played on each channel?",
-    answer: "🔵 PARTY (Blue) – Kids' party hits including Disney favourites, Trolls, Moana, Baby Shark, YMCA, and more!\n🔴 THROWBACK (Red) – Classic anthems from the 80s, 90s & 00s that parents will love – Mr Brightside, Dancing Queen, Wannabe!\n🟢 CHART (Green) – Clean, recent chart and trending hits for tweens and teens."
+    answer: "PARTY (Blue): Kids' party hits including Disney favourites, Trolls, Moana, Baby Shark, YMCA, and more!\nTHROWBACK (Red): Classic anthems from the 80s, 90s & 00s that parents will love, Mr Brightside, Dancing Queen, Wannabe!\nCHART (Green): Clean, recent chart and trending hits for tweens and teens."
   },
   {
     question: "What if my child doesn't like wearing headphones?",
@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     question: "Can grandparents or other carers attend?",
-    answer: "Absolutely! The more the merrier. Adult tickets are available for anyone who wants to join the dancing, and you'll be amazed – the grown-ups often have even more fun than the kids!"
+    answer: "Absolutely! The more the merrier. Adult tickets are available for anyone who wants to join the dancing, and you'll be amazed, the grown-ups often have even more fun than the kids!"
   }
 ];
 
@@ -43,7 +43,7 @@ export const FaqSection = () => {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              ❓ Frequently Asked Questions
+              Frequently Asked Questions
             </h2>
           </div>
           

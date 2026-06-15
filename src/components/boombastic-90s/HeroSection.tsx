@@ -2,9 +2,10 @@ import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { format } from 'date-fns';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, buildFeedUrgency } from '@/lib/eventUtils';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
+import type { GroupTicket } from '@/components/EventCard';
 
 interface HeroSectionProps {
   event: {
@@ -18,6 +19,10 @@ interface HeroSectionProps {
     image: string;
     city: string;
     isSoldOut?: boolean;
+    timeDisplay?: string;
+    priceLabel?: string;
+    groupTicket?: GroupTicket | null;
+    statusLabel?: string;
   };
 }
 
@@ -61,6 +66,11 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
 
   const startTime = format(startDate, 'h:mma').toLowerCase();
   const endTime = format(endDate, 'h:mma').toLowerCase();
+  const timeDisplay = event.timeDisplay
+    ? event.timeDisplay.replace(/\s*[–—]\s*/g, ' - ')
+    : `${startTime} - ${endTime}`;
+  // Urgency from the live feed only (statusLabel + price + group).
+  const feedUrgency = buildFeedUrgency(event);
 
   return (
     <section className="py-10 md:py-16">
@@ -96,7 +106,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary" />
-                <span>{startTime} – {endTime}</span>
+                <span>{timeDisplay}</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary" />
@@ -104,14 +114,16 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
             </div>
 
-            {fomoData?.fomo_tier && fomoData.fomo_message && (
+            {fomoData?.fomo_tier && fomoData.fomo_message ? (
               <FomoBadge
                 tier={fomoData.fomo_tier}
                 message={fomoData.fomo_message}
                 timeMessage={fomoData.time_message}
                 size="lg"
               />
-            )}
+            ) : feedUrgency ? (
+              <p className="text-primary font-bold text-lg">{feedUrgency}</p>
+            ) : null}
 
             <Button
               id="hero-book-button"

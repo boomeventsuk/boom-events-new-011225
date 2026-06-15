@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { trackEventPageView } from '@/lib/dataLayer';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, buildFeedUrgency, stripEmoji } from '@/lib/eventUtils';
+import type { GroupTicket } from '@/components/EventCard';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { HeroSection } from '@/components/silent-disco/HeroSection';
@@ -37,6 +38,10 @@ export interface SilentDiscoEvent {
   highlights: string;
   channels: SilentDiscoChannel[];
   hiddenSections?: string[];
+  timeDisplay?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
+  statusLabel?: string;
 }
 
 interface SilentDiscoEventPageProps {
@@ -51,6 +56,10 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
   // Keep the date in the hydrated title so Helmet matches the static shell
   const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const hiddenSections = event.hiddenSections || [];
+  // Booking urgency / pricing from the live feed only.
+  const feedUrgency = buildFeedUrgency(event);
+  // The feed description carries emoji bullets; strip them for meta + JSON-LD.
+  const metaDescription = stripEmoji(event.description);
   
   useEffect(() => {
     trackEventPageView(event.slug, event.title, {
@@ -81,7 +90,7 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
       }
     },
     "image": event.image,
-    "description": event.description,
+    "description": metaDescription,
     "organizer": {
       "@type": "Organization",
       "name": "Boombastic Events",
@@ -102,19 +111,19 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
     <>
       <Helmet>
         <title>{pageTitle}</title>
-        <meta name="description" content={event.description} />
+        <meta name="description" content={metaDescription} />
         <link rel="canonical" href={canonicalUrl} />
-        
+
         <meta property="og:type" content="event" />
         <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={event.description} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={event.image} />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content="Boombastic Events" />
-        
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={event.description} />
+        <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={event.image} />
         
         <script type="application/ld+json">
@@ -136,15 +145,15 @@ const SilentDiscoEventPage = ({ event }: SilentDiscoEventPageProps) => {
             />
           )}
           <TrustStrip />
-          <CheckoutSection 
-            event={event} 
-            checkoutMessage="10 years of sell-out parties. Don't miss out!"
+          <CheckoutSection
+            event={event}
+            checkoutMessage={feedUrgency || "10 years of sell-out parties. Don't miss out!"}
           />
         </main>
 
         <Footer />
-        
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} start={event.start} venue={event.location.split(',')[0]?.trim()} />
+
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} statusLabel={event.statusLabel} start={event.start} venue={event.location.split(',')[0]?.trim()} />
       </div>
     </>
   );

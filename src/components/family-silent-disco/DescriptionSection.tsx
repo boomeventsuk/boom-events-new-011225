@@ -12,7 +12,7 @@ export const DescriptionSection = ({ fullDescription }: DescriptionSectionProps)
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              🎧 How It Works
+              How It Works
             </h2>
           </div>
           
@@ -59,7 +59,7 @@ export const DescriptionSection = ({ fullDescription }: DescriptionSectionProps)
                     className="bg-green-500/10 border border-green-500/30 rounded-xl p-5 text-center"
                   >
                     <p className="text-lg text-foreground/90">
-                      👨‍👩‍👧‍👦 {paragraph}
+                      {paragraph}
                     </p>
                   </div>
                 );
