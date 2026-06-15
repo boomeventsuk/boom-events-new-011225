@@ -1,9 +1,11 @@
+import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, formatPriceLabel } from '@/lib/eventUtils';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 import FomoBadge from '@/components/FomoBadge';
+import type { GroupTicket } from '@/components/EventCard';
 
 interface HeroSectionProps {
   event: {
@@ -17,26 +19,34 @@ interface HeroSectionProps {
     doorsTime?: string;
     image: string;
     isSoldOut?: boolean;
+    timeDisplay?: string;
+    priceLabel?: string;
+    groupTicket?: GroupTicket | null;
+    statusLabel?: string;
   };
 }
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
-  
+
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
-  
+
   const formattedDate = formatHouseDate(event.start);
-  
+
   const startTime = startDate.toLocaleTimeString('en-GB', {
     hour: '2-digit',
     minute: '2-digit',
   });
-  
+
   const endTime = endDate.toLocaleTimeString('en-GB', {
     hour: '2-digit',
     minute: '2-digit',
   });
+
+  // Pricing comes from the live feed only: group line if present, else "From £X".
+  const groupLine = event.groupTicket?.label;
+  const priceLine = formatPriceLabel(event.priceLabel);
 
   const handleBookClick = () => {
     trackBookClick(event.slug, event.title, {
@@ -53,7 +63,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const handleShare = (platform: 'WhatsApp' | 'Facebook' | 'Messenger') => {
     trackShare(platform, event.title);
     const eventUrl = `https://www.boomevents.co.uk/event/${event.slug.toUpperCase()}`;
-    const text = `🎧 Family Silent Disco! ${event.title} - ${formattedDate}. Dance together, find your vibe!`;
+    const text = `Family Silent Disco! ${event.title} - ${formattedDate}. Dance together, find your vibe!`;
     
     const urls = {
       WhatsApp: `https://wa.me/?text=${encodeURIComponent(text + ' ' + eventUrl)}`,
@@ -80,7 +90,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               {/* Family Fun Badge */}
               <div className="absolute bottom-4 left-4">
                 <Badge className="bg-green-500 text-white border-0 text-sm px-3 py-1 shadow-lg">
-                  👨‍👩‍👧‍👦 FAMILY FUN
+                  FAMILY FUN
                 </Badge>
               </div>
               {/* FOMO Badge */}
@@ -109,33 +119,37 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
             {/* Date & Time */}
             <div className="space-y-3 mb-6">
               <div className="flex items-center justify-center lg:justify-start gap-3 text-lg">
-                <span className="text-2xl">📅</span>
+                <Calendar className="w-5 h-5 text-primary" />
                 <span className="font-medium">{formattedDate}</span>
               </div>
-              
+
               <div className="flex items-center justify-center lg:justify-start gap-3 text-lg">
-                <span className="text-2xl">🕐</span>
+                <Clock className="w-5 h-5 text-primary" />
                 <span>
                   {event.doorsTime && (
                     <span className="text-foreground/70">Doors {event.doorsTime} · </span>
                   )}
-                  <span className="font-medium">Full Experience {startTime} – {endTime}</span>
+                  <span className="font-medium">Full Experience {startTime} - {endTime}</span>
                 </span>
               </div>
-              
+
               <div className="flex items-center justify-center lg:justify-start gap-3 text-lg">
-                <span className="text-2xl">📍</span>
+                <MapPin className="w-5 h-5 text-primary" />
                 <span>{event.location}</span>
               </div>
             </div>
 
-            {/* Pricing Highlight */}
-            <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 mb-6 inline-block">
-              <p className="text-lg font-bold text-primary">
-                🎟️ FAMILY OF 4 FROM £30!
-              </p>
-              <p className="text-sm text-foreground/70">Adult £10 · Child £8 (+booking fee)</p>
-            </div>
+            {/* Pricing Highlight: from the live feed only */}
+            {(groupLine || priceLine) && (
+              <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 mb-6 inline-block">
+                <p className="text-lg font-bold text-primary">
+                  {groupLine || priceLine}
+                </p>
+                {groupLine && priceLine && (
+                  <p className="text-sm text-foreground/70">{priceLine} (+ booking fee)</p>
+                )}
+              </div>
+            )}
 
             {/* Book Button */}
             <div className="mb-6">

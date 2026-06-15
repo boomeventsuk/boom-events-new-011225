@@ -9,6 +9,8 @@ import Boombastic90sEventPage, { Boombastic90sEvent } from "@/components/Boombas
 import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
 import { isEventPassed } from "@/lib/eventUtils";
+import { normaliseTwoPmEditionEvent } from "@/lib/twoPmEdition";
+import type { GroupTicket } from "@/components/EventCard";
 
 interface EventData {
   eventCode: string;
@@ -46,7 +48,11 @@ interface EventData {
     message: string;
     timeMessage?: string | null;
   };
+  // Live feed pricing / urgency (machine-owned, never hardcode)
   statusLabel?: string;
+  priceLabel?: string;
+  price?: number;
+  groupTicket?: GroupTicket | null;
   // Family Silent Disco specific
   doorsTime?: string;
   // GET READY specific
@@ -114,8 +120,12 @@ const EventTemplate = () => {
       soundtrack: event.soundtrack,
       hiddenSections: event.hiddenSections,
       isAfternoon: event.isAfternoon,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <GetReadyEventPage event={getReadyEvent} />;
   }
 
@@ -138,8 +148,12 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       soundtrack: event.soundtrack,
       hiddenSections: event.hiddenSections,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <Boombastic90sEventPage event={b90Event} />;
   }
   
@@ -164,8 +178,12 @@ const EventTemplate = () => {
       hiddenSections: event.hiddenSections,
       checkoutMessage: event.checkoutMessage,
       ticketsLeft: event.ticketsLeft,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <FootlooseEventPage event={footlooseEvent} />;
   }
   
@@ -190,8 +208,12 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       channels: event.channels,
       hiddenSections: event.hiddenSections,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <FamilySilentDiscoEventPage event={familySDEvent} />;
   }
 
@@ -214,37 +236,45 @@ const EventTemplate = () => {
       highlights: event.highlights || '',
       channels: event.channels,
       hiddenSections: event.hiddenSections,
+      timeDisplay: event.timeDisplay,
+      priceLabel: event.priceLabel,
+      groupTicket: event.groupTicket,
+      statusLabel: event.statusLabel,
     };
-    
+
     return <SilentDiscoEventPage event={silentDiscoEvent} />;
   }
   
   if (is2PMClubEvent) {
+    const displayEvent = normaliseTwoPmEditionEvent(event);
     // Map EventData to TwoPmClubEvent format
     const twoPmEvent: TwoPmClubEvent = {
-      slug: event.eventCode.toLowerCase(),
-      eventType: event.eventCode.split('-')[1] || '2PM',
-      cityCode: event.eventCode.split('-')[2] || '',
-      eventbriteId: event.eventbriteId,
-      promoCode: event.promoCode,
-      isSoldOut: event.isSoldOut,
-      waitingListUrl: event.waitingListUrl,
-      colorScheme: event.colorScheme,
-      fomoOverride: event.fomoOverride,
-      statusLabel: event.statusLabel,
-      title: event.title,
-      location: `${event.venue}, ${event.city}`,
-      start: event.start || event.date,
-      end: event.end || event.date,
-      bookUrl: event.bookUrl || siteEventUrl,
-      infoUrl: event.infoUrl || event.bookUrl || siteEventUrl,
-      image: event.image,
-      description: event.description,
-      subtitle: event.subtitle || '',
-      fullDescription: event.fullDescription || event.description,
-      highlights: event.highlights || '',
+      slug: displayEvent.eventCode.toLowerCase(),
+      eventType: displayEvent.eventCode.split('-')[1] || '2PM',
+      cityCode: displayEvent.eventCode.split('-')[2] || '',
+      eventbriteId: displayEvent.eventbriteId,
+      promoCode: displayEvent.promoCode,
+      isSoldOut: displayEvent.isSoldOut,
+      waitingListUrl: displayEvent.waitingListUrl,
+      colorScheme: displayEvent.colorScheme,
+      fomoOverride: displayEvent.fomoOverride,
+      statusLabel: displayEvent.statusLabel,
+      title: displayEvent.title,
+      location: `${displayEvent.venue}, ${displayEvent.city}`,
+      start: displayEvent.start || displayEvent.date,
+      end: displayEvent.end || displayEvent.date,
+      bookUrl: displayEvent.bookUrl || siteEventUrl,
+      infoUrl: displayEvent.infoUrl || displayEvent.bookUrl || siteEventUrl,
+      image: displayEvent.image,
+      description: displayEvent.description,
+      subtitle: displayEvent.subtitle || '',
+      fullDescription: displayEvent.fullDescription || displayEvent.description,
+      highlights: displayEvent.highlights || '',
+      timeDisplay: displayEvent.timeDisplay,
+      priceLabel: displayEvent.priceLabel,
+      groupTicket: displayEvent.groupTicket,
     };
-    
+
     return <TwoPmClubEventPage event={twoPmEvent} />;
   }
   

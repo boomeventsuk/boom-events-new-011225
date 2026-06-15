@@ -15,7 +15,7 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              🎶 Relive the Golden Era
+              Relive the Golden Era
             </h2>
           </div>
           

@@ -86,6 +86,29 @@ function esc(s) {
     .replace(/'/g, '&#39;');
 }
 
+// Emoji ranges + ZWJ/variation selectors, matching src/lib/eventUtils.ts.
+const EMOJI_RE =
+  /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{2300}-\u{23FF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu;
+
+// Sanitise machine-owned feed copy for static output: strip emoji, drop any
+// stale hardcoded "Tickets from £X" fragment (price comes from the feed
+// priceLabel, never baked into prose), and tidy whitespace / em dashes.
+function sanitiseCopy(s) {
+  return String(s == null ? '' : s)
+    .replace(EMOJI_RE, '')
+    .replace(/\bTickets?\s+from\s+(?:just\s+)?£\d+(?:\.\d{2})?\.?/gi, '')
+    .replace(/[–—]/g, '-')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+([.,!?])/g, '$1')
+    .trim();
+}
+
+// "From £8.50" -> "8.50" for JSON-LD offers.price.
+function priceFromLabel(label) {
+  const m = (label || '').match(/(\d+(?:\.\d{2})?)/);
+  return m ? m[1] : undefined;
+}
+
 function ensureDir(p) {
   if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
 }
@@ -158,7 +181,7 @@ function renderEventCard(event) {
             <span>${esc(event.venue || '')}</span>
           </div>
           <h3>${esc(event.title)}</h3>
-          <p class="desc">${esc(event.subtitle || event.description || '')}</p>
+          <p class="desc">${esc(sanitiseCopy(event.subtitle || event.description || ''))}</p>
           <a href="/event/${esc(event.eventCode.toLowerCase())}/" class="cta">View Event &amp; Book →</a>
         </div>
       </article>`;
@@ -223,12 +246,13 @@ function renderJsonLD(cityCfg, events) {
       }
     },
     "image": e.image,
-    "description": e.description || e.subtitle || '',
+    "description": sanitiseCopy(e.description || e.subtitle || ''),
     "offers": {
       "@type": "Offer",
       "url": `${SITE_URL}/event/${e.eventCode.toLowerCase()}/`,
       "availability": availabilitySchema(e),
-      "priceCurrency": "GBP"
+      "priceCurrency": "GBP",
+      ...(priceFromLabel(e.priceLabel) ? { "price": priceFromLabel(e.priceLabel) } : {})
     },
     "organizer": {
       "@type": "Organization",

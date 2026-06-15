@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { formatHouseDate } from '@/lib/eventUtils';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
+import type { GroupTicket } from '@/components/EventCard';
 
 interface HeroSectionProps {
   event: {
@@ -17,6 +18,10 @@ interface HeroSectionProps {
     end: string;
     image: string;
     isSoldOut?: boolean;
+    timeDisplay?: string;
+    priceLabel?: string;
+    groupTicket?: GroupTicket | null;
+    statusLabel?: string;
   };
 }
 
@@ -26,7 +31,9 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
   const endDate = new Date(event.end);
-  
+  // Anniversary edition is data-driven: only when the feed title/subtitle says so.
+  const isAnniversary = /\b10\b|anniversary/i.test(`${event.title} ${event.subtitle}`);
+
   const shareUrl = `https://www.boomevents.co.uk/event/${event.slug}`;
   const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   
@@ -59,9 +66,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
     window.open(url, '_blank');
   };
 
-  // Format time display
+  // Format time display: prefer the feed's timeDisplay, else derive from start/end
   const startTime = format(startDate, 'h:mma').toLowerCase();
   const endTime = format(endDate, 'h:mma').toLowerCase();
+  const timeDisplay = event.timeDisplay
+    ? event.timeDisplay.replace(/\s*[–—]\s*/g, ' - ')
+    : `${startTime} - ${endTime}`;
 
   return (
     <section className="py-10 md:py-16">
@@ -77,10 +87,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 height="400"
                 className="w-full max-w-md rounded-xl shadow-2xl shadow-primary/20"
               />
-              {/* 10th Anniversary Badge */}
-              <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-                10th Anniversary
-              </div>
+              {/* Anniversary badge: only when the feed marks this an anniversary edition */}
+              {isAnniversary && (
+                <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                  10th Anniversary
+                </div>
+              )}
             </div>
           </div>
 
@@ -88,7 +100,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                SILENT DISCO GREATEST HITS IS 10!
+                {event.title}
               </h1>
               <h2 className="text-xl md:text-2xl font-bold text-primary mb-2">
                 POP vs INDIE vs DANCE
@@ -105,7 +117,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary" />
-                <span>{startTime} – {endTime}</span>
+                <span>{timeDisplay}</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary" />

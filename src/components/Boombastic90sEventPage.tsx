@@ -12,7 +12,8 @@ import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, buildFeedUrgency } from '@/lib/eventUtils';
+import type { GroupTicket } from '@/components/EventCard';
 
 export interface Boombastic90sEvent {
   slug: string;
@@ -32,6 +33,10 @@ export interface Boombastic90sEvent {
   highlights: string;
   soundtrack: string;
   hiddenSections?: string[];
+  timeDisplay?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
+  statusLabel?: string;
 }
 
 interface Boombastic90sEventPageProps {
@@ -57,6 +62,8 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
   // Keep the date in the hydrated title so Helmet matches the static shell
   const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const pageDescription = `${event.description} Book tickets for the ultimate 90s night at ${event.location}.`;
+  // Booking urgency / pricing from the live feed only.
+  const feedUrgency = buildFeedUrgency(event);
 
   const eventSchema = {
     "@context": "https://schema.org",
@@ -128,6 +135,10 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
             image: event.image,
             city: event.city,
             isSoldOut: event.isSoldOut,
+            timeDisplay: event.timeDisplay,
+            priceLabel: event.priceLabel,
+            groupTicket: event.groupTicket,
+            statusLabel: event.statusLabel,
           }} />
           
           <DescriptionSection event={{
@@ -148,7 +159,7 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
           )}
           
           <TrustStrip />
-          <CheckoutSection 
+          <CheckoutSection
             event={{
               slug: event.slug,
               eventbriteId: event.eventbriteId,
@@ -156,17 +167,17 @@ const Boombastic90sEventPage = ({ event }: Boombastic90sEventPageProps) => {
               promoCode: event.promoCode,
               isSoldOut: event.isSoldOut,
             }}
-            checkoutMessage="Get your group together. Book now. This is your night. 👇"
+            checkoutMessage={feedUrgency || "Get your group together. Book now. This is your night."}
           />
-          
+
           {!hiddenSections.includes('faq') && (
             <FaqSection />
           )}
         </main>
-        
+
         <Footer />
-        
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} start={event.start} venue={event.location.split(',')[0]?.trim()} />
+
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} statusLabel={event.statusLabel} start={event.start} venue={event.location.split(',')[0]?.trim()} />
       </div>
     </>
   );

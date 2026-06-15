@@ -31,6 +31,46 @@ export const eventPath = (eventCode: string): string =>
 export const formatPriceLabel = (label?: string): string =>
   label ? label.replace(/\.00\b/, "") : "";
 
+// Emoji / pictograph ranges plus the ZWJ + variation selectors used to
+// join them. Strips decorative emoji that arrive in machine-owned feed
+// copy so the brand pages never render them (house rule: no emoji in copy).
+const EMOJI_RE =
+  /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{2300}-\u{23FF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu;
+
+/**
+ * Remove emoji and tidy the whitespace they leave behind.
+ */
+export const stripEmoji = (text?: string): string =>
+  (text || "")
+    .replace(EMOJI_RE, "")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([.,!?])/g, "$1")
+    .trim();
+
+interface FeedUrgencyFields {
+  isSoldOut?: boolean;
+  statusLabel?: string;
+  priceLabel?: string;
+  groupTicket?: { label?: string } | null;
+}
+
+/**
+ * Compose the booking-urgency line entirely from live feed fields.
+ * Order: statusLabel, then price ("From £8.50"), then group line.
+ * No hardcoded prices, ticket counts, emoji or em dashes. Returns
+ * undefined when there is nothing feed-driven to show, so callers fall
+ * back to their own neutral default copy.
+ */
+export const buildFeedUrgency = (event: FeedUrgencyFields): string | undefined => {
+  if (event.isSoldOut) return event.statusLabel || undefined;
+  const parts = [
+    event.statusLabel,
+    formatPriceLabel(event.priceLabel),
+    event.groupTicket?.label,
+  ].filter((p): p is string => Boolean(p && p.trim()));
+  return parts.length ? parts.join(". ") : undefined;
+};
+
 /**
  * Check if an event has passed based on its end time or start time
  * @param event - Event object with start/end fields or eventCode for date extraction

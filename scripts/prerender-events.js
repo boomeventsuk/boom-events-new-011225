@@ -52,6 +52,61 @@ function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+// Emoji ranges + ZWJ/variation selectors, matching src/lib/eventUtils.ts.
+const EMOJI_RE =
+  /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{2300}-\u{23FF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu;
+
+// Sanitise machine-owned feed copy for static output: strip emoji, drop any
+// stale hardcoded "Tickets from £X" fragment (price comes from the feed
+// priceLabel, never baked into prose), and tidy whitespace / em dashes.
+function sanitiseCopy(s) {
+  return String(s || "")
+    .replace(EMOJI_RE, "")
+    .replace(/\bTickets?\s+from\s+(?:just\s+)?£\d+(?:\.\d{2})?\.?/gi, "")
+    .replace(/[–—]/g, "-")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([.,!?])/g, "$1")
+    .trim();
+}
+
+// "From £8.50" -> "8.50" for JSON-LD offers.price.
+function priceFromLabel(label) {
+  const m = (label || "").match(/(\d+(?:\.\d{2})?)/);
+  return m ? m[1] : undefined;
+}
+
+const EIGHTIES_EVENT_SUBLINE = "Your best 80s night out. In the middle of the afternoon.";
+
+function isTwoPmEightiesEdition(ev) {
+  const searchable = [
+    ev.eventCode,
+    ev.slug,
+    ev.title,
+    ev.subtitle,
+    ev.description,
+    ev.fullDescription,
+    ev.highlights,
+    ev.image,
+  ].filter(Boolean).join(" ");
+  return /80s edition|2pm80s|2pm-80s|goes full-on 80s|your best 80s night out/i.test(searchable);
+}
+
+function displayTitle(ev) {
+  if (!isTwoPmEightiesEdition(ev)) return ev.title;
+  const city = ev.city || ev.location?.split(",").pop()?.trim() || ev.eventCode?.split("-")[2] || "";
+  return `THE 2PM CLUB ${city}: 80s Edition Daytime Disco`.replace(/\s+:/, ":").trim();
+}
+
+function displayDescription(ev) {
+  if (!isTwoPmEightiesEdition(ev)) return sanitiseCopy(ev.description || ev.subtitle || "");
+  const venue = ev.venue || "";
+  const city = ev.city || ev.location?.split(",").pop()?.trim() || "";
+  const place = [venue, city].filter(Boolean).join(", ");
+  return place
+    ? `THE 2PM CLUB goes full-on 80s at ${place}. ${EIGHTIES_EVENT_SUBLINE}`
+    : EIGHTIES_EVENT_SUBLINE;
+}
+
 // Netlify serves these shells at the lowercase, trailing-slash pretty URL
 // (uppercase requests 301 to it), so every emitted URL must match that form
 // or the canonical self-redirects.
@@ -65,7 +120,7 @@ function eventJsonLd(ev) {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: ev.title,
+    name: displayTitle(ev),
     startDate: withUkOffset(ev.start),
     endDate: withUkOffset(ev.end),
     eventStatus: "https://schema.org/EventScheduled",
@@ -82,7 +137,7 @@ function eventJsonLd(ev) {
       },
     },
     image: ev.image,
-    description: ev.description,
+    description: displayDescription(ev),
     offers: {
       "@type": "Offer",
       url,
@@ -90,6 +145,8 @@ function eventJsonLd(ev) {
         ? "https://schema.org/SoldOut"
         : (ev.availability || "https://schema.org/InStock"),
       priceCurrency: "GBP",
+      // Lowest ticket price from the feed (omit when not synced).
+      ...(priceFromLabel(ev.priceLabel) ? { price: priceFromLabel(ev.priceLabel) } : {}),
     },
     organizer: {
       "@type": "Organization",
@@ -124,7 +181,7 @@ function shellHeroHtml(ev) {
     `<div style="min-height:70vh;display:flex;align-items:center;justify-content:center;background:#0B0B0F;color:#fff;font-family:Poppins,Arial,sans-serif;text-align:center;">`,
     `<div style="padding:96px 24px 48px;max-width:640px;">`,
     `<p style="color:#FF3CAC;font-weight:600;letter-spacing:2px;text-transform:uppercase;font-size:0.85rem;margin:0 0 12px;">${esc(formatDate(ev.start))}</p>`,
-    `<h1 style="font-size:1.75rem;line-height:1.25;margin:0 0 12px;">${esc(ev.title)}</h1>`,
+    `<h1 style="font-size:1.75rem;line-height:1.25;margin:0 0 12px;">${esc(displayTitle(ev))}</h1>`,
     `<p style="color:rgba(255,255,255,0.8);margin:0 0 6px;">${esc(ev.venue)}, ${esc(ev.city)}</p>`,
     price ? `<p style="color:rgba(255,255,255,0.8);font-weight:600;margin:0 0 4px;">${esc(price)}</p>` : "",
     group ? `<p style="color:rgba(255,255,255,0.65);font-size:0.9rem;margin:0 0 4px;">${esc(group)}</p>` : "",
@@ -147,7 +204,7 @@ function goneShellHtml(ev) {
 </head>
 <body style="margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0B0B0F;color:#fff;font-family:Poppins,Arial,sans-serif;text-align:center;">
   <main style="padding:40px 24px;max-width:560px;">
-    <h1 style="font-size:1.5rem;line-height:1.3;margin:0 0 12px;">${esc(ev.title)}</h1>
+    <h1 style="font-size:1.5rem;line-height:1.3;margin:0 0 12px;">${esc(displayTitle(ev))}</h1>
     <p style="color:rgba(255,255,255,0.75);margin:0 0 20px;">This event has ended.</p>
     <p style="margin:0;"><a href="/#tickets" style="color:#FF3CAC;font-weight:600;text-decoration:none;">See upcoming events</a></p>
   </main>
@@ -221,8 +278,8 @@ async function main() {
   let written = 0;
   for (const ev of upcoming) {
     const url = eventUrlFor(ev.eventCode);
-    const title = `${ev.title} | ${formatDate(ev.start)} | Boombastic Events`;
-    const description = (ev.description || ev.subtitle || "").slice(0, 160);
+    const title = `${displayTitle(ev)} | ${formatDate(ev.start)} | Boombastic Events`;
+    const description = displayDescription(ev).slice(0, 160);
 
     let html = template;
     html = mustReplace(html, /<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`, ev.eventCode);

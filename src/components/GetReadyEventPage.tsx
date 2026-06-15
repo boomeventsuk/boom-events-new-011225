@@ -12,7 +12,8 @@ import { CheckoutSection } from '@/components/2pm-club/CheckoutSection';
 import { StickyBookButton } from '@/components/2pm-club/StickyBookButton';
 import TrustStrip from '@/components/TrustStrip';
 import { trackEventPageView } from '@/lib/dataLayer';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, buildFeedUrgency } from '@/lib/eventUtils';
+import type { GroupTicket } from '@/components/EventCard';
 
 export interface GetReadyEvent {
   slug: string;
@@ -32,6 +33,10 @@ export interface GetReadyEvent {
   soundtrack: string;
   hiddenSections?: string[];
   isAfternoon?: boolean;
+  timeDisplay?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
+  statusLabel?: string;
 }
 
 interface GetReadyEventPageProps {
@@ -62,6 +67,9 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
   const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   const timeOfDay = isAfternoon ? "afternoon" : "evening";
   const pageDescription = `${event.description} Book tickets for the ultimate 60s/70s ${timeOfDay} at ${event.location}.`;
+
+  // Booking urgency from the live feed only (statusLabel + price + group).
+  const feedUrgency = buildFeedUrgency(event);
 
   // Structured data for SEO
   const eventSchema = {
@@ -140,6 +148,10 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
             city: event.city,
             isSoldOut: event.isSoldOut,
             isAfternoon: isAfternoon,
+            timeDisplay: event.timeDisplay,
+            priceLabel: event.priceLabel,
+            groupTicket: event.groupTicket,
+            statusLabel: event.statusLabel,
           }} />
           
           <DescriptionSection event={{
@@ -160,7 +172,7 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
           )}
           
           <TrustStrip />
-          <CheckoutSection 
+          <CheckoutSection
             event={{
               slug: event.slug,
               eventbriteId: event.eventbriteId,
@@ -168,20 +180,21 @@ const GetReadyEventPage = ({ event }: GetReadyEventPageProps) => {
               promoCode: event.promoCode,
               isSoldOut: event.isSoldOut,
             }}
-            checkoutMessage={isAfternoon 
-              ? "🔥 Only 50 tickets left, £7.50 each, This Sunday 2pm-6pm!"
-              : "🔥 Tickets from just £7, Friday 8pm-Midnight!"
-            }
+            checkoutMessage={feedUrgency}
           />
-          
+
           {!hiddenSections.includes('faq') && (
-            <FaqSection isAfternoon={isAfternoon} />
+            <FaqSection
+              isAfternoon={isAfternoon}
+              priceLabel={event.priceLabel}
+              statusLabel={event.statusLabel}
+            />
           )}
         </main>
         
         <Footer />
         
-        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} start={event.start} venue={event.location.split(',')[0]?.trim()} />
+        <StickyBookButton eventSlug={event.slug} eventTitle={event.title} eventbriteId={event.eventbriteId} statusLabel={event.statusLabel} start={event.start} venue={event.location.split(',')[0]?.trim()} />
       </div>
     </>
   );

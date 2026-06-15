@@ -2,9 +2,10 @@ import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackBookClick, trackShare } from '@/lib/dataLayer';
 import { format } from 'date-fns';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, buildFeedUrgency } from '@/lib/eventUtils';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
+import type { GroupTicket } from '@/components/EventCard';
 
 interface HeroSectionProps {
   event: {
@@ -18,11 +19,14 @@ interface HeroSectionProps {
     city: string;
     isSoldOut?: boolean;
     subtitle?: string;
+    timeDisplay?: string;
+    priceLabel?: string;
+    groupTicket?: GroupTicket | null;
+    statusLabel?: string;
   };
-  ticketsLeft?: number;
 }
 
-export const HeroSection = ({ event, ticketsLeft }: HeroSectionProps) => {
+export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
@@ -60,9 +64,14 @@ export const HeroSection = ({ event, ticketsLeft }: HeroSectionProps) => {
     window.open(url, '_blank');
   };
 
-  // Format time display
+  // Format time display: prefer the feed's timeDisplay, else derive from start/end
   const startTime = format(startDate, 'h:mma').toLowerCase();
   const endTime = format(endDate, 'h:mma').toLowerCase();
+  const timeDisplay = event.timeDisplay
+    ? event.timeDisplay.replace(/\s*[–—]\s*/g, ' - ')
+    : `${startTime} - ${endTime}`;
+  // Urgency from the live feed only (statusLabel + price + group).
+  const feedUrgency = buildFeedUrgency(event);
 
   return (
     <section className="py-10 md:py-16">
@@ -91,9 +100,9 @@ export const HeroSection = ({ event, ticketsLeft }: HeroSectionProps) => {
               <p className="text-lg text-foreground/80">
                 {event.subtitle || "Your favourite 80s night is back!"}
               </p>
-              {ticketsLeft && (
-                <p className="text-destructive font-bold text-lg mt-1 animate-pulse">
-                  🔥 Only {ticketsLeft} tickets left!
+              {feedUrgency && (
+                <p className="text-destructive font-bold text-lg mt-1">
+                  {feedUrgency}
                 </p>
               )}
             </div>
@@ -105,7 +114,7 @@ export const HeroSection = ({ event, ticketsLeft }: HeroSectionProps) => {
               </div>
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary" />
-                <span>{startTime} – {endTime}</span>
+                <span>{timeDisplay}</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary" />
@@ -128,7 +137,7 @@ export const HeroSection = ({ event, ticketsLeft }: HeroSectionProps) => {
               className="w-full md:w-auto text-lg px-8 py-6"
               onClick={handleBookClick}
             >
-              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : ticketsLeft ? 'GRAB YOUR TICKETS, ALMOST GONE' : 'BOOK TICKETS'}
+              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : 'BOOK TICKETS'}
             </Button>
 
             <div className="pt-4 border-t border-border/30">

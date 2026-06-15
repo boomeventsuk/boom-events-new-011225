@@ -33,6 +33,35 @@ function esc(s) {
   return (s || "").toString().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+// Emoji ranges + ZWJ/variation selectors, matching src/lib/eventUtils.ts.
+const EMOJI_RE =
+  /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{2300}-\u{23FF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}]/gu;
+
+// Sanitise machine-owned feed copy for static output: strip emoji, drop any
+// stale hardcoded "Tickets from £X" fragment (price comes from the feed
+// priceLabel, never baked into prose), and tidy whitespace / em dashes.
+function sanitiseCopy(s) {
+  return (s || "")
+    .toString()
+    .replace(EMOJI_RE, "")
+    .replace(/\bTickets?\s+from\s+(?:just\s+)?£\d+(?:\.\d{2})?\.?/gi, "")
+    .replace(/[–—]/g, "-")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([.,!?])/g, "$1")
+    .trim();
+}
+
+// "From £10.00" -> "From £10" (keeps non-zero pence). Matches formatPriceLabel.
+function formatPriceLabel(label) {
+  return label ? label.replace(/\.00\b/, "") : "";
+}
+
+// "From £8.50" -> "8.50" for JSON-LD offers.price.
+function priceFromLabel(label) {
+  const m = (label || "").match(/(\d+(?:\.\d{2})?)/);
+  return m ? m[1] : undefined;
+}
+
 // "Sat 26th Sep 2026" house date style
 function formatDate(iso) {
   const d = new Date(iso);
@@ -52,15 +81,23 @@ function withUkOffset(iso) {
 
 function eventCard(ev) {
   const soldOut = !!ev.isSoldOut;
-  const fomo = !soldOut && ev.fomoOverride && ev.fomoOverride.message ? ev.fomoOverride.message : null;
+  // Urgency line: synced statusLabel first, then fomoOverride fallback.
+  const status = soldOut
+    ? null
+    : sanitiseCopy(ev.statusLabel || (ev.fomoOverride && ev.fomoOverride.message) || "");
+  const price = soldOut ? "" : formatPriceLabel(ev.priceLabel);
+  const groupLabel = !soldOut && ev.groupTicket && ev.groupTicket.label ? ev.groupTicket.label : "";
+  // price + group on one meta line, both straight from the feed
+  const priceLine = [price, groupLabel].filter(Boolean).map(esc).join(" · ");
   const btn = soldOut
     ? `<a href="/event/${esc(ev.eventCode.toLowerCase())}/" class="btn" style="background:#555;">Sold Out</a>`
     : `<a href="/event/${esc(ev.eventCode.toLowerCase())}/" class="btn">Book Tickets</a>`;
+  const timeDisplay = (ev.timeDisplay || "").replace(/\s*[–—]\s*/g, " - ");
   return `            <div class="event-card">
                 <div class="event-info">
                     <h3>${esc(ev.title)}${soldOut ? ' <span style="color:#FF1493;">(SOLD OUT)</span>' : ""}</h3>
-                    <p>${esc(formatDate(ev.start))} | ${esc(ev.timeDisplay)} | ${esc(ev.venue)}, ${esc(ev.city)}</p>
-${fomo ? `                    <p style="color:#FF1493; font-weight:600;">${esc(fomo)}</p>\n` : ""}                </div>
+                    <p>${esc(formatDate(ev.start))} | ${esc(timeDisplay)} | ${esc(ev.venue)}, ${esc(ev.city)}</p>
+${priceLine ? `                    <p>${priceLine}</p>\n` : ""}${status ? `                    <p style="color:#FF1493; font-weight:600;">${esc(status)}</p>\n` : ""}                </div>
                 ${btn}
             </div>`;
 }
@@ -106,7 +143,8 @@ function eventJsonLd(ev) {
       address: { "@type": "PostalAddress", addressLocality: ev.city, addressCountry: "GB" },
     },
     image: ev.image,
-    description: ev.description,
+    // Feed description may carry emoji bullets and stale price prose; sanitise.
+    description: sanitiseCopy(ev.description),
     offers: {
       "@type": "Offer",
       url: `${SITE_URL}/event/${ev.eventCode.toLowerCase()}/`,
@@ -114,6 +152,8 @@ function eventJsonLd(ev) {
         ? "https://schema.org/SoldOut"
         : (ev.availability || "https://schema.org/InStock"),
       priceCurrency: "GBP",
+      // Lowest ticket price from the feed (omit when not synced).
+      ...(priceFromLabel(ev.priceLabel) ? { price: priceFromLabel(ev.priceLabel) } : {}),
     },
     organizer: {
       "@type": "Organization",

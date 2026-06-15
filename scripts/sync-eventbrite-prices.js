@@ -201,8 +201,10 @@ function extractPriceData(ticketClasses, eventDate, location) {
     statusLabel = 'Final release';
     schemaAvailability = 'https://schema.org/LimitedAvailability';
   } else if (tiers.some(t => /early/i.test(t.name) && t.status === 'SOLD_OUT') && anyAvailable) {
-    // Early tier gone, later tiers live: the honest FOMO state
-    statusLabel = 'Early release sold out';
+    // Early tier gone, later tiers live. JD 2026-06-15: never say "sold out"
+    // on an available event (reads as "can't go"). An early tier selling out
+    // IS momentum, so say so positively.
+    statusLabel = 'Selling fast';
     schemaAvailability = 'https://schema.org/LimitedAvailability';
   } else if (isEventWeek) {
     // Event week, plenty of stock: generic urgency
@@ -225,28 +227,28 @@ function extractPriceData(ticketClasses, eventDate, location) {
     schemaAvailability = 'https://schema.org/PreOrder';
   }
 
-  // Tier-level status labels (e.g. "Early bird sold out")
-  const tierLabels = tiers
-    .filter(t => t.status === 'SOLD_OUT')
-    .map(t => `${t.name} sold out`);
+  // JD 2026-06-15: no per-tier "sold out" lines on cards (same misread risk
+  // as the badge: people think the event is gone). The badge carries honest
+  // urgency; tier-sold-out lines are dropped.
+  const tierLabels = [];
 
   // ============================================================
-  // Group pricing (JD, 2026-06-10): if a group ticket is on sale,
-  // surface it with the saving vs singles. If not, say nothing.
+  // Group pricing (JD 2026-06-15): if a group ticket is on sale, lead with
+  // the round total ("Group of 4 for £30"), NOT the saving (a small saving
+  // is not a brag; the round price reads as a deal). If group prices vary
+  // across tiers, say "Group offers available" rather than a confusing range.
+  // If no group ticket is on sale, say nothing.
   // ============================================================
   let groupTicket;
   if (groupTiersAvailable.length > 0) {
     const g = [...groupTiersAvailable].sort((a, b) => a.price - b.price)[0];
-    const cheapestSingle = [...singleTiersAvailable].sort((a, b) => a.price - b.price)[0];
-    const saving = cheapestSingle
-      ? Math.round((cheapestSingle.price * g.attendeesPerTicket - g.price) * 100) / 100
-      : 0;
+    const distinctPrices = [...new Set(groupTiersAvailable.map(t => t.price))];
     groupTicket = {
       size: g.attendeesPerTicket,
       price: g.price,
-      label:
-        `Group of ${g.attendeesPerTicket}: ${fmtPounds(g.price)}` +
-        (saving > 0 ? ` (save ${fmtPounds(saving)})` : '')
+      label: distinctPrices.length === 1
+        ? `Group of ${g.attendeesPerTicket} for ${fmtPounds(g.price)}`
+        : 'Group offers available'
     };
   }
 

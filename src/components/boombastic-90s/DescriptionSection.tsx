@@ -11,7 +11,7 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-            🪩 {event.city.toUpperCase()}, YOUR FAVOURITE 90s NIGHT IS BACK!
+            {event.city.toUpperCase()}, YOUR FAVOURITE 90s NIGHT IS BACK!
           </h2>
           
           <div className="space-y-6 text-lg text-foreground/90">
@@ -35,8 +35,8 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
               
             <blockquote className="border-l-4 border-primary pl-6 py-2 my-8 bg-muted/30 rounded-r-lg">
               <p className="text-xl italic">
-                "I forgot how much I loved that decade until I was in a room full of people 
-                who felt exactly the same. Absolutely brilliant." ✨
+                "I forgot how much I loved that decade until I was in a room full of people
+                who felt exactly the same. Absolutely brilliant."
               </p>
             </blockquote>
           </div>
