@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 
 const CITIES = [
   "Bedford",
-  "Birmingham",
   "Coventry",
   "Leicester",
   "Luton",

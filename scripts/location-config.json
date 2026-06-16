@@ -92,18 +92,18 @@
     {
       "citySlug": "northampton",
       "cityName": "Northampton",
-      "primaryVenue": "Cinch Stadium / The Picturedrome / Roadmender",
+      "primaryVenue": "The Picturedrome",
       "heroSubhead": "Northampton is Boombastic's home town. Daytime disco, silent disco, decades parties - all of it, here.",
       "aboutTitle": "Parties in Northampton",
       "aboutBody": [
         "Northampton is where it all started. Twelve years of Boombastic Events, hundreds of nights, tens of thousands of people through the doors.",
-        "Cinch Stadium, The Picturedrome, The Roadmender, Marquee on the Racecourse - we've thrown parties at every venue in town. And we're still going."
+        "The Picturedrome is our Northampton home, where we've run sell-out events for years. And we're still going."
       ],
-      "metaDescription": "Upcoming Boombastic Events in Northampton. Daytime disco, silent disco, 80s 90s 00s parties at the town's best venues.",
+      "metaDescription": "Upcoming Boombastic Events in Northampton. Daytime disco, silent disco, 80s 90s 00s parties at The Picturedrome.",
       "faq": [
         {
           "q": "Where are Boombastic Events held in Northampton?",
-          "a": "Across multiple venues including Cinch Stadium, The Picturedrome, The Roadmender and the Marquee on the Racecourse. Each event listing shows the specific venue."
+          "a": "Mostly at The Picturedrome, our Northampton home. Each event listing shows the specific venue."
         },
         {
           "q": "How long has Boombastic been running events in Northampton?",
@@ -126,24 +126,6 @@
         {
           "q": "When is the next Boombastic event in Leicester?",
           "a": "Check the listings above. New Leicester dates are added throughout the year."
-        }
-      ]
-    },
-    {
-      "citySlug": "birmingham",
-      "cityName": "Birmingham",
-      "primaryVenue": "TBC",
-      "heroSubhead": "Boombastic Events in Birmingham. Daytime disco and decades parties coming soon.",
-      "aboutTitle": "Parties in Birmingham",
-      "aboutBody": [
-        "Birmingham is one of our newest cities. We're announcing dates throughout 2026.",
-        "Sign up below to be first to hear when the next Birmingham party drops."
-      ],
-      "metaDescription": "Upcoming Boombastic Events in Birmingham. Daytime disco and decades parties.",
-      "faq": [
-        {
-          "q": "When is the next Boombastic event in Birmingham?",
-          "a": "Birmingham dates are announced throughout the year. Check listings above for upcoming events."
         }
       ]
     }
