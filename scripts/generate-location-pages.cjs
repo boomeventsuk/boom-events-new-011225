@@ -13,6 +13,11 @@
 
 const fs = require('fs');
 const path = require('path');
+const {
+  SITE_CHROME_CSS,
+  SITE_HEADER_HTML,
+  SITE_FOOTER_HTML,
+} = require('./partials/site-chrome.cjs');
 
 const ROOT = path.resolve(__dirname, '..');
 const EVENTS_PATH = path.join(ROOT, 'public', 'events-boombastic.json');
@@ -358,16 +363,7 @@ ${TRACKING_HEAD}
     body { font-family: 'Poppins', sans-serif; background: #0B0B0F; color: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; height: auto; }
-    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(11,11,15,0.9); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
-    .site-logo img { height: 36px; }
-    .primary-nav { display: flex; gap: 24px; align-items: center; }
-    .primary-nav a { color: rgba(255,255,255,0.75); font-size: 14px; transition: color .2s; }
-    .primary-nav a:hover, .primary-nav a.active { color: #fff; }
-    .book-cta { background: #FF3CAC; color: #fff; padding: 10px 22px; border-radius: 999px; font-weight: 600; font-size: 14px; transition: transform .2s, background .2s; }
-    .book-cta:hover { background: #e62e98; transform: translateY(-1px); }
-    @media (max-width: 800px) { .primary-nav { display: none; } }
-    .hero { padding: 80px 24px 60px; max-width: 1200px; margin: 0 auto; text-align: center; }
+    .hero { padding: 60px 24px 60px; max-width: 1200px; margin: 0 auto; text-align: center; }
     .hero .eyebrow { color: #FF3CAC; font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
     .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 8vw, 96px); letter-spacing: 1px; line-height: 1; margin-bottom: 20px; }
     .hero p { max-width: 720px; margin: 0 auto; font-size: 18px; color: rgba(255,255,255,0.75); }
@@ -398,28 +394,13 @@ ${TRACKING_HEAD}
     .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); padding: 20px 0; }
     .faq-item h3 { font-size: 17px; margin-bottom: 8px; }
     .faq-item p { color: rgba(255,255,255,0.7); }
-    .site-footer { margin-top: 80px; padding: 40px 24px; border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); font-size: 13px; text-align: center; }
-    .site-footer a { color: #FF3CAC; }
   </style>
+${SITE_CHROME_CSS}
 </head>
 <body>
 ${TRACKING_NOSCRIPT}
 
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="/" class="site-logo">
-        <img src="https://boombastic-events.b-cdn.net/The2PMCLUB-Website/57926c83-5a73-43e4-b501-9f9c758534fd_fs7hwi.png" alt="Boombastic Events">
-      </a>
-      <nav class="primary-nav">
-        <a href="/locations/bedford/"${cityCfg.citySlug === 'bedford' ? ' class="active"' : ''}>Bedford</a>
-        <a href="/locations/luton/"${cityCfg.citySlug === 'luton' ? ' class="active"' : ''}>Luton</a>
-        <a href="/locations/coventry/"${cityCfg.citySlug === 'coventry' ? ' class="active"' : ''}>Coventry</a>
-        <a href="/locations/milton-keynes/"${cityCfg.citySlug === 'milton-keynes' ? ' class="active"' : ''}>MK</a>
-        <a href="/locations/northampton/"${cityCfg.citySlug === 'northampton' ? ' class="active"' : ''}>Northampton</a>
-      </nav>
-      <a href="/#tickets" class="book-cta">Book Tickets</a>
-    </div>
-  </header>
+${SITE_HEADER_HTML}
 
   <section class="hero">
     <div class="eyebrow">${esc(cityCfg.cityName)}</div>
@@ -434,9 +415,7 @@ ${TRACKING_NOSCRIPT}
 
   ${renderFaqSection(cityCfg)}
 
-  <footer class="site-footer">
-    <p>© Boombastic Events. <a href="/">Back to home</a></p>
-  </footer>
+${SITE_FOOTER_HTML}
 
 </body>
 </html>

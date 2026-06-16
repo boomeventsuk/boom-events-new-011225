@@ -11,6 +11,20 @@
 */
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const {
+  SITE_CHROME_CSS,
+  SITE_HEADER_HTML,
+  SITE_FOOTER_HTML,
+  HEADER_START,
+  HEADER_END,
+  FOOTER_START,
+  FOOTER_END,
+  CSS_START,
+  CSS_END,
+} = require("./partials/site-chrome.cjs");
 
 const ROOT = process.cwd();
 const SITE_URL = process.env.SITE_URL || "https://www.boomevents.co.uk";
@@ -189,6 +203,50 @@ function injectJsonLd(html, upcoming) {
   return html.replace("</head>", `${block}\n</head>`);
 }
 
+function reEscape(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function between(start, end) {
+  return new RegExp(`${reEscape(start)}[\\s\\S]*?${reEscape(end)}`);
+}
+
+// Inject the shared chrome CSS once into <head> (before </head>), idempotent.
+function injectChromeCss(html) {
+  const re = between(CSS_START, CSS_END);
+  if (re.test(html)) return html.replace(re, SITE_CHROME_CSS);
+  return html.replace("</head>", `${SITE_CHROME_CSS}\n</head>`);
+}
+
+// Replace the legacy pink BOOMBASTIC nav + breadcrumb with the shared header.
+// First run migrates the hand-edited markup; afterwards it is marker-based.
+function injectHeader(html) {
+  const re = between(HEADER_START, HEADER_END);
+  if (re.test(html)) return html.replace(re, SITE_HEADER_HTML);
+
+  // One-time migration: drop the legacy <nav class="nav"> ... </nav> plus the
+  // following breadcrumb bar, replacing both with the shared header.
+  const legacyNavBreadcrumb =
+    /(?:<!-- Navigation -->\s*)?<nav class="nav">[\s\S]*?<\/nav>\s*(?:<!-- Breadcrumb -->\s*)?<div class="breadcrumb">[\s\S]*?<\/div>/;
+  if (legacyNavBreadcrumb.test(html)) {
+    return html.replace(legacyNavBreadcrumb, SITE_HEADER_HTML);
+  }
+  // Fallback: nav only (no breadcrumb).
+  const legacyNav = /(?:<!-- Navigation -->\s*)?<nav class="nav">[\s\S]*?<\/nav>/;
+  if (legacyNav.test(html)) return html.replace(legacyNav, SITE_HEADER_HTML);
+  throw new Error("No header/nav found to replace");
+}
+
+// Replace the legacy <footer> ... </footer> with the shared footer.
+function injectFooter(html) {
+  const re = between(FOOTER_START, FOOTER_END);
+  if (re.test(html)) return html.replace(re, SITE_FOOTER_HTML);
+
+  const legacyFooter = /(?:<!-- Footer -->\s*)?<footer>[\s\S]*?<\/footer>/;
+  if (legacyFooter.test(html)) return html.replace(legacyFooter, SITE_FOOTER_HTML);
+  throw new Error("No footer found to replace");
+}
+
 async function main() {
   const events = JSON.parse(await fs.readFile(EVENTS_PATH, "utf8"));
   const today = new Date().toISOString().slice(0, 10);
@@ -202,6 +260,11 @@ async function main() {
 
     html = injectEvents(html, brand, upcoming);
     html = injectJsonLd(html, upcoming);
+    // Unify chrome: shared header + footer + scoped CSS, replacing the legacy
+    // pink BOOMBASTIC nav, breadcrumb bar and old footer.
+    html = injectChromeCss(html);
+    html = injectHeader(html);
+    html = injectFooter(html);
     await fs.writeFile(file, html);
     console.log(`  ${brand.dir}: ${upcoming.length ? upcoming.length + " upcoming" : "waitlist"}`);
   }
