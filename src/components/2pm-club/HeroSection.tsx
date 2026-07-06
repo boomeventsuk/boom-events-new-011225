@@ -22,6 +22,7 @@ interface HeroSectionProps {
     timeDisplay?: string;
     priceLabel?: string;
     groupTicket?: GroupTicket | null;
+    statusLabel?: string;
     fomoOverride?: {
       tier: string;
       message: string;
@@ -29,6 +30,15 @@ interface HeroSectionProps {
     };
   };
 }
+
+// Map a feed statusLabel (e.g. "Selling fast", "Final release") to a badge tier.
+const statusLabelToTier = (label: string): string => {
+  const l = label.toLowerCase();
+  if (l.includes('sold out') || l.includes('waiting list') || l.includes('waitlist')) return 'sold_out';
+  if (l.includes('final release') || l.includes('last') || l.includes('few left') || l.includes('almost')) return 'low';
+  if (l.includes('selling fast') || l.includes('going fast')) return 'selling_fast';
+  return 'on_sale';
+};
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
@@ -44,7 +54,13 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
           message: fomoData.fomo_message,
           timeMessage: fomoData.time_message,
         }
-      : null;
+      : event.statusLabel && event.statusLabel.trim()
+        ? {
+            tier: statusLabelToTier(event.statusLabel),
+            message: event.statusLabel,
+            timeMessage: null,
+          }
+        : null;
   const isChristmas = event.title.toLowerCase().includes('christmas');
   const isEightiesEdition = isTwoPmEightiesEdition(event);
   const city = event.location.split(',')[1]?.trim() || event.cityCode;
