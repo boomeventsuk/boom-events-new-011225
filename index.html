@@ -82,8 +82,8 @@
     
     <!-- Performance optimizations -->
     <link rel="preconnect" href="https://boombastic-events.b-cdn.net" crossorigin>
-    <!-- Preload hero image -->
-    <link rel="preload" as="image" href="https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg" fetchpriority="high">
+    <!-- Preload hero image (parameterised variants must match Hero.tsx exactly, else the preload is a wasted extra fetch) -->
+    <link rel="preload" as="image" href="https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg?width=1280&quality=75" imagesrcset="https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg?width=768&quality=75 768w, https://boombastic-events.b-cdn.net/BoomEvents%20Website-Backgrounds/Boom%20Crowd%20Web.jpg?width=1280&quality=75 1280w" imagesizes="100vw" fetchpriority="high">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
 
