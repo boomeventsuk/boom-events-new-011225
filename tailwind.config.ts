@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 		fontFamily: {
-			'poppins': ['Poppins', 'sans-serif'],
+			'poppins': ['Poppins', 'Poppins Fallback', 'sans-serif'],
 			'bebas': ['Bebas Neue', 'cursive'],
 		},
 			colors: {
