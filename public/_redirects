@@ -17,6 +17,10 @@
 # Redirect /events/:slug pattern to /event/:slug (consolidate URL patterns)
 /events/:slug                                                          /event/:slug              301
 
+# Expired Bedford 2PM event -> current same-market successor
+/event/the-2pm-club-bedford-80s-90s-00s-daytime-disco                  https://www.the2pmclub.co.uk/events/120926-2pm-bed/  301
+/event/the-2pm-club-bedford-80s-90s-00s-daytime-disco/*                https://www.the2pmclub.co.uk/events/120926-2pm-bed/  301
+
 # Block dotfile probes, return real 404 before any fallback
 /.env*                 /404.html    404!
 /.env/*                /404.html    404!
