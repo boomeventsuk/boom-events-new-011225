@@ -101,6 +101,11 @@
 
 # Agent discovery headers on all pages (RFC 8288, RFC 9727)
 [[headers]]
+  for = "/auth.md"
+  [headers.values]
+    Content-Type = "text/markdown; charset=UTF-8"
+
+[[headers]]
   for = "/*"
   [headers.values]
     Link = "</.well-known/api-catalog>; rel=\"api-catalog\", </llms.txt>; rel=\"alternate\"; type=\"text/markdown\", </openapi.json>; rel=\"service-desc\"; type=\"application/vnd.oai.openapi+json\""

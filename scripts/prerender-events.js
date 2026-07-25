@@ -191,6 +191,63 @@ function shellHeroHtml(ev) {
   ].filter(Boolean).join("");
 }
 
+// Full event content as plain HTML inside <noscript>. The React hero inside
+// #root is wiped on hydration, so without this the only text a JS-free crawler
+// ever sees is the ~35-word shell. GPTBot, ClaudeBot, PerplexityBot and CCBot
+// do not execute JS, so the money pages were effectively empty to exactly the
+// agents we publish llms.txt for. Feed-driven only: never hand-author copy here.
+function buildEventNoscript(ev) {
+  const price = cleanPrice(ev.priceLabel);
+  const group = ev.groupTicket && ev.groupTicket.label ? ev.groupTicket.label : "";
+  const addr = ev.venueAddress || VENUE_ADDRESSES[ev.venue] || {};
+  const addrLine = [addr.streetAddress, addr.addressLocality || ev.city, addr.postalCode]
+    .filter(Boolean)
+    .join(", ");
+
+  const paras = sanitiseCopy(ev.fullDescription || ev.description || "")
+    .split(/\n{2,}|\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p) => `      <p>${esc(p)}</p>`)
+    .join("\n");
+
+  const highlights = String(ev.highlights || "")
+    .split("|")
+    .map((h) => sanitiseCopy(h).trim())
+    .filter(Boolean)
+    .map((h) => `        <li>${esc(h)}</li>`)
+    .join("\n");
+
+  const facts = [
+    `        <li><strong>What:</strong> ${esc(displayTitle(ev))}</li>`,
+    `        <li><strong>When:</strong> ${esc(formatDate(ev.start))}${ev.timeDisplay ? `, ${esc(ev.timeDisplay)}` : ""}</li>`,
+    `        <li><strong>Where:</strong> ${esc([ev.venue, addrLine].filter(Boolean).join(", "))}</li>`,
+    price ? `        <li><strong>Tickets:</strong> ${esc(price)}</li>` : "",
+    group ? `        <li><strong>Group tickets:</strong> ${esc(group)}</li>` : "",
+    ev.statusLabel ? `        <li><strong>Status:</strong> ${esc(sanitiseCopy(ev.statusLabel))}</li>` : "",
+  ].filter(Boolean).join("\n");
+
+  return `
+  <noscript>
+    <article>
+      <h1>${esc(displayTitle(ev))}</h1>
+      <p>${esc(sanitiseCopy(ev.subtitle || ev.description || ""))}</p>
+      <h2>Event details</h2>
+      <ul>
+${facts}
+      </ul>
+      <h2>About this event</h2>
+${paras}
+${highlights ? `      <h2>What to expect</h2>\n      <ul>\n${highlights}\n      </ul>` : ""}
+      <h2>Book tickets</h2>
+      <p><a href="${esc(eventUrlFor(ev.eventCode))}">Book tickets for ${esc(displayTitle(ev))} on ${esc(formatDate(ev.start))}</a></p>
+      <h2>About Boombastic Events</h2>
+      <p>Boombastic Events is a Midlands-based events company running daytime discos, silent discos and decades parties across Northampton, Bedford, Milton Keynes, Coventry, Luton and Leicester.</p>
+      <p>Contact: hello@boomevents.co.uk</p>
+    </article>
+  </noscript>`;
+}
+
 // Minimal noindex "gone" shell for expired events. Served with a 410 via
 // the forced redirect lines appended to dist/_redirects below.
 function goneShellHtml(ev) {
@@ -295,17 +352,23 @@ async function main() {
     html = mustReplace(html, /<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${esc(description)}">`, ev.eventCode);
     html = mustReplace(html, /<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${esc(ev.image)}">`, ev.eventCode);
 
-    const extra = [
+    // index.html now ships a homepage canonical, so point the template's tag at
+    // this event rather than appending a second one and emitting two canonicals.
+    html = mustReplace(
+      html,
+      /<link rel="canonical" href="[^"]*">/,
       `<link rel="canonical" href="${url}">`,
-      `<script type="application/ld+json">\n${JSON.stringify(eventJsonLd(ev), null, 2)}\n</script>`,
-    ].join("\n");
+      ev.eventCode
+    );
+
+    const extra = `<script type="application/ld+json">\n${JSON.stringify(eventJsonLd(ev), null, 2)}\n</script>`;
     html = html.replace("</head>", `${extra}\n</head>`);
 
     // Visible above-fold content inside the root div (replaced on hydration)
     html = mustReplace(
       html,
       /<div id="root"><\/div>/,
-      `<div id="root">${shellHeroHtml(ev)}</div>`,
+      `<div id="root">${shellHeroHtml(ev)}</div>${buildEventNoscript(ev)}`,
       ev.eventCode
     );
 
