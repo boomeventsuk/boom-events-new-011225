@@ -750,5 +750,45 @@
       "label": "Group of 4 for £40"
     },
     "priceLastSync": "2026-07-28T17:37:07.980Z"
+  },
+  {
+    "eventCode": "171026-B90-BED",
+    "title": "BOOMBASTIC 90s Bedford",
+    "subtitle": "All of the Nineties. Every Last Bit of It.",
+    "date": "Saturday, 17 October 2026",
+    "timeDisplay": "20:30 - 00:30",
+    "venue": "Bedford Esquires",
+    "city": "Bedford",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/171026-B90-BED/171026-B90-BED-ANNSQ.jpg",
+    "description": "BOOMBASTIC: ALL OF THE NINETIES - four hours of pop perfection, Britpop anthems, dance floor euphoria and hip-hop swagger at Bedford Esquires.",
+    "eventbriteId": "1995732203745",
+    "isSoldOut": false,
+    "start": "2026-10-17T20:30:00",
+    "end": "2026-10-18T00:30:00",
+    "fullDescription": "You had a favourite Spice Girl. You picked a side in August '95, Blur or Oasis, and you still stand by it. You knew every word to Don't Look Back in Anger before you even understood what it meant. The first time you heard Show Me Love in a sweaty room you didn't know what it was called, but you never forgot how it felt.\n\nWe've been bringing Boombastic nights to Bedford for ten years. This October, we're back at Esquires to celebrate it with four hours of the nineties.\n\nBOOMBASTIC: ALL OF THE NINETIES is four hours of that. Pop perfection, Britpop anthems, dance floor euphoria, hip-hop swagger - the whole decade, played exactly the way it should be. No filler. No apologies. No guilty pleasures, because in the 90s none of it was guilty.\n\nThis was the decade that proved genre didn't matter. You loved TLC and Oasis and Faithless and the Spice Girls all at the same time, and that was absolutely fine. It still is.",
+    "highlights": "🎵 The complete decade: Pop, Britpop, hip-hop, dance - all of it, four hours, no filler|📺 Giant screens: Authentic 90s videos - cheer when your favourites appear|🕺 Come as you are: Just be ready to sing every word|🎉 Every song an anthem: Every one of them yours",
+    "soundtrack": "Spice Girls · Oasis · Take That · TLC · Blur · Pulp · Faithless · N-Trance · Peter Andre · S Club 7 · Robin S · Britney Spears · Backstreet Boys · No Doubt · Steps · Jamiroquai · Fatboy Slim · CeCe Peniston · MC Hammer · Supergrass · Five · Will Smith",
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
+    "fomoOverride": null,
+    "price": 10,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £10.00",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "On sale",
+    "groupTicket": {
+      "size": 4,
+      "price": 40,
+      "label": "Group of 4 for £40"
+    },
+    "venueAddress": {
+      "streetAddress": "60A Bromham Road",
+      "addressLocality": "Bedford",
+      "postalCode": "MK40 2QG",
+      "addressCountry": "GB"
+    },
+    "priceLastSync": "2026-07-28T18:35:00.000Z"
   }
 ]

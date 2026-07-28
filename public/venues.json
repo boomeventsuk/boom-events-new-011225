@@ -89,11 +89,11 @@
   },
   "Bedford": {
     "city": "Bedford",
-    "eventCount": 4,
+    "eventCount": 5,
     "venues": [
       {
         "name": "Bedford Esquires",
-        "eventCount": 4,
+        "eventCount": 5,
         "events": [
           {
             "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
@@ -110,6 +110,10 @@
           {
             "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
             "title": "THE 2PM CLUB Bedford: 80s 90s 00s Daytime Disco"
+          },
+          {
+            "slug": "boombastic-90s-bedford",
+            "title": "BOOMBASTIC 90s Bedford"
           }
         ]
       }
