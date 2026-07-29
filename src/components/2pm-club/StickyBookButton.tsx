@@ -24,6 +24,7 @@ const formatShortDate = (iso: string) => {
 
 export const StickyBookButton = ({ eventSlug, eventTitle, eventbriteId, urgencyText, statusLabel, start, venue }: StickyBookButtonProps) => {
   const [visible, setVisible] = useState(false);
+  const isPreSale = /tickets on sale friday/i.test(statusLabel || '');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +78,7 @@ export const StickyBookButton = ({ eventSlug, eventTitle, eventbriteId, urgencyT
           )}
         </div>
         <Button onClick={handleClick} size="lg" className="shrink-0 shadow-lg shadow-primary/30">
-          Book Tickets
+          {isPreSale ? 'ON SALE FRI' : 'Book Tickets'}
         </Button>
       </div>
     </div>

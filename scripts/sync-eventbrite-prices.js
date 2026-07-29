@@ -72,6 +72,16 @@ function fmtPounds(value) {
   return Number.isInteger(value) ? `£${value}` : `£${value.toFixed(2)}`;
 }
 
+function launchStatusLabel(event, computedLabel, isSoldOut, now = Date.now()) {
+  if (isSoldOut) return computedLabel;
+  const saleStartsAt = Date.parse(event.saleStartsAt || '');
+  if (!Number.isFinite(saleStartsAt)) return computedLabel;
+  const launchLabelUntil = Date.parse(event.launchLabelUntil || '');
+  if (now < saleStartsAt) return 'Tickets on sale Friday at 12 noon';
+  if (Number.isFinite(launchLabelUntil) && now < launchLabelUntil) return 'Tickets on sale now';
+  return computedLabel;
+}
+
 function extractPriceData(ticketClasses, eventDate, location) {
   if (!ticketClasses || ticketClasses.length === 0) return null;
 
@@ -337,8 +347,13 @@ async function main() {
         event.priceCurrency = priceData.public.priceCurrency;
         event.priceLabel = priceData.public.priceLabel;
         event.availability = priceData.public.availability;
-        // statusLabel is always the computed v4 label.
-        event.statusLabel = priceData.public.statusLabel;
+        // A bounded launch label can temporarily take precedence over the
+        // computed urgency ladder without changing ticket inventory.
+        event.statusLabel = launchStatusLabel(
+          event,
+          priceData.public.statusLabel,
+          priceData.public.availability === 'https://schema.org/SoldOut',
+        );
         // fomoOverride (the structured manual layer the UI prefers) is
         // cleared the moment a sold-out tier contradicts its message, so a
         // hand-set "EARLY RELEASE" can never outlive the early release.

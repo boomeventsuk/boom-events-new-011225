@@ -67,7 +67,7 @@ export const FaqSection = ({ isEightiesEdition = false }: FaqSectionProps) => {
 
           <div className="mt-8 pt-6 border-t border-border/30 text-center">
             <p className="text-sm text-foreground/60 mb-6">
-              This event is 18+ recommended unless stated otherwise.
+              Entry is 18+.
             </p>
             <Button variant="outline" asChild>
               <a href="/">← Back to all events</a>

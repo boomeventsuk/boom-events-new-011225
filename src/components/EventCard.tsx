@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { eventPath, formatHouseDate, formatPriceLabel } from "@/lib/eventUtils";
 import { pushToDataLayer } from "@/lib/dataLayer";
+import { CHRISTMAS_2026_SALE_START, christmasSaleBadgeLabel } from "@/lib/christmasSale";
 
 // Bunny Optimizer params for CDN-hosted images
 const optimised = (url: string, width: number) =>
@@ -51,8 +52,20 @@ export const EventCard: React.FC<EventCardProps> = ({
   groupTicket,
   fomoOverride,
 }) => {
+  const [saleClock, setSaleClock] = useState(Date.now());
+
+  useEffect(() => {
+    const delay = CHRISTMAS_2026_SALE_START - Date.now();
+    if (delay <= 0) return;
+    const timer = window.setTimeout(() => setSaleClock(Date.now()), delay + 100);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   // ONE badge: sold out wins, then synced statusLabel, then fomoOverride fallback
-  const badge = isSoldOut ? "SOLD OUT" : statusLabel || fomoOverride?.message;
+  const badge = isSoldOut
+    ? "SOLD OUT"
+    : christmasSaleBadgeLabel(eventCode, statusLabel || fomoOverride?.message, false, saleClock);
+  const isPreSale = badge === "ON SALE FRI";
   const price = formatPriceLabel(priceLabel);
 
   const handleClick = () => {
@@ -123,7 +136,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           </p>
         )}
         <p className="mt-1 text-xs sm:text-sm font-bold text-white/80 transition-colors group-hover:text-white group-active:text-white">
-          {isSoldOut ? "Join the waiting list" : "Book tickets →"}
+          {isSoldOut ? "Join the waiting list" : isPreSale ? "Event details →" : "Book tickets →"}
         </p>
       </div>
     </Link>

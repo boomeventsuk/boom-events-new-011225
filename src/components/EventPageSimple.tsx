@@ -1,4 +1,4 @@
-import { Calendar, Clock, MapPin } from 'lucide-react';
+import { Calendar, Clock, MapPin, Ticket, Users } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import EventbriteEmbed from '@/components/EventbriteEmbed';
 import TrustStrip from '@/components/TrustStrip';
 import { formatHouseDate } from '@/lib/eventUtils';
+import type { GroupTicket } from '@/components/EventCard';
 
 interface EventData {
   eventCode: string;
@@ -18,8 +19,13 @@ interface EventData {
   city: string;
   image: string;
   description: string;
+  fullDescription?: string;
   eventbriteId: string;
   isSoldOut?: boolean;
+  statusLabel?: string;
+  priceLabel?: string;
+  groupTicket?: GroupTicket | null;
+  entryRequirement?: string;
 }
 
 interface EventPageSimpleProps {
@@ -27,6 +33,7 @@ interface EventPageSimpleProps {
 }
 
 const EventPageSimple = ({ event }: EventPageSimpleProps) => {
+  const isPreSale = /tickets on sale friday/i.test(event.statusLabel || '');
   const scrollToCheckout = () => {
     const checkoutSection = document.getElementById('checkout-section');
     if (checkoutSection) {
@@ -40,7 +47,8 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
   
   // Split description by newlines for paragraph rendering
-  const descriptionParagraphs = event.description.split('\n\n').filter(p => p.trim());
+  const displayDescription = event.fullDescription || event.description;
+  const descriptionParagraphs = displayDescription.split('\n\n').filter(p => p.trim());
 
   // Helper to render styled lines based on pattern detection
   const renderStyledLine = (line: string, isFirstParagraph: boolean) => {
@@ -141,7 +149,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   const dateLabel = formatHouseDate(event.start);
   // Keep the date in the hydrated title so Helmet matches the static shell
   const pageTitle = [event.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
-  const metaDescription = event.description.split('\n')[0].slice(0, 160);
+  const metaDescription = displayDescription.split('\n')[0].slice(0, 160);
 
   return (
     <>
@@ -181,6 +189,11 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
             
             {/* Right: Details Card */}
             <div className="bg-card/60 backdrop-blur-sm border border-border/40 rounded-2xl p-4 md:p-6 space-y-4">
+              {event.statusLabel && !event.isSoldOut && (
+                <div className="inline-flex rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-bold uppercase tracking-wide text-primary">
+                  {event.statusLabel}
+                </div>
+              )}
               <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 {event.title}
               </h1>
@@ -207,6 +220,23 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
                   <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
                   <span className="text-base text-foreground/85">{event.venue}, {event.city}</span>
                 </div>
+                {event.priceLabel && !event.isSoldOut && (
+                  <div className="flex items-center gap-3">
+                    <Ticket className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-base font-semibold text-foreground">{event.priceLabel}</span>
+                  </div>
+                )}
+                {event.groupTicket?.label && !event.isSoldOut && (
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-base text-foreground/85">{event.groupTicket.label}</span>
+                  </div>
+                )}
+                {event.entryRequirement && (
+                  <div className="rounded-lg border border-border/50 bg-background/50 px-4 py-3 font-semibold text-foreground">
+                    {event.entryRequirement}
+                  </div>
+                )}
               </div>
               
               {/* Book Tickets Button */}
@@ -214,7 +244,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
                 onClick={scrollToCheckout}
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base py-6"
               >
-                {event.isSoldOut ? 'Join Waiting List' : 'Book Tickets'}
+                {event.isSoldOut ? 'Join Waiting List' : isPreSale ? 'Event Details' : 'Book Tickets'}
               </Button>
               
               {/* Share Icons */}
@@ -291,8 +321,11 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
                   🎟️
                 </div>
                 <h2 className="font-poppins text-xl md:text-2xl font-bold text-foreground tracking-tight">
-                  {event.isSoldOut ? 'Join the Waiting List' : 'Book Your Tickets'}
+                  {event.isSoldOut ? 'Join the Waiting List' : isPreSale ? 'Tickets on sale Friday at 12 noon' : 'Book Your Tickets'}
                 </h2>
+                {isPreSale && (
+                  <p className="text-foreground/70 mt-2">Tickets will be available from 12 noon on Friday.</p>
+                )}
                 {event.isSoldOut && (
                   <p className="text-foreground/70 mt-2">This event has sold out! Join the waiting list below.</p>
                 )}

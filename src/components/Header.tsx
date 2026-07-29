@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import {
+  CHRISTMAS_2026_SALE_START,
+  christmasSaleBadgeLabel,
+} from "@/lib/christmasSale";
 
 const isChristmasDay = () => {
   const today = new Date();
@@ -28,6 +32,18 @@ const locationLinks = [
 const Header = () => {
   const [mobilePartiesOpen, setMobilePartiesOpen] = useState(false);
   const [mobileLocationsOpen, setMobileLocationsOpen] = useState(false);
+  const [saleClock, setSaleClock] = useState(Date.now());
+  const eventCode = typeof window !== 'undefined' && window.location.pathname.startsWith('/event/')
+    ? window.location.pathname.split('/')[2]?.toUpperCase()
+    : undefined;
+  const isChristmasPreSale = christmasSaleBadgeLabel(eventCode, undefined, false, saleClock) === 'ON SALE FRI';
+
+  useEffect(() => {
+    const delay = CHRISTMAS_2026_SALE_START - Date.now();
+    if (delay <= 0) return;
+    const timer = window.setTimeout(() => setSaleClock(Date.now()), delay + 100);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -168,7 +184,7 @@ const Header = () => {
             onClick={handleBookTicketsClick}
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-semibold book-cta"
           >
-            Book Tickets
+            {isChristmasPreSale ? 'ON SALE FRI' : 'Book Tickets'}
           </Button>
           
           {/* Mobile Menu Toggle */}

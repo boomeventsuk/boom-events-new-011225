@@ -42,7 +42,14 @@ const statusLabelToTier = (label: string): string => {
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
-  const displayFomo = event.fomoOverride
+  const isPreSale = /tickets on sale friday/i.test(event.statusLabel || '');
+  const displayFomo = isPreSale
+    ? {
+        tier: statusLabelToTier(event.statusLabel || ''),
+        message: event.statusLabel || '',
+        timeMessage: null,
+      }
+    : event.fomoOverride
     ? {
         tier: event.fomoOverride.tier,
         message: event.fomoOverride.message,
@@ -191,7 +198,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               className="w-full md:w-auto text-lg px-8 py-6"
               onClick={handleBookClick}
             >
-              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : 'BOOK TICKETS'}
+              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : isPreSale ? 'EVENT DETAILS' : 'BOOK TICKETS'}
             </Button>
 
             <div className="pt-4 border-t border-border/30">

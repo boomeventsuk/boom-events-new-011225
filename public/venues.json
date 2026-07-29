@@ -1,11 +1,11 @@
 {
   "Northampton": {
     "city": "Northampton",
-    "eventCount": 10,
+    "eventCount": 15,
     "venues": [
       {
         "name": "The Picturedrome",
-        "eventCount": 9,
+        "eventCount": 14,
         "events": [
           {
             "slug": "get-ready-60s-70s-motown-soul-disco",
@@ -42,6 +42,26 @@
           {
             "slug": "boombastic-90s-northampton",
             "title": "BOOMBASTIC 90s Northampton"
+          },
+          {
+            "slug": "boombastic-s-christmas-silent-disco-2026",
+            "title": "Boombastic's Christmas Silent Disco 2026"
+          },
+          {
+            "slug": "the-2pm-club-northampton-christmas-daytime-disco",
+            "title": "THE 2PM CLUB Northampton - Christmas Daytime Disco"
+          },
+          {
+            "slug": "boombastic-s-christmas-decades-party",
+            "title": "Boombastic's Christmas Decades Party"
+          },
+          {
+            "slug": "christmas-family-silent-disco-northampton",
+            "title": "Christmas FAMILY SILENT DISCO Northampton"
+          },
+          {
+            "slug": "the-2pm-club-northampton-christmas-daytime-disco",
+            "title": "THE 2PM CLUB Northampton - Christmas Daytime Disco"
           }
         ]
       },
@@ -89,11 +109,11 @@
   },
   "Bedford": {
     "city": "Bedford",
-    "eventCount": 5,
+    "eventCount": 6,
     "venues": [
       {
         "name": "Bedford Esquires",
-        "eventCount": 5,
+        "eventCount": 6,
         "events": [
           {
             "slug": "the-2pm-club-bedford-80s-90s-00s-daytime-disco",
@@ -114,6 +134,10 @@
           {
             "slug": "boombastic-90s-bedford",
             "title": "BOOMBASTIC 90s Bedford"
+          },
+          {
+            "slug": "the-2pm-club-bedford-christmas-daytime-disco",
+            "title": "THE 2PM CLUB Bedford - Christmas Daytime Disco"
           }
         ]
       }
@@ -121,11 +145,11 @@
   },
   "Coventry": {
     "city": "Coventry",
-    "eventCount": 3,
+    "eventCount": 4,
     "venues": [
       {
         "name": "hmv Empire",
-        "eventCount": 3,
+        "eventCount": 4,
         "events": [
           {
             "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
@@ -138,6 +162,10 @@
           {
             "slug": "the-2pm-club-coventry-80s-90s-00s-daytime-disco",
             "title": "THE 2PM CLUB Coventry: 80s 90s 00s Daytime Disco"
+          },
+          {
+            "slug": "the-2pm-club-coventry-christmas-daytime-disco",
+            "title": "THE 2PM CLUB Coventry - Christmas Daytime Disco"
           }
         ]
       }
@@ -161,15 +189,19 @@
   },
   "Leicester": {
     "city": "Leicester",
-    "eventCount": 1,
+    "eventCount": 2,
     "venues": [
       {
         "name": "Mattioli Woods Welford Road Stadium",
-        "eventCount": 1,
+        "eventCount": 2,
         "events": [
           {
             "slug": "the-2pm-club-leicester-80s-90s-00s-daytime-disco",
             "title": "THE 2PM CLUB Leicester: 80s 90s 00s Daytime Disco"
+          },
+          {
+            "slug": "the-2pm-club-leicester-christmas-daytime-disco",
+            "title": "THE 2PM CLUB Leicester - Christmas Daytime Disco"
           }
         ]
       }

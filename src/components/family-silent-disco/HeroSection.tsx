@@ -17,6 +17,7 @@ interface HeroSectionProps {
     start: string;
     end: string;
     doorsTime?: string;
+    experienceStartTime?: string;
     image: string;
     isSoldOut?: boolean;
     timeDisplay?: string;
@@ -28,8 +29,11 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
+  const isPreSale = /tickets on sale friday/i.test(event.statusLabel || '');
 
-  const startDate = new Date(event.start);
+  const startDate = event.experienceStartTime
+    ? new Date(`${event.start.split('T')[0]}T${event.experienceStartTime}:00`)
+    : new Date(event.start);
   const endDate = new Date(event.end);
 
   const formattedDate = formatHouseDate(event.start);
@@ -94,7 +98,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 </Badge>
               </div>
               {/* FOMO Badge */}
-              {fomoData && fomoData.fomo_tier && fomoData.fomo_message && (
+              {!isPreSale && fomoData && fomoData.fomo_tier && fomoData.fomo_message && (
                 <div className="absolute top-4 right-4">
                   <FomoBadge 
                     tier={fomoData.fomo_tier} 
@@ -115,6 +119,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
             <p className="text-xl md:text-2xl text-primary font-medium mb-6">
               {event.subtitle || 'Dance together, find your vibe!'}
             </p>
+
+            {event.statusLabel && !event.isSoldOut && (
+              <div className="mb-6 inline-flex rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-bold uppercase tracking-wide text-primary">
+                {event.statusLabel}
+              </div>
+            )}
 
             {/* Date & Time */}
             <div className="space-y-3 mb-6">
@@ -159,7 +169,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 size="lg"
                 className="text-lg px-8 py-6 shadow-lg shadow-primary/30"
               >
-                {event.isSoldOut ? 'Join Waiting List' : 'Book Family Tickets'}
+                {event.isSoldOut ? 'Join Waiting List' : isPreSale ? 'Event Details' : 'Book Family Tickets'}
               </Button>
             </div>
 

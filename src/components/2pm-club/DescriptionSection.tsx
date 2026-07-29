@@ -13,6 +13,11 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
   const isEightiesEdition = isTwoPmEightiesEdition(event);
   const city = event.location.split(',')[1]?.trim() || '';
   const venue = event.location.split(',')[0]?.trim() || '';
+  const christmasParagraphs = event.fullDescription
+    .split('\n\n')
+    .map(paragraph => paragraph.trim())
+    .filter(Boolean)
+    .slice(3);
 
   return (
     <section className="py-10 md:py-14">
@@ -20,32 +25,43 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
         <div className="max-w-4xl mx-auto bg-card/50 border border-border/30 rounded-2xl p-6 md:p-10">
           {isChristmas ? (
             <>
-              <p className="text-lg md:text-xl font-semibold mb-4">
-                THE 2PM CLUB CHRISTMAS DAYTIME DISCO HITS {city.toUpperCase()}.
+              <p className="text-sm md:text-base font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+                Christmas Edition
               </p>
-              <p className="text-2xl md:text-3xl font-bold text-primary mb-6">
-                4 Hours of Iconic Anthems & Festive Favourites. Home by 7(ish).
+              <h2 className="text-2xl md:text-4xl font-bold text-foreground mb-3">
+                THE 2PM CLUB Christmas Daytime Disco
+              </h2>
+              <p className="text-lg md:text-xl font-semibold text-primary mb-8">
+                Your best night out. In the middle of the afternoon.
               </p>
-              <blockquote className="border-l-4 border-primary pl-6 py-4 mb-6 text-xl md:text-2xl italic text-foreground/90">
-                "Remember when Christmas parties didn't mean losing your entire weekend to regret?"
-              </blockquote>
-              <div className="prose prose-invert prose-lg max-w-none space-y-4 text-foreground/80">
-                <p>
-                  Welcome to THE 2PM CLUB Christmas Daytime Disco, the festive get-together your group chat 
-                  can actually agree on. From 2PM sharp, we're upgrading your December with neon fairy lights 
-                  and wall-shaking 80s, 90s & 00s anthems, spiked with the festive bangers you've been miming 
-                  in the car since November.
-                </p>
-                <p className="font-bold text-foreground">
-                  Your best night out is NOW in the afternoon.
-                </p>
-                <p>
-                  This isn't your work's half-hearted Secret Santa do. This is full club production, confetti 
-                  cannons, dazzling lights, and DJs who know exactly when to drop "All I Want For Christmas Is You." 
-                  By 7pm, you'll be back on the sofa, glowing like Rudolph, still humming Mariah. Whether you're 
-                  ditching the office party or finally doing something that doesn't involve being polite to Dave 
-                  from accounts, this is how you do Christmas.
-                </p>
+              <div className="space-y-5 text-lg text-foreground/85 leading-relaxed">
+                {christmasParagraphs.map((paragraph, index) => {
+                  if (/^WHY YOUR CREW WILL LOVE IT$/i.test(paragraph)) {
+                    return (
+                      <h3 key={paragraph} className="text-2xl font-bold text-foreground pt-4">
+                        Why your crew will love it
+                      </h3>
+                    );
+                  }
+
+                  if (/^(🎄|🎤|🥂|🕑|👯‍♀️|🎉)/u.test(paragraph)) {
+                    return (
+                      <div key={`${paragraph}-${index}`} className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3">
+                        {paragraph}
+                      </div>
+                    );
+                  }
+
+                  if (paragraph.startsWith('"')) {
+                    return (
+                      <blockquote key={paragraph} className="border-l-4 border-primary pl-5 py-2 text-xl italic text-foreground/90">
+                        {paragraph}
+                      </blockquote>
+                    );
+                  }
+
+                  return <p key={`${paragraph}-${index}`}>{paragraph}</p>;
+                })}
               </div>
             </>
           ) : isEightiesEdition ? (

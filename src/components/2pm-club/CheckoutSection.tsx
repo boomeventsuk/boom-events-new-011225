@@ -14,6 +14,7 @@ interface CheckoutSectionProps {
 
 export const CheckoutSection = ({ event, checkoutMessage }: CheckoutSectionProps) => {
   const defaultMessage = "Grab your tickets before they go.";
+  const isPreSale = /tickets on sale friday/i.test(checkoutMessage || '');
 
   return (
     <section id="checkout-section" className="py-10 md:py-14 bg-primary/10">
@@ -24,11 +25,13 @@ export const CheckoutSection = ({ event, checkoutMessage }: CheckoutSectionProps
               <Ticket className="w-8 h-8 text-primary" aria-hidden="true" />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              {event.isSoldOut ? "Join the Waiting List" : "Book Your Tickets"}
+              {event.isSoldOut ? "Join the Waiting List" : isPreSale ? "Tickets on sale Friday at 12 noon" : "Book Your Tickets"}
             </h2>
             <p className="text-lg text-foreground/70">
               {event.isSoldOut
                 ? "This event has sold out! Join the waiting list via Eventbrite below"
+                : isPreSale
+                  ? "Tickets will be available from 12 noon on Friday."
                 : (checkoutMessage || defaultMessage)}
             </p>
           </div>

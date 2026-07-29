@@ -22,11 +22,13 @@ interface HeroSectionProps {
     priceLabel?: string;
     groupTicket?: GroupTicket | null;
     statusLabel?: string;
+    entryRequirement?: string;
   };
 }
 
 export const HeroSection = ({ event }: HeroSectionProps) => {
   const { data: fomoData } = useEventFomoData(event.slug);
+  const isPreSale = /tickets on sale friday/i.test(event.statusLabel || '');
   const city = event.location.split(',')[1]?.trim() || '';
   const venue = event.location.split(',')[0]?.trim();
   const startDate = new Date(event.start);
@@ -110,6 +112,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </p>
             </div>
 
+            {event.statusLabel && !event.isSoldOut && (
+              <div className="inline-flex rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-bold uppercase tracking-wide text-primary">
+                {event.statusLabel}
+              </div>
+            )}
+
             <div className="space-y-3 text-base">
               <div className="flex items-center gap-3">
                 <Calendar className="w-5 h-5 text-primary" />
@@ -123,9 +131,14 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
                 <MapPin className="w-5 h-5 text-primary" />
                 <span>{venue}, {city}</span>
               </div>
+              {event.entryRequirement && (
+                <div className="rounded-lg border border-border/50 bg-card/60 px-4 py-3 font-semibold">
+                  {event.entryRequirement}
+                </div>
+              )}
             </div>
 
-            {fomoData?.fomo_tier && fomoData.fomo_message && (
+            {!isPreSale && fomoData?.fomo_tier && fomoData.fomo_message && (
               <FomoBadge
                 tier={fomoData.fomo_tier}
                 message={fomoData.fomo_message}
@@ -140,7 +153,7 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               className="w-full md:w-auto text-lg px-8 py-6"
               onClick={handleBookClick}
             >
-              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : 'BOOK TICKETS'}
+              {fomoData?.is_sold_out || event.isSoldOut ? 'JOIN WAITING LIST' : isPreSale ? 'EVENT DETAILS' : 'BOOK TICKETS'}
             </Button>
 
             <div className="pt-4 border-t border-border/30">

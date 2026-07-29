@@ -11,6 +11,7 @@ import NotFound from "./NotFound";
 import { isEventPassed } from "@/lib/eventUtils";
 import { normaliseTwoPmEditionEvent } from "@/lib/twoPmEdition";
 import type { GroupTicket } from "@/components/EventCard";
+import { CHRISTMAS_2026_SALE_START, christmasSalePageLabel } from "@/lib/christmasSale";
 
 interface EventData {
   eventCode: string;
@@ -53,8 +54,10 @@ interface EventData {
   priceLabel?: string;
   price?: number;
   groupTicket?: GroupTicket | null;
+  entryRequirement?: string;
   // Family Silent Disco specific
   doorsTime?: string;
+  experienceStartTime?: string;
   // GET READY specific
   isAfternoon?: boolean;
 }
@@ -71,13 +74,40 @@ const EventTemplate = () => {
         // Case-insensitive matching
         const normalizedCode = eventCode?.toUpperCase();
         const found = events.find(e => e.eventCode.toUpperCase() === normalizedCode);
-        setEvent(found || null);
+        setEvent(found
+          ? {
+              ...found,
+              statusLabel: christmasSalePageLabel(
+                found.eventCode,
+                found.statusLabel,
+                found.isSoldOut,
+              ),
+            }
+          : null);
         setLoading(false);
       })
       .catch(() => {
         setLoading(false);
       });
   }, [eventCode]);
+
+  useEffect(() => {
+    const delay = CHRISTMAS_2026_SALE_START - Date.now();
+    if (delay <= 0) return;
+    const timer = window.setTimeout(() => {
+      setEvent(current => current
+        ? {
+            ...current,
+            statusLabel: christmasSalePageLabel(
+              current.eventCode,
+              current.statusLabel,
+              current.isSoldOut,
+            ),
+          }
+        : current);
+    }, delay + 100);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   if (loading) {
     return (
@@ -201,6 +231,7 @@ const EventTemplate = () => {
       start: event.start || event.date,
       end: event.end || event.date,
       doorsTime: event.doorsTime,
+      experienceStartTime: event.experienceStartTime,
       bookUrl: event.bookUrl || siteEventUrl,
       image: event.image,
       description: event.description,
@@ -240,6 +271,7 @@ const EventTemplate = () => {
       priceLabel: event.priceLabel,
       groupTicket: event.groupTicket,
       statusLabel: event.statusLabel,
+      entryRequirement: event.entryRequirement,
     };
 
     return <SilentDiscoEventPage event={silentDiscoEvent} />;

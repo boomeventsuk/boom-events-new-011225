@@ -27,6 +27,7 @@ export interface FamilySilentDiscoEvent {
   start: string;
   end: string;
   doorsTime?: string;
+  experienceStartTime?: string;
   bookUrl?: string;
   image: string;
   description: string;
@@ -151,6 +152,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
               start: event.start,
               end: event.end,
               doorsTime: event.doorsTime,
+              experienceStartTime: event.experienceStartTime,
               image: event.image,
               isSoldOut: event.isSoldOut,
               timeDisplay: event.timeDisplay,

@@ -42,6 +42,7 @@ export interface SilentDiscoEvent {
   priceLabel?: string;
   groupTicket?: GroupTicket | null;
   statusLabel?: string;
+  entryRequirement?: string;
 }
 
 interface SilentDiscoEventPageProps {

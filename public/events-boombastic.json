@@ -788,6 +788,8 @@
   },
   {
     "eventCode": "281126-2PM-LEIC",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
     "title": "THE 2PM CLUB Leicester - Christmas Daytime Disco",
     "subtitle": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "date": "Saturday, 28 November 2026",
@@ -812,7 +814,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £11.00",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "Aylestone Road",
       "addressLocality": "Leicester",
@@ -827,6 +829,9 @@
   },
   {
     "eventCode": "041226-SD-NPTON",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
+    "entryRequirement": "Entry is 18+.",
     "title": "Boombastic's Christmas Silent Disco 2026",
     "subtitle": "Celebrating 11 Years of Festive Headphone Mayhem! 3 Channels, 3 DJs, One Unforgettable Night!",
     "date": "Friday, 4 December 2026",
@@ -851,7 +856,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £12.50",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
@@ -889,6 +894,8 @@
   },
   {
     "eventCode": "051226-2PM-NPTON",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
     "title": "THE 2PM CLUB Northampton - Christmas Daytime Disco",
     "subtitle": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "date": "Saturday, 5 December 2026",
@@ -913,7 +920,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £11.00",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
@@ -928,6 +935,9 @@
   },
   {
     "eventCode": "051226-DEC-NPTON",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
+    "entryRequirement": "Entry is 18+.",
     "title": "Boombastic's Christmas Decades Party",
     "subtitle": "Wall-to-wall 80s, 90s & 00s anthems with festive classics from Mariah, Wham!, Slade & co.",
     "date": "Saturday, 5 December 2026",
@@ -952,7 +962,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £11.00",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
@@ -967,6 +977,8 @@
   },
   {
     "eventCode": "061226-FSD-NPTON",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
     "title": "Christmas FAMILY SILENT DISCO Northampton",
     "subtitle": "Our popular Family Party returns to The Picturedrome for a festive special!",
     "date": "Sunday, 6 December 2026",
@@ -979,7 +991,7 @@
     "description": "Our popular Family Party returns to The Picturedrome for a festive special!",
     "eventbriteId": "1995469666489",
     "isSoldOut": false,
-    "fullDescription": "🎄 Our CHRISTMAS FAMILY SILENT DISCO arrives at The Picturedrome on Sunday 6th December!\n\nChristmas jumpers on, headphones on, big family smiles guaranteed. Dance together while everyone finds their perfect vibe, no dance skills needed, just bring your energy and a sprinkle of festive cheer! ✨\n\n▪️ AGES: Perfect for kids 4+ and parents get to join the party too (in fact, the parents regularly enjoy it more!) Three channels means everyone in the family finds their perfect vibe. ⚡️\n\n▪️ DOORS OPEN: 12:30 with our Party Channel on 🔵\n\n▪️ FULL 3-CHANNEL EXPERIENCE: 13:00 to 15:00\n\n🎧 WHAT TO EXPECT\n\nEver tried dancing like nobody's watching… with headphones? At our Family Silent Disco, everyone gets their own soundtrack while sharing the same dance floor!\n\n🎶 Dance together, find your vibe! Kids can bounce to Party Hits, parents can move to throwback favourites, and teens can jump on today's chart toppers, all in the same space without compromise.\n\n🎄 Choose your vibe this Christmas:\n\n🔵 CHRISTMAS & PARTY\n\nMARIAH · WHAM! · SLADE · WIZZARD · EAST 17 and all the family party hits\n\n🔴 THROWBACK\n\nMADONNA · WHITNEY · SPICE GIRLS · ABBA · TAKE THAT · TINA TURNER and many more\n\n🟢 CHART\n\nThe clean, current and trending hits your teenagers actually want.\n\n🎧 All three channels are family-friendly and curated by the Boombastic team, drawing on years of experience running both adult decades parties and school sessions through our sister project The Silent Disco Project CIC.\n\nThis unique format keeps ticket prices family-friendly while making sure everyone, from little elves to grown-up reindeers, finds their perfect vibe!\n\n🏆 BEST FESTIVE-DRESSED FAMILY/GROUP will win tickets to our next Family Silent Disco Party!\n\n🎟 TICKETS\n\nTickets from just £10 per person, with a group-of-four ticket from just £35!\n\nHeadsets are limited, grab yours before they disappear like Christmas magic! 🪄",
+    "fullDescription": "🎄 Our CHRISTMAS FAMILY SILENT DISCO arrives at The Picturedrome on Sunday 6th December!\n\nChristmas jumpers on, headphones on, big family smiles guaranteed. Dance together while everyone finds their perfect vibe, no dance skills needed, just bring your energy and a sprinkle of festive cheer! ✨\n\n▪️ AGES: Perfect for kids 4+ and parents get to join the party too (in fact, the parents regularly enjoy it more!) Three channels means everyone in the family finds their perfect vibe. ⚡️\n\n▪️ DOORS OPEN: 12:30 with our Party Channel on 🔵\n\n▪️ FULL 3-CHANNEL EXPERIENCE: 13:00 to 15:00\n\n🎧 WHAT TO EXPECT\n\nEver tried dancing like nobody's watching… with headphones? At our Family Silent Disco, everyone gets their own soundtrack while sharing the same dance floor!\n\n🎶 Dance together, find your vibe! Kids can bounce to Party Hits, parents can move to throwback favourites, and teens can jump on today's chart toppers, all in the same space without compromise.\n\n🎄 Choose your vibe this Christmas:\n\n🔵 CHRISTMAS & PARTY\n\nMARIAH · WHAM! · SLADE · WIZZARD · EAST 17 and all the family party hits\n\n🔴 THROWBACK\n\nMADONNA · WHITNEY · SPICE GIRLS · ABBA · TAKE THAT · TINA TURNER and many more\n\n🟢 CHART\n\nThe clean, current and trending hits your teenagers actually want.\n\n🎧 All three channels are family-friendly and curated by the Boombastic team, drawing on years of experience running both adult decades parties and school sessions through our sister project The Silent Disco Project CIC.\n\nThis unique format keeps ticket prices family-friendly while making sure everyone, from little elves to grown-up reindeers, finds their perfect vibe!\n\n🏆 BEST FESTIVE-DRESSED FAMILY/GROUP will win tickets to our next Family Silent Disco Party!\n\n🎟 TICKETS\n\nTickets from just £8 per person, with a group-of-four ticket from just £35!\n\nHeadsets are limited, grab yours before they disappear like Christmas magic! 🪄",
     "highlights": "🎄 Our CHRISTMAS FAMILY SILENT DISCO arrives at The Picturedrome on Sunday 6th December!|▪️ AGES: Perfect for kids 4+ and parents get to join the party too (in fact, the parents regularly enjoy it more!) Three channels means everyone in the family finds their perfect vibe. ⚡️|▪️ DOORS OPEN: 12:30 with our Party Channel on 🔵|▪️ FULL 3-CHANNEL EXPERIENCE: 13:00 to 15:00|🎧 WHAT TO EXPECT|🎄 Choose your vibe this Christmas:",
     "hiddenSections": [
       "video",
@@ -991,7 +1003,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £8.00",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
@@ -999,6 +1011,7 @@
       "addressCountry": "GB"
     },
     "doorsTime": "12:30",
+    "experienceStartTime": "13:00",
     "channels": [
       {
         "color": "blue",
@@ -1027,6 +1040,8 @@
   },
   {
     "eventCode": "121226-2PM-NPTON",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
     "title": "THE 2PM CLUB Northampton - Christmas Daytime Disco",
     "subtitle": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "date": "Saturday, 12 December 2026",
@@ -1051,7 +1066,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £11.00",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
@@ -1066,6 +1081,8 @@
   },
   {
     "eventCode": "191226-2PM-COV",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
     "title": "THE 2PM CLUB Coventry - Christmas Daytime Disco",
     "subtitle": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "date": "Saturday, 19 December 2026",
@@ -1090,7 +1107,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £11.00",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "22 Hertford Street",
       "addressLocality": "Coventry",
@@ -1105,6 +1122,8 @@
   },
   {
     "eventCode": "191226-2PM-BED",
+    "saleStartsAt": "2026-07-31T11:00:00Z",
+    "launchLabelUntil": "2026-08-02T23:00:00Z",
     "title": "THE 2PM CLUB Bedford - Christmas Daytime Disco",
     "subtitle": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "date": "Saturday, 19 December 2026",
@@ -1129,7 +1148,7 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/PreOrder",
-    "statusLabel": "Just announced",
+    "statusLabel": "Tickets on sale Friday at 12 noon",
     "venueAddress": {
       "streetAddress": "60A Bromham Road",
       "addressLocality": "Bedford",

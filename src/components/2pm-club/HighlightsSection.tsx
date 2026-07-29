@@ -8,12 +8,16 @@ interface HighlightsSectionProps {
 
 export const HighlightsSection = ({ highlights, isChristmas = false, sectionTitle }: HighlightsSectionProps) => {
   const parsedHighlights = highlights.split('|').map(h => {
-    const colonIndex = h.indexOf(':');
-    if (colonIndex === -1) return { title: '', description: '' };
+    const commaIndex = h.indexOf(',');
+    const labelledColonIndex = h.indexOf(': ');
+    const separatorIndex = commaIndex >= 0
+      ? commaIndex
+      : labelledColonIndex;
+    if (separatorIndex === -1) return { title: '', description: '' };
 
     // Feed highlight copy may carry decorative emoji; strip them.
-    const title = stripEmoji(h.substring(0, colonIndex));
-    const description = stripEmoji(h.substring(colonIndex + 1));
+    const title = stripEmoji(h.substring(0, separatorIndex));
+    const description = stripEmoji(h.substring(separatorIndex + 1));
 
     return { title, description };
   }).filter(h => h.title && h.description);
