@@ -68,8 +68,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
   const dateLabel = formatHouseDate(displayEvent.start);
   const pageTitle = [displayEvent.title, dateLabel, 'Boombastic Events'].filter(Boolean).join(' | ');
   
-  // Determine if this is a Christmas event (December events ending in "1225")
-  const isChristmasEvent = displayEvent.slug.includes('1225');
+  const isChristmasEvent = displayEvent.title.toLowerCase().includes('christmas');
   // Booking urgency / pricing from the live feed only.
   const feedUrgency = buildFeedUrgency(displayEvent);
   
@@ -165,7 +164,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
         <main>
           <HeroSection event={displayEvent} />
           <DescriptionSection event={displayEvent} />
-          <VideoSection />
+          <VideoSection isChristmas={isChristmasEvent} />
           <HighlightsSection highlights={displayEvent.highlights} isChristmas={isChristmasEvent} />
           <PhotoGallery />
           <TestimonialsSection />

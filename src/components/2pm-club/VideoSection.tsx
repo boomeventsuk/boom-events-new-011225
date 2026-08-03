@@ -1,8 +1,19 @@
-export const VideoSection = () => {
-  const videoAssets = {
-    poster: 'https://boombastic-events.b-cdn.net/2PM%20web%20videos/2PM%20Web%20Video%20Thumbnail.jpg',
-    source: 'https://boombastic-events.b-cdn.net/2PM%20web%20videos/2PM%20video%20low%20res.mp4'
-  };
+interface VideoSectionProps {
+  isChristmas?: boolean;
+}
+
+const STANDARD_VIDEO_ASSETS = {
+  poster: 'https://boombastic-events.b-cdn.net/2PM%20web%20videos/2PM%20Web%20Video%20Thumbnail.jpg',
+  source: 'https://boombastic-events.b-cdn.net/2PM%20web%20videos/2PM%20video%20low%20res.mp4'
+};
+
+const CHRISTMAS_VIDEO_ASSETS = {
+  poster: 'https://boombastic-events.b-cdn.net/web%20hero/2pm-christmas-2026-poster.jpg',
+  source: 'https://boombastic-events.b-cdn.net/web%20hero/2pm-christmas-2026.mp4'
+};
+
+export const VideoSection = ({ isChristmas = false }: VideoSectionProps) => {
+  const videoAssets = isChristmas ? CHRISTMAS_VIDEO_ASSETS : STANDARD_VIDEO_ASSETS;
 
   return (
     <section className="py-10 md:py-14 bg-muted/20">
