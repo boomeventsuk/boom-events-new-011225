@@ -17,6 +17,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: eventbrite-sync
@@ -27,6 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -37,14 +41,30 @@ jobs:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
         run: node scripts/sync-eventbrite-prices.js
 
-      - name: Commit if changed
+      - name: Open sync pull request if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
+          target="public/events-boombastic.json"
+          changed="$(git diff --name-only)"
+          if [ -z "$changed" ]; then
+            echo "No changes."
+            exit 0
+          fi
+          if [ "$changed" != "$target" ]; then
+            printf 'Unexpected changed paths:\n%s\n' "$changed" >&2
+            exit 1
+          fi
           git config user.name "eventbrite-sync[bot]"
           git config user.email "hello@boomevents.co.uk"
-          if git diff --quiet public/events-boombastic.json; then
-            echo "No changes."
-          else
-            git add public/events-boombastic.json
-            git commit -m "chore: sync Eventbrite prices and availability [automated]"
-            git push
-          fi
+          branch="automation/eventbrite-sync-${GITHUB_RUN_ID}"
+          git switch -c "$branch"
+          git add "$target"
+          git commit -m "chore: sync Eventbrite prices and availability [automated]"
+          git push --set-upstream origin "$branch"
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "chore: sync Eventbrite prices and availability" \
+            --body "Automated Eventbrite ticket-truth update. Review and merge through the normal main-branch gate."
