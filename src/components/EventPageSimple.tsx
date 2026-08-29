@@ -34,6 +34,7 @@ interface EventPageSimpleProps {
 
 const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   const isPreSale = /tickets on sale friday/i.test(event.statusLabel || '');
+  const showEventbriteTrustStrip = event.eventCode.toUpperCase() === '120926-B90-NPTON';
   const scrollToCheckout = () => {
     const checkoutSection = document.getElementById('checkout-section');
     if (checkoutSection) {
@@ -336,6 +337,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
                   eventbriteId={event.eventbriteId}
                   containerId={`eventbrite-${event.eventCode}`}
                   height={425}
+                  showTrustStrip={showEventbriteTrustStrip}
                 />
               </div>
             </div>
