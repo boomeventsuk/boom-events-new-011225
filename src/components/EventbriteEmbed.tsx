@@ -70,7 +70,7 @@ const EventbriteEmbed = ({
   eventSlug, 
   promoCode, 
   height = 425,
-  showTrustStrip = false
+  showTrustStrip = true
 }: EventbriteEmbedProps) => {
   const checkoutIntentTracked = useRef(false);
   const checkoutSlug = eventSlug || eventbriteId;
