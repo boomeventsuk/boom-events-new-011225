@@ -72,6 +72,23 @@ function fmtPounds(value) {
   return Number.isInteger(value) ? `£${value}` : `£${value.toFixed(2)}`;
 }
 
+const LIVE_TICKET_COPY = '🎟 Check the live ticket selector for current prices, availability and group offers when available.';
+
+function normaliseDynamicTicketCopy(event) {
+  if (typeof event.fullDescription === 'string') {
+    event.fullDescription = event.fullDescription
+      .split('\n\n')
+      .map(paragraph => paragraph.trimStart().startsWith('🎟') ? LIVE_TICKET_COPY : paragraph)
+      .join('\n\n');
+  }
+  if (typeof event.highlights === 'string') {
+    event.highlights = event.highlights
+      .split('|')
+      .map(item => item.trimStart().startsWith('🎟') ? LIVE_TICKET_COPY : item)
+      .join('|');
+  }
+}
+
 function launchStatusLabel(event, computedLabel, isSoldOut, now = Date.now()) {
   if (isSoldOut) return computedLabel;
   const saleStartsAt = Date.parse(event.saleStartsAt || '');
@@ -161,15 +178,13 @@ function extractPriceData(ticketClasses, eventDate, location) {
   //
   // Phase 1: "Just announced"          - early days, low sales
   // Phase 2: "Selling fast"            - 15%+ sold
-  // Phase 3: "75% sold"                - really at 67% (1/3 left)
+  // Phase 3: "Over two-thirds sold"    - begins at 67% sold
   // Phase 4: "Final tickets"           - event week fallback
   // Phase 5: "Final release"           - final tier on sale, NO count
   //          (groups may still be on sale; group line shows)
-  // Phase 6: "Final release: N left"   - count mode. ONLY when
-  //          singles are the only thing on sale AND remaining
-  //          singles <= the venue's countFrom. N rounds DOWN:
-  //          100..25 -> nearest 25, 24..10 -> nearest 5,
-  //          under 10 -> "Last few tickets". Never exact.
+  // Phase 6: "Last few tickets"        - singles are the only thing
+  //          on sale and fewer than 10 remain. Automated public labels
+  //          never expose rounded or approximate numeric inventory.
   // Phase 7: "Join waiting list"       - sold out
   // ============================================================
 
@@ -192,10 +207,8 @@ function extractPriceData(ticketClasses, eventDate, location) {
     singleTiersAvailable.length > 0 &&
     singlesRemaining <= countFrom;
 
-  function roundedCountLabel(n) {
-    if (n < 10) return 'Last few tickets';
-    if (n < 25) return `Final release: ${Math.floor(n / 5) * 5} left`;
-    return `Final release: ${Math.floor(n / 25) * 25} left`;
+  function scarcityLabel(n) {
+    return n < 10 ? 'Last few tickets' : 'Final release';
   }
 
   let statusLabel;
@@ -205,24 +218,27 @@ function extractPriceData(ticketClasses, eventDate, location) {
     statusLabel = 'Join waiting list';
     schemaAvailability = 'https://schema.org/SoldOut';
   } else if (countMode) {
-    statusLabel = roundedCountLabel(singlesRemaining);
+    statusLabel = scarcityLabel(singlesRemaining);
     schemaAvailability = 'https://schema.org/LimitedAvailability';
   } else if (finalPhase) {
     statusLabel = 'Final release';
     schemaAvailability = 'https://schema.org/LimitedAvailability';
   } else if (tiers.some(t => /early/i.test(t.name) && t.status === 'SOLD_OUT') && anyAvailable) {
-    // Early tier gone, later tiers live. JD 2026-06-15: never say "sold out"
-    // on an available event (reads as "can't go"). An early tier selling out
-    // IS momentum, so say so positively.
-    statusLabel = 'Selling fast';
-    schemaAvailability = 'https://schema.org/LimitedAvailability';
+    // A deliberately small early tier selling out is not proof that the whole
+    // event is selling fast. Require real sell-through before using urgency.
+    if (percentSold >= 15) {
+      statusLabel = 'Selling fast';
+      schemaAvailability = 'https://schema.org/LimitedAvailability';
+    } else {
+      statusLabel = 'General release now open';
+      schemaAvailability = 'https://schema.org/InStock';
+    }
   } else if (isEventWeek) {
     // Event week, plenty of stock: generic urgency
     statusLabel = 'Final tickets';
     schemaAvailability = 'https://schema.org/LimitedAvailability';
   } else if (percentSold >= 67) {
-    // Reality: 1/3 left. Tell them: 75% sold
-    statusLabel = '75% sold';
+    statusLabel = 'Over two-thirds sold';
     schemaAvailability = 'https://schema.org/LimitedAvailability';
   } else if (percentSold >= 15) {
     // Real traction. General urgency.
@@ -379,6 +395,7 @@ async function main() {
         } else {
           delete event.groupTicket;
         }
+        normaliseDynamicTicketCopy(event);
         event.isSoldOut = priceData.public.availability === 'https://schema.org/SoldOut';
         event.priceLastSync = new Date().toISOString();
 

@@ -634,8 +634,8 @@
     },
     "priceCurrency": "GBP",
     "availability": "https://schema.org/LimitedAvailability",
-    "statusLabel": "Final release: 25 left",
-    "priceLastSync": "2026-08-29T00:27:22.137Z"
+    "statusLabel": "Final release",
+    "priceLastSync": "2026-08-29T08:36:24.000Z"
   },
   {
     "eventCode": "260626-GR-NPTON",
@@ -743,8 +743,8 @@
     "priceCurrency": "GBP",
     "priceLabel": "From £12.00",
     "availability": "https://schema.org/LimitedAvailability",
-    "statusLabel": "Final release: 25 left",
-    "priceLastSync": "2026-08-29T00:27:24.831Z"
+    "statusLabel": "Final release",
+    "priceLastSync": "2026-08-29T08:36:24.000Z"
   },
   {
     "eventCode": "171026-B90-BED",
@@ -802,7 +802,7 @@
     "description": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "eventbriteId": "1995469651444",
     "isSoldOut": false,
-    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 28th Nov 2026 · 2 PM to 6 PM\n\nMattioli Woods Welford Road, Leicester\n\nDue to demand, we're bringing our popular daytime party to Leicester this festive season, with our Christmas special at the home of Leicester Tigers\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, we've had sell-outs right across the Midlands.\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Tickets from £11 adv with Group Offers available\n\n🚨 Book now to dodge festive FOMO",
+    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 28th Nov 2026 · 2 PM to 6 PM\n\nMattioli Woods Welford Road, Leicester\n\nDue to demand, we're bringing our popular daytime party to Leicester this festive season, with our Christmas special at the home of Leicester Tigers\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, we've had sell-outs right across the Midlands.\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\n🚨 Book now to dodge festive FOMO",
     "highlights": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧|🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.|🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.|🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.|🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.|👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.",
     "hiddenSections": [
       "video",
@@ -813,15 +813,15 @@
     "price": 13,
     "priceCurrency": "GBP",
     "priceLabel": "From £13.00",
-    "availability": "https://schema.org/LimitedAvailability",
-    "statusLabel": "Selling fast",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "General release now open",
     "venueAddress": {
       "streetAddress": "Aylestone Road",
       "addressLocality": "Leicester",
       "postalCode": "LE2 7TR",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-08-29T00:27:26.143Z",
+    "priceLastSync": "2026-08-29T08:36:24.000Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -845,8 +845,8 @@
     "description": "Celebrating 11 Years of Festive Headphone Mayhem! 3 Channels, 3 DJs, One Unforgettable Night!",
     "eventbriteId": "1995469656459",
     "isSoldOut": false,
-    "fullDescription": "🎧✨ BOOMBASTIC CHRISTMAS SILENT DISCO ✨🎧\n\nFri 4th Dec 2026 · 20:30 to 00:30\n\nThe Picturedrome, Northampton\n\nEleven years of festive headphone mayhem. 3 DJs, 3 channels, 4 hours, one unforgettable night.\n\nEvery year this one sells out fast. Friends, office parties, couples, you name it, they're there. Make sure you don't miss out!\n\nPick your vibe or switch it up. Your choice.\n\n🔵 CHRISTMAS & PARTY\n\nMARIAH · WHAM! · SLADE · WIZZARD · SPICE GIRLS · ABBA · WHITNEY · MADONNA and the rest of the gang\n\n🔴 INDIE CLASSICS\n\nOASIS · THE KILLERS · ARCTIC MONKEYS · BLUR · THE DARKNESS · GUNS N' ROSES and many more\n\n🟢 DANCE ANTHEMS\n\nROBIN S · BLACK BOX · GALA · YAZZ · CHAKA KHAN · CALVIN HARRIS · FAITHLESS and many more\n\n💃💬 Perfect festive party or catch up. Share this in the group chat and lock in your best Christmas plans early!\n\n🎟 Tickets always sell so fast! From £12.50\n\n(£10 fully refundable headphone deposit on the night.)\n\n🚨 Every Christmas we sell out well in advance. Hit Book now, secure your headphones, and own the soundtrack to your favourite night of the season.\n\n🎅 Festive bangers, massive memories, home grinning all week after.",
-    "highlights": "🎧✨ BOOMBASTIC CHRISTMAS SILENT DISCO ✨🎧|🔵 CHRISTMAS & PARTY|🔴 INDIE CLASSICS|🟢 DANCE ANTHEMS|💃💬 Perfect festive party or catch up. Share this in the group chat and lock in your best Christmas plans early!|🎟 Tickets always sell so fast! From £12.50",
+    "fullDescription": "🎧✨ BOOMBASTIC CHRISTMAS SILENT DISCO ✨🎧\n\nFri 4th Dec 2026 · 20:30 to 00:30\n\nThe Picturedrome, Northampton\n\nEleven years of festive headphone mayhem. 3 DJs, 3 channels, 4 hours, one unforgettable night.\n\nEvery year this one sells out fast. Friends, office parties, couples, you name it, they're there. Make sure you don't miss out!\n\nPick your vibe or switch it up. Your choice.\n\n🔵 CHRISTMAS & PARTY\n\nMARIAH · WHAM! · SLADE · WIZZARD · SPICE GIRLS · ABBA · WHITNEY · MADONNA and the rest of the gang\n\n🔴 INDIE CLASSICS\n\nOASIS · THE KILLERS · ARCTIC MONKEYS · BLUR · THE DARKNESS · GUNS N' ROSES and many more\n\n🟢 DANCE ANTHEMS\n\nROBIN S · BLACK BOX · GALA · YAZZ · CHAKA KHAN · CALVIN HARRIS · FAITHLESS and many more\n\n💃💬 Perfect festive party or catch up. Share this in the group chat and lock in your best Christmas plans early!\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\n(£10 fully refundable headphone deposit on the night.)\n\n🚨 Every Christmas we sell out well in advance. Hit Book now, secure your headphones, and own the soundtrack to your favourite night of the season.\n\n🎅 Festive bangers, massive memories, home grinning all week after.",
+    "highlights": "🎧✨ BOOMBASTIC CHRISTMAS SILENT DISCO ✨🎧|🔵 CHRISTMAS & PARTY|🔴 INDIE CLASSICS|🟢 DANCE ANTHEMS|💃💬 Perfect festive party or catch up. Share this in the group chat and lock in your best Christmas plans early!|🎟 Check the live ticket selector for current prices, availability and group offers when available.",
     "hiddenSections": [
       "video",
       "gallery"
@@ -856,8 +856,8 @@
     "price": 15,
     "priceCurrency": "GBP",
     "priceLabel": "From £15.00",
-    "availability": "https://schema.org/LimitedAvailability",
-    "statusLabel": "Selling fast",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "General release now open",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
@@ -887,7 +887,7 @@
         "description": "Dancefloor and club anthems."
       }
     ],
-    "priceLastSync": "2026-08-29T00:27:27.259Z",
+    "priceLastSync": "2026-08-29T08:36:24.000Z",
     "groupTicket": {
       "size": 4,
       "price": 50,
@@ -910,7 +910,7 @@
     "description": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "eventbriteId": "1995469647432",
     "isSoldOut": false,
-    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 5th Dec 2026 · 2 PM to 5:30 PM\n\nThe Picturedrome, Northampton\n\nAfter the fastest sell-out in over a decade of Christmas parties, we're back with not one but two daytime discos this festive season. Sat 5th and Sat 12th Dec.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 5:30 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, Every Christmas Party has sold out in advance in 10+ years!\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Tickets from £11 adv. Group offers available!\n\n🚨 Book now to dodge festive FOMO",
+    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 5th Dec 2026 · 2 PM to 5:30 PM\n\nThe Picturedrome, Northampton\n\nAfter the fastest sell-out in over a decade of Christmas parties, we're back with not one but two daytime discos this festive season. Sat 5th and Sat 12th Dec.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 5:30 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, Every Christmas Party has sold out in advance in 10+ years!\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\n🚨 Book now to dodge festive FOMO",
     "highlights": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧|🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.|🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.|🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.|🕑 Party Early, Home Happy, done by 5:30 PM, Sunday still yours.|👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.",
     "hiddenSections": [
       "video",
@@ -918,18 +918,23 @@
     ],
     "fomoOverride": null,
     "status": "just-announced",
-    "price": 11,
+    "price": 13,
     "priceCurrency": "GBP",
-    "priceLabel": "From £11.00",
+    "priceLabel": "From £13.00",
     "availability": "https://schema.org/InStock",
-    "statusLabel": "Just announced",
+    "statusLabel": "General release now open",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
       "postalCode": "NN1 4BN",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-08-29T00:27:27.961Z"
+    "priceLastSync": "2026-08-29T08:36:24.000Z",
+    "groupTicket": {
+      "size": 4,
+      "price": 46,
+      "label": "Group of 4 for £46"
+    }
   },
   {
     "eventCode": "051226-DEC-NPTON",
@@ -948,7 +953,7 @@
     "description": "Wall-to-wall 80s, 90s & 00s anthems with festive classics from Mariah, Wham!, Slade & co.",
     "eventbriteId": "1995469659468",
     "isSoldOut": false,
-    "fullDescription": "🎧✨ BOOMBASTIC'S CHRISTMAS DECADES PARTY ✨🎧\n\nSat 5th Dec 2026 · 20:30 to 00:30\n\nThe Picturedrome, Northampton\n\nThe most popular Christmas parties in the region are back, so let's tear up that dance floor.\n\nGrab your favourite people and dive into four hours of 80s, 90s & 00s anthems, laced with the Christmas classics you still know word-for-word. Big anthems all night while confetti drifts through the lights and the prosecco keeps flowing.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nWHY YOU'LL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎉 Decade-Defining Bangers, 80s, 90s and 00s back to back.\n\n🥂 Proper Old School Night Out, feel-good nostalgia, zero cheesy sled-jinglers.\n\n👯‍♀️ Group-Chat Gold, Christmas plan sorted.\n\n🔥 Proven Sell-Out Energy, Every Christmas Party has sold out in advance in 10+ years!\n\n\"The only Christmas night we book, best music, best crowd.\" Emma R.\n\n🎟 Tickets from £11 adv. Group offers available!\n\n🚨 Book now to dodge festive FOMO",
+    "fullDescription": "🎧✨ BOOMBASTIC'S CHRISTMAS DECADES PARTY ✨🎧\n\nSat 5th Dec 2026 · 20:30 to 00:30\n\nThe Picturedrome, Northampton\n\nThe most popular Christmas parties in the region are back, so let's tear up that dance floor.\n\nGrab your favourite people and dive into four hours of 80s, 90s & 00s anthems, laced with the Christmas classics you still know word-for-word. Big anthems all night while confetti drifts through the lights and the prosecco keeps flowing.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nWHY YOU'LL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎉 Decade-Defining Bangers, 80s, 90s and 00s back to back.\n\n🥂 Proper Old School Night Out, feel-good nostalgia, zero cheesy sled-jinglers.\n\n👯‍♀️ Group-Chat Gold, Christmas plan sorted.\n\n🔥 Proven Sell-Out Energy, Every Christmas Party has sold out in advance in 10+ years!\n\n\"The only Christmas night we book, best music, best crowd.\" Emma R.\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\n🚨 Book now to dodge festive FOMO",
     "highlights": "🎧✨ BOOMBASTIC'S CHRISTMAS DECADES PARTY ✨🎧|🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.|🎉 Decade-Defining Bangers, 80s, 90s and 00s back to back.|🥂 Proper Old School Night Out, feel-good nostalgia, zero cheesy sled-jinglers.|👯‍♀️ Group-Chat Gold, Christmas plan sorted.|🔥 Proven Sell-Out Energy, Every Christmas Party has sold out in advance in 10+ years!",
     "hiddenSections": [
       "video",
@@ -959,15 +964,15 @@
     "price": 13,
     "priceCurrency": "GBP",
     "priceLabel": "From £13.00",
-    "availability": "https://schema.org/LimitedAvailability",
-    "statusLabel": "Selling fast",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "General release now open",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
       "postalCode": "NN1 4BN",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-08-29T00:27:28.611Z",
+    "priceLastSync": "2026-08-29T08:36:24.000Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -990,7 +995,7 @@
     "description": "Our popular Family Party returns to The Picturedrome for a festive special!",
     "eventbriteId": "1995469666489",
     "isSoldOut": false,
-    "fullDescription": "🎄 Our CHRISTMAS FAMILY SILENT DISCO arrives at The Picturedrome on Sunday 6th December!\n\nChristmas jumpers on, headphones on, big family smiles guaranteed. Dance together while everyone finds their perfect vibe, no dance skills needed, just bring your energy and a sprinkle of festive cheer! ✨\n\n▪️ AGES: Perfect for kids 4+ and parents get to join the party too (in fact, the parents regularly enjoy it more!) Three channels means everyone in the family finds their perfect vibe. ⚡️\n\n▪️ DOORS OPEN: 12:30 with our Party Channel on 🔵\n\n▪️ FULL 3-CHANNEL EXPERIENCE: 13:00 to 15:00\n\n🎧 WHAT TO EXPECT\n\nEver tried dancing like nobody's watching… with headphones? At our Family Silent Disco, everyone gets their own soundtrack while sharing the same dance floor!\n\n🎶 Dance together, find your vibe! Kids can bounce to Party Hits, parents can move to throwback favourites, and teens can jump on today's chart toppers, all in the same space without compromise.\n\n🎄 Choose your vibe this Christmas:\n\n🔵 CHRISTMAS & PARTY\n\nMARIAH · WHAM! · SLADE · WIZZARD · EAST 17 and all the family party hits\n\n🔴 THROWBACK\n\nMADONNA · WHITNEY · SPICE GIRLS · ABBA · TAKE THAT · TINA TURNER and many more\n\n🟢 CHART\n\nThe clean, current and trending hits your teenagers actually want.\n\n🎧 All three channels are family-friendly and curated by the Boombastic team, drawing on years of experience running both adult decades parties and school sessions through our sister project The Silent Disco Project CIC.\n\nThis unique format keeps ticket prices family-friendly while making sure everyone, from little elves to grown-up reindeers, finds their perfect vibe!\n\n🏆 BEST FESTIVE-DRESSED FAMILY/GROUP will win tickets to our next Family Silent Disco Party!\n\n🎟 TICKETS\n\nTickets from just £8 per person, with a group-of-four ticket from just £35!\n\nHeadsets are limited, grab yours before they disappear like Christmas magic! 🪄",
+    "fullDescription": "🎄 Our CHRISTMAS FAMILY SILENT DISCO arrives at The Picturedrome on Sunday 6th December!\n\nChristmas jumpers on, headphones on, big family smiles guaranteed. Dance together while everyone finds their perfect vibe, no dance skills needed, just bring your energy and a sprinkle of festive cheer! ✨\n\n▪️ AGES: Perfect for kids 4+ and parents get to join the party too (in fact, the parents regularly enjoy it more!) Three channels means everyone in the family finds their perfect vibe. ⚡️\n\n▪️ DOORS OPEN: 12:30 with our Party Channel on 🔵\n\n▪️ FULL 3-CHANNEL EXPERIENCE: 13:00 to 15:00\n\n🎧 WHAT TO EXPECT\n\nEver tried dancing like nobody's watching… with headphones? At our Family Silent Disco, everyone gets their own soundtrack while sharing the same dance floor!\n\n🎶 Dance together, find your vibe! Kids can bounce to Party Hits, parents can move to throwback favourites, and teens can jump on today's chart toppers, all in the same space without compromise.\n\n🎄 Choose your vibe this Christmas:\n\n🔵 CHRISTMAS & PARTY\n\nMARIAH · WHAM! · SLADE · WIZZARD · EAST 17 and all the family party hits\n\n🔴 THROWBACK\n\nMADONNA · WHITNEY · SPICE GIRLS · ABBA · TAKE THAT · TINA TURNER and many more\n\n🟢 CHART\n\nThe clean, current and trending hits your teenagers actually want.\n\n🎧 All three channels are family-friendly and curated by the Boombastic team, drawing on years of experience running both adult decades parties and school sessions through our sister project The Silent Disco Project CIC.\n\nThis unique format keeps ticket prices family-friendly while making sure everyone, from little elves to grown-up reindeers, finds their perfect vibe!\n\n🏆 BEST FESTIVE-DRESSED FAMILY/GROUP will win tickets to our next Family Silent Disco Party!\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\nTickets from just £8 per person, with a group-of-four ticket from just £35!\n\nHeadsets are limited, grab yours before they disappear like Christmas magic! 🪄",
     "highlights": "🎄 Our CHRISTMAS FAMILY SILENT DISCO arrives at The Picturedrome on Sunday 6th December!|▪️ AGES: Perfect for kids 4+ and parents get to join the party too (in fact, the parents regularly enjoy it more!) Three channels means everyone in the family finds their perfect vibe. ⚡️|▪️ DOORS OPEN: 12:30 with our Party Channel on 🔵|▪️ FULL 3-CHANNEL EXPERIENCE: 13:00 to 15:00|🎧 WHAT TO EXPECT|🎄 Choose your vibe this Christmas:",
     "hiddenSections": [
       "video",
@@ -1049,7 +1054,7 @@
     "description": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "eventbriteId": "1995469668495",
     "isSoldOut": false,
-    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 12th Dec 2026 · 2 PM to 5:30 PM\n\nThe Picturedrome, Northampton\n\nAfter the fastest sell-out in over a decade of Christmas parties, we're back with not one but two daytime discos this festive season. Sat 5th and Sat 12th Dec.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 5:30 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, Every Christmas Party has sold out in advance in 10+ years!\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Tickets from £11 adv. Group offers available!\n\n🚨 Book now to dodge festive FOMO",
+    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 12th Dec 2026 · 2 PM to 5:30 PM\n\nThe Picturedrome, Northampton\n\nAfter the fastest sell-out in over a decade of Christmas parties, we're back with not one but two daytime discos this festive season. Sat 5th and Sat 12th Dec.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 5:30 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, Every Christmas Party has sold out in advance in 10+ years!\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\n🚨 Book now to dodge festive FOMO",
     "highlights": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧|🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.|🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.|🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.|🕑 Party Early, Home Happy, done by 5:30 PM, Sunday still yours.|👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.",
     "hiddenSections": [
       "video",
@@ -1060,15 +1065,15 @@
     "price": 13,
     "priceCurrency": "GBP",
     "priceLabel": "From £13.00",
-    "availability": "https://schema.org/LimitedAvailability",
-    "statusLabel": "Selling fast",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "General release now open",
     "venueAddress": {
       "streetAddress": "222 Kettering Road",
       "addressLocality": "Northampton",
       "postalCode": "NN1 4BN",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-08-29T00:27:29.997Z",
+    "priceLastSync": "2026-08-29T08:36:24.000Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1091,7 +1096,7 @@
     "description": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "eventbriteId": "1995469674513",
     "isSoldOut": false,
-    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 19th Dec 2026 · 2 PM to 6 PM\n\nhmv Empire, Coventry\n\nDue to demand, we're bringing our popular daytime party to Coventry this festive season, with our Christmas special at the hmv Empire.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, we've had sell-outs right across the Midlands.\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Tickets from £11 adv. Group offers available!\n\n🚨 Book now to dodge festive FOMO",
+    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 19th Dec 2026 · 2 PM to 6 PM\n\nhmv Empire, Coventry\n\nDue to demand, we're bringing our popular daytime party to Coventry this festive season, with our Christmas special at the hmv Empire.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, we've had sell-outs right across the Midlands.\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\n🚨 Book now to dodge festive FOMO",
     "highlights": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧|🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.|🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.|🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.|🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.|👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.",
     "hiddenSections": [
       "video",
@@ -1128,7 +1133,7 @@
     "description": "The ULTIMATE Christmas Daytime Disco. Festive classics plus the biggest Sing Out Loud Anthems from the 80s, 90s & 00s.",
     "eventbriteId": "1995469677522",
     "isSoldOut": false,
-    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 19th Dec 2026 · 2 PM to 6 PM\n\nBedford Esquires, Bedford\n\nDue to demand, we're back with our popular daytime party to Bedford this festive season, with our Christmas special at Bedford Esquires.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, we've had sell-outs right across the Midlands.\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Tickets from £10 adv. Group offers available!\n\n🚨 Book now to dodge festive FOMO",
+    "fullDescription": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧\n\nSat 19th Dec 2026 · 2 PM to 6 PM\n\nBedford Esquires, Bedford\n\nDue to demand, we're back with our popular daytime party to Bedford this festive season, with our Christmas special at Bedford Esquires.\n\nNo more yawning through midnight office do's. From 2 PM sharp we're firing sing-out-loud choruses, neon fairy lights and the festive bangers you've been miming in the car since November.\n\nChristmas hits from the likes of\n\nMARIAH · WHAM! · SLADE · SHAKIN' STEVENS · WIZZARD · EAST 17 and the rest of the gang\n\nAs well as all the biggest Sing Out Loud Anthems from the 80s, 90s & 00s\n\nMADONNA · WHITNEY · TAKE THAT · SPICE GIRLS · ROBIN S · TINA TURNER · CHER · OASIS · BLACK BOX · ABBA · BEYONCÉ · THE KILLERS · CHAKA KHAN · RIHANNA · BON JOVI · YAZZ and many more\n\nThen a few hours later you're on the sofa for Strictly, glowing like Rudolph, voice gone! Secure your tickets early and own the group chat.\n\nWHY YOUR CREW WILL LOVE IT\n\n🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.\n\n🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.\n\n🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.\n\n🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.\n\n👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.\n\n🎉 Proven Sell-Out Energy, we've had sell-outs right across the Midlands.\n\n\"I wasn't expecting much the first time I attended in December but couldn't believe the amazing vibe\" Lorne, Northampton\n\nOur Christmas parties are extremely popular, so we recommend booking early.\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\n🚨 Book now to dodge festive FOMO",
     "highlights": "🎧✨ THE 2PM CLUB CHRISTMAS DAYTIME DISCO ✨🎧|🎄 Festive Floor-Fillers, every Christmas anthem you want to hear.|🎤 Sing-out-loud Throwbacks, every chorus you didn't know you still knew.|🥂 Just The Party, no sit-down meal, straight to the dancefloor with a drink in hand.|🕑 Party Early, Home Happy, done by 6 PM, Sunday still yours.|👯‍♀️ Group-Chat Gold, one link, one payment, Christmas reunion sorted.",
     "hiddenSections": [
       "video",
