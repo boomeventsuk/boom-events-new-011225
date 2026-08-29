@@ -15,6 +15,7 @@ interface CheckoutSectionProps {
 export const CheckoutSection = ({ event, checkoutMessage }: CheckoutSectionProps) => {
   const defaultMessage = "Grab your tickets before they go.";
   const isPreSale = /tickets on sale friday/i.test(checkoutMessage || '');
+  const showEventbriteTrustStrip = event.slug.toUpperCase() === '120926-B90-NPTON';
 
   return (
     <section id="checkout-section" className="py-10 md:py-14 bg-primary/10">
@@ -43,6 +44,7 @@ export const CheckoutSection = ({ event, checkoutMessage }: CheckoutSectionProps
             eventSlug={event.slug}
             promoCode={event.promoCode}
             height={425}
+            showTrustStrip={showEventbriteTrustStrip}
           />
         </div>
       </div>
