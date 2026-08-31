@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { eventPath, formatHouseDate, formatPriceLabel } from "@/lib/eventUtils";
+import { customerPriceLabel, customerStatusLabel, eventPath, formatHouseDate } from "@/lib/eventUtils";
 import { pushToDataLayer } from "@/lib/dataLayer";
 import { CHRISTMAS_2026_SALE_START, christmasSaleBadgeLabel } from "@/lib/christmasSale";
 
@@ -64,9 +64,14 @@ export const EventCard: React.FC<EventCardProps> = ({
   // ONE badge: sold out wins, then synced statusLabel, then fomoOverride fallback
   const badge = isSoldOut
     ? "SOLD OUT"
-    : christmasSaleBadgeLabel(eventCode, statusLabel || fomoOverride?.message, false, saleClock);
+    : christmasSaleBadgeLabel(
+        eventCode,
+        customerStatusLabel(eventCode, statusLabel || fomoOverride?.message, false),
+        false,
+        saleClock,
+      );
   const isPreSale = badge === "ON SALE FRI";
-  const price = formatPriceLabel(priceLabel);
+  const price = customerPriceLabel(eventCode, priceLabel);
 
   const handleClick = () => {
     pushToDataLayer({

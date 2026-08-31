@@ -315,7 +315,7 @@ async function main() {
     await fs.readFile(path.join(ROOT, "public", "events-boombastic.json"), "utf8")
   );
   const today = new Date().toISOString().slice(0, 10);
-  const upcoming = events.filter((e) => !e.isHidden && e.start.slice(0, 10) >= today);
+  const upcoming = events.filter((e) => !e.isHidden && e.start.slice(0, 10) >= today && !/-2PM-/i.test(e.eventCode || ""));
 
   // Refresh the homepage Events JSON-LD graph from live data (replaces the
   // stale hand-edited block) and strip it entirely from per-event shells.

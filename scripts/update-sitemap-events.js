@@ -43,7 +43,7 @@ async function main() {
   );
   const today = new Date().toISOString().slice(0, 10);
   const upcoming = events
-    .filter((e) => !e.isHidden && e.start && e.start.slice(0, 10) >= today)
+    .filter((e) => !e.isHidden && e.start && e.start.slice(0, 10) >= today && !/-2PM-/i.test(e.eventCode || ""))
     .sort((a, b) => a.start.localeCompare(b.start));
 
   const urls = [

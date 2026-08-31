@@ -40,6 +40,47 @@
 /locations/luton/*        /locations/luton/index.html        200
 /locations/leicester/*    /locations/leicester/index.html    200
 
+# 2PM canonical ownership: generated start
+/event/070226-2pm-lut          https://www.the2pmclub.co.uk/events/070226-2pm-lut/  301!
+/event/070226-2pm-lut/*        https://www.the2pmclub.co.uk/events/070226-2pm-lut/  301!
+/event/140226-2pm-bed          https://www.the2pmclub.co.uk/events/140226-2pm-bed/  301!
+/event/140226-2pm-bed/*        https://www.the2pmclub.co.uk/events/140226-2pm-bed/  301!
+/event/280226-2pm-npton          https://www.the2pmclub.co.uk/events/280226-2pm-npton/  301!
+/event/280226-2pm-npton/*        https://www.the2pmclub.co.uk/events/280226-2pm-npton/  301!
+/event/070326-2pm-cov          https://www.the2pmclub.co.uk/events/070326-2pm-cov/  301!
+/event/070326-2pm-cov/*        https://www.the2pmclub.co.uk/events/070326-2pm-cov/  301!
+/event/120926-2pm-bed          https://www.the2pmclub.co.uk/events/120926-2pm-bed/  301!
+/event/120926-2pm-bed/*        https://www.the2pmclub.co.uk/events/120926-2pm-bed/  301!
+/event/190926-2pm-cov          https://www.the2pmclub.co.uk/events/190926-2pm-cov/  301!
+/event/190926-2pm-cov/*        https://www.the2pmclub.co.uk/events/190926-2pm-cov/  301!
+/event/260926-2pm-mk          https://www.the2pmclub.co.uk/events/260926-2pm-mk/  301!
+/event/260926-2pm-mk/*        https://www.the2pmclub.co.uk/events/260926-2pm-mk/  301!
+/event/031026-2pm-lut          https://www.the2pmclub.co.uk/events/031026-2pm-lut/  301!
+/event/031026-2pm-lut/*        https://www.the2pmclub.co.uk/events/031026-2pm-lut/  301!
+/event/060626-2pm-cov          https://www.the2pmclub.co.uk/events/060626-2pm-cov/  301!
+/event/060626-2pm-cov/*        https://www.the2pmclub.co.uk/events/060626-2pm-cov/  301!
+/event/060626-2pm-npton          https://www.the2pmclub.co.uk/events/060626-2pm-npton/  301!
+/event/060626-2pm-npton/*        https://www.the2pmclub.co.uk/events/060626-2pm-npton/  301!
+/event/130626-2pm-bed          https://www.the2pmclub.co.uk/events/130626-2pm-bed/  301!
+/event/130626-2pm-bed/*        https://www.the2pmclub.co.uk/events/130626-2pm-bed/  301!
+/event/250726-2pm-npton          https://www.the2pmclub.co.uk/events/031026-2pm-npton/  301!
+/event/250726-2pm-npton/*        https://www.the2pmclub.co.uk/events/031026-2pm-npton/  301!
+/event/230526-2pm-lut          https://www.the2pmclub.co.uk/events/230526-2pm-lut/  301!
+/event/230526-2pm-lut/*        https://www.the2pmclub.co.uk/events/230526-2pm-lut/  301!
+/event/020526-2pm-leic          https://www.the2pmclub.co.uk/events/020526-2pm-leic/  301!
+/event/020526-2pm-leic/*        https://www.the2pmclub.co.uk/events/020526-2pm-leic/  301!
+/event/281126-2pm-leic          https://www.the2pmclub.co.uk/events/281126-2pm-leic/  301!
+/event/281126-2pm-leic/*        https://www.the2pmclub.co.uk/events/281126-2pm-leic/  301!
+/event/051226-2pm-npton          https://www.the2pmclub.co.uk/events/051226-2pm-npton/  301!
+/event/051226-2pm-npton/*        https://www.the2pmclub.co.uk/events/051226-2pm-npton/  301!
+/event/121226-2pm-npton          https://www.the2pmclub.co.uk/events/121226-2pm-npton/  301!
+/event/121226-2pm-npton/*        https://www.the2pmclub.co.uk/events/121226-2pm-npton/  301!
+/event/191226-2pm-cov          https://www.the2pmclub.co.uk/events/191226-2pm-cov/  301!
+/event/191226-2pm-cov/*        https://www.the2pmclub.co.uk/events/191226-2pm-cov/  301!
+/event/191226-2pm-bed          https://www.the2pmclub.co.uk/events/191226-2pm-bed/  301!
+/event/191226-2pm-bed/*        https://www.the2pmclub.co.uk/events/191226-2pm-bed/  301!
+# 2PM canonical ownership: generated end
+
 # SPA routes - explicit React Router paths only, so unknown URLs fall through to 404
 /tickets              /index.html  200
 /terms                /index.html  200

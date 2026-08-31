@@ -24,6 +24,7 @@ const EVENTS_PATH = path.join(ROOT, 'public', 'events-boombastic.json');
 const CONFIG_PATH = path.join(ROOT, 'scripts', 'location-config.json');
 const OUT_DIR = path.join(ROOT, 'public', 'locations');
 const SITE_URL = 'https://www.boomevents.co.uk';
+const TWO_PM_SITE_URL = 'https://www.the2pmclub.co.uk';
 
 // Tracking block mirrored from the brand pages (source of truth: /index.html).
 // GTM + Meta Pixel + GA4, consent-defaulted to denied for GDPR.
@@ -125,21 +126,73 @@ function todayISO() {
 }
 
 function parseStart(s) {
-  // start strings look like "2026-06-13T14:00:00", naive UK local
-  return new Date(s);
+  return new Date(withUkOffset(s));
+}
+
+function withUkOffset(iso) {
+  if (!iso || /[zZ]|[+\-]\d{2}:\d{2}$/.test(iso)) return iso;
+  const [datePart, timePart = '00:00:00'] = iso.split('T');
+  const [year, month, day] = datePart.split('-').map(Number);
+  const [hour, minute, second] = timePart.split(':').map(Number);
+  const guess = Date.UTC(year, month - 1, day, hour, minute, second || 0);
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+  }).formatToParts(new Date(guess)).map(({ type, value }) => [type, value]));
+  const londonAsUtc = Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day), Number(parts.hour) % 24, Number(parts.minute), Number(parts.second));
+  const offsetMinutes = Math.round((londonAsUtc - guess) / 60000);
+  const sign = offsetMinutes >= 0 ? '+' : '-';
+  const absolute = Math.abs(offsetMinutes);
+  return `${iso}${sign}${String(Math.floor(absolute / 60)).padStart(2, '0')}:${String(absolute % 60).padStart(2, '0')}`;
+}
+
+function ukParts(iso) {
+  return Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/London', weekday: 'short', day: 'numeric', month: 'short',
+    year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false,
+  }).formatToParts(parseStart(iso)).map(({ type, value }) => [type, value]));
 }
 
 function formatShortDate(startISO) {
   // House date style: "Sat 13th Jun 2026" (short day, ordinal, short month, full year)
-  const d = parseStart(startISO);
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const day = d.getDate();
+  const p = ukParts(startISO);
+  const day = Number(p.day);
   const suffix = day % 100 >= 11 && day % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][day % 10] || 'th';
-  return `${days[d.getDay()]} ${day}${suffix} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  return `${p.weekday} ${day}${suffix} ${p.month} ${p.year}`;
+}
+
+function formatUkTime(iso) {
+  const p = ukParts(iso);
+  const hour = Number(p.hour);
+  const hour12 = hour > 12 ? hour - 12 : hour === 0 || hour === 24 ? 12 : hour;
+  const minutes = p.minute === '00' ? '' : `:${p.minute}`;
+  return `${hour12}${minutes}${hour >= 12 && hour !== 24 ? 'pm' : 'am'}`;
+}
+
+function isTwoPmEvent(event) {
+  return /-2PM-/i.test(event.eventCode || '');
+}
+
+function canonicalTwoPmCode(eventCode) {
+  return eventCode.toUpperCase() === '250726-2PM-NPTON' ? '031026-2PM-NPTON' : eventCode;
+}
+
+function eventUrl(event) {
+  return isTwoPmEvent(event)
+    ? `${TWO_PM_SITE_URL}/events/${canonicalTwoPmCode(event.eventCode).toLowerCase()}/`
+    : `${SITE_URL}/event/${event.eventCode.toLowerCase()}/`;
+}
+
+function priceWithFee(event) {
+  if (!event.priceLabel) return '';
+  const clean = String(event.priceLabel).replace(/\.00\b/, '');
+  return isTwoPmEvent(event) && !/booking fee/i.test(clean) ? `${clean} + booking fee` : clean;
 }
 
 function fomoBadge(event) {
+  if (event.eventCode?.toUpperCase() === '250726-2PM-NPTON' && !event.isSoldOut) {
+    return { tier: 'critical', message: 'Final 25 tickets' };
+  }
   const o = event.fomoOverride;
   if (!o || !o.tier) return null;
   const tier = o.tier;
@@ -155,12 +208,14 @@ function endISO(event) {
   return d.toISOString().replace(/\.\d{3}Z$/, '');
 }
 
+function formatUkTimeRange(event) {
+  return `${formatUkTime(event.start)} to ${formatUkTime(endISO(event))}`;
+}
+
 function availabilitySchema(event) {
   if (event.isSoldOut) return 'https://schema.org/SoldOut';
   // Prefer the synced availability field; fall back to fomoOverride tier heuristic
   if (event.availability) return event.availability;
-  const tier = event.fomoOverride && event.fomoOverride.tier;
-  if (tier === 'critical' || tier === 'selling_fast') return 'https://schema.org/LimitedAvailability';
   return 'https://schema.org/InStock';
 }
 
@@ -182,12 +237,14 @@ function renderEventCard(event) {
         <div class="body">
           <div class="meta">
             <span>${esc(formatShortDate(event.start))}</span>
-            <span>${esc(event.timeDisplay || '')}</span>
+            <time datetime="${esc(withUkOffset(event.start))}/${esc(withUkOffset(endISO(event)))}">${esc(formatUkTimeRange(event))}</time>
             <span>${esc(event.venue || '')}</span>
           </div>
           <h3>${esc(event.title)}</h3>
           <p class="desc">${esc(sanitiseCopy(event.subtitle || event.description || ''))}</p>
-          <a href="/event/${esc(event.eventCode.toLowerCase())}/" class="cta">View Event &amp; Book →</a>
+          ${event.priceLabel && !event.isSoldOut ? `<p class="ticket-price"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a3 3 0 0 0 0 6v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a3 3 0 0 0 0-6V5a2 2 0 0 0-2 2z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>${esc(priceWithFee(event))}</p>` : ''}
+          ${event.groupTicket?.label && !event.isSoldOut && isTwoPmEvent(event) ? `<p class="group-ticket">${esc(event.groupTicket.label)}. Limited availability.</p>` : ''}
+          <a href="${esc(eventUrl(event))}" class="cta">View Event &amp; Book →</a>
         </div>
       </article>`;
 }
@@ -205,7 +262,7 @@ function renderEventsSection(events, cityName) {
   const cards = events.map(renderEventCard).join('\n');
   return `
     <h2 class="section-title">Upcoming Events</h2>
-    <p class="section-sub">${events.length} event${events.length === 1 ? '' : 's'} coming up in ${esc(cityName)}</p>
+    <p class="section-sub">Dates now on sale in ${esc(cityName)}</p>
     <div class="events-grid">
 ${cards}
     </div>`;
@@ -228,7 +285,7 @@ function renderJsonLD(cityCfg, events) {
     "itemListElement": events.map((e, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "url": `${SITE_URL}/event/${e.eventCode.toLowerCase()}/`,
+      "url": eventUrl(e),
       "name": e.title
     }))
   };
@@ -237,8 +294,8 @@ function renderJsonLD(cityCfg, events) {
     "@context": "https://schema.org",
     "@type": "Event",
     "name": e.title,
-    "startDate": e.start,
-    "endDate": endISO(e),
+    "startDate": withUkOffset(e.start),
+    "endDate": withUkOffset(endISO(e)),
     "eventStatus": e.isSoldOut ? "https://schema.org/EventScheduled" : "https://schema.org/EventScheduled",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "location": {
@@ -254,7 +311,7 @@ function renderJsonLD(cityCfg, events) {
     "description": sanitiseCopy(e.description || e.subtitle || ''),
     "offers": {
       "@type": "Offer",
-      "url": `${SITE_URL}/event/${e.eventCode.toLowerCase()}/`,
+      "url": eventUrl(e),
       "availability": availabilitySchema(e),
       "priceCurrency": "GBP",
       ...(priceFromLabel(e.priceLabel) ? { "price": priceFromLabel(e.priceLabel) } : {})
@@ -384,6 +441,8 @@ ${TRACKING_HEAD}
     .event-card .meta { font-size: 13px; color: rgba(255,255,255,0.55); display: flex; gap: 12px; flex-wrap: wrap; }
     .event-card h3 { font-size: 18px; line-height: 1.3; }
     .event-card .desc { font-size: 14px; color: rgba(255,255,255,0.7); }
+    .ticket-price, .group-ticket { display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.85); }
+    .ticket-price svg { width:16px;height:16px;fill:none;stroke:#FF3CAC;stroke-width:2;flex:0 0 auto; }
     .event-card .cta { margin-top: auto; background: #fff; color: #0B0B0F; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 14px; transition: background .2s; }
     .event-card .cta:hover { background: #FF3CAC; color: #fff; }
     .empty-state { background: #13131A; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 40px; text-align: center; color: rgba(255,255,255,0.7); }
@@ -402,6 +461,7 @@ ${TRACKING_NOSCRIPT}
 
 ${SITE_HEADER_HTML}
 
+  <main id="main-content">
   <section class="hero">
     <div class="eyebrow">${esc(cityCfg.cityName)}</div>
     <h1>${events.length ? `Daytime Disco &amp; Live Events in ${esc(cityCfg.cityName)}` : `Events in ${esc(cityCfg.cityName)}`}</h1>
@@ -415,11 +475,13 @@ ${SITE_HEADER_HTML}
 
   ${renderFaqSection(cityCfg)}
 
+  </main>
+
 ${SITE_FOOTER_HTML}
 
 </body>
 </html>
-`;
+`.replace(/[ \t]+$/gm, '');
 }
 
 // --- main ---
