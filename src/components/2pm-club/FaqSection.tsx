@@ -4,10 +4,15 @@ import { EIGHTIES_MUSIC_FAQ } from '@/lib/twoPmEdition';
 
 interface FaqSectionProps {
   isEightiesEdition?: boolean;
+  isBradlaugh?: boolean;
 }
 
-export const FaqSection = ({ isEightiesEdition = false }: FaqSectionProps) => {
+export const FaqSection = ({ isEightiesEdition = false, isBradlaugh = false }: FaqSectionProps) => {
   const faqs = [
+    ...(isBradlaugh ? [
+      { question: 'What is access like at The Charles Bradlaugh?', answer: 'The event room is upstairs, accessed by steps. Toilets are available on both floors. For access questions, contact hello@boomevents.co.uk before booking.' },
+      { question: 'Can we book food?', answer: 'Food is served downstairs and booked separately from event tickets. Contact the venue on 01604 473225 or info@thecharlesbradlaugh.com for menus and table bookings.' },
+    ] : []),
     {
       question: "Is it really like a night out clubbing in the afternoon?",
       answer: "Yes. Club-level production, proper sound system, lighting, confetti moments. But you're done by 6pm and you'll actually feel good the next day. Same energy, better timing."

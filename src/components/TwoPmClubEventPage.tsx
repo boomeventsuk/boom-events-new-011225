@@ -170,7 +170,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
           <TestimonialsSection />
           <TrustStrip />
           <CheckoutSection event={displayEvent} checkoutMessage={feedUrgency} />
-          <FaqSection isEightiesEdition={isEightiesEdition} />
+          <FaqSection isEightiesEdition={isEightiesEdition} isBradlaugh={displayEvent.location.includes('Charles Bradlaugh')} />
         </main>
 
         <Footer />

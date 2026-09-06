@@ -1,3 +1,5 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 interface DescriptionSectionProps {
   event: {
     title: string;
@@ -38,6 +40,18 @@ export const DescriptionSection = ({ event }: DescriptionSectionProps) => {
                 </p>
               );
             })}
+            {event.location.includes('Charles Bradlaugh') && (
+              <Accordion type="single" collapsible>
+                <AccordionItem value="access">
+                  <AccordionTrigger>What is access like at The Charles Bradlaugh?</AccordionTrigger>
+                  <AccordionContent>The event room is upstairs, accessed by steps. Toilets are available on both floors. For access questions, contact hello@boomevents.co.uk before booking.</AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="food">
+                  <AccordionTrigger>Can we book food?</AccordionTrigger>
+                  <AccordionContent>Food is served downstairs and booked separately from event tickets. Contact the venue on 01604 473225 or info@thecharlesbradlaugh.com for menus and table bookings.</AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            )}
           </div>
         </div>
       </div>
