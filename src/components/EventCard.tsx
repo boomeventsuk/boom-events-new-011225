@@ -6,7 +6,9 @@ import { CHRISTMAS_2026_SALE_START, christmasSaleBadgeLabel } from "@/lib/christ
 
 // Bunny Optimizer params for CDN-hosted images
 const optimised = (url: string, width: number) =>
-  url.includes("b-cdn.net") ? `${url}${url.includes("?") ? "&" : "?"}width=${width}&quality=75` : url;
+  /-TCB-ANNSQ-approved\.webp$/.test(url) && [400, 800].includes(width)
+    ? url.replace(/\.webp$/, `-${width}.webp`)
+    : url.includes("b-cdn.net") ? `${url}${url.includes("?") ? "&" : "?"}width=${width}&quality=75` : url;
 
 const isChristmasDay = () => {
   const today = new Date();
