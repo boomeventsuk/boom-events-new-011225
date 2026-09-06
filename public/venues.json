@@ -5,7 +5,7 @@
     "venues": [
       {
         "name": "The Picturedrome",
-        "eventCount": 13,
+        "eventCount": 12,
         "events": [
           {
             "slug": "get-ready-60s-70s-motown-soul-disco",
@@ -40,10 +40,6 @@
             "title": "BOOMBASTIC 90s Northampton"
           },
           {
-            "slug": "boombastic-s-christmas-silent-disco-2026",
-            "title": "Boombastic's Christmas Silent Disco 2026"
-          },
-          {
             "slug": "the-2pm-club-northampton-christmas-daytime-disco",
             "title": "THE 2PM CLUB Northampton - Christmas Daytime Disco"
           },
@@ -73,11 +69,15 @@
       },
       {
         "name": "The Charles Bradlaugh",
-        "eventCount": 1,
+        "eventCount": 2,
         "events": [
           {
             "slug": "the-2pm-club-northampton-80s-edition-daytime-disco",
             "title": "THE 2PM CLUB Northampton: 80s Edition Daytime Disco"
+          },
+          {
+            "slug": "boombastic-s-christmas-silent-disco-2026",
+            "title": "Boombastic's Christmas Silent Disco 2026"
           }
         ]
       }
