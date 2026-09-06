@@ -170,7 +170,7 @@ const TwoPmClubEventPage = ({ event }: TwoPmClubEventPageProps) => {
           <TestimonialsSection />
           <TrustStrip />
           <CheckoutSection event={displayEvent} checkoutMessage={feedUrgency} />
-          <FaqSection isEightiesEdition={isEightiesEdition} isBradlaugh={displayEvent.location.includes('Charles Bradlaugh')} />
+          <FaqSection isEightiesEdition={isEightiesEdition} isBradlaugh={displayEvent.location.includes('Charles Bradlaugh')} timeDisplay={displayEvent.eventbriteId === '1995469668495' ? displayEvent.timeDisplay : undefined} />
         </main>
 
         <Footer />

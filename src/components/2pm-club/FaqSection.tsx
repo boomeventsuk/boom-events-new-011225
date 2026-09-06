@@ -5,9 +5,10 @@ import { EIGHTIES_MUSIC_FAQ } from '@/lib/twoPmEdition';
 interface FaqSectionProps {
   isEightiesEdition?: boolean;
   isBradlaugh?: boolean;
+  timeDisplay?: string;
 }
 
-export const FaqSection = ({ isEightiesEdition = false, isBradlaugh = false }: FaqSectionProps) => {
+export const FaqSection = ({ isEightiesEdition = false, isBradlaugh = false, timeDisplay }: FaqSectionProps) => {
   const faqs = [
     ...(isBradlaugh ? [
       { question: 'What is access like at The Charles Bradlaugh?', answer: 'The event room is upstairs, accessed by steps. Toilets are available on both floors. For access questions, contact hello@boomevents.co.uk before booking.' },
@@ -41,7 +42,7 @@ export const FaqSection = ({ isEightiesEdition = false, isBradlaugh = false }: F
     },
     {
       question: "What time do doors open and when does it finish?",
-      answer: "Doors open at 2pm. Event runs until 6pm. You can arrive anytime after 2pm."
+      answer: timeDisplay ? `The event runs ${timeDisplay}. Doors open at 2pm. The full date and venue details are shown above.` : "Doors open at 2pm. Event runs until 6pm. You can arrive anytime after 2pm."
     }
   ];
 
