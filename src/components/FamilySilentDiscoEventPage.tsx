@@ -183,7 +183,7 @@ const FamilySilentDiscoEventPage = ({ event }: FamilySilentDiscoEventPageProps) 
             checkoutMessage={feedUrgency}
           />
 
-          {!hiddenSections.includes('faq') && <FaqSection />}
+          {!hiddenSections.includes('faq') && <FaqSection isBradlaughChristmas={event.eventbriteId === '1995469666489' && event.location.includes('Charles Bradlaugh')} />}
         </main>
 
         <Footer />

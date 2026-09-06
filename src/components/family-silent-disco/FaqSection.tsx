@@ -36,7 +36,15 @@ const faqs = [
   }
 ];
 
-export const FaqSection = () => {
+export const FaqSection = ({ isBradlaughChristmas = false }: { isBradlaughChristmas?: boolean }) => {
+  const eventFaqs = isBradlaughChristmas ? [
+    ...faqs.map(faq => faq.question === 'What time should we arrive?'
+      ? { ...faq, answer: 'The party runs from 11am to 1pm on Saturday 12th December. Admission is from 11am, when we will help you get checked in and collect your headphones.' }
+      : faq.question === 'Is food and drink available?'
+        ? { ...faq, answer: 'Food is served downstairs and booked separately from event tickets. Contact the venue on 01604 473225 or info@thecharlesbradlaugh.com for menus and table bookings.' }
+        : faq),
+    { question: 'What is access like at The Charles Bradlaugh?', answer: 'The event room is upstairs, accessed by steps. Toilets are available on both floors. For access questions, contact hello@boomevents.co.uk before booking.' },
+  ] : faqs;
   return (
     <section className="py-10 md:py-14 bg-background">
       <div className="container mx-auto px-4">
@@ -48,7 +56,7 @@ export const FaqSection = () => {
           </div>
           
           <Accordion type="single" collapsible className="space-y-3">
-            {faqs.map((faq, index) => (
+            {eventFaqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`faq-${index}`}
