@@ -605,16 +605,16 @@
     "timeDisplay": "2pm – 6pm",
     "start": "2026-10-03T14:00:00",
     "end": "2026-10-03T18:00:00",
-    "venue": "The Picturedrome",
+    "venue": "The Charles Bradlaugh",
     "city": "Northampton",
-    "image": "https://boombastic-events.b-cdn.net/events/artwork/031026-2PM80s-NPTON/031026-2PM80s-NPTON-square.jpg",
-    "description": "THE 2PM CLUB goes full-on 80s at The Picturedrome, Northampton. Your best 80s night out, in the middle of the afternoon.",
+    "image": "https://www.boomevents.co.uk/event-artwork/031026-2PM-NPTON-TCB-ANNSQ-approved.png",
+    "description": "THE 2PM CLUB Daytime Disco goes full-on 80s at The Charles Bradlaugh. Sat 3rd Oct, 2pm–6pm. Four hours of 80s Sing Out Loud Anthems.",
     "eventbriteId": "1990826967050",
     "bookUrl": "https://www.eventbrite.co.uk/e/the-2pm-club-daytime-disco-80s-edition-northampton-tickets-1990826967050?aff=BoomWeb",
     "infoUrl": "https://www.facebook.com/events/2437565410091246",
     "isSoldOut": true,
-    "fullDescription": "THE 2PM CLUB goes full-on 80s for one afternoon only.\n\nWe are back at The Picturedrome on Saturday 3 October, 2pm-6pm, and this time the whole dancefloor is 80s from start to finish.\n\nExpect Madonna, Michael Jackson, Wham!, Whitney Houston, Bon Jovi, Prince, Duran Duran, A-ha, The Human League, Tina Turner, George Michael, Cyndi Lauper, Eurythmics, Culture Club, Tears For Fears and Simple Minds.\n\nSame great 2PM Club format: doors at 2pm, four hours of big choruses, confetti moments and a room full of people who know every word. Home by 7 if you want to be.",
-    "highlights": "🎤 80S ONLY. WALL-TO-WALL: Madonna, Michael Jackson, Wham!, Whitney, Prince, Bon Jovi, Duran Duran, A-ha, Tina Turner and the songs everyone knows.|🕺 SAME 2PM CLUB FORMAT: Four hours of night-out energy in the afternoon. Big choruses, confetti moments, home by 7-ish.|👯 GROUP CHAT READY: One link, one plan, one Saturday afternoon everyone can actually make.|😎 NO SUNDAY REGRETS: A proper dance, your evening still intact, and Sunday not written off.|🏆 THE PICTUREDROME, NORTHAMPTON: Back in a room that knows exactly how THE 2PM CLUB should feel.",
+    "fullDescription": "Your best 80s night out. In the middle of the afternoon.\n\nTHE 2PM CLUB Daytime Disco comes to the upstairs event room at The Charles Bradlaugh on Sat 3rd Oct, 2pm–6pm. Four hours of 80s Sing Out Loud Anthems.\n\nNew venue, same party. Following The Picturedrome’s announcement about events after 28th September, this event will now take place at The Charles Bradlaugh. Your existing tickets remain valid. The date and time are unchanged.\n\nExpect Madonna, Michael Jackson, Wham!, Whitney Houston, Bon Jovi, Prince, Duran Duran, A-ha, The Human League, Tina Turner, George Michael, Cyndi Lauper, Eurythmics, Culture Club, Tears For Fears and Simple Minds.\n\nDoors at 2pm. Four hours of 80s anthems back to back, with your people. Home by 7 if you want to be.\n\nThe Charles Bradlaugh, 1 Earl Street, Northampton, NN1 3AU. The event takes place upstairs, with steps up to the event room. There are toilets upstairs as well as downstairs. Food is served downstairs.\n\nFor meal or table bookings, contact the venue directly on 01604 473225 or info@thecharlesbradlaugh.com. Food and table bookings are separate from event tickets. For booking or access questions, email hello@boomevents.co.uk.",
+    "highlights": "🎤 80S ONLY. WALL-TO-WALL: Madonna, Michael Jackson, Wham!, Whitney, Prince, Bon Jovi, Duran Duran, A-ha, Tina Turner and the songs everyone knows.|🕺 SAME 2PM CLUB FORMAT: Four hours of night-out energy in the afternoon. Big choruses, home by 7-ish.|👯 GROUP CHAT READY: One link, one plan, one Saturday afternoon everyone can actually make.|😎 NO SUNDAY REGRETS: A proper dance, your evening still intact, and Sunday not written off.|🏆 THE CHARLES BRADLAUGH: The party takes place in the upstairs event room.",
     "hiddenSections": [
       "video"
     ],
@@ -622,9 +622,9 @@
     "price": 10,
     "priceLabel": "From £10.00",
     "venueAddress": {
-      "streetAddress": "222 Kettering Road",
+      "streetAddress": "1 Earl Street",
       "addressLocality": "Northampton",
-      "postalCode": "NN1 4BN",
+      "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
     "priceCurrency": "GBP",

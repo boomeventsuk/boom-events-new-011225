@@ -5,7 +5,7 @@
     "venues": [
       {
         "name": "The Picturedrome",
-        "eventCount": 14,
+        "eventCount": 13,
         "events": [
           {
             "slug": "get-ready-60s-70s-motown-soul-disco",
@@ -30,10 +30,6 @@
           {
             "slug": "silent-disco-greatest-hits-northampton",
             "title": "SILENT DISCO GREATEST HITS Northampton"
-          },
-          {
-            "slug": "the-2pm-club-northampton-80s-edition-daytime-disco",
-            "title": "THE 2PM CLUB Northampton: 80s Edition Daytime Disco"
           },
           {
             "slug": "get-ready-summer-special",
@@ -72,6 +68,16 @@
           {
             "slug": "the-2pm-club-northampton-80s-90s-00s-daytime-disco",
             "title": "THE 2PM CLUB Northampton: 80s 90s 00s Daytime Disco"
+          }
+        ]
+      },
+      {
+        "name": "The Charles Bradlaugh",
+        "eventCount": 1,
+        "events": [
+          {
+            "slug": "the-2pm-club-northampton-80s-edition-daytime-disco",
+            "title": "THE 2PM CLUB Northampton: 80s Edition Daytime Disco"
           }
         ]
       }
