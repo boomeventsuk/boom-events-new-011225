@@ -36,7 +36,7 @@ export const ChannelsSection = ({ channels }: ChannelsSectionProps) => {
               THREE CHANNELS. YOUR CHOICE.
             </h2>
             <p className="text-lg text-foreground/70">
-              Switch between them all night. Your headphones, your rules.
+              Switch between them whenever you like. Your headphones, your rules.
             </p>
           </div>
           
