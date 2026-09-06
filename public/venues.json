@@ -5,7 +5,7 @@
     "venues": [
       {
         "name": "The Picturedrome",
-        "eventCount": 11,
+        "eventCount": 10,
         "events": [
           {
             "slug": "get-ready-60s-70s-motown-soul-disco",
@@ -40,10 +40,6 @@
             "title": "BOOMBASTIC 90s Northampton"
           },
           {
-            "slug": "boombastic-s-christmas-decades-party",
-            "title": "Boombastic's Christmas Decades Party"
-          },
-          {
             "slug": "christmas-family-silent-disco-northampton",
             "title": "Christmas FAMILY SILENT DISCO Northampton"
           },
@@ -65,7 +61,7 @@
       },
       {
         "name": "The Charles Bradlaugh",
-        "eventCount": 3,
+        "eventCount": 4,
         "events": [
           {
             "slug": "the-2pm-club-northampton-80s-edition-daytime-disco",
@@ -78,6 +74,10 @@
           {
             "slug": "the-2pm-club-northampton-christmas-daytime-disco",
             "title": "THE 2PM CLUB Northampton - Christmas Daytime Disco"
+          },
+          {
+            "slug": "boombastic-s-christmas-decades-party",
+            "title": "Boombastic's Christmas Decades Party"
           }
         ]
       }

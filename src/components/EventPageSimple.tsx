@@ -1,6 +1,7 @@
 import { Calendar, Clock, MapPin, Ticket, Users } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EventbriteEmbed from '@/components/EventbriteEmbed';
@@ -310,6 +311,23 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
       </section>
       
       <TrustStrip />
+
+      {event.venue.includes('Charles Bradlaugh') && (
+        <section className="py-6 md:py-10">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="access">
+                <AccordionTrigger>What is access like at The Charles Bradlaugh?</AccordionTrigger>
+                <AccordionContent>The event room is upstairs, accessed by steps. Toilets are available on both floors. For access questions, contact hello@boomevents.co.uk before booking.</AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="food">
+                <AccordionTrigger>Can we book food?</AccordionTrigger>
+                <AccordionContent>Food is served downstairs and booked separately from event tickets. Contact the venue on 01604 473225 or info@thecharlesbradlaugh.com for menus and table bookings.</AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </section>
+      )}
 
       {/* Embedded Checkout Section */}
       <section id="checkout-section" className="py-10 md:py-14">
