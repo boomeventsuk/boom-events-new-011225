@@ -54,6 +54,14 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
   // Helper to render styled lines based on pattern detection
   const renderStyledLine = (line: string, isFirstParagraph: boolean) => {
     const trimmedLine = line.trim();
+
+    if (/^(UPSTAIRS|DOWNSTAIRS):/i.test(trimmedLine)) {
+      return (
+        <h3 className="text-lg md:text-xl font-bold text-primary mt-5 mb-2">
+          {trimmedLine}
+        </h3>
+      );
+    }
     
     // Section headers (🎧, 🎟)
     if (trimmedLine.startsWith('🎧') || trimmedLine.startsWith('🎟')) {
