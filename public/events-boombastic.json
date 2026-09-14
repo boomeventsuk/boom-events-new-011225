@@ -772,6 +772,47 @@
     }
   },
   {
+    "eventCode": "311026-HHP-NPTON",
+    "entryRequirement": "Entry is 18+.",
+    "title": "Boombastic's Halloween House Party",
+    "subtitle": "Two floors of 90s and 00s throwback anthems and indie classics at The Charles Bradlaugh.",
+    "date": "Saturday, 31 October 2026",
+    "timeDisplay": "20:00 - 01:00",
+    "start": "2026-10-31T20:00:00",
+    "end": "2026-11-01T01:00:00",
+    "venue": "The Charles Bradlaugh",
+    "city": "Northampton",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/311026-HHP-NPTON/311026-HHP-NPTON-ANNSQ.png",
+    "description": "Boombastic brings its first Halloween House Party to Northampton: two floors of 90s and 00s throwback anthems and indie classics at The Charles Bradlaugh.",
+    "eventbriteId": "2001017598503",
+    "isSoldOut": false,
+    "fullDescription": "BOOMBASTIC'S HALLOWEEN HOUSE PARTY\n\nSaturday 31st October | The Charles Bradlaugh | 8pm-1am\n\nNorthampton! We are bringing our first ever Halloween House Party to The Charles Bradlaugh. One building. Two floors. Five hours of anthems and classics.\n\nUPSTAIRS: 90s & 00s THROWBACK ANTHEMS\n\nThe biggest throwback hits, floor fillers and guilty pleasures from the 90s and 00s.\n\nSPICE GIRLS / S CLUB / BRITNEY SPEARS / CRAIG DAVID / TLC / KATY PERRY / BEYONCÉ / RIHANNA / PINK / GIRLS ALOUD / OUTKAST / DIZZEE RASCAL / SEAN PAUL / NELLY & KELLY ROWLAND / PETER ANDRE / JAY-Z / CALVIN HARRIS / DAFT PUNK / LADY GAGA / COOLIO / FATBOY SLIM / FIVE / LIVIN' JOY / PHATS & SMALL / WILL SMITH / EVE / SUGABABES / JAMELIA / JUSTIN BIEBER / HANSON AND MORE\n\nDOWNSTAIRS: 90s & 00s INDIE CLASSICS\n\nThe biggest indie anthems from the bands that filled dancefloors, festival fields and every great indie night.\n\nTHE STROKES / OASIS / BLOC PARTY / BLUR / ARCTIC MONKEYS / PULP / THE LIBERTINES / THE STONE ROSES / KINGS OF LEON / THE CRIBS / ELASTICA / MUMFORD & SONS / FOO FIGHTERS / SUEDE / HAPPY MONDAYS / MANIC STREET PREACHERS / FOALS / MAXÏMO PARK / THE CHARLATANS / THE KILLERS / RADIOHEAD / CAST / THE WHITE STRIPES / YEAH YEAH YEAHS / BLACK GRAPE / SUPER FURRY ANIMALS / KAISER CHIEFS / THE CURE / SUPERGRASS / PRIMAL SCREAM / DODGY / KULA SHAKER / PAUL WELLER / OCEAN COLOUR SCENE AND MORE\n\nDoors open at 8pm. DJs from 9pm. Party until 1am.\n\n18+ only. Valid photo ID may be required.\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.",
+    "highlights": "🎃 One building. Two floors. Five hours of anthems and classics.|⬆️ Upstairs: 90s & 00s Throwback Anthems.|⬇️ Downstairs: 90s & 00s Indie Classics.|🔞 Entry is 18+.",
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
+    "fomoOverride": null,
+    "status": "just-announced",
+    "price": 10,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £10",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced",
+    "venueAddress": {
+      "streetAddress": "1 Earl Street",
+      "addressLocality": "Northampton",
+      "postalCode": "NN1 3AU",
+      "addressCountry": "GB"
+    },
+    "priceLastSync": "2026-09-14T21:25:00.000Z",
+    "groupTicket": {
+      "size": 4,
+      "price": 44,
+      "label": "Group of 4 for £44"
+    }
+  },
+  {
     "eventCode": "281126-2PM-LEIC",
     "saleStartsAt": "2026-07-31T11:00:00Z",
     "launchLabelUntil": "2026-08-02T23:00:00Z",
