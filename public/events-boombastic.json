@@ -437,7 +437,7 @@
   {
     "eventCode": "260926-SD-NPTON",
     "title": "SILENT DISCO GREATEST HITS Northampton",
-    "subtitle": "Pop vs Indie vs Dance",
+    "subtitle": "The last night at The Picturedrome",
     "date": "Saturday, 26 September 2026",
     "timeDisplay": "8:30pm – 12:30am",
     "start": "2026-09-26T20:30:00",
@@ -445,11 +445,11 @@
     "venue": "The Picturedrome",
     "city": "Northampton",
     "image": "https://boombastic-events.b-cdn.net/events/artwork/260926-SD-NPTON/260926-SD-NPTON-ANNSQ.jpg",
-    "description": "The region's most popular silent disco returns to The Picturedrome in Northampton. Three channels to choose from. Pop, Indie and Dance. Pick your favourite channel. Your headphones, your rules.\n\n🔵 POP THROWBACKS – Whitney, Spice Girls, Take That, Beyoncé 💃\n🟢 INDIE CLASSICS – Oasis, Arctic Monkeys, The Killers, Blur 🎸\n🔴 DANCE ANTHEMS – Robin S, Fatboy Slim, Haddaway, Black Box 🔊\n\nSwitch whenever you want. Your headphones, your rules.",
+    "description": "The last night at The Picturedrome. The venue closes its doors after Saturday 26th September, so this is the final night there. Three channels. Three DJs. One dancefloor. Pick your channel, switch whenever you want.\n\n🔵 POP THROWBACKS: Whitney, Spice Girls, Take That, Beyoncé 💃\n🔴 INDIE CLASSICS: Oasis, Arctic Monkeys, The Killers, Blur 🎸\n🟢 DANCE ANTHEMS: Robin S, Fatboy Slim, Haddaway, Black Box 🔊\n\nSwitch whenever you want. Your headphones, your rules.",
     "eventbriteId": "1988133337331",
     "isSoldOut": false,
-    "fullDescription": "Three channels. Three DJs. No compromise needed. The region's most popular silent disco returns to The Picturedrome in Northampton, where Boombastic bring their night of Silent Chaos! Pick your favourite channel. Your headphones, your rules.",
-    "highlights": "🎤 SING LIKE NOBODY'S LISTENING: Because they're not. They're too busy doing exactly the same thing. You'll be screaming Mr Brightside while your mate's losing it to Insomnia.|👯 THE NIGHT OUT WHERE EVERYONE WINS: No more arguing about music. No more splitting up to find different rooms. The pop queen, the indie kid and the dance head, all on the same floor, all having the time of their lives.|🤣 THE HEADPHONES-OFF MOMENT: Take them off for five seconds. Shuffling feet. Muffled singing. Someone shouting \"THIS SONG!\" before slamming their headphones back on. It's hilarious. It's brilliant.|🏆 THE PICTUREDROME, NORTHAMPTON: The home of our biggest silent disco nights. Brought to you by Boombastic Events, 12+ years of sold-out events across the Midlands.",
+    "fullDescription": "The last night at The Picturedrome. The venue closes its doors after Saturday 26th September, so this is the final night there. Three channels. Three DJs. One dancefloor. Silent Disco Greatest Hits returns to The Picturedrome, Northampton. Pick your channel, switch whenever you want. Your headphones, your rules.",
+    "highlights": "🎤 SING LIKE NOBODY'S LISTENING: Because they're not. They're too busy doing exactly the same thing. You'll be screaming Mr Brightside while your mate's losing it to Insomnia.|👯 THE NIGHT OUT WHERE EVERYONE WINS: No more arguing about music. No more splitting up to find different rooms. The pop queen, the indie kid and the dance head, all on the same floor, all having the time of their lives.|🤣 THE HEADPHONES-OFF MOMENT: Take them off for five seconds. Shuffling feet. Muffled singing. Someone shouting \"THIS SONG!\" before slamming their headphones back on. It's hilarious. It's brilliant.|🏆 THE LAST NIGHT AT THE PICTUREDROME: Home of our silent disco nights. The tenth birthday sold out here in April 2026. On Saturday 26th September the doors close, and this is the final night. Send it off properly.",
     "hiddenSections": [
       "video",
       "gallery",
@@ -465,15 +465,15 @@
         "description": "Every word, full volume, zero shame. Massive singalong anthems and feel-good party classics."
       },
       {
-        "color": "green",
-        "emoji": "🟢",
+        "color": "red",
+        "emoji": "🔴",
         "name": "INDIE CLASSICS",
         "artists": "Oasis, Arctic Monkeys, The Killers, Blur & more 🎸",
         "description": "The good stuff, turned up loud. Guitar-driven bangers and indie classics."
       },
       {
-        "color": "red",
-        "emoji": "🔴",
+        "color": "green",
+        "emoji": "🟢",
         "name": "DANCE ANTHEMS",
         "artists": "Robin S, Fatboy Slim, Haddaway, Black Box & more 🔊",
         "description": "Lose yourself completely. Pure dancefloor energy, house, dance and club classics."
