@@ -36,6 +36,7 @@ interface Event {
   statusLabel?: string;
   priceLabel?: string;
   groupTicket?: GroupTicket | null;
+  price?: number;
 }
 
 const isChristmasDay = () => {
@@ -106,6 +107,7 @@ const Tickets = () => {
                 eventCode={event.eventCode}
                 isSoldOut={event.isSoldOut}
                 statusLabel={event.statusLabel}
+                fromPrice={event.price}
                 priceLabel={event.priceLabel}
                 groupTicket={event.groupTicket}
                 fomoOverride={event.fomoOverride}

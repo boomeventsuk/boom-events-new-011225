@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import EventbriteEmbed from '@/components/EventbriteEmbed';
 import TrustStrip from '@/components/TrustStrip';
 import HeroReel from '@/components/HeroReel';
-import { formatHouseDate } from '@/lib/eventUtils';
+import { formatHouseDate, groupTicketIsAnOffer } from '@/lib/eventUtils';
 import type { GroupTicket } from '@/components/EventCard';
 
 interface EventData {
@@ -29,6 +29,7 @@ interface EventData {
   isSoldOut?: boolean;
   statusLabel?: string;
   priceLabel?: string;
+  price?: number;
   groupTicket?: GroupTicket | null;
   entryRequirement?: string;
 }
@@ -238,7 +239,7 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
                     <span className="text-base font-semibold text-foreground">{event.priceLabel}</span>
                   </div>
                 )}
-                {event.groupTicket?.label && !event.isSoldOut && (
+                {event.groupTicket?.label && !event.isSoldOut && groupTicketIsAnOffer(event.groupTicket, event.price) && (
                   <div className="flex items-center gap-3">
                     <Users className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="text-base text-foreground/85">{event.groupTicket.label}</span>

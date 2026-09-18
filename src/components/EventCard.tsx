@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { customerPriceLabel, customerStatusLabel, eventPath, formatHouseDate } from "@/lib/eventUtils";
 import { pushToDataLayer } from "@/lib/dataLayer";
 import { CHRISTMAS_2026_SALE_START, christmasSaleBadgeLabel } from "@/lib/christmasSale";
+import { groupTicketIsAnOffer } from '@/lib/eventUtils';
 
 // Bunny Optimizer params for CDN-hosted images
 const optimised = (url: string, width: number) =>
@@ -37,6 +38,7 @@ export interface EventCardProps {
   isSoldOut?: boolean;
   statusLabel?: string;
   priceLabel?: string;
+  fromPrice?: number;
   groupTicket?: GroupTicket | null;
   fomoOverride?: FomoOverride | null;
 }
@@ -52,6 +54,7 @@ export const EventCard: React.FC<EventCardProps> = ({
   statusLabel,
   priceLabel,
   groupTicket,
+  fromPrice,
   fomoOverride,
 }) => {
   const [saleClock, setSaleClock] = useState(Date.now());
@@ -137,7 +140,7 @@ export const EventCard: React.FC<EventCardProps> = ({
         <p className="text-xs sm:text-sm font-semibold text-white leading-tight">
           {formatHouseDate(start, false)} · {city}
         </p>
-        {!isSoldOut && groupTicket?.label && (
+        {!isSoldOut && groupTicket?.label && groupTicketIsAnOffer(groupTicket, fromPrice) && (
           <p className="text-[10px] sm:text-xs text-white/80 leading-tight mt-0.5">
             {groupTicket.label}
           </p>

@@ -158,3 +158,19 @@ export const isEventPassed = (event: {
  */
 export const isEventCancelled = (event: { isCancelled?: boolean | null }): boolean =>
   event.isCancelled === true;
+
+/**
+ * A group ticket is only worth advertising when it actually undercuts the
+ * cheapest single ticket on sale. Halloween 2026 launched with Early Bird at
+ * £10 while the Group of 4 worked out at £11 a head, so the "offer" was dearer
+ * than just buying singles. Once the cheap tier sells out the group wins again
+ * and this starts returning true on its own, no manual toggle.
+ */
+export const groupTicketIsAnOffer = (
+  groupTicket?: { size?: number; price?: number } | null,
+  fromPrice?: number,
+): boolean => {
+  if (!groupTicket?.price || !groupTicket?.size) return false;
+  if (typeof fromPrice !== 'number' || fromPrice <= 0) return true;
+  return groupTicket.price / groupTicket.size < fromPrice;
+};
