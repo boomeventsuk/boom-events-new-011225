@@ -450,7 +450,8 @@
     "priceLabel": "From £15.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Final release",
-    "priceLastSync": "2026-09-17T19:35:51.069Z"
+    "priceLastSync": "2026-09-17T19:35:51.069Z",
+    "heroVideo": "https://boombastic-events.b-cdn.net/events/artwork/260926-SD-NPTON/260926-SD-NPTON-hero-1x1.mp4"
   },
   {
     "eventCode": "060626-2PM-COV",

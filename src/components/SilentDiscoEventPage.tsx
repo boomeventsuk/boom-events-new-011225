@@ -32,6 +32,7 @@ export interface SilentDiscoEvent {
   end: string;
   bookUrl: string;
   image: string;
+  heroVideo?: string;
   description: string;
   subtitle: string;
   fullDescription: string;

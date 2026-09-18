@@ -6,6 +6,7 @@ import { formatHouseDate } from '@/lib/eventUtils';
 import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 import type { GroupTicket } from '@/components/EventCard';
+import HeroReel from '@/components/HeroReel';
 
 interface HeroSectionProps {
   event: {
@@ -17,6 +18,7 @@ interface HeroSectionProps {
     start: string;
     end: string;
     image: string;
+    heroVideo?: string;
     isSoldOut?: boolean;
     timeDisplay?: string;
     priceLabel?: string;
@@ -81,13 +83,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* LEFT: Event Poster */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <img
-                src={event.image}
-                alt={event.title}
-                width="400"
-                height="400"
-                className="w-full max-w-md rounded-xl shadow-2xl shadow-primary/20"
+            <div className="relative w-full max-w-md">
+              <HeroReel
+                posterUrl={event.image}
+                videoUrl={event.heroVideo}
+                title={event.title}
+                className="w-full rounded-xl shadow-2xl shadow-primary/20"
               />
               {/* Anniversary badge: only when the feed marks this an anniversary edition */}
               {isAnniversary && (

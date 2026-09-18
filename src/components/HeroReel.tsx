@@ -147,7 +147,7 @@ const HeroReel = ({ posterUrl, videoUrl, title, className = '' }: HeroReelProps)
   return (
     <div
       ref={wrapRef}
-      className={`relative aspect-square overflow-hidden bg-black ${className}`}
+      className={`relative aspect-square self-start overflow-hidden bg-black ${className}`}
     >
       {/* Blur-up placeholder: tiny, loads instantly, so the hero is never
           a black box while the sharp poster streams in. */}

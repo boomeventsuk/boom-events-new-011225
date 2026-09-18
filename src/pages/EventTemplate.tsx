@@ -277,6 +277,7 @@ const EventTemplate = () => {
       end: event.end || event.date,
       bookUrl: event.bookUrl || siteEventUrl,
       image: event.image,
+      heroVideo: event.heroVideo,
       description: event.description,
       subtitle: event.subtitle || '',
       fullDescription: event.fullDescription || event.description,
