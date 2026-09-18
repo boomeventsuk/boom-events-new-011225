@@ -85,6 +85,15 @@
 /tickets              /index.html  200
 /terms                /index.html  200
 /jobs                 /index.html  200
+# Cancelled 3rd Oct 2026 Luton event, retired 18th Sept 2026. Sent to the
+# Luton location page so an old link lands somewhere useful.
+/event/031026-2PM-LUT                 /locations/luton/   301!
+/event/031026-2PM-LUT/                /locations/luton/   301!
+/event/031026-2PM-LUT/*               /locations/luton/   301!
+/event/031026-2pm-lut                 /locations/luton/   301!
+/event/031026-2pm-lut/                /locations/luton/   301!
+/event/031026-2pm-lut/*               /locations/luton/   301!
+
 /event/*              /index.html  200
 
 # Catch-all 404 for genuinely unknown URLs - must be LAST
