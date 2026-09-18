@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import EventbriteEmbed from '@/components/EventbriteEmbed';
 import TrustStrip from '@/components/TrustStrip';
+import HeroReel from '@/components/HeroReel';
 import { formatHouseDate } from '@/lib/eventUtils';
 import type { GroupTicket } from '@/components/EventCard';
 
@@ -19,6 +20,9 @@ interface EventData {
   venue: string;
   city: string;
   image: string;
+  // Optional looping hero video. Absent for most events, in which
+  // case the hero stays the plain poster image it has always been.
+  heroVideo?: string;
   description: string;
   fullDescription?: string;
   eventbriteId: string;
@@ -187,12 +191,11 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
             
             {/* Left: Poster Image */}
             <div className="flex justify-center md:justify-start">
-              <img 
-                src={event.image}
-                alt={event.title}
+              <HeroReel
+                posterUrl={event.image}
+                videoUrl={event.heroVideo}
+                title={event.title}
                 className="w-full max-w-md rounded-xl shadow-2xl shadow-primary/20"
-                width="400"
-                height="400"
               />
             </div>
             

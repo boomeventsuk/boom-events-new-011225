@@ -23,6 +23,9 @@ interface EventData {
   venue: string;
   city: string;
   image: string;
+  // Optional looping hero video for the event hero, served from Bunny.
+  // Optional everywhere: events without it render the poster as before.
+  heroVideo?: string;
   description: string;
   eventbriteId: string;
   isSoldOut?: boolean;
