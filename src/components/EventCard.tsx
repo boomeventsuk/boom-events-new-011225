@@ -4,6 +4,7 @@ import { customerPriceLabel, customerStatusLabel, eventPath, formatHouseDate } f
 import { pushToDataLayer } from "@/lib/dataLayer";
 import { CHRISTMAS_2026_SALE_START, christmasSaleBadgeLabel } from "@/lib/christmasSale";
 import { groupTicketIsAnOffer } from '@/lib/eventUtils';
+import { eventUrgencyLabel } from '@/lib/eventDateProximity';
 
 // Bunny Optimizer params for CDN-hosted images
 const optimised = (url: string, width: number) =>
@@ -67,15 +68,22 @@ export const EventCard: React.FC<EventCardProps> = ({
   }, []);
 
   // ONE badge: sold out wins, then synced statusLabel, then fomoOverride fallback
-  const badge = isSoldOut
-    ? "SOLD OUT"
-    : christmasSaleBadgeLabel(
-        eventCode,
-        customerStatusLabel(eventCode, statusLabel || fomoOverride?.message, false),
-        false,
-        saleClock,
-      );
-  const isPreSale = badge === "ON SALE FRI";
+  const syncedBadge = christmasSaleBadgeLabel(
+    eventCode,
+    customerStatusLabel(eventCode, statusLabel || fomoOverride?.message, false),
+    false,
+    saleClock,
+  );
+  const isPreSale = syncedBadge === "ON SALE FRI";
+
+  // How close the night is, under the same precedence the hero pill uses:
+  // genuine scarcity first, then the day, then the synced ladder. Skipped
+  // entirely while tickets are not on sale yet, because "TOMORROW" on a card
+  // nobody can buy from would be a promise the page cannot keep.
+  const urgency = eventUrgencyLabel(isPreSale ? undefined : start, syncedBadge);
+  const badge = isSoldOut ? "SOLD OUT" : urgency.text;
+  // The glow rides with the date only, never with a scarcity label.
+  const badgeIsDate = !isSoldOut && urgency.isDate;
   const price = customerPriceLabel(eventCode, priceLabel);
 
   const handleClick = () => {
@@ -121,7 +129,7 @@ export const EventCard: React.FC<EventCardProps> = ({
       <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-1.5 p-2">
         {badge ? (
           <span
-            className={`min-w-0 rounded-full px-2.5 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wide leading-tight shadow-md ${isSoldOut ? "bg-red-600 text-white" : "bg-primary text-primary-foreground"}`}
+            className={`min-w-0 rounded-full px-2.5 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wide leading-tight shadow-md ${isSoldOut ? "bg-red-600 text-white" : "bg-primary text-primary-foreground"} ${badgeIsDate ? "event-status-pill-urgent" : ""}`.trimEnd()}
           >
             {badge}
           </span>

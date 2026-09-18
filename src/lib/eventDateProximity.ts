@@ -102,3 +102,73 @@ export const eventDateProximityLabel = (
   if (weeksAway === 1) return `NEXT ${weekdayName(eventDay)}`;
   return null;
 };
+
+/**
+ * The scarcity wording that is allowed to outrank the date.
+ *
+ * JD 18th September 2026: "sometimes it might be ticket-sensitive and things
+ * actually need to change due to sales". A near-empty room is a date problem, a
+ * near-full one is a supply problem, and only the supply problem should push
+ * the day off the pill.
+ *
+ * This list is deliberately tiny and closed. "Final release" is a TICKET TIER
+ * NAME, not a shortage: the Silent Disco carries it with roughly 98 tickets
+ * left. "Selling fast", "Over two-thirds sold", "General release now open" and
+ * "Just announced" are momentum or availability copy, not scarcity either. None
+ * of them may beat TOMORROW.
+ */
+export const GENUINE_SCARCITY_LABELS = [
+  'join waiting list',
+  'last few tickets',
+  'final tickets',
+] as const;
+
+/**
+ * True only for the closed set above, matched case-insensitively so a feed that
+ * starts sending "Last Few Tickets" is still understood.
+ */
+export const isGenuineScarcityLabel = (label?: string | null): boolean =>
+  typeof label === 'string' &&
+  (GENUINE_SCARCITY_LABELS as readonly string[]).includes(label.trim().toLowerCase());
+
+export interface EventUrgencyLabel {
+  /** What to render, or null when the surface should show nothing. */
+  text: string | null;
+  /**
+   * True only when `text` is a relative date. Surfaces use this to decide
+   * whether to add the glow, so scarcity never borrows the date's urgency.
+   */
+  isDate: boolean;
+}
+
+/**
+ * The one precedence rule shared by every surface that shows an event pill:
+ * the hero pill, the homepage card and the static location pages.
+ *
+ * 1. Genuine scarcity wins, because running out of tickets is the only fact
+ *    that beats how soon the night is.
+ * 2. Otherwise the date, when the event is close enough to have one.
+ * 3. Otherwise the scarcity ladder as synced from Eventbrite.
+ *
+ * Sold out is NOT handled here. Each surface already has its own sold-out copy
+ * (the hero pill hides, the card says SOLD OUT, the location card keeps its
+ * fomo badge) and those stay as they were, so callers deal with it before
+ * calling in.
+ *
+ * `now` is injectable so the wording can be proved against simulated dates, and
+ * the date is recomputed on every render rather than stored, because a page
+ * that says TOMORROW the day after the event is far worse than one that says
+ * nothing.
+ */
+export const eventUrgencyLabel = (
+  start?: string | null,
+  statusLabel?: string | null,
+  now: Date = new Date(),
+): EventUrgencyLabel => {
+  if (isGenuineScarcityLabel(statusLabel)) {
+    return { text: statusLabel as string, isDate: false };
+  }
+  const dateLabel = start ? eventDateProximityLabel(start, now) : null;
+  if (dateLabel) return { text: dateLabel, isDate: true };
+  return { text: statusLabel || null, isDate: false };
+};

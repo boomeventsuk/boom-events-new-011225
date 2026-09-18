@@ -1,4 +1,4 @@
-import { eventDateProximityLabel } from '@/lib/eventDateProximity';
+import { eventUrgencyLabel } from '@/lib/eventDateProximity';
 
 /**
  * The small pill in an event hero.
@@ -7,6 +7,10 @@ import { eventDateProximityLabel } from '@/lib/eventDateProximity';
  * fast", "Final release"). When the event is close it leads with the day
  * instead, because "TOMORROW" is a stronger reason to book than "Selling fast"
  * and the visitor can read the exact date immediately below anyway.
+ *
+ * Genuine scarcity still outranks the day. The precedence itself lives in
+ * eventUrgencyLabel so this pill, the homepage card and the static location
+ * pages cannot disagree about what a visitor should be told.
  *
  * JD 18th September 2026 asked for the date to live here rather than in a
  * full-width strip, with a flash to carry the urgency.
@@ -35,15 +39,15 @@ export const EventStatusPill = ({
   // Sold out hid this pill before and still does; that state has its own copy.
   if (isSoldOut) return null;
 
-  const dateLabel = start ? eventDateProximityLabel(start) : null;
-  const label = dateLabel || statusLabel;
-  if (!label) return null;
+  const { text, isDate } = eventUrgencyLabel(start, statusLabel);
+  if (!text) return null;
 
-  const tone = dateLabel
+  // The glow belongs to the date, not to whichever label happens to win.
+  const tone = isDate
     ? 'border-primary/70 bg-primary/25 event-status-pill-urgent'
     : 'border-primary/40 bg-primary/15';
 
-  return <div className={`${BASE} ${tone} ${className}`.trim()}>{label}</div>;
+  return <div className={`${BASE} ${tone} ${className}`.trim()}>{text}</div>;
 };
 
 export default EventStatusPill;
