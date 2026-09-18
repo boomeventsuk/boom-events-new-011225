@@ -254,3 +254,26 @@ a.button:focus, button:focus {
   color: hsl(var(--primary));
   background: hsl(var(--muted) / 0.5);
 }
+
+/* Event hero pill while it is carrying a date, "TOMORROW" or "THIS SATURDAY".
+   A soft breath rather than a hard blink, so it reads as alive and not as a
+   broken element. Anyone with reduced motion set gets the brighter border
+   without the movement. */
+.event-status-pill-urgent {
+  animation: event-status-pill-breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes event-status-pill-breathe {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px hsl(var(--primary) / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-status-pill-urgent {
+    animation: none;
+  }
+}

@@ -9,6 +9,7 @@ import TrustStrip from '@/components/TrustStrip';
 import HeroReel from '@/components/HeroReel';
 import { formatHouseDate, groupTicketIsAnOffer } from '@/lib/eventUtils';
 import type { GroupTicket } from '@/components/EventCard';
+import EventStatusPill from '@/components/EventStatusPill';
 
 interface EventData {
   eventCode: string;
@@ -202,11 +203,11 @@ const EventPageSimple = ({ event }: EventPageSimpleProps) => {
             
             {/* Right: Details Card */}
             <div className="bg-card/60 backdrop-blur-sm border border-border/40 rounded-2xl p-4 md:p-6 space-y-4">
-              {event.statusLabel && !event.isSoldOut && (
-                <div className="inline-flex rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-bold uppercase tracking-wide text-primary">
-                  {event.statusLabel}
-                </div>
-              )}
+              <EventStatusPill
+                start={event.start}
+                statusLabel={event.statusLabel}
+                isSoldOut={event.isSoldOut}
+              />
               <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 {event.title}
               </h1>

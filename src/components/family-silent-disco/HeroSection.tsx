@@ -6,6 +6,7 @@ import { formatHouseDate, formatPriceLabel } from '@/lib/eventUtils';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 import FomoBadge from '@/components/FomoBadge';
 import type { GroupTicket } from '@/components/EventCard';
+import EventStatusPill from '@/components/EventStatusPill';
 
 interface HeroSectionProps {
   event: {
@@ -120,11 +121,12 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               {event.subtitle || 'Dance together, find your vibe!'}
             </p>
 
-            {event.statusLabel && !event.isSoldOut && (
-              <div className="mb-6 inline-flex rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-bold uppercase tracking-wide text-primary">
-                {event.statusLabel}
-              </div>
-            )}
+            <EventStatusPill
+              start={event.start}
+              statusLabel={event.statusLabel}
+              isSoldOut={event.isSoldOut}
+              className="mb-6"
+            />
 
             {/* Date & Time */}
             <div className="space-y-3 mb-6">

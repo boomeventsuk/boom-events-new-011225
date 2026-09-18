@@ -7,6 +7,7 @@ import { FomoBadge } from '@/components/FomoBadge';
 import { useEventFomoData } from '@/hooks/useEventFomoData';
 import type { GroupTicket } from '@/components/EventCard';
 import HeroReel from '@/components/HeroReel';
+import EventStatusPill from '@/components/EventStatusPill';
 
 interface HeroSectionProps {
   event: {
@@ -113,11 +114,11 @@ export const HeroSection = ({ event }: HeroSectionProps) => {
               </p>
             </div>
 
-            {event.statusLabel && !event.isSoldOut && (
-              <div className="inline-flex rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-bold uppercase tracking-wide text-primary">
-                {event.statusLabel}
-              </div>
-            )}
+            <EventStatusPill
+              start={event.start}
+              statusLabel={event.statusLabel}
+              isSoldOut={event.isSoldOut}
+            />
 
             <div className="space-y-3 text-base">
               <div className="flex items-center gap-3">
