@@ -8,7 +8,8 @@ import FootlooseEventPage, { FootlooseEvent } from "@/components/FootlooseEventP
 import Boombastic90sEventPage, { Boombastic90sEvent } from "@/components/Boombastic90sEventPage";
 import GetReadyEventPage, { GetReadyEvent } from "@/components/GetReadyEventPage";
 import NotFound from "./NotFound";
-import { isEventPassed } from "@/lib/eventUtils";
+import CancelledEvent from "./CancelledEvent";
+import { isEventPassed, isEventCancelled } from "@/lib/eventUtils";
 import { normaliseTwoPmEditionEvent } from "@/lib/twoPmEdition";
 import type { GroupTicket } from "@/components/EventCard";
 import { CHRISTMAS_2026_SALE_START, christmasSalePageLabel } from "@/lib/christmasSale";
@@ -26,6 +27,7 @@ interface EventData {
   eventbriteId: string;
   isSoldOut?: boolean;
   isHidden?: boolean;
+  isCancelled?: boolean;
   waitingListUrl?: string;
   // Extended fields for rich event pages
   fullDescription?: string;
@@ -117,7 +119,18 @@ const EventTemplate = () => {
     );
   }
 
-  if (!event || event.isHidden || isEventPassed(event)) {
+  if (!event || event.isHidden) {
+    return <NotFound />;
+  }
+
+  // Checked ahead of isEventPassed: a cancelled event should say so even if
+  // its original date has since gone by, rather than reading as merely
+  // "ended" (or, before this fix, staying live as "Coming soon" forever).
+  if (isEventCancelled(event)) {
+    return <CancelledEvent title={event.title} venue={event.venue} city={event.city} />;
+  }
+
+  if (isEventPassed(event)) {
     return <NotFound />;
   }
 

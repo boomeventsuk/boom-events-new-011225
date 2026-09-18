@@ -270,6 +270,48 @@ function goneShellHtml(ev) {
 `;
 }
 
+// Minimal noindex "cancelled" shell. Distinct copy from the expired "gone"
+// shell above: an expired event happened and is over, a cancelled event
+// never went ahead, and customers who follow an old link or search result
+// need to see that plainly rather than a live-looking booking page.
+function cancelledShellHtml(ev) {
+  return `<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>This event has been cancelled | Boombastic Events</title>
+</head>
+<body style="margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0B0B0F;color:#fff;font-family:Poppins,Arial,sans-serif;text-align:center;">
+  <main style="padding:40px 24px;max-width:560px;">
+    <h1 style="font-size:1.5rem;line-height:1.3;margin:0 0 12px;">${esc(displayTitle(ev))}</h1>
+    <p style="color:rgba(255,255,255,0.75);margin:0 0 20px;">This event has been cancelled.</p>
+    <p style="margin:0;"><a href="/#tickets" style="color:#FF3CAC;font-weight:600;text-decoration:none;">See upcoming events</a></p>
+  </main>
+</body>
+</html>
+`;
+}
+
+// Writes a static noindex "cancelled" shell for every isCancelled:true event,
+// regardless of date or brand, so crawlers and old links never see the live
+// booking page for a cancelled event even before JS hydrates. Runs for every
+// cancelled event (not just those in `upcoming`, which already excludes
+// them), matching writeExpiredEvents' approach of covering every historical
+// event code that could still have inbound links.
+async function writeCancelledEvents(events) {
+  const cancelled = events.filter((e) => e.isCancelled === true);
+  if (cancelled.length === 0) return;
+
+  for (const ev of cancelled) {
+    const dir = path.join(DIST, "event", ev.eventCode.toLowerCase());
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(path.join(dir, "index.html"), cancelledShellHtml(ev));
+  }
+  console.log(`prerender-events: wrote ${cancelled.length} cancelled-event noindex shells`);
+}
+
 // Insert forced 410 lines for expired event paths into dist/_redirects,
 // just before the /event/* SPA fallback so they win the ordering. The
 // force flag (!) is required because a static gone shell exists at the
@@ -277,7 +319,10 @@ function goneShellHtml(ev) {
 const SPA_FALLBACK_RE = /^\/event\/\*\s+\/index\.html\s+200\s*$/m;
 
 async function writeExpiredEvents(events, today) {
-  const past = events.filter((e) => e.start && e.start.slice(0, 10) < today);
+  // Cancelled events get their own "cancelled" shell (writeCancelledEvents,
+  // above) even if the date has also passed - "cancelled" is the more
+  // accurate and more honest message than "ended".
+  const past = events.filter((e) => e.start && e.start.slice(0, 10) < today && !e.isCancelled);
   if (past.length === 0) return;
 
   for (const ev of past) {
@@ -315,7 +360,7 @@ async function main() {
     await fs.readFile(path.join(ROOT, "public", "events-boombastic.json"), "utf8")
   );
   const today = new Date().toISOString().slice(0, 10);
-  const upcoming = events.filter((e) => !e.isHidden && e.start.slice(0, 10) >= today && !/-2PM-/i.test(e.eventCode || ""));
+  const upcoming = events.filter((e) => !e.isHidden && !e.isCancelled && e.start.slice(0, 10) >= today && !/-2PM-/i.test(e.eventCode || ""));
 
   // Refresh the homepage Events JSON-LD graph from live data (replaces the
   // stale hand-edited block) and strip it entirely from per-event shells.
@@ -378,6 +423,11 @@ async function main() {
     written++;
   }
   console.log(`prerender-events: wrote ${written} event shells to dist/event/`);
+
+  // Cancelled events: noindex "cancelled" shells so a cancelled event never
+  // shows the live booking page to a visitor following an old link, share,
+  // or search result, whatever its date.
+  await writeCancelledEvents(events);
 
   // Expired events: noindex gone shells + 410 redirect lines so old URLs
   // stop returning an indexable homepage clone with a 200.

@@ -41,7 +41,7 @@ if (typeof navigator !== 'undefined' && 'modelContext' in navigator) {
           const response = await fetch('/events-boombastic.json');
           const events = await response.json();
           const now = new Date().toISOString().slice(0, 10);
-          let upcoming = events.filter((e: { start: string }) => e.start.slice(0, 10) >= now);
+          let upcoming = events.filter((e: { start: string; isCancelled?: boolean }) => e.start.slice(0, 10) >= now && !e.isCancelled);
           if (input.city) {
             upcoming = upcoming.filter((e: { city: string }) =>
               e.city.toLowerCase().includes(input.city!.toLowerCase())

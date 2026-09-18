@@ -149,3 +149,12 @@ export const isEventPassed = (event: {
   
   return false;
 };
+
+/**
+ * Check if an event has been cancelled in Eventbrite. Set (and kept sticky)
+ * by scripts/sync-eventbrite-prices.js. A cancelled event must never appear
+ * in any upcoming/next-up listing, and its own event page must show a
+ * cancelled state rather than normal booking content.
+ */
+export const isEventCancelled = (event: { isCancelled?: boolean | null }): boolean =>
+  event.isCancelled === true;

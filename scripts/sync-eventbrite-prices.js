@@ -50,6 +50,80 @@ async function fetchTicketClasses(eventbriteId, token) {
 }
 
 // ============================================================
+// Cancellation detection (JD, 2026-09-18).
+//
+// ticket_classes/ alone cannot tell a cancelled event apart from one that
+// simply has no tickets on sale yet (both look like "all unavailable"),
+// which is how the 3rd October Luton event stayed published as "Coming
+// soon" after being cancelled in Eventbrite. This fetches the event
+// resource itself and reads its `status` field, which Eventbrite sets to
+// "canceled" or "deleted" (American spelling in the API) when an
+// organiser cancels an event.
+// ============================================================
+
+async function fetchEventResource(eventbriteId, token) {
+  const url = `https://www.eventbriteapi.com/v3/events/${eventbriteId}/`;
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  if (!res.ok) {
+    throw new Error(`Eventbrite event-status fetch failed: HTTP ${res.status}`);
+  }
+
+  return res.json();
+}
+
+function isCancelledStatus(status) {
+  return status === 'canceled' || status === 'deleted';
+}
+
+// Pure classification, no network: decides whether an entry should be
+// treated as cancelled given its existing (possibly already-cancelled)
+// state and the outcome of the event-status fetch.
+//
+//   existingEvent      - the current events.json entry for this event
+//   statusFetchResult  - { ok: true, status } on a successful fetch, or
+//                         { ok: false, error } when the fetch failed
+//
+// Cancellation is sticky: once isCancelled is true it can never be flipped
+// back by a later run, whether that run sees a non-cancelled status or
+// simply fails to fetch (a transient API hiccup must never un-cancel an
+// event).
+function classifyCancellation(existingEvent, statusFetchResult) {
+  const wasCancelled = existingEvent.isCancelled === true;
+
+  if (!statusFetchResult.ok) {
+    return {
+      isCancelled: wasCancelled,
+      reason: wasCancelled
+        ? `fetch-failed, sticky: ${statusFetchResult.error.message}`
+        : `fetch-failed: ${statusFetchResult.error.message}`,
+    };
+  }
+
+  if (isCancelledStatus(statusFetchResult.status)) {
+    return { isCancelled: true, reason: `eventbrite-status:${statusFetchResult.status}` };
+  }
+
+  if (wasCancelled) {
+    return { isCancelled: true, reason: `sticky (eventbrite-status now:${statusFetchResult.status})` };
+  }
+
+  return { isCancelled: false, reason: `active (eventbrite-status:${statusFetchResult.status})` };
+}
+
+// Applies the cancelled fields to an entry when classification says so.
+// Returns true if the entry was (or remains) cancelled.
+function applyCancellationFields(event, classification) {
+  if (!classification.isCancelled) return false;
+  event.isCancelled = true;
+  event.statusLabel = 'Cancelled';
+  event.availability = 'https://schema.org/Discontinued';
+  return true;
+}
+
+// ============================================================
 // Per-venue count rules (JD, 2026-06-10).
 // countFrom = the singles-remaining level at which the badge may
 // start showing a number. Bigger rooms earn their counts later.
@@ -353,6 +427,27 @@ async function main() {
 
     console.log(`  Fetching: ${event.title} (${event.eventbriteId})`);
 
+    let statusFetchResult;
+    try {
+      const eventResource = await fetchEventResource(event.eventbriteId, token);
+      statusFetchResult = { ok: true, status: eventResource.status };
+    } catch (err) {
+      statusFetchResult = { ok: false, error: err };
+      console.warn(`    WARNING: could not fetch event status for ${event.eventbriteId}: ${err.message}. Cancellation state left untouched.`);
+    }
+
+    const cancellation = classifyCancellation(event, statusFetchResult);
+    if (cancellation.isCancelled) {
+      const wasAlreadyCancelled = event.isCancelled === true;
+      applyCancellationFields(event, cancellation);
+      delete event.tierLabels;
+      delete event.groupTicket;
+      console.log(`    CANCELLED (${cancellation.reason}): statusLabel set to "Cancelled", availability set to Discontinued${wasAlreadyCancelled ? ' [already cancelled, sticky]' : ''}`);
+      updated++;
+      await new Promise(r => setTimeout(r, 200));
+      continue;
+    }
+
     try {
       const ticketClasses = await fetchTicketClasses(event.eventbriteId, token);
       const priceData = extractPriceData(ticketClasses, event.start, `${event.venue || ''}, ${event.city || ''}`);
@@ -439,7 +534,22 @@ async function main() {
   console.log(`Internal: ${INTERNAL_PATH}`);
 }
 
-main().catch(err => {
-  console.error('Fatal error:', err);
-  process.exit(1);
-});
+// Exported for the fixture test at scripts/check-cancelled-event-classification.js,
+// which exercises the classification logic directly against fake fetch
+// results without ever calling the real Eventbrite API.
+export {
+  isCancelledStatus,
+  classifyCancellation,
+  applyCancellationFields,
+  extractPriceData,
+};
+
+// Only run the live sync when this file is executed directly (`node
+// scripts/sync-eventbrite-prices.js`), not when imported by the test.
+const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+if (isMainModule) {
+  main().catch(err => {
+    console.error('Fatal error:', err);
+    process.exit(1);
+  });
+}

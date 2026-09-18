@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin } from "lucide-react";
-import { eventPath, isEventPassed } from "@/lib/eventUtils";
+import { eventPath, isEventPassed, isEventCancelled } from "@/lib/eventUtils";
 
 interface StripEvent {
   eventCode: string;
@@ -12,6 +12,7 @@ interface StripEvent {
   city: string;
   isHidden?: boolean;
   isSoldOut?: boolean;
+  isCancelled?: boolean;
 }
 
 // "Sat 13th Jun" house date style
@@ -32,7 +33,7 @@ const NextEventsStrip = () => {
       .then((res) => res.json())
       .then((data: StripEvent[]) => {
         const upcoming = data
-          .filter((e) => !e.isHidden && !isEventPassed(e))
+          .filter((e) => !e.isHidden && !isEventCancelled(e) && !isEventPassed(e))
           .sort((a, b) => a.start.localeCompare(b.start))
           .slice(0, 3);
         setEvents(upcoming);

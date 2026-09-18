@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { EventCard } from './EventCard';
-import { isEventPassed } from '@/lib/eventUtils';
+import { isEventPassed, isEventCancelled } from '@/lib/eventUtils';
 
 interface FomoOverride {
   tier: string;
@@ -29,6 +29,7 @@ interface Event {
   eventbriteId: string;
   isSoldOut?: boolean;
   isHidden?: boolean;
+  isCancelled?: boolean;
   fullDescription?: string;
   highlights?: string[];
   fomoOverride?: FomoOverride | null;
@@ -88,7 +89,7 @@ const Tickets = () => {
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-6 mb-12">
           {events
-            .filter(event => !event.isHidden && !isEventPassed(event))
+            .filter(event => !event.isHidden && !isEventCancelled(event) && !isEventPassed(event))
             .sort((a, b) => {
               const dateA = a.start ? new Date(a.start).getTime() : 0;
               const dateB = b.start ? new Date(b.start).getTime() : 0;

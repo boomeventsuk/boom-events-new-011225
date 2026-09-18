@@ -255,7 +255,7 @@ async function main() {
     const file = path.join(ROOT, "public", brand.dir, "index.html");
     let html = await fs.readFile(file, "utf8");
     const upcoming = events
-      .filter((e) => e.eventCode.includes(`-${brand.prefix}-`) && e.start.slice(0, 10) >= today)
+      .filter((e) => e.eventCode.includes(`-${brand.prefix}-`) && e.start.slice(0, 10) >= today && !e.isCancelled)
       .sort((a, b) => a.start.localeCompare(b.start));
 
     html = injectEvents(html, brand, upcoming);

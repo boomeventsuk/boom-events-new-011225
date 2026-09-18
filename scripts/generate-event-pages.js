@@ -334,8 +334,12 @@ async function run() {
   ]);
   const venueData = new Map(); // city -> {venue: string, events: Array}
 
-  // Collect venue data and add event URLs to sitemap (no static HTML generated)
+  // Collect venue data and add event URLs to sitemap (no static HTML generated).
+  // Cancelled events are excluded here so they never surface in venues.json,
+  // the sitemap, or the city pages this script builds (generate-location-pages.cjs
+  // regenerates those same city pages immediately afterwards with the same rule).
   for (const ev of events) {
+    if (ev.isCancelled) continue;
     const slug = ev.slug || slugify(ev.title || ev.id || "event");
 
     // Add canonical event URL to sitemap using eventCode

@@ -500,6 +500,7 @@ function main() {
     const cityEvents = allEvents
       .filter(e => {
         if (!e.start) return false;
+        if (e.isCancelled) return false;
         const startsAt = parseStart(e.start);
         return startsAt >= today && (e.city || '').toLowerCase() === cityCfg.cityName.toLowerCase();
       })
