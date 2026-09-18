@@ -61,9 +61,6 @@ export const customerStatusLabel = (
   sourceLabel?: string,
   isSoldOut = false,
 ): string | undefined => {
-  if (!isSoldOut && eventCode.toUpperCase() === "250726-2PM-NPTON") {
-    return "Final 25 tickets";
-  }
   return sourceLabel;
 };
 
