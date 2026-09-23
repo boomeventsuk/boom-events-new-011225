@@ -406,7 +406,7 @@ def event_copy(e):
 # ---------------------------------------------------------------- shared components
 
 # Focal points for photos whose subject is off-centre (checked crop by crop).
-PHOTO_POS = {'sd-energy.jpg': '50% 50%', 'b90-mic.jpg': '50% 42%'}
+PHOTO_POS = {'sd-energy.jpg': '50% 50%', 'b90-mic.jpg': '50% 42%', 'family-silent-disco-live.jpg': '50% 70%'}
 
 
 def photo(name, cls='', loading='lazy', caption=True, cap=None, pos=None):
@@ -675,7 +675,7 @@ PARTIES = [
     ('THE 2PM CLUB', 'pm-three.jpg', 'Saturday afternoon disco. Sing Out Loud Anthems from the 80s, 90s and 00s, doors at 2pm.', 'Daytime', PM_BASE + '/'),
     ('SILENT DISCO GREATEST HITS', 'sd-energy.jpg', 'Three DJs, three channels, one dancefloor. Pop, indie or dance, switch whenever you like.', 'After dark', '/silent-disco/'),
     ('BOOMBASTIC 90s', 'b90-stage.jpg', 'Pop, Britpop, dance and hip-hop with 90s videos on giant screens.', 'After dark', '/boombastic-90s/'),
-    ('FAMILY SILENT DISCO', 'poster-061226-fsd-npton.webp', 'Three family-friendly channels for kids 4+ and the grown-ups who bring them.', 'Family', '/family-silent-disco/'),
+    ('FAMILY SILENT DISCO', 'family-silent-disco-live.jpg', 'Three family-friendly channels for kids 4+ and the grown-ups who bring them.', 'Family', '/family-silent-disco/'),
     ('FOOTLOOSE 80s', 'fl-room.jpg', 'Wall-to-wall 80s, Madonna and Queen to Bon Jovi and Whitney.', 'After dark', '/footloose-80s/'),
 ]
 
@@ -834,16 +834,15 @@ def boom_format(key, events):
     F = BOOM_FORMATS[key]
     rel = [e for e in events if e['fmt'] in F['fmts']]
     now = ('See what’s on', '/whats-on/')  # no-date formats: the next step is real events on sale, not a preview signup
-    h = hero('boom', F['h1'], F['sub'], btn(F['cta'], '#dates') if rel else btn(*now), F['hero'], eyebrow=F['eyebrow'], cap=F.get('hero_cap'))
+    h = hero('boom', F['h1'], F['sub'], btn(F['cta'], '#dates') if rel else btn(*now), F['hero'], eyebrow=F['eyebrow'], cap=F.get('hero_cap'), cls='hero-family' if key == 'family-silent-disco' else '')
     rib = ribbon(F['ribbon'])
     how = f'<section class="section container how">{section_head(F["how_h"])}{steps(F["steps"])}{pill_cards(F["cards"])}{F.get("after", "")}</section>'
     if rel:
         dates = f'<section class="section container" id="dates">{section_head(F["dates_h"])}<div class="date-rows">{"".join(date_row(e) for e in rel[:4])}</div></section>'
     else:
         dates = f'<section class="section container" id="dates">{section_head("NO DATE ON SALE")}<div class="no-date"><p>{esc(F["nodate"])} See the Boombastic events on sale now.</p>{btn(*now)}</div></section>'
-    family_photo = f'''<section class="section container family-moment"><div class="family-moment-copy"><p class="eyebrow">A real Family Silent Disco</p><h2>THEIR MUSIC.<br>YOUR MUSIC.<br>SAME DANCEFLOOR.</h2><p>Kids and grown-ups dance together, each choosing the channel they want to hear. This is what it looks like when the headphones go on.</p>{btn('See the family date', '#dates')}</div>{photo('family-silent-disco-live.jpg', 'family-moment-media')}</section>''' if key == 'family-silent-disco' else ''
     qa = qa_cta('boom', F['faq'], 'GOOD TIMES.<br>GREAT COMPANY.', F['cta_sub'], *((F['cta'], '#dates') if rel else now))
-    body = h + rib + how + (strip(F['strip']) if F['strip'] else '') + dates + family_photo + qa
+    body = h + rib + how + (strip(F['strip']) if F['strip'] else '') + dates + qa
     token = next(t for k, _, t in FORMAT_PAGES if k == key)
     if bool(rel) != bool(format_dates(token)): raise SystemExit(f'{key}: format page shows {len(rel)} dates but the feed has {len(format_dates(token))} on sale')
     return page('boom', F['title'], body, F['sub'], f'/{key}/', sticky_label='Find tickets' if rel else now[0], sticky_href='#dates' if rel else now[1])
@@ -876,7 +875,7 @@ def build_formats():
             strip='silent-photo.jpeg', dates_h='NEXT SILENT DISCOS', nodate='',
             faq=[('How do the channels work?', 'Wireless headphones pick up three DJs. Switch channel with the button on the headphones; the light shows which channel you are on.'), ('Is there a headphone deposit?', 'For the Christmas Silent Disco on Fri 4th Dec, a £10 fully refundable headphone deposit is taken on the night. Check your event page for others.'), ('What if headphones are lost or damaged?', 'Replacement charges may apply. Staff explain the terms when you collect your headphones.'), ('What should I wear?', 'No dress code. Wear what you can dance in.')],
             cta_sub='Find your next Silent Disco.'),
-        'family-silent-disco': dict(title='Family Silent Disco', eyebrow='Family Silent Disco', h1='HEADPHONES ON.<br>EVERYONE DANCES.', sub='Three family-friendly channels, one dancefloor. For kids 4+ and the grown-ups who bring them.', cta='Find a family date', hero='poster-061226-fsd-npton.webp', fmts=('fsd',),
+        'family-silent-disco': dict(title='Family Silent Disco', eyebrow='Family Silent Disco', h1='HEADPHONES ON.<br>EVERYONE DANCES.', sub='Three family-friendly channels, one dancefloor. For kids 4+ and the grown-ups who bring them.', cta='Find a family date', hero='family-silent-disco-live.jpg', hero_cap='Photo from a previous Family Silent Disco', fmts=('fsd',),
             ribbon=[('AGES 4+', 'Parents join in too'), ('3 CHANNELS', 'Christmas, throwback, chart'), ('WITH AN ADULT', 'Max three children per adult')], how_h='HERE’S HOW IT WORKS',
             steps=[('Pick up your headphones', 'Staff get everyone set up when you arrive.'), ('Choose your channel', 'Each person picks their own soundtrack.'), ('Dance together', 'Switch any time, all on one dancefloor.')],
             cards=[(None, 'Christmas & Party', 'blue', ', '.join(fg['blue'][2]) + '.' if 'blue' in fg else 'Family party hits.'), (None, 'Throwback', 'red', ', '.join(fg['red'][2]) + '.' if 'red' in fg else 'Throwback favourites.'), (None, 'Chart', 'green', 'Clean chart hits for older kids and grown-ups.')],
