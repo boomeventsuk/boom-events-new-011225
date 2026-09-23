@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/sanitise-events-json.js && node scripts/generate-event-pages.js && node scripts/generate-location-pages.cjs && node scripts/generate-brand-pages.js && node scripts/apply-static-chrome.cjs && node scripts/generate-2pm-canonical-redirects.js && node scripts/update-sitemap-events.js",
-    "build": "vite build",
+    "build": "TWIN_BRAND=boom python3 v2/release-work/build-v2-production.py",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -15,7 +14,6 @@
     "regenerate-locations": "node scripts/generate-location-pages.cjs",
     "generate:brands": "node scripts/generate-brand-pages.js",
     "generate:sitemap": "node scripts/update-sitemap-events.js",
-    "postbuild": "node scripts/prerender-events.js",
     "test:2pm-locations": "node scripts/check-2pm-location-contracts.js"
   },
   "dependencies": {

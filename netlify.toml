@@ -1,155 +1,26 @@
-# netlify.toml - put at repository root
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 [build.environment]
-  # BOOM_META_PIXEL_ID is a public browser pixel ID baked into index.html.
-  # Omit it from secret scanning or the build fails; real private keys stay scanned.
   SECRETS_SCAN_OMIT_KEYS = "BOOM_META_PIXEL_ID"
-
-# Markdown negotiation - must be FIRST (intercepts Accept: text/markdown before other functions)
-[[edge_functions]]
-  function = "markdown-negotiate"
-  path = "/*"
-
-# Homepage inject: JSON-LD, WebMCP shim, noscript agent block
-[[edge_functions]]
-  function = "homepage-inject"
-  path = "/"
-
-# Edge function for dynamic OG tags on event pages
-[[edge_functions]]
-  function = "og-event"
-  path = "/event/*"
-
-# Backward compatibility if any old /events/ links exist
-[[edge_functions]]
-  function = "og-event"
-  path = "/events/*"
-
-# Static files - serve directly, bypass SPA fallback
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
-
-[[redirects]]
-  from = "/robots.txt"
-  to = "/robots.txt"
-  status = 200
-
-[[redirects]]
-  from = "/about/*"
-  to = "/about/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/silent-disco/*"
-  to = "/silent-disco/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/footloose-80s/*"
-  to = "/footloose-80s/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/boombastic-90s/*"
-  to = "/boombastic-90s/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/get-ready/*"
-  to = "/get-ready/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/family-silent-disco/*"
-  to = "/family-silent-disco/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations/northampton/*"
-  to = "/locations/northampton/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations/bedford/*"
-  to = "/locations/bedford/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations/coventry/*"
-  to = "/locations/coventry/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations/milton-keynes/*"
-  to = "/locations/milton-keynes/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations/luton/*"
-  to = "/locations/luton/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations/leicester/*"
-  to = "/locations/leicester/index.html"
-  status = 200
-
-# Agent discovery headers on all pages (RFC 8288, RFC 9727)
-[[headers]]
-  for = "/auth.md"
-  [headers.values]
-    Content-Type = "text/markdown; charset=UTF-8"
 
 [[headers]]
   for = "/*"
   [headers.values]
-    Link = "</.well-known/api-catalog>; rel=\"api-catalog\", </llms.txt>; rel=\"alternate\"; type=\"text/markdown\", </openapi.json>; rel=\"service-desc\"; type=\"application/vnd.oai.openapi+json\""
-    X-Frame-Options = "SAMEORIGIN"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(self)"
-    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# api-catalog must return application/linkset+json not text/plain
-[[headers]]
-  for = "/.well-known/api-catalog"
-  [headers.values]
-    Content-Type = "application/linkset+json"
-
-# No-cache header for sitemap so Google always gets the latest
 [[headers]]
   for = "/sitemap.xml"
   [headers.values]
     Cache-Control = "public, max-age=3600"
     Content-Type = "application/xml"
 
-# SPA fallback for client-side routes - explicit React Router paths only
-[[redirects]]
-  from = "/tickets"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/terms"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/jobs"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/event/*"
-  to = "/index.html"
-  status = 200
-
-# Catch-all 404 for genuinely unknown URLs - must be LAST
 [[redirects]]
   from = "/*"
   to = "/404.html"

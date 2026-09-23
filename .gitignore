@@ -27,3 +27,9 @@ dist-ssr
 .netlify
 .stignore
 scripts/.ticket-data-internal.json
+
+# Local release build artifacts
+v2/build/asset-errors.json
+v2/build/V2-ASSET-PROVENANCE.json
+__pycache__/
+*.pyc
