@@ -540,7 +540,9 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 
 /* ---------- phone ---------- */
 @media (max-width:760px){
+  html{scroll-padding-top:80px}
   body{padding-bottom:62px;font-size:15px}
+  .hdr{position:sticky;top:0;z-index:50}
   .hdr-in{min-height:72px;gap:10px}
   .brand img{height:42px}
   .pm .brand img{height:50px}
@@ -550,7 +552,7 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
   .nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--black);flex-direction:column;align-items:stretch;gap:0;margin:0;padding:6px var(--gut) 18px;border-top:1px solid #262626}
   .nav.is-open{display:flex}
   .nav a{display:block;min-height:0;white-space:normal;padding:14px 0;border-bottom:1px solid #262626;font-size:17px}
-  .nav.is-open{max-height:calc(100vh - 72px);overflow-y:auto}
+  .nav.is-open{max-height:calc(100vh - 72px);max-height:calc(100dvh - 72px);overflow-y:auto}
   .menu-open .sticky-cta{display:none}
   .dd{border-bottom:1px solid #262626}
   .dd-btn{width:100%;justify-content:space-between;min-height:52px;padding:14px 0;border-bottom:0;font-size:17px}
