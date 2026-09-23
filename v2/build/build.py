@@ -89,6 +89,7 @@ PHOTOS = {
     'sd-dance-drinks.jpg': ('Friends dancing with drinks in light-up headphones', 'Silent Disco Greatest Hits, The Picturedrome, Northampton, Apr 2026', 'Notion Event Photo Library: Main Event Images/SD/250426-SD-NPTON-dancefloor-friends-drinks-headphones.jpeg'),
     'sd-two-women.jpg': ('Two friends smiling in light-up headphones', 'Silent Disco Greatest Hits, The Picturedrome, Northampton, Apr 2026', 'Notion Event Photo Library: Main Event Images/SD/250426-SD-NPTON-two-women-smiling-headphones.jpeg'),
     'poster-061226-fsd-npton.webp': ('Official Christmas Family Silent Disco event artwork', 'Christmas Family Silent Disco, Northampton, Dec 2026', 'Public event promotional artwork, 061226-FSD-NPTON'),
+    'family-silent-disco-live.jpg': ('Families dancing in glowing headphones beneath a Family Silent Disco screen', 'At a Family Silent Disco event', 'Photo supplied by John on 23rd September 2026; event date and venue not supplied'),
     'pm-npton-feb.jpg': ('Two friends dancing mid-chorus, drinks in hand', 'THE 2PM CLUB, The Picturedrome, Northampton, Feb 2026', 'Notion Event Photo Library: Main Event Images/2PM/280226-2PM-NPTON-two-friends-dancing-with-drinks.jpeg'),
     'pm-leic.jpg': ('A packed dancefloor with arms raised and music videos on the big screens', 'THE 2PM CLUB, Leicester, May 2026', 'Notion Event Photo Library: Main Event Images/2PM/020526-2PM-LEIC-packed-leicester-dancefloor-arms-raised.jpeg'),
     'pm-cov.jpg': ('Three friends laughing together with stage lights behind', 'THE 2PM CLUB, hmv Empire, Coventry, Mar 2026', 'Notion Event Photo Library: Main Event Images/2PM/070326-2PM-COV-three-women-laughing-arms-raised-dancefloor.jpeg'),
@@ -840,8 +841,9 @@ def boom_format(key, events):
         dates = f'<section class="section container" id="dates">{section_head(F["dates_h"])}<div class="date-rows">{"".join(date_row(e) for e in rel[:4])}</div></section>'
     else:
         dates = f'<section class="section container" id="dates">{section_head("NO DATE ON SALE")}<div class="no-date"><p>{esc(F["nodate"])} See the Boombastic events on sale now.</p>{btn(*now)}</div></section>'
+    family_photo = f'''<section class="section container family-moment"><div class="family-moment-copy"><p class="eyebrow">A real Family Silent Disco</p><h2>THEIR MUSIC.<br>YOUR MUSIC.<br>SAME DANCEFLOOR.</h2><p>Kids and grown-ups dance together, each choosing the channel they want to hear. This is what it looks like when the headphones go on.</p>{btn('See the family date', '#dates')}</div>{photo('family-silent-disco-live.jpg', 'family-moment-media')}</section>''' if key == 'family-silent-disco' else ''
     qa = qa_cta('boom', F['faq'], 'GOOD TIMES.<br>GREAT COMPANY.', F['cta_sub'], *((F['cta'], '#dates') if rel else now))
-    body = h + rib + how + (strip(F['strip']) if F['strip'] else '') + dates + qa
+    body = h + rib + how + (strip(F['strip']) if F['strip'] else '') + dates + family_photo + qa
     token = next(t for k, _, t in FORMAT_PAGES if k == key)
     if bool(rel) != bool(format_dates(token)): raise SystemExit(f'{key}: format page shows {len(rel)} dates but the feed has {len(format_dates(token))} on sale')
     return page('boom', F['title'], body, F['sub'], f'/{key}/', sticky_label='Find tickets' if rel else now[0], sticky_href='#dates' if rel else now[1])
