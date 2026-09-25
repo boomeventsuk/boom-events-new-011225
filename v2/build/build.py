@@ -354,6 +354,8 @@ def notice(e):
     """Event-specific venue, access and entry notices. Text comes from the dated feed or the V1 verified notice."""
     if e['code'] == '031026-2PM-NPTON':
         return ('Good to know for Sat 3rd Oct', 'At The Charles Bradlaugh, 1 Earl Street, Northampton. One ticket covers the 80s party on both floors: Sing Out Loud Anthems upstairs and disco and smooth grooves downstairs. The upstairs room is reached by steps. Your existing ticket remains valid for both floors.')
+    if e['code'] == '281026-FSD-NPTON':
+        return ('Good to know for families', 'Supporter Village Barn at DPD Stadium at Franklin\'s Gardens. In adverse weather, the event moves to the Rodber Suite at Saints. Children must be supervised by their accompanying adult at all times; this is not a drop-off event. All attendees require a ticket. Maximum three children per adult.')
     if e['code'] == '061226-FSD-NPTON':
         return ('Good to know for families', 'Now on Saturday 12th December, 11am to 1pm, with admission from 11am. Designed for ages 4 and up; younger children may find the headphones too large. Children must be accompanied by a paying adult, maximum three children per adult. The event is upstairs at The Charles Bradlaugh, accessed by steps. Existing tickets remain valid. Food downstairs is booked separately.')
     if 'Upstairs event, accessed by steps' in e['full']:
@@ -388,6 +390,9 @@ def event_copy(e):
     if f == 'sdxmas':
         return dict(h2='ELEVEN YEARS OF FESTIVE HEADPHONES.', sub='Three channels, three DJs, four hours. One very festive night.', lede='Friends, office parties and couples, all on one dancefloor. Pick your vibe or switch it up.',
                     bullets=[('headphones', 'Christmas & party, indie classics and dance anthems'), ('people', 'Office party, friends or a festive catch-up'), ('ticket', '£10 fully refundable headphone deposit on the night')], quote=None, photo='sd-dance-drinks.jpg')
+    if e['code'] == '281026-FSD-NPTON':
+        return dict(h2='THREE CHANNELS. ONE HALLOWEEN PARTY.', sub=e['subtitle'], lede='Costumes on, headphones on. Dance together at the home of Northampton Saints, DPD Stadium at Franklin\'s Gardens, on Wednesday 28th October from 2pm to 4pm.',
+                    bullets=[('headphones', 'PARTY, THROWBACKS AND CHARTS: switch between three music channels'), ('child', 'Children dance with and are supervised by their accompanying adult'), ('ticket', '£12 adult or child tickets; group of four £40, plus Eventbrite booking fees')], quote=None, photo=None)
     if f == 'fsd':
         return dict(h2='EVERYONE FINDS THEIR VIBE.', sub=e['subtitle'], lede='Christmas jumpers on, headphones on. Kids bounce to party hits, parents move to throwbacks and teens pick the chart channel, all on the same dancefloor.',
                     bullets=[('child', 'Perfect for kids 4+, and parents join in too'), ('headphones', 'Three family-friendly channels, curated by the Boombastic team'), ('star', 'Best festive-dressed family or group wins tickets to the next one')], quote=None, photo=None)
@@ -701,14 +706,16 @@ def listing(brand, events):
 
 def details(brand, e):
     c = event_copy(e)
+    saints_fsd = e['code'] == '281026-FSD-NPTON'
     pre, eyebrow = FORMAT[e['fmt']][3], FORMAT[e['fmt']][4]
+    if e['code'] == '281026-FSD-NPTON': pre = 'Halloween Family Silent Disco'
     date, tm = d_mid(e['start']), times(e)
     addr = street(e)
     note = notice(e)
     base = PM_BASE if brand == 'pm' else BOOM_BASE
     share = 'https://wa.me/?text=' + quote(f"{clean_title(e)}, {e['city']}, {d_long(e['start'])}, {tm}: {base + e['path']}")
     b, bc = badge(e)
-    alert = f'<a class="hero-alert" href="#good-to-know">{icon("info")}<span>{esc(note[0])}: read before you book</span></a>' if note else ''
+    alert = f'<a class="hero-alert" href="#good-to-know">{icon("info")}<span>{esc(note[0])}: read before you book</span></a>' if note and not saints_fsd else ''
     adult_event = brand == 'pm' or e['code'] == '260926-SD-NPTON' or e['fmt'] == 'hhp'
     facts_list = f'<ul class="hero-facts"><li>{icon("calendar")}<span>{esc(date)}</span></li><li>{icon("clock")}<span>{esc(tm)}</span></li><li>{icon("pin")}<span>{esc(e["venue"])}, {esc(e["city"])}</span></li>{f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event else ""}</ul>'
     book_cls = 'btn-hot' if brand == 'pm' else 'btn-coral'
@@ -719,10 +726,21 @@ def details(brand, e):
         media = f'''<figure class="ev-poster"><img src="{esc(e['poster'])}" alt="Official promotional artwork for {esc(e['title'])}, {esc(date)}" width="800" height="800" fetchpriority="high"></figure>'''
     hero_html = f'''<section class="ev-hero"><div class="ev-copy"><div class="hero-inner">{f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''}<h1><span class="pre">{esc(pre)}</span> <span class="city">{esc(e['city'])}</span></h1><p class="hero-sub">{esc(c['sub'])}</p>{facts_list}{alert}{btn('Find your tickets', '#tickets', 'btn-dark' if brand == 'boom' else 'btn-hot')}</div></div>{media}</section>'''
     fact_rib = f'<div class="ribbon fact-rib"><div class="container ribbon-in"><div class="rib-item"><span class="rib-ico i1">{icon("calendar")}</span><b>{esc(date.upper())}</b></div><div class="rib-item"><span class="rib-ico i2">{icon("clock")}</span><b>{esc(tm.upper())}</b></div><div class="rib-item"><span class="rib-ico i3">{icon("pin")}</span><b>{esc(e["venue"].upper())}</b></div></div></div>'
-    note_html = f'<section class="container"><div class="notice" id="good-to-know" role="note">{icon("info")}<div><h2>{esc(note[0])}</h2><p>{esc(note[1])} Access questions: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></div></div></section>' if note else ''
+    note_html = f'<section class="container"><div class="notice" id="good-to-know" role="note">{icon("info")}<div><h2>{esc(note[0])}</h2><p>{esc(note[1])} Access questions: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></div></div></section>' if note and not saints_fsd else ''
     bullets = ''.join(f'<li><span class="bubble bb{i + 1}">{icon(ic)}</span><span>{esc(txt)}</span></li>' for i, (ic, txt) in enumerate(c['bullets']))
     groups = artist_groups(e)
-    music = f'<div class="ev-music"><h3 class="mini-h">{"THE CHANNELS" if any(g[1] for g in groups) else "THE SOUNDTRACK"}</h3>{chips(groups)}</div>' if groups else ''
+    if saints_fsd:
+        channels = [
+            ('blue', 'PARTY', 'Family favourites, sing-along party tunes and Halloween tracks.'),
+            ('red', 'THROWBACKS', "Sing-out-loud hits from the 80s, 90s and 2000s. This one's for the grown-ups."),
+            ('green', 'CHARTS', 'Current chart favourites and trending hits.'),
+        ]
+        music = '<div class="ev-music ev-channel-copy"><h3 class="mini-h">THE CHANNELS</h3>' + ''.join(
+            f'<div class="channel-row channel-{colour}"><p><strong>{esc(label)}:</strong> {esc(description)}</p></div>'
+            for colour, label, description in channels
+        ) + '</div>'
+    else:
+        music = f'<div class="ev-music"><h3 class="mini-h">{"THE CHANNELS" if any(g[1] for g in groups) else "THE SOUNDTRACK"}</h3>{chips(groups)}</div>' if groups else ''
     price = f'<p class="dc-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') else ''
     status = f'<p class="dc-status">{esc(e["status"])}</p>' if e.get('status') else ''
     date_card = f'''<aside class="date-card" aria-label="Booking summary"><h2>MAKE IT A DATE</h2><ul><li>{icon("calendar")}{esc(date.upper())}</li><li>{icon("clock")}{esc(tm.upper())}</li><li>{icon("pin")}{esc(e["venue"].upper())}</li></ul>{price}{group_price(e, True)}{status}<p class="dc-live">Check live availability in the ticket selector</p>{btn('Choose tickets', '#tickets', 'btn-block ' + book_cls)}<p class="dc-eb">Ticketing powered by <b>Eventbrite</b></p><a class="dc-share" href="{esc(share)}" target="_blank" rel="noopener noreferrer">{icon("share")}Share with your group {ARROW}</a></aside>'''
@@ -735,10 +753,29 @@ def details(brand, e):
     maps = 'https://www.google.com/maps/search/?api=1&query=' + quote(', '.join([e['venue']] + addr))
     addr_html = '<br>'.join(esc(x) for x in addr) if addr else 'Address on your ticket confirmation.'
     group_a = 'Group options vary by date. Open the ticket selector above to see what is on sale for this event. For a larger group, email ' + f'<a href="mailto:{EMAIL}">{EMAIL}</a> with the date and numbers.'
-    wear = 'No dress code. Wear what you can dance in.' if e['fmt'] != 'fsd' else 'Christmas jumpers very welcome. Comfortable shoes for dancing.'
-    access_a = (esc(note[1]) + ' ' if note else '') + f'For anything else about access, email <a href="mailto:{EMAIL}">{EMAIL}</a> with the date and what you need before you book or travel.'
-    visit = f'''<section class="visit container"><div class="visit-venue"><h2>PLAN YOUR VISIT</h2><div class="visit-grid"><p><strong>{esc(e['venue'])}</strong><br>{addr_html}</p><div class="visit-links"><a href="{esc(maps)}" target="_blank" rel="noopener noreferrer">{icon("pin")}Directions {ARROW}</a><a href="{'#good-to-know' if note else '/contact/'}">{icon("access")}Access information {ARROW}</a></div></div></div><div class="visit-qa">{acc('What time does it finish?', f'This date runs {esc(tm)}. Times vary between events, so check the date you book.')}{acc('What should I wear?', wear)}{acc('Can we book as a group?', group_a)}{acc('What if I have an access question?', access_a)}</div></section>'''
+    wear = ('Fancy dress is welcome. Wear comfortable shoes for dancing.' if e['code'] == '281026-FSD-NPTON'
+            else 'Christmas jumpers very welcome. Comfortable shoes for dancing.' if e['fmt'] == 'fsd'
+            else 'No dress code. Wear what you can dance in.')
+    access_a = (esc(note[1]) + ' ' if note and not saints_fsd else '') + f'For anything else about access, email <a href="mailto:{EMAIL}">{EMAIL}</a> with the date and what you need before you book or travel.'
+    if saints_fsd:
+        visit_questions = ''.join([
+            acc('Is this a drop-off event?', 'No. Children must be accompanied and <strong>supervised by their participating, ticket-holding adult throughout</strong>. There is a maximum of three children per adult.'),
+            acc('Does everyone need a ticket?', 'Yes. <strong>Every adult and child attending needs a ticket.</strong> Adult and child tickets are £12 each, plus Eventbrite booking fees.'),
+            acc('Who can use a group-of-four ticket?', 'The <strong>£40 group ticket</strong> covers either two adults and two children, or one adult and three children. Single tickets can be added to a group booking. Adults must attend with a child.'),
+            acc('Where is it, and what happens in bad weather?', "The party is planned for the <strong>Supporter Village Barn</strong> at DPD Stadium at Franklin's Gardens. In adverse weather, it will move into the <strong>Rodber Suite</strong> at Saints."),
+            acc('Where can we park?', f'We will share the event-specific parking, entrance and arrival details before the day. If you need access advice sooner, email <a href="mailto:{EMAIL}">{EMAIL}</a>.'),
+            acc('Can we switch between the music channels?', 'Yes. Everyone gets headphones and can switch between Party, Throwbacks and Charts.'),
+            acc('Do we need to dress up?', 'No. Halloween fancy dress is welcome but optional. Wear comfortable shoes for dancing.'),
+            acc('What time does it finish?', 'The party runs from 2pm to 4pm on Wednesday 28th October.'),
+            acc('What if I have an access question?', access_a),
+        ])
+    else:
+        visit_questions = ''.join([acc('What time does it finish?', f'This date runs {esc(tm)}. Times vary between events, so check the date you book.'), acc('What should I wear?', wear), acc('Can we book as a group?', group_a), acc('What if I have an access question?', access_a)])
+    visit = f'''<section class="visit container"{' id="good-to-know"' if saints_fsd else ''}><div class="visit-venue"><h2>PLAN YOUR VISIT</h2><div class="visit-grid"><p><strong>{esc(e['venue'])}</strong><br>{addr_html}{'<br><strong>Supporter Village Barn.</strong> In adverse weather, the event moves to the <strong>Rodber Suite</strong> at Saints.' if saints_fsd else ''}</p><div class="visit-links"><a href="{esc(maps)}" target="_blank" rel="noopener noreferrer">{icon("pin")}Directions {ARROW}</a><a href="{'#good-to-know' if note and not saints_fsd else '/contact/'}">{icon("access")}Access information {ARROW}</a></div></div></div><div class="visit-qa">{visit_questions}</div></section>'''
     others = [x for x in CURRENT_EVENTS[brand] if x['code'] != e['code']][:3]
+    if saints_fsd:
+        related_codes = ('061226-FSD-NPTON', '311026-HHP-NPTON', '041226-SD-NPTON')
+        others = [x for code in related_codes for x in CURRENT_EVENTS[brand] if x['code'] == code]
     related = f'<section class="section container related">{section_head("MORE COMING UP", f"<a class=text-link href=/whats-on/>See all events {ARROW}</a>")}<div class="card-grid">{"".join(event_card(x) for x in others)}</div></section>'
     body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
@@ -862,8 +899,6 @@ BOOM_FORMATS = {}
 
 def build_formats():
     g, sdtext = sd_channels()
-    fsd = next((e for e in CURRENT_EVENTS['boom'] if e['fmt'] == 'fsd'), None)
-    fg = {x[1]: x for x in artist_groups(fsd) if x[1]} if fsd else {}
     b90 = next((e for e in CURRENT_EVENTS['boom'] if e['fmt'] == 'b90'), None)
     b90_art = artist_groups(b90)[0][2] if b90 else []
     BOOM_FORMATS.update({
@@ -876,12 +911,12 @@ def build_formats():
             faq=[('How do the channels work?', 'Wireless headphones pick up three DJs. Switch channel with the button on the headphones; the light shows which channel you are on.'), ('Is there a headphone deposit?', 'For the Christmas Silent Disco on Fri 4th Dec, a £10 fully refundable headphone deposit is taken on the night. Check your event page for others.'), ('What if headphones are lost or damaged?', 'Replacement charges may apply. Staff explain the terms when you collect your headphones.'), ('What should I wear?', 'No dress code. Wear what you can dance in.')],
             cta_sub='Find your next Silent Disco.'),
         'family-silent-disco': dict(title='Family Silent Disco', eyebrow='Family Silent Disco', h1='HEADPHONES ON.<br>EVERYONE DANCES.', sub='Three family-friendly channels, one dancefloor. For kids 4+ and the grown-ups who bring them.', cta='Find a family date', hero='family-silent-disco-live.jpg', hero_cap='Photo from a previous Family Silent Disco', fmts=('fsd',),
-            ribbon=[('AGES 4+', 'Parents join in too'), ('3 CHANNELS', 'Christmas, throwback, chart'), ('WITH AN ADULT', 'Max three children per adult')], how_h='HERE’S HOW IT WORKS',
+            ribbon=[('AGES 4+', 'Parents join in too'), ('3 CHANNELS', 'Party, throwbacks, charts'), ('WITH AN ADULT', 'Max three children per adult')], how_h='HERE’S HOW IT WORKS',
             steps=[('Pick up your headphones', 'Staff get everyone set up when you arrive.'), ('Choose your channel', 'Each person picks their own soundtrack.'), ('Dance together', 'Switch any time, all on one dancefloor.')],
-            cards=[(None, 'Christmas & Party', 'blue', ', '.join(fg['blue'][2]) + '.' if 'blue' in fg else 'Family party hits.'), (None, 'Throwback', 'red', ', '.join(fg['red'][2]) + '.' if 'red' in fg else 'Throwback favourites.'), (None, 'Chart', 'green', 'Clean chart hits for older kids and grown-ups.')],
-            after='<p class="fine">The music stays family-friendly. Each person can choose a channel and set their own headphone volume. Check the Christmas event page for the channel line-up on your date.</p>',
+            cards=[(None, 'Party', 'blue', 'Family favourites and sing-alongs, with seasonal songs on special dates.'), (None, 'Throwbacks', 'red', '80s, 90s and 00s favourites for the grown-ups.'), (None, 'Charts', 'green', 'Current favourites and trending hits.')],
+            after='<p class="fine">Each person can choose a channel and set their own headphone volume. Check the individual event page for the channel line-up on your date.</p>',
             strip=None, dates_h='NEXT FAMILY SILENT DISCO', nodate='',
-            faq=[('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large.'), ('Do children need an adult?', 'Yes. Children must be accompanied by a paying adult, maximum three children per adult.'), ('Is the venue accessible?', 'The Sat 12th Dec event is upstairs at The Charles Bradlaugh, accessed by steps. Email us before booking if you need to check an arrangement.'), ('What time is it?', 'The Sat 12th Dec party runs 11am to 1pm, with admission from 11am.')],
+            faq=[('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large.'), ('Do children need an adult?', 'Yes. Children must be accompanied and supervised by a ticket-holding adult at all times, maximum three children per adult. All attendees require a ticket.'), ('Is the venue accessible?', 'Venue arrangements vary by date. The 12th December event is upstairs at The Charles Bradlaugh, accessed by steps. Email us before booking if you need to check an arrangement for either venue.'), ('What time is it?', 'The 28th October Northampton Saints party runs 2pm to 4pm. The 12th December party runs 11am to 1pm. Check your event page for the exact details.')],
             cta_sub='Find your next Family Silent Disco.'),
         'boombastic-90s': dict(title='Boombastic 90s', eyebrow='Boombastic 90s', h1='ALL OF THE NINETIES.<br>EVERY LAST BIT.', sub='Pop, Britpop, dance and hip-hop. Four hours, giant screens, no filler.', cta='Find Boombastic 90s dates', hero='b90-stage.jpg', fmts=('b90',),
             ribbon=[('THE WHOLE DECADE', 'Pop, Britpop, hip-hop, dance'), ('GIANT SCREENS', 'Authentic 90s videos'), ('COME AS YOU ARE', 'Ready to sing every word')], how_h='HERE’S HOW IT FEELS',
@@ -1226,7 +1261,11 @@ def release_redirects(brand, events):
                  '/blog/why-2pm-works/ /blog/what-is-a-daytime-disco/ 301!']
         # Earlier blog URLs are retained as full pages and are not redirected.
     else:
-        rows += ['/faqs/ /faq/ 301!',
+        rows += ['/saintsfsd /event/281026-fsd-npton/ 302!',
+                 '/saintsfsd/ /event/281026-fsd-npton/ 302!',
+                 '/SAINTSFSD /event/281026-fsd-npton/ 302!',
+                 '/SAINTSFSD/ /event/281026-fsd-npton/ 302!',
+                 '/faqs/ /faq/ 301!',
                  '/events/christmas-silent-disco-northampton/* /silent-disco/ 301!',
                  '/events/the-2pm-club-northampton-christmas-daytime-disco/* https://www.the2pmclub.co.uk/hubs/northampton/ 301!',
                  '/events/boombastics-christmas-decades-party-northampton/* /whats-on/ 301!',

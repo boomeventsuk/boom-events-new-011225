@@ -294,6 +294,12 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .pm .bubble.bb2{background:var(--d2)}
 .mini-h{font:800 12px/1.2 var(--sans);letter-spacing:.12em;margin:0 0 12px;color:var(--accent)}
 .ev-music{margin:10px 0 26px}
+.ev-channel-copy{display:grid;gap:10px}
+.ev-channel-copy .mini-h{margin-bottom:2px}
+.channel-row{border-left:4px solid var(--line);padding:2px 0 2px 12px;font-size:17px;line-height:1.45}
+.channel-blue{border-color:#1f5eff}.channel-red{border-color:#ff3b30}.channel-green{border-color:#18b843}
+.channel-row p{margin:0}
+.channel-row strong{font-weight:800}
 .chip-group{margin-bottom:16px}
 .chip-group h3{display:flex;align-items:center;gap:8px;font:700 14px/1.2 var(--sans);text-transform:none;margin-bottom:8px}
 .chip-group .chips li{font-size:17px;box-shadow:0 0 0 1px var(--line)}
