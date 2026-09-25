@@ -529,7 +529,7 @@ def event_card(e):
     href = e['path']; b, bc = badge(e)
     name = 'THE 2PM CLUB' if e['brand'] in ('pm', 'boom-crosslink') else FORMAT[e['fmt']][3]
     if e['brand'] != 'pm':
-        b = 'Daytime' if e['brand'] == 'boom-crosslink' else 'Family' if e['fmt'] == 'fsd' else 'After dark'
+        b = 'Daytime' if e['brand'] == 'boom-crosslink' else 'Family' if e['fmt'] == 'fsd' else 'Evening'
     price = f'<p class="card-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') else ''
     return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{slug(FORMAT[e['fmt']][2] if e['brand'] != 'boom-crosslink' else 'Daytime disco')}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></div></article>'''
 

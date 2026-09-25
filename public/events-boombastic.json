@@ -746,8 +746,8 @@
     "description": "Halloween Family Silent Disco at the home of Northampton Saints, DPD Stadium at Franklin's Gardens. Three music channels and two hours of family dancing.",
     "eventbriteId": "2002241373848",
     "isSoldOut": false,
-    "fullDescription": "🎃 HALLOWEEN FAMILY SILENT DISCO AT NORTHAMPTON SAINTS\n\nWednesday 28th October, 2pm to 4pm. Supporter Village Barn at the home of Northampton Saints, DPD Stadium at Franklin's Gardens, Northampton.\n\nCostumes on, headphones on! Bring your little monsters for an afternoon of Halloween dancing. Everyone gets headphones and can switch between three music channels. One dance floor, three soundtracks, and something for every generation.\n\n🔵 PARTY: family favourites, sing-alongs and Halloween tunes.\n\n🔴 THROWBACKS (this one's for the grown-ups): hits from the 80s, 90s and 00s.\n\n🟢 CHARTS: current favourites and trending hits.\n\n👻 Fancy dress is welcome. Come as spooky, silly or spectacular as you like!\n\n☔ In adverse weather conditions, the event will move into the Rodber Suite at Saints.\n\n🎟 Adult and child tickets are £12 each. A group-of-four ticket is £40 and covers either two adults and two children, or one adult and three children. Eventbrite booking fees are added at checkout. Single tickets can be added to a group booking.\n\nAll children must be accompanied by a participating adult with a valid ticket, with a maximum of three children per adult. Adults must be accompanied by a child. Children must be supervised by their accompanying adult at all times. This is not a drop-off event. All attendees require a ticket.",
-    "highlights": "🎃 Halloween half-term family party at Northampton Saints|🎧 Three channels, one dance floor, two hours of dancing|🔵 PARTY: family favourites and Halloween tunes|🔴 THROWBACKS: this one's for the grown-ups|🟢 CHARTS: current favourites and trending hits|👨‍👧‍👦 Children must be supervised by their accompanying adult at all times",
+    "fullDescription": "🎃 HALLOWEEN FAMILY SILENT DISCO AT NORTHAMPTON SAINTS\n\nWednesday 28th October, 2pm to 4pm. Supporter Village Barn at the home of Northampton Saints, DPD Stadium at Franklin's Gardens, Northampton.\n\nCostumes on, headphones on! Bring your little monsters for an afternoon of Halloween dancing. Everyone gets headphones and can switch between three music channels. One dance floor, three soundtracks, and something for every generation.\n\n🔵 PARTY: family favourites, sing-alongs and Halloween tunes.\n\n🔴 THROWBACKS: sing-out-loud hits from the 80s, 90s and 2000s. This one's for the grown-ups.\n\n🟢 CHARTS: current favourites and trending hits.\n\n👻 Fancy dress is welcome. Come as spooky, silly or spectacular as you like!\n\n☔ In adverse weather conditions, the event will move into the Rodber Suite at Saints.\n\n🎟 Adult and child tickets are £12 each. A group-of-four ticket is £40 and covers either two adults and two children, or one adult and three children. Eventbrite booking fees are added at checkout. Single tickets can be added to a group booking.\n\nAll children must be accompanied by a participating adult with a valid ticket, with a maximum of three children per adult. Adults must be accompanied by a child. Children must be supervised by their accompanying adult at all times. This is not a drop-off event. All attendees require a ticket.",
+    "highlights": "🎃 Halloween half-term family party at Northampton Saints|🎧 Three channels, one dance floor, two hours of dancing|🔵 PARTY: family favourites and Halloween tunes|🔴 THROWBACKS: sing-out-loud hits from the 80s, 90s and 2000s. This one's for the grown-ups.|🟢 CHARTS: current favourites and trending hits|👨‍👧‍👦 Children must be supervised by their accompanying adult at all times",
     "hiddenSections": [
       "video",
       "gallery"
@@ -775,8 +775,8 @@
       {
         "color": "red",
         "name": "THROWBACKS",
-        "artists": "Hits from the 80s, 90s and 00s",
-        "description": "This one's for the grown-ups."
+        "artists": "Sing-out-loud hits from the 80s, 90s and 2000s",
+        "description": "Sing-out-loud hits from the 80s, 90s and 2000s. This one's for the grown-ups."
       },
       {
         "color": "green",

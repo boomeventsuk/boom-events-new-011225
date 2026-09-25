@@ -643,9 +643,9 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
   .signup-form{flex-direction:column;flex:auto;max-width:none}
   .signup-form input,.signup-form .sel,.signup-form .btn{width:100%;flex:auto}
   .form-note{text-align:left}
-  .ftr-in{grid-template-columns:auto 1fr;gap:16px}
-  .ftr-main{justify-content:flex-end;gap:20px}
-  .ftr-social{grid-column:1/-1}
+  .ftr-in{grid-template-columns:1fr;gap:14px}
+  .ftr-main{justify-content:flex-start;flex-wrap:wrap;gap:12px 22px}
+  .ftr-social{grid-column:auto}
   .ftr-sub{flex-direction:column}
   .sticky-cta{display:flex;justify-content:center;align-items:center;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:40;min-height:58px;background:var(--cta);color:#fff;font:400 26px/1 var(--display);text-transform:none;text-decoration:none;letter-spacing:.02em;box-shadow:0 -4px 18px rgba(0,0,0,.18)}
   .pm .sticky-cta{color:#111}
