@@ -58,7 +58,7 @@
       const lim = limit();
       let matched = 0, shown = 0;
       items.forEach(item => {
-        const ok = fields.every(f => !f.value || (f.dataset.filter === 'month' ? item.dataset.date.startsWith(f.value) : item.dataset[f.dataset.filter] === f.value));
+        const ok = fields.every(f => !f.value || (f.dataset.filter === 'month' ? item.dataset.date.startsWith(f.value) : f.dataset.filter === 'type' ? item.dataset.type.split(' ').includes(f.value) : item.dataset[f.dataset.filter] === f.value));
         if (ok) matched++;
         const visible = ok && (!lim || active || matched <= lim);
         item.hidden = !visible;

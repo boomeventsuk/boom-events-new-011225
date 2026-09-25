@@ -193,7 +193,7 @@ FORMAT = {
     'pmxmas': ('Christmas', 'hot', 'Christmas', 'Christmas Daytime Disco', 'THE 2PM CLUB Daytime Disco'),
     'sd': ('Silent Disco', 'blue', 'Silent disco', 'Silent Disco', 'Silent Disco Greatest Hits'),
     'sdxmas': ('Christmas Silent Disco', 'blue', 'Silent disco', 'Christmas Silent Disco', 'Silent Disco Greatest Hits'),
-    'fsd': ('Family Silent Disco', 'green', 'Family', 'Christmas Family Silent Disco', ''),
+    'fsd': ('Family Silent Disco', 'green', 'Family', 'Family Silent Disco', ''),
     'b90': ('Boombastic 90s', 'coral', 'Decades Parties', 'Boombastic 90s', ''),
     'hhp': ('Halloween House Party', 'orange', 'Halloween', 'Halloween House Party', ''),
     'dec': ('Christmas Decades Party', 'coral', 'Decades Parties', 'Christmas Decades Party', ''),
@@ -525,18 +525,36 @@ def group_price(e, event_page=False):
     return f'<p class="group-price">{esc(label + detail)}</p>'
 
 
+def event_filter_type(e):
+    kind = 'Daytime disco' if e['brand'] == 'boom-crosslink' else FORMAT[e['fmt']][2]
+    tags = [slug(kind)]
+    if e['code'] == '281026-FSD-NPTON':
+        tags.append('halloween')
+    return ' '.join(tags)
+
+
+def family_event_name(e):
+    title = e['title'].lower()
+    for season in ('Halloween', 'Christmas'):
+        if season.lower() in title:
+            return f'{season} Family Silent Disco'
+    return 'Family Silent Disco'
+
+
 def event_card(e):
     href = e['path']; b, bc = badge(e)
     name = 'THE 2PM CLUB' if e['brand'] in ('pm', 'boom-crosslink') else FORMAT[e['fmt']][3]
+    if e['fmt'] == 'fsd':
+        name = family_event_name(e)
     if e['brand'] != 'pm':
         b = 'Daytime' if e['brand'] == 'boom-crosslink' else 'Family' if e['fmt'] == 'fsd' else 'Evening'
     price = f'<p class="card-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') else ''
-    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{slug(FORMAT[e['fmt']][2] if e['brand'] != 'boom-crosslink' else 'Daytime disco')}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></div></article>'''
+    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></div></article>'''
 
 
 def event_row(e):
     href = e['path']; b, bc = badge(e)
-    return f'''<article class="ev-row" data-item data-city="{slug(e['city'])}" data-type="{slug(FORMAT[e['fmt']][2] if e['brand'] != 'boom-crosslink' else 'Daytime disco')}" data-date="{e['start'][:10]}"><a class="row-poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" width="300" height="300"></a><div class="row-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}">{esc(d_mid(e['start']))}</a></h3><p class="row-facts"><span>{icon('pin')}{esc(e['venue'])}</span><span>{icon('clock')}{esc(times(e))}</span></p></div><a class="btn btn-dark row-btn" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></article>'''
+    return f'''<article class="ev-row" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="row-poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" width="300" height="300"></a><div class="row-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}">{esc(d_mid(e['start']))}</a></h3><p class="row-facts"><span>{icon('pin')}{esc(e['venue'])}</span><span>{icon('clock')}{esc(times(e))}</span></p></div><a class="btn btn-dark row-btn" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></article>'''
 
 
 def date_row(e):
@@ -653,11 +671,11 @@ def home(brand, events):
         proof = f'''<section class="proof container"><div class="proof-lead">{quote_block(QUOTES['lorne'], 'quote-xl')}<p>Bring your group or come on your own. The songs give everyone something to sing about.</p></div><div class="proof-more">{quote_block(QUOTES['diane'])}{quote_block(QUOTES['lara'])}{quote_block(QUOTES['friends'])}</div></section>'''
         body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'pm-friends.jpeg', 'ALL THE CHORUSES.<br>ALL YOUR PEOPLE.', [('What to expect', '/what-to-expect/'), ('The music', '#music'), ('Bring your group', '/group-bookings/')]) + music + guide + proof + signup(brand, 'YOUR CITY. YOUR NEXT AFTERNOON.', 'Be first to hear when THE 2PM CLUB announces a date near you.', events=events)
         return page(brand, 'Your best night out. In the middle of the afternoon.', body, 'THE 2PM CLUB Daytime Disco: Sing Out Loud Anthems from the 80s, 90s and 00s. Doors 2pm, home by 7-ish.', '/')
-    h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB by day. Silent Disco Greatest Hits after dark. Decades Parties with Boombastic 90s and Footloose 80s. Family Silent Disco too.', btn(f'See all {len(events)} dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">TRUSTED BY THOUSANDS.</p>', h1cls='h1-boom')
-    rib = ribbon([('DAYTIME', 'THE 2PM CLUB, doors at 2pm', PM_BASE + '/'), ('AFTER DARK', 'Silent Disco and Decades Parties', '/about/#parties'), ('FAMILY', 'Family Silent Disco, ages 4+', '/family-silent-disco/')], cls='rib-short')
+    h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all {len(events)} dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">TRUSTED BY THOUSANDS.</p>', h1cls='h1-boom')
+    rib = ribbon([('DAYTIME', 'THE 2PM CLUB, doors at 2pm', PM_BASE + '/'), ('EVENING', 'Silent Disco and Decades Parties', '/about/#parties'), ('FAMILY', 'Family Silent Disco, ages 4+', '/family-silent-disco/')], cls='rib-short')
     head = section_head('WHAT’S COMING UP', filters(events, 0))
     parties = boom_parties_grid()
-    rel = f'''<section class="relation container"><div class="relation-copy"><p class="eyebrow">The people behind the party</p><h2>11AM, 2PM OR AFTER DARK.</h2><p>Family Silent Disco in the morning. THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties after dark. Same Boombastic team, bringing people together since 2014.</p>{btn('Explore THE 2PM CLUB', PM_BASE + '/')}</div><div class="relation-quotes">{quote_block(QUOTES['emma_r'])}</div></section>'''
+    rel = f'''<section class="relation container"><div class="relation-copy"><p class="eyebrow">The people behind the party</p><h2>FAMILY, DAYTIME OR EVENING.</h2><p>Family Silent Disco for kids and grown-ups. THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Same Boombastic team, bringing people together since 2014.</p>{btn('Explore THE 2PM CLUB', PM_BASE + '/')}</div><div class="relation-quotes">{quote_block(QUOTES['emma_r'])}</div></section>'''
     body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'sd-four-friends.jpg', 'PICK YOUR PARTY.<br>BRING YOUR PEOPLE.', [('Daytime discos', PM_BASE + '/'), ('Silent discos', '/silent-disco/'), ('Decades Parties', '/about/#parties'), ('Family parties', '/family-silent-disco/')]) + parties + rel + signup(brand, 'YOUR CITY. YOUR NEXT NIGHT OUT.', 'Be first to hear about new parties near you.', events=events)
     return page(brand, 'The Midlands’ party starters since 2014', body, 'Trusted by thousands. Boombastic Events runs daytime discos, silent discos, Decades Parties and family parties across the Midlands.', '/')
 
@@ -678,10 +696,10 @@ def pm_music_section(events):
 
 PARTIES = [
     ('THE 2PM CLUB', 'pm-three.jpg', 'Saturday afternoon disco. Sing Out Loud Anthems from the 80s, 90s and 00s, doors at 2pm.', 'Daytime', PM_BASE + '/'),
-    ('SILENT DISCO GREATEST HITS', 'sd-energy.jpg', 'Three DJs, three channels, one dancefloor. Pop, indie or dance, switch whenever you like.', 'After dark', '/silent-disco/'),
-    ('BOOMBASTIC 90s', 'b90-stage.jpg', 'Pop, Britpop, dance and hip-hop with 90s videos on giant screens.', 'After dark', '/boombastic-90s/'),
+    ('SILENT DISCO GREATEST HITS', 'sd-energy.jpg', 'Three DJs, three channels, one dancefloor. Pop, indie or dance, switch whenever you like.', 'Evening', '/silent-disco/'),
+    ('BOOMBASTIC 90s', 'b90-stage.jpg', 'Pop, Britpop, dance and hip-hop with 90s videos on giant screens.', 'Evening', '/boombastic-90s/'),
     ('FAMILY SILENT DISCO', 'family-silent-disco-live.jpg', 'Three family-friendly channels for kids 4+ and the grown-ups who bring them.', 'Family', '/family-silent-disco/'),
-    ('FOOTLOOSE 80s', 'fl-room.jpg', 'Wall-to-wall 80s, Madonna and Queen to Bon Jovi and Whitney.', 'After dark', '/footloose-80s/'),
+    ('FOOTLOOSE 80s', 'fl-room.jpg', 'Wall-to-wall 80s, Madonna and Queen to Bon Jovi and Whitney.', 'Evening', '/footloose-80s/'),
 ]
 
 
@@ -708,7 +726,8 @@ def details(brand, e):
     c = event_copy(e)
     saints_fsd = e['code'] == '281026-FSD-NPTON'
     pre, eyebrow = FORMAT[e['fmt']][3], FORMAT[e['fmt']][4]
-    if e['code'] == '281026-FSD-NPTON': pre = 'Halloween Family Silent Disco'
+    if e['fmt'] == 'fsd':
+        pre = family_event_name(e)
     date, tm = d_mid(e['start']), times(e)
     addr = street(e)
     note = notice(e)
@@ -802,7 +821,7 @@ def locations(brand, events):
     quiet_rows = ''.join(f'<li><a href="{city_url(brand, c)}">{esc(c)}</a><span>No date announced at the moment.{" Nearest dates on sale: " + " and ".join(nearest_live(brand, c)) + "." if nearest_live(brand, c) else ""}</span></li>' for c in quiet)
     quiet_html = f'<section class="loc-quiet container" aria-labelledby="quiet-h"><h2 id="quiet-h">Other places we’ve partied</h2><p>We’ve held events here before. Nothing is on sale {'here' if len(quiet) == 1 else 'in these places'} at the moment.</p><ul>{quiet_rows}</ul></section>' if quiet else ''
     h = hero(brand, 'YOUR CITY.<br>YOUR NEXT<br>' + ('AFTERNOON.' if pm else 'PARTY.'), 'Pick your city for dates on sale, venue details and how to get there.', btn('Find your city', '#cities', 'btn-hot' if pm else 'btn-dark'), 'pm-packed.jpg' if pm else 'b90-crowd.jpg')
-    rib = ribbon([('LOCAL DATES', 'Find an afternoon near you' if pm else 'Find a party near you'), ('REAL VENUES', 'Addresses and access for each date'), ('PICK YOUR EDITION', '80s and Christmas dates') if pm else ('PICK YOUR PARTY', 'Daytime, after dark or family')])
+    rib = ribbon([('LOCAL DATES', 'Find an afternoon near you' if pm else 'Find a party near you'), ('REAL VENUES', 'Addresses and access for each date'), ('PICK YOUR EDITION', '80s and Christmas dates') if pm else ('PICK YOUR PARTY', 'Daytime, evening or family')])
     final = f'<section class="final-band"><div class="container final-in"><h2>EVERY DATE. EVERY CITY.</h2>{btn("See what’s on", "/whats-on/")}</div></section>'
     body = h + rib + f'<section class="section container" id="cities">{section_head("DATES ON SALE BY CITY", "", "Where we party")}<div class="loc-grid">{"".join(tiles)}</div></section>' + quiet_html + strip('pm-wide.jpg' if pm else 'fl-room.jpg') + final
     return page(brand, 'Locations', body, 'Find upcoming ' + ('THE 2PM CLUB daytime discos' if pm else 'Boombastic parties') + ' by city. See real dates, venues and tickets.', '/locations/')
@@ -913,9 +932,9 @@ def build_formats():
         'family-silent-disco': dict(title='Family Silent Disco', eyebrow='Family Silent Disco', h1='HEADPHONES ON.<br>EVERYONE DANCES.', sub='Three family-friendly channels, one dancefloor. For kids 4+ and the grown-ups who bring them.', cta='Find a family date', hero='family-silent-disco-live.jpg', hero_cap='Photo from a previous Family Silent Disco', fmts=('fsd',),
             ribbon=[('AGES 4+', 'Parents join in too'), ('3 CHANNELS', 'Party, throwbacks, charts'), ('WITH AN ADULT', 'Max three children per adult')], how_h='HERE’S HOW IT WORKS',
             steps=[('Pick up your headphones', 'Staff get everyone set up when you arrive.'), ('Choose your channel', 'Each person picks their own soundtrack.'), ('Dance together', 'Switch any time, all on one dancefloor.')],
-            cards=[(None, 'Party', 'blue', 'Family favourites and sing-alongs, with seasonal songs on special dates.'), (None, 'Throwbacks', 'red', '80s, 90s and 00s favourites for the grown-ups.'), (None, 'Charts', 'green', 'Current favourites and trending hits.')],
+            cards=[(None, 'Party', 'blue', 'Family favourites and sing-alongs, with seasonal songs on special dates.'), (None, 'Throwbacks', 'red', "Sing-out-loud hits from the 80s, 90s and 2000s. This one's for the grown-ups."), (None, 'Charts', 'green', 'Current favourites and trending hits.')],
             after='<p class="fine">Each person can choose a channel and set their own headphone volume. Check the individual event page for the channel line-up on your date.</p>',
-            strip=None, dates_h='NEXT FAMILY SILENT DISCO', nodate='',
+            strip=None, dates_h='UPCOMING FAMILY SILENT DISCOS', nodate='',
             faq=[('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large.'), ('Do children need an adult?', 'Yes. Children must be accompanied and supervised by a ticket-holding adult at all times, maximum three children per adult. All attendees require a ticket.'), ('Is the venue accessible?', 'Venue arrangements vary by date. The 12th December event is upstairs at The Charles Bradlaugh, accessed by steps. Email us before booking if you need to check an arrangement for either venue.'), ('What time is it?', 'The 28th October Northampton Saints party runs 2pm to 4pm. The 12th December party runs 11am to 1pm. Check your event page for the exact details.')],
             cta_sub='Find your next Family Silent Disco.'),
         'boombastic-90s': dict(title='Boombastic 90s', eyebrow='Boombastic 90s', h1='ALL OF THE NINETIES.<br>EVERY LAST BIT.', sub='Pop, Britpop, dance and hip-hop. Four hours, giant screens, no filler.', cta='Find Boombastic 90s dates', hero='b90-stage.jpg', fmts=('b90',),
@@ -1014,7 +1033,7 @@ def about_page(brand, events):
         body = h + rib + what + strip('pm-wide.jpg') + where + rel + signup('pm', 'YOUR CITY. YOUR NEXT AFTERNOON.', 'Be first to hear about new dates.', events=events)
         return page('pm', 'About', body, 'About THE 2PM CLUB Daytime Disco, by Boombastic Events.', '/about/')
     h = hero('boom', 'IT STARTED WITH<br>ONE 90s NIGHT.', 'Since 2014, tens of thousands of people have joined us for Silent Disco, Decades Parties, Family Silent Disco and THE 2PM CLUB.', btn('Find your next party', '/whats-on/'), 'b90-crowd.jpg', eyebrow='About Boombastic Events')
-    rib = ribbon([('DAYTIME', 'THE 2PM CLUB', PM_BASE + '/'), ('AFTER DARK', 'Silent Disco and Decades Parties', '#parties'), ('FAMILY', 'Family Silent Disco', '/family-silent-disco/')], cls='rib-short')
+    rib = ribbon([('DAYTIME', 'THE 2PM CLUB', PM_BASE + '/'), ('EVENING', 'Silent Disco and Decades Parties', '#parties'), ('FAMILY', 'Family Silent Disco', '/family-silent-disco/')], cls='rib-short')
     story = f'''<section class="section container about-grid"><div><p class="eyebrow">What we do</p><h2>PARTIES BUILT AROUND THE SONGS.</h2><p>Every Boombastic party starts with the music people actually want to sing, then puts it in a room with the right people. Three DJs on three headphone channels at Silent Disco Greatest Hits. Giant-screen 90s videos at Boombastic 90s. Wall-to-wall 80s anthems at Footloose 80s. A Saturday afternoon of 80s, 90s and 00s anthems at THE 2PM CLUB.</p><p>We’ve filled rooms across the Midlands for years, with sell-out nights across our different parties. We run them in venues we know: The Charles Bradlaugh in Northampton, Bedford Esquires, MK11 in Milton Keynes, hmv Empire in Coventry and Mattioli Woods Welford Road Stadium in Leicester. For years our silent discos called The Picturedrome home; its final night is Sat 26th Sept.</p></div><div class="about-story-photo">{photo('b90-group.jpg', 'about-photo', caption=False)}</div></section>'''
     rel = f'<section class="relation container"><div class="relation-copy"><p class="eyebrow">THE 2PM CLUB</p><h2>THE SAME TEAM. AN EARLIER START.</h2><p>Our daytime disco brings big singalong energy into the afternoon. Doors at 2pm, home by 7-ish.</p>{btn("Explore THE 2PM CLUB", PM_BASE + "/")}</div><div class="relation-quotes">{quote_block(QUOTES["emma_r"])}{quote_block(QUOTES["fl80"])}</div></section>'
     body = h + rib + story + boom_parties_grid() + strip('footloose-photo.jpeg') + rel + signup('boom', 'YOUR CITY. YOUR NEXT NIGHT OUT.', 'Be first to hear about new parties near you.', events=events)
@@ -1265,6 +1284,8 @@ def release_redirects(brand, events):
                  '/saintsfsd/ /event/281026-fsd-npton/ 302!',
                  '/SAINTSFSD /event/281026-fsd-npton/ 302!',
                  '/SAINTSFSD/ /event/281026-fsd-npton/ 302!',
+                 '/SaintsFSD /event/281026-fsd-npton/ 302!',
+                 '/SaintsFSD/ /event/281026-fsd-npton/ 302!',
                  '/faqs/ /faq/ 301!',
                  '/events/christmas-silent-disco-northampton/* /silent-disco/ 301!',
                  '/events/the-2pm-club-northampton-christmas-daytime-disco/* https://www.the2pmclub.co.uk/hubs/northampton/ 301!',
