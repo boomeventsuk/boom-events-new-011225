@@ -41,6 +41,32 @@ PM_REEL_CITIES = {'Northampton': 'NPTON', 'Bedford': 'BED', 'Coventry': 'COV', '
 CITY_CODE = {'NPTON': 'Northampton', 'BED': 'Bedford', 'MK': 'Milton Keynes', 'LEIC': 'Leicester', 'COV': 'Coventry', 'LUT': 'Luton'}
 MONTHS = {1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'June', 7: 'July', 8: 'Aug', 9: 'Sept', 10: 'Oct', 11: 'Nov', 12: 'Dec'}
 EMAIL = 'hello@boomevents.co.uk'
+# IndexNow lets Bing (and the AI search products built on its index) hear about changed pages on deploy.
+# The key is public by design: it is served at /<key>.txt on each owned domain.
+INDEXNOW_KEY = '6f1c2b9e8d4a47b3a0e5c7d9f2b18e64'
+ORG_DESCRIPTION = {
+    'boom': 'Boombastic Events has run parties across the Midlands since 2014: THE 2PM CLUB daytime disco, Silent Disco Greatest Hits, Decades Parties (Boombastic 90s and Footloose 80s) and Family Silent Disco.',
+    'pm': 'THE 2PM CLUB Daytime Disco: Saturday afternoon parties with Sing Out Loud Anthems from the 80s, 90s and 00s, doors at 2pm. Run by Boombastic Events.',
+}
+# Route-specific descriptions where the page's own summary is too thin for search results.
+DESCRIPTIONS = {
+    ('boom', '/contact/'): 'Email Boombastic Events about tickets, access or an upcoming party. Include your event date, city and order reference and the team will help.',
+    ('boom', '/faq/'): 'Straight answers on Boombastic Events tickets, timings, access and entry: finding your Eventbrite tickets, group bookings, silent disco headphones and family parties.',
+    ('boom', '/faqs/'): 'Straight answers on Boombastic Events tickets, timings, access and entry: finding your Eventbrite tickets, group bookings, silent disco headphones and family parties.',
+    ('boom', '/for-ai/'): 'Public facts and machine-readable data for Boombastic Events: the event feed, venues, and where to find live dates, times and ticket details.',
+    ('boom', '/group-bookings/'): 'Plan a birthday, Christmas party or night out with Boombastic Events. Many dates have a group-of-four ticket; email us about larger groups.',
+    ('boom', '/jobs/'): 'Want to work at Boombastic Events parties? Send a short introduction and your experience to hello@boomevents.co.uk. No specific vacancy is advertised.',
+    ('boom', '/privacy/'): 'How Boombastic Events Ltd collects, uses and protects your information when you visit the website, book through Eventbrite or attend an event.',
+    ('boom', '/silent-disco/'): 'Silent Disco Greatest Hits: three live DJs on three headphone channels, pop, indie and dance. Switch whenever you like. See dates, venues and tickets.',
+    ('pm', '/about/'): 'About THE 2PM CLUB Daytime Disco: a Saturday afternoon party with a DJ, a full sound system and 80s, 90s and 00s anthems. Doors at 2pm. Run by Boombastic Events.',
+    ('pm', '/blog/'): 'Guides from THE 2PM CLUB: what a daytime disco is, hen do and birthday ideas, and how an afternoon party works. Each event page has its own times and tickets.',
+    ('pm', '/contact/'): 'Email THE 2PM CLUB team about tickets, access or an upcoming daytime disco. Include your event date, city and order reference so we can help.',
+    ('pm', '/faqs/'): 'Straight answers before you book THE 2PM CLUB: tickets, start and finish times, access, coming on your own, what to wear and entry rules.',
+    ('pm', '/for-ai/'): 'Public facts and machine-readable data for THE 2PM CLUB: the event feed, upcoming dates and where to find live times, venues and ticket details.',
+    ('pm', '/group-bookings/'): 'Birthdays, hen dos and work dos at THE 2PM CLUB. Share one date with the group chat; many dates have a group-of-four ticket. Email us about larger groups.',
+    ('pm', '/privacy/'): 'How Boombastic Events Ltd, which runs THE 2PM CLUB, collects and uses personal information, including consent-based analytics and advertising cookies.',
+    ('pm', '/terms/'): 'Terms for THE 2PM CLUB tickets: sold through Eventbrite, valid for the named date, with refunds under the Eventbrite policy for each event.',
+}
 SOCIAL = {
     'boom': [('instagram', 'https://www.instagram.com/boombastic.eventsuk', 'Instagram'), ('facebook', 'https://www.facebook.com/boombastic.eventsuk', 'Facebook'), ('tiktok', 'https://www.tiktok.com/@boombastic.eventsuk', 'TikTok')],
     'pm': [('instagram', 'https://www.instagram.com/the2pmclub', 'Instagram'), ('facebook', 'https://www.facebook.com/the2pmclub', 'Facebook')],
@@ -298,9 +324,13 @@ def install_assets(events):
     errors = []
     for e in events:
         stem = 'poster-' + e['code'].lower()
-        found = sorted((HERE / 'assets').glob(stem + '.*'))
+        # Prefer the lightest web format when several copies of the same poster exist.
+        rank = {'.webp': 0, '.jpg': 1, '.jpeg': 1, '.png': 2}
+        found = sorted((HERE / 'assets').glob(stem + '.*'), key=lambda f: (rank.get(f.suffix.lower(), 3), f.name))
         if found and found[0].stat().st_size > 1000: e['poster'] = '/assets/' + found[0].name
         else: e['poster'] = e['image']; errors.append(f"{e['code']}: local poster missing, remote fallback used")
+    heavy = sorted({e['poster'] for e in events if e['poster'].startswith('/assets/') and (HERE / 'assets' / e['poster'].rsplit('/', 1)[1]).stat().st_size > 600_000})
+    if heavy: print('WARNING: posters over 600 KB slow the listing pages on phones; add a .webp copy:', ', '.join(heavy))
     (HERE / 'asset-errors.json').write_text(json.dumps(errors, indent=2))
     return errors
 
@@ -488,7 +518,7 @@ def page(brand, title, body, description='', active='', image='', sticky_label='
     robots = '' if RELEASE_MODE else '<meta name="robots" content="noindex,nofollow,noarchive">'
     suffix = '' if RELEASE_MODE else ' preview'
     consent = '''<div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie choices" hidden><div><strong>Your privacy choices</strong><p>We use optional analytics and advertising cookies only if you agree. You can change your choice using Cookie settings in the footer. <a href="/privacy/">Read our privacy policy</a>.</p></div><div class="cookie-actions"><button type="button" data-consent-reject>Reject optional</button><button type="button" data-consent-accept>Accept optional</button></div></div><script src="/assets/consent.js" defer></script>''' if RELEASE_MODE else ''
-    return f'''<!doctype html><html lang="en-GB" class="{'pm' if pm else 'boom'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{robots}<meta name="description" content="{esc(description or title)}"><meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | {site}"><meta property="og:description" content="{esc(description or title)}"><meta property="og:image" content="{esc(social)}"><meta name="theme-color" content="#080808"><title>{esc(title)} | {site}{suffix}</title><link rel="icon" href="data:,"><link rel="preload" href="/assets/display.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/site.css"></head><body class="{body_class}"><a class="skip-link" href="#main">Skip to content</a>{nav(brand, active, '#tickets' if body_class == 'is-event' else '/whats-on/')}<main id="main">{decades(body)}</main>{footer(brand)}{sticky(brand, sticky_label, sticky_href)}<script src="/assets/site.js" defer></script>{consent}</body></html>'''
+    return f'''<!doctype html><html lang="en-GB" class="{'pm' if pm else 'boom'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{robots}<meta name="description" content="{esc(description or title)}"><meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | {site}"><meta property="og:description" content="{esc(description or title)}"><meta property="og:image" content="{esc(social)}"><meta name="theme-color" content="#080808"><title>{esc(title)} | {site}{suffix}</title><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" href="/favicon-48.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preload" href="/assets/display.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/site.css"></head><body class="{body_class}"><a class="skip-link" href="#main">Skip to content</a>{nav(brand, active, '#tickets' if body_class == 'is-event' else '/whats-on/')}<main id="main">{decades(body)}</main>{footer(brand)}{sticky(brand, sticky_label, sticky_href)}<script src="/assets/site.js" defer></script>{consent}</body></html>'''
 
 
 def hero(brand, h1, sub, cta, photo_name, eyebrow='', extra='', cls='', loading='eager', h1cls='', cap=None):
@@ -541,6 +571,15 @@ def family_event_name(e):
     return 'Family Silent Disco'
 
 
+def card_status(e):
+    label = (e.get('status') or '').strip()
+    if not label or e.get('soldout') or re.search(r'\d', label):
+        return ''
+    if e['city'] == 'Coventry' and re.search(r'(?i)fast|left|last|final|few', label):
+        return ''
+    return f'<p class="card-status">{esc(label)}</p>'
+
+
 def event_card(e):
     href = e['path']; b, bc = badge(e)
     name = 'THE 2PM CLUB' if e['brand'] in ('pm', 'boom-crosslink') else FORMAT[e['fmt']][3]
@@ -549,7 +588,7 @@ def event_card(e):
     if e['brand'] != 'pm':
         b = 'Daytime' if e['brand'] == 'boom-crosslink' else 'Family' if e['fmt'] == 'fsd' else 'Evening'
     price = f'<p class="card-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') else ''
-    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></div></article>'''
+    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{card_status(e)}{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></div></article>'''
 
 
 def event_row(e):
@@ -558,7 +597,7 @@ def event_row(e):
 
 
 def date_row(e):
-    return f'''<a class="date-row" href="{esc(e['path'])}"><span class="date-ico">{icon('calendar')}</span><span class="date-txt"><small>{esc(d_short(e['start']))} · {esc(e['venue'])}</small><strong>{esc(e['city'])}</strong></span><span class="btn btn-dark btn-sm">View event {ARROW}</span></a>'''
+    return f'''<a class="date-row" data-date="{e['start'][:10]}" href="{esc(e['path'])}"><span class="date-ico">{icon('calendar')}</span><span class="date-txt"><small>{esc(d_short(e['start']))} · {esc(e['venue'])}</small><strong>{esc(e['city'])}</strong></span><span class="btn btn-dark btn-sm">View event {ARROW}</span></a>'''
 
 
 def filters(events, featured=0, type_label='All parties', with_city=True):
@@ -663,7 +702,7 @@ def home_city_finder(brand, events):
 def home(brand, events):
     pm = brand == 'pm'
     if pm:
-        h = hero(brand, 'YOUR BEST <br class="m-br">NIGHT OUT.<br>IN THE MIDDLE OF<br>THE AFTERNOON.', 'Sing Out Loud Anthems from the 80s, 90s and 00s. Home by 7-ish.', btn(f'See all {len(events)} dates', '/events/', 'btn-hot') + f'<a class="hero-link" href="/what-to-expect/">First time? See what happens {ARROW}</a>' + home_city_finder(brand, events), 'pm-hero.webp', eyebrow='THE 2PM CLUB Daytime Disco', extra='<p class="hero-proof">Wham! to Whitney. Bon Jovi to Beyoncé. Doors at 2pm.</p>', h1cls='h1-long')
+        h = hero(brand, 'YOUR BEST <br class="m-br">NIGHT OUT.<br>IN THE MIDDLE OF<br>THE AFTERNOON.', 'Sing Out Loud Anthems from the 80s, 90s and 00s. Home by 7-ish.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/events/', 'btn-hot') + f'<a class="hero-link" href="/what-to-expect/">First time? See what happens {ARROW}</a>' + home_city_finder(brand, events), 'pm-hero.webp', eyebrow='THE 2PM CLUB Daytime Disco', extra='<p class="hero-proof">Wham! to Whitney. Bon Jovi to Beyoncé. Doors at 2pm.</p>', h1cls='h1-long')
         rib = ribbon([('BIG CHORUSES', 'Sing Out Loud Anthems'), ('THIS SEASON', '80s Editions and Christmas specials'), ('SATURDAY NIGHT', 'Strictly on the sofa later') if STRICTLY_SEASON_2026 else ('AFTERNOON PLANS', 'Doors 2pm, home by 7-ish')])
         head = section_head('YOUR NEXT AFTERNOON', filters(events, 0, 'All editions'))
         music = pm_music_section(events)
@@ -671,7 +710,7 @@ def home(brand, events):
         proof = f'''<section class="proof container"><div class="proof-lead">{quote_block(QUOTES['lorne'], 'quote-xl')}<p>Bring your group or come on your own. The songs give everyone something to sing about.</p></div><div class="proof-more">{quote_block(QUOTES['diane'])}{quote_block(QUOTES['lara'])}{quote_block(QUOTES['friends'])}</div></section>'''
         body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'pm-friends.jpeg', 'ALL THE CHORUSES.<br>ALL YOUR PEOPLE.', [('What to expect', '/what-to-expect/'), ('The music', '#music'), ('Bring your group', '/group-bookings/')]) + music + guide + proof + signup(brand, 'YOUR CITY. YOUR NEXT AFTERNOON.', 'Be first to hear when THE 2PM CLUB announces a date near you.', events=events)
         return page(brand, 'Your best night out. In the middle of the afternoon.', body, 'THE 2PM CLUB Daytime Disco: Sing Out Loud Anthems from the 80s, 90s and 00s. Doors 2pm, home by 7-ish.', '/')
-    h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all {len(events)} dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">TRUSTED BY THOUSANDS.</p>', h1cls='h1-boom')
+    h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">TRUSTED BY THOUSANDS.</p>', h1cls='h1-boom')
     rib = ribbon([('DAYTIME', 'THE 2PM CLUB, doors at 2pm', PM_BASE + '/'), ('EVENING', 'Silent Disco and Decades Parties', '/about/#parties'), ('FAMILY', 'Family Silent Disco, ages 4+', '/family-silent-disco/')], cls='rib-short')
     head = section_head('WHAT’S COMING UP', filters(events, 0))
     parties = boom_parties_grid()
@@ -716,7 +755,7 @@ def boom_parties_grid(cls=''):
 
 def listing(brand, events):
     pm = brand == 'pm'
-    body = f'''<section class="page-band"><div class="container"><p class="eyebrow">What’s on</p><h1>{'YOUR NEXT AFTERNOON.' if pm else 'FIND YOUR NEXT PARTY.'}</h1><p>{'Every upcoming THE 2PM CLUB Daytime Disco. Pick a city, a date or an edition.' if pm else 'Your next daytime disco, silent disco, Decades Party or family party. Pick what sounds like you.'}</p></div></section><section class="section container" id="upcoming">{section_head(f'{len(events)} DATES ON SALE', filters(events, 0, 'All editions' if pm else 'All parties'))}{results(events)}</section>'''
+    body = f'''<section class="page-band"><div class="container"><p class="eyebrow">What’s on</p><h1>{'YOUR NEXT AFTERNOON.' if pm else 'FIND YOUR NEXT PARTY.'}</h1><p>{'Every upcoming THE 2PM CLUB Daytime Disco. Pick a city, a date or an edition.' if pm else 'Your next daytime disco, silent disco, Decades Party or family party. Pick what sounds like you.'}</p></div></section><section class="section container" id="upcoming">{section_head(f'<span data-live-total>{len(events)}</span> DATES ON SALE', filters(events, 0, 'All editions' if pm else 'All parties'))}{results(events)}</section>'''
     description = ('Find upcoming THE 2PM CLUB daytime discos and day parties by city and date. See venues, event details and live tickets.' if pm
                    else 'Find upcoming Boombastic daytime discos, silent discos, Decades Parties and family events by city and date.')
     return page(brand, 'What’s on', body, description, '/whats-on/')
@@ -743,7 +782,7 @@ def details(brand, e):
         media = f'''<figure class="ev-poster ev-poster-reel"><img src="{esc(e['poster'])}" alt="Official promotional artwork for {esc(e['title'])}, {esc(date)}" width="800" height="800" fetchpriority="high"><video data-event-reel data-primary="{esc(reel)}" data-fallback="{esc(PM_REEL_MASTER)}" muted loop playsinline preload="none" controls aria-label="Footage from a previous THE 2PM CLUB event"></video><figcaption>Footage from a previous THE 2PM CLUB event</figcaption></figure>'''
     else:
         media = f'''<figure class="ev-poster"><img src="{esc(e['poster'])}" alt="Official promotional artwork for {esc(e['title'])}, {esc(date)}" width="800" height="800" fetchpriority="high"></figure>'''
-    hero_html = f'''<section class="ev-hero"><div class="ev-copy"><div class="hero-inner">{f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''}<h1><span class="pre">{esc(pre)}</span> <span class="city">{esc(e['city'])}</span></h1><p class="hero-sub">{esc(c['sub'])}</p>{facts_list}{alert}{btn('Find your tickets', '#tickets', 'btn-dark' if brand == 'boom' else 'btn-hot')}</div></div>{media}</section>'''
+    hero_html = f'''<section class="ev-hero" data-event-end="{esc(e['end'][:19])}"><div class="ev-copy"><div class="hero-inner">{f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''}<h1><span class="pre">{esc(pre)}</span> <span class="city">{esc(e['city'])}</span></h1><p class="hero-sub">{esc(c['sub'])}</p>{facts_list}{alert}{btn('Find your tickets', '#tickets', 'btn-dark' if brand == 'boom' else 'btn-hot')}</div></div>{media}</section>'''
     fact_rib = f'<div class="ribbon fact-rib"><div class="container ribbon-in"><div class="rib-item"><span class="rib-ico i1">{icon("calendar")}</span><b>{esc(date.upper())}</b></div><div class="rib-item"><span class="rib-ico i2">{icon("clock")}</span><b>{esc(tm.upper())}</b></div><div class="rib-item"><span class="rib-ico i3">{icon("pin")}</span><b>{esc(e["venue"].upper())}</b></div></div></div>'
     note_html = f'<section class="container"><div class="notice" id="good-to-know" role="note">{icon("info")}<div><h2>{esc(note[0])}</h2><p>{esc(note[1])} Access questions: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></div></div></section>' if note and not saints_fsd else ''
     bullets = ''.join(f'<li><span class="bubble bb{i + 1}">{icon(ic)}</span><span>{esc(txt)}</span></li>' for i, (ic, txt) in enumerate(c['bullets']))
@@ -1158,8 +1197,24 @@ def official_content_page(brand, key):
 
 
 def not_found(brand):
-    body = f'<section class="page-band"><div class="container"><p class="eyebrow">404</p><h1>PAGE NOT FOUND.</h1><p>That page may have moved.</p>{btn("Find an event", "/whats-on/")}</div></section>'
-    return page(brand, 'Page not found', body)
+    """Unknown or finished URLs: say so plainly, then show what is on sale next."""
+    pm = brand == 'pm'
+    listing_href = '/events/' if pm else '/whats-on/'
+    upcoming = [e for e in CURRENT_EVENTS.get(brand, []) if on_sale(e)][:6]
+    grid = (f'<section class="section container"><div class="sec-head"><div><h2>WHAT’S ON NEXT</h2></div><a class="text-link" href="{listing_href}">All dates {ARROW}</a></div>'
+            f'<div class="card-grid">{"".join(event_card(e) for e in upcoming)}</div></section>') if upcoming else ''
+    body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Page not found</p><h1>THAT ONE’S GONE.</h1>'
+            f'<p>The page you were after has moved, or the event has been and gone. Here’s what’s on next.</p>{btn("See all dates", listing_href)}</div></section>' + grid)
+    return page(brand, 'Page not found', body, 'That page has moved or the event has finished. See what is on sale next.')
+
+
+def plain_text(fragment):
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', fragment or ''))).strip()
+
+
+def price_amount(label):
+    m = re.search(r'£\s*(\d+(?:\.\d{1,2})?)', label or '')
+    return f'{float(m.group(1)):.2f}' if m else None
 
 
 def seo_enrich(brand, path, content):
@@ -1192,29 +1247,57 @@ def seo_enrich(brand, path, content):
         title = f'What Is a Daytime Disco? | {site}'
     else:
         title = f'{short_title} | {site}'
+    better = DESCRIPTIONS.get((brand, route))
+    if better:
+        description = better
+        content = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{esc(better)}">', content, count=1)
+        content = re.sub(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{esc(better)}">', content, count=1)
     schema = []
-    org_id = 'https://www.' + ('the2pmclub.co.uk' if brand == 'pm' else 'boomevents.co.uk') + '/#organization'
+    host = 'the2pmclub.co.uk' if brand == 'pm' else 'boomevents.co.uk'
+    site_url = f'https://www.{host}/'
+    org_id = site_url + '#organization'
+    page_url = base + route
     if route == '/':
-        schema.append({'@context': 'https://schema.org', '@type': 'Organization',
-                       '@id': org_id, 'name': site,
-                       'url': 'https://www.' + ('the2pmclub.co.uk' if brand == 'pm' else 'boomevents.co.uk') + '/',
-                       'logo': base + ('/assets/pm-logo.png' if brand == 'pm' else '/assets/boom-logo.png'),
-                       'sameAs': [url for _, url, _ in SOCIAL[brand]]})
+        org = {'@context': 'https://schema.org', '@type': 'Organization', '@id': org_id, 'name': site, 'url': site_url,
+               'logo': base + ('/assets/pm-logo.png' if brand == 'pm' else '/assets/boom-logo.png'),
+               'description': ORG_DESCRIPTION[brand], 'email': EMAIL,
+               'areaServed': [{'@type': 'City', 'name': c} for c in sorted({e['city'] for e in CURRENT_EVENTS[brand]})],
+               'sameAs': [url for _, url, _ in SOCIAL[brand]]}
+        if brand == 'pm':
+            org['parentOrganization'] = {'@type': 'Organization', '@id': 'https://www.boomevents.co.uk/#organization',
+                                         'name': 'Boombastic Events', 'url': 'https://www.boomevents.co.uk/'}
+        else:
+            org['foundingDate'] = '2014'
+            org['subOrganization'] = {'@type': 'Organization', '@id': 'https://www.the2pmclub.co.uk/#organization',
+                                      'name': 'THE 2PM CLUB', 'url': 'https://www.the2pmclub.co.uk/'}
+        schema.append(org)
+        schema.append({'@context': 'https://schema.org', '@type': 'WebSite', '@id': site_url + '#website', 'name': site,
+                       'url': site_url, 'inLanguage': 'en-GB', 'publisher': {'@id': org_id}})
     if event:
         address = event.get('address') or {}
         place = {'@type': 'Place', 'name': event['venue']}
         if address:
             place['address'] = {'@type': 'PostalAddress', **{k: v for k, v in address.items()
                                 if k in ('streetAddress', 'addressLocality', 'addressRegion', 'postalCode', 'addressCountry') and v}}
-        schema.append({'@context': 'https://schema.org', '@type': 'Event',
-                       'name': event['title'], 'description': description,
-                       'startDate': schema_time(event['start']), 'endDate': schema_time(event['end']),
-                       'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
-                       'eventStatus': 'https://schema.org/EventScheduled',
-                       'location': place, 'image': [base + event['poster']],
-                       'organizer': {'@type': 'Organization', '@id': org_id, 'name': site,
-                                     'url': 'https://www.' + ('the2pmclub.co.uk' if brand == 'pm' else 'boomevents.co.uk') + '/'},
-                       'url': base + route})
+        item = {'@context': 'https://schema.org', '@type': 'Event',
+                'name': event['title'], 'description': description,
+                'startDate': schema_time(event['start']), 'endDate': schema_time(event['end']),
+                'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
+                'eventStatus': 'https://schema.org/EventScheduled',
+                'location': place, 'image': [base + event['poster']],
+                'organizer': {'@type': 'Organization', '@id': org_id, 'name': site, 'url': site_url},
+                'url': page_url}
+        amount = price_amount(event.get('price'))
+        if amount:
+            # The page's own "from" price. Booking fees are added at Eventbrite checkout, as the page states.
+            item['offers'] = {'@type': 'Offer', 'url': page_url, 'price': amount, 'priceCurrency': 'GBP',
+                              'availability': 'https://schema.org/SoldOut' if event.get('soldout') else 'https://schema.org/InStock'}
+        schema.append(item)
+        listing_route = '/events/' if brand == 'pm' else '/whats-on/'
+        schema.append({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site_url},
+            {'@type': 'ListItem', 'position': 2, 'name': 'What’s on', 'item': base + listing_route},
+            {'@type': 'ListItem', 'position': 3, 'name': clean_title(event), 'item': page_url}]})
     elif route != '/':
         parts = route.strip('/').split('/')
         if len(parts) > 1:
@@ -1224,6 +1307,28 @@ def seo_enrich(brand, path, content):
                                {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': base + '/'},
                                {'@type': 'ListItem', 'position': 2, 'name': parts[0].replace('-', ' ').title(), 'item': base + parent},
                                {'@type': 'ListItem', 'position': 3, 'name': short_title, 'item': base + route}]})
+    if route.startswith('/blog/') and route != '/blog/':
+        h1 = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.S)
+        img = re.search(r'<meta property="og:image" content="([^"]+)"', content)
+        schema.append({'@context': 'https://schema.org', '@type': 'Article', 'headline': plain_text(h1.group(1)) if h1 else short_title,
+                       'description': description, 'mainEntityOfPage': page_url, 'inLanguage': 'en-GB',
+                       **({'image': [img.group(1)]} if img else {}),
+                       'author': {'@type': 'Organization', '@id': org_id, 'name': site},
+                       'publisher': {'@type': 'Organization', '@id': org_id, 'name': site}})
+    if not event and 'id="nearby"' not in content:
+        # Listing pages: an ordered list of the event pages shown, so answer engines can follow each date.
+        hrefs = []
+        for a, b in re.findall(r'<a class="(?:poster|row-poster)" href="([^"]+)"|<a class="date-row" data-date="[^"]*" href="([^"]+)"', content):
+            h = a or b
+            full = h if h.startswith('http') else base + h
+            if full not in hrefs: hrefs.append(full)
+        if hrefs:
+            schema.append({'@context': 'https://schema.org', '@type': 'ItemList', 'name': short_title,
+                           'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': u} for i, u in enumerate(hrefs)]})
+    faqs = re.findall(r'<details class="acc"[^>]*><summary>(.*?)</summary><div class="acc-body"><p>(.*?)</p></div></details>', content, re.S)
+    if faqs:
+        schema.append({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+            {'@type': 'Question', 'name': plain_text(q), 'acceptedAnswer': {'@type': 'Answer', 'text': plain_text(a)}} for q, a in faqs]})
     canonical_route = ({'/whats-on/': '/events/', '/locations/': '/hubs/'} if brand == 'pm' else {'/faqs/': '/faq/'}).get(route, route)
     extra = (f'<meta property="og:url" content="{esc(base + canonical_route)}">'
              f'<meta name="twitter:card" content="summary_large_image">'
@@ -1332,8 +1437,74 @@ def release_redirects(brand, events):
     for e in events:
         if e['brand'] != brand: continue
         rows.append(f'/tickets/{e["code"].lower()}/ https://www.eventbrite.co.uk/e/{e["eventbriteId"]}?aff=BoomWeb 302!')
+    rows += past_event_redirects(brand, rows)
     # An unknown URL should return a real 404, never an old React shell.
     rows.append('/* /404.html 404')
+    return rows
+
+
+def llms_txt(brand, events):
+    """Plain-text site summary for AI tools, regenerated on every build from the same feed as the pages."""
+    pm = brand == 'pm'
+    base = PM_BASE if pm else BOOM_BASE
+    site = 'THE 2PM CLUB' if pm else 'Boombastic Events'
+    out = [f'# {site}', '', f'> {ORG_DESCRIPTION[brand]}', '',
+           f'Updated {d_long(TODAY + "T00:00:00")}. Dates, venues, prices and availability come from the live event feed and change as tickets sell. '
+           'A "from" price is the lowest current ticket price; Eventbrite booking fees are added at checkout. Check the event page before travelling.', '',
+           '## Upcoming dates', '']
+    for e in events:
+        url = e['path'] if e['path'].startswith('http') else base + e['path']
+        bits = [f"{d_long(e['start'])}, {times(e)}", f"{e['venue']}, {e['city']}"]
+        if e.get('soldout'):
+            bits.append('Sold out')
+        elif e.get('price'):
+            bits.append(f"{price_label(e['price'])} plus booking fee")
+        out.append(f"- [{clean_title(e)}]({url}): " + '. '.join(bits) + '.')
+    if not events:
+        out.append('- No dates on sale right now.')
+    out += ['', '## Pages', '']
+    if pm:
+        out += [f'- [About THE 2PM CLUB]({base}/about/)', f'- [What to expect]({base}/what-to-expect/)', f'- [All dates and tickets]({base}/events/)',
+                f'- [Locations]({base}/hubs/)', f'- [FAQs]({base}/faqs/)', f'- [What is a daytime disco?]({base}/blog/what-is-a-daytime-disco/)',
+                f'- [Group bookings]({base}/group-bookings/)', f'- [Run by Boombastic Events]({BOOM_BASE}/)']
+    else:
+        out += [f'- [About Boombastic Events]({base}/about/)', f'- [All dates and tickets]({base}/whats-on/)', f'- [Locations]({base}/locations/)',
+                f'- [FAQs]({base}/faq/)', f'- [Silent Disco Greatest Hits]({base}/silent-disco/)', f'- [Family Silent Disco]({base}/family-silent-disco/)',
+                f'- [Boombastic 90s]({base}/boombastic-90s/)', f'- [Footloose 80s]({base}/footloose-80s/)', f'- [Group bookings]({base}/group-bookings/)',
+                f'- [THE 2PM CLUB daytime disco]({PM_BASE}/)']
+    out += ['', '## Data', '', f'- [Event feed (JSON)]({base}/{"events.json" if pm else "events-boombastic.json"})']
+    if pm:
+        out.append(f'- [Upcoming event feed (JSON)]({base}/upcoming-events.json)')
+    else:
+        out.append(f'- [Venues (JSON)]({base}/venues.json)')
+    out += [f'- [Sitemap]({base}/sitemap.xml)', '', '## Contact', '', f'- {EMAIL}', '']
+    return '\n'.join(out)
+
+
+def past_event_redirects(brand, existing):
+    """Finished or cancelled dates: send their old URLs somewhere useful instead of a dead page."""
+    seen = {r.split()[0].lower() for r in existing if r.strip()}
+    current = {e['path'].lower() for e in CURRENT_EVENTS[brand] if e['brand'] == brand}
+    hubs = set(verified_places('pm')) if brand == 'pm' else set()
+    rows = []
+    for raw in (PM if brand == 'pm' else BOOM):
+        if brand == 'boom' and '2PM' in raw['title'].upper():
+            continue
+        code = str((raw.get('slug') if brand == 'pm' else raw.get('eventCode')) or '')
+        if not code:
+            continue
+        path = f'/events/{code.lower()}/' if brand == 'pm' else f'/event/{code.lower()}/'
+        if path in current or (raw['start'][:10] >= TODAY and not raw.get('isCancelled')):
+            continue
+        if brand == 'pm':
+            city = CITY_CODE.get(raw.get('cityCode'), raw.get('cityCode'))
+            dest = city_url('pm', city) if city in hubs else '/events/'
+        else:
+            dest = next((f'/{key}/' for key, _, token in FORMAT_PAGES if token in code.upper()), '/whats-on/')
+        for src in (path, path.rstrip('/')):
+            if src.lower() not in seen:
+                rows.append(f'{src} {dest} 301!')
+                seen.add(src.lower())
     return rows
 
 
@@ -1353,6 +1524,14 @@ def build():
             if f.is_file(): shutil.copyfile(f, dist / 'assets' / f.name)
         shutil.copyfile(HERE / 'site.css', dist / 'assets/site.css')
         shutil.copyfile(HERE / 'site.js', dist / 'assets/site.js')
+        for f in (HERE / 'icons' / brand).iterdir():
+            if f.is_file(): shutil.copyfile(f, dist / f.name)
+        (dist / 'site.webmanifest').write_text(json.dumps({
+            'name': 'THE 2PM CLUB' if brand == 'pm' else 'Boombastic Events',
+            'short_name': '2PM CLUB' if brand == 'pm' else 'Boombastic',
+            'start_url': '/', 'display': 'standalone', 'background_color': '#080808', 'theme_color': '#080808',
+            'icons': [{'src': '/icon-192.png', 'sizes': '192x192', 'type': 'image/png'},
+                      {'src': '/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]}, indent=1) + '\n')
         if RELEASE_MODE: shutil.copyfile(HERE / 'consent.js', dist / 'assets/consent.js')
         write_page(dist, '', home(brand, events))
         write_page(dist, 'whats-on', listing(brand, events))
@@ -1399,10 +1578,8 @@ def build():
                     upcoming.append(item)
                 upcoming.sort(key=lambda x: x['start'])
                 (dist / 'upcoming-events.json').write_text(json.dumps(upcoming, ensure_ascii=False, indent=2) + '\n')
-                llms = f'''# THE 2PM CLUB\n\nTHE 2PM CLUB is a daytime disco produced by Boombastic Events. Event times, venues, music editions, prices and availability vary by date. Confirm them on the individual event page and in Eventbrite checkout.\n\n- About: {base}/about/\n- What to expect: {base}/what-to-expect/\n- Dates and tickets: {base}/events/\n- Locations: {base}/hubs/\n- FAQs: {base}/faqs/\n- Daytime disco guide: {base}/blog/what-is-a-daytime-disco/\n- Full event feed: {base}/events.json\n- Upcoming event feed: {base}/upcoming-events.json\n- Operator: {BOOM_BASE}/\n- Contact: {EMAIL}\n'''
-            else:
-                llms = f'''# Boombastic Events\n\nBoombastic Events produces live parties including Silent Disco Greatest Hits, Footloose 80s, Boombastic 90s, Family Silent Disco and THE 2PM CLUB. Dates, venues, ticket prices and availability vary by event. Confirm details on the event page and in Eventbrite checkout.\n\n- About: {base}/about/\n- Dates and tickets: {base}/whats-on/\n- Our parties: {base}/about/#parties\n- Locations: {base}/locations/\n- FAQs: {base}/faq/\n- Full event feed: {base}/events-boombastic.json\n- Venues: {base}/venues.json\n- THE 2PM CLUB: {PM_BASE}/\n- Contact: {EMAIL}\n'''
-            (dist / 'llms.txt').write_text(llms)
+            (dist / 'llms.txt').write_text(llms_txt(brand, events))
+            (dist / f'{INDEXNOW_KEY}.txt').write_text(INDEXNOW_KEY)
             aliases = {'whats-on', 'locations'} if brand == 'pm' else {'faqs', 'get-ready'}
             routes = sorted('/' + str(f.parent.relative_to(dist)).replace('.', '').strip('/') + '/' for f in dist.rglob('index.html'))
             routes = [r.replace('//', '/') for r in routes if r.strip('/') not in aliases]

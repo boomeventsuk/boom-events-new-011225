@@ -47,6 +47,9 @@ function htmlToMarkdown(html: string): string {
     .sort((a, b) => b.length - a.length);
   if (noscripts.length && noscripts[0].length > 400) {
     s = noscripts[0];
+  } else if ((s.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || "").replace(/<[^>]+>/g, "").trim().length > 200) {
+    // Generated pages wrap their real content in <main>; the header menu and footer are not content.
+    s = s.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)![1];
   } else {
     // Take the RICHEST container, not the first that matches. Location and
     // brand pages wrap a small card in <article> while the real copy sits
@@ -146,7 +149,10 @@ export default async function handler(request: Request, context: Context) {
   // Body can only be consumed once, so rebuild the HTML response if the
   // conversion comes back too thin to be worth serving.
   const html = await response.text();
-  const md = htmlToMarkdown(html);
+  const title = (html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || "").trim();
+  const description = (html.match(/<meta name="description" content="([^"]*)"/i)?.[1] || "").trim();
+  const intro = title ? `# ${title}\n\n${description ? `> ${description}\n\n` : ""}` : "";
+  const md = intro + htmlToMarkdown(html);
   if (md.length < 80) {
     return new Response(html, {
       status: response.status,

@@ -687,3 +687,6 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
   .chips li{font-size:17px}
 }
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+.card-status{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);margin:0 0 6px}
+.pm .card-status{color:#a00055}
+.notice-ended{margin-top:20px}

@@ -1,4 +1,33 @@
 (() => {
+  // Freshness safety net. The nightly rebuild removes finished dates; if a rebuild is late,
+  // never show a date that has already passed (Europe/London calendar day).
+  const londonNow = (() => {
+    try {
+      return new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
+        .format(new Date()).replace(' ', 'T');
+    } catch (_) { return new Date().toISOString().slice(0, 19); }
+  })();
+  const londonToday = londonNow.slice(0, 10);
+  document.querySelectorAll('[data-item][data-date], .date-row[data-date]').forEach(el => {
+    if (el.dataset.date < londonToday) el.remove();
+  });
+  const upcoming = document.getElementById('upcoming');
+  if (upcoming) {
+    const left = upcoming.querySelectorAll('[data-item]').length;
+    document.querySelectorAll('[data-live-total]').forEach(el => {
+      if (Number(el.textContent) > left) el.textContent = String(left);
+    });
+  }
+  const evHero = document.querySelector('[data-event-end]');
+  if (evHero && londonNow > evHero.dataset.eventEnd) {
+    const listing = document.documentElement.classList.contains('pm') ? '/events/' : '/whats-on/';
+    const note = document.createElement('div');
+    note.className = 'container';
+    note.innerHTML = `<div class="notice notice-ended" role="status"><div><h2>This date has finished</h2><p>Tickets are no longer on sale. <a href="${listing}">See what’s on next</a>.</p></div></div>`;
+    evHero.insertAdjacentElement('afterend', note);
+    document.querySelectorAll('#tickets, .sticky-cta, .date-card .btn, .ev-hero .btn').forEach(el => el.remove());
+  }
+
   // Header disclosure menus (Locations, About): click or tap to open. Inline accordions inside the phone menu.
   const dds = Array.from(document.querySelectorAll('.dd'));
   const desktop = window.matchMedia('(min-width: 761px)');

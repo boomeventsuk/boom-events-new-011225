@@ -180,11 +180,19 @@ function extractPriceData(ticketClasses, eventDate, location) {
   const admission = ticketClasses.filter(tc => tc.category === 'admission' && !tc.free);
   if (admission.length === 0) return null;
 
-  // Find the cheapest available ticket (or cheapest overall if none available)
+  // Per-person "from" price (fixed 28th September 2026). A group ticket such as
+  // "Group of 4" is several attendees in one ticket, so it must never become the
+  // headline per-person price. Prefer on-sale single tickets; if only group
+  // tickets are on sale, quote their per-person equivalent.
+  const perHead = tc => parseFloat(tc.cost.major_value) / attendeesPerTicket(tc);
   const available = admission.filter(tc => tc.on_sale_status === 'AVAILABLE');
-  const source = available.length > 0 ? available : admission;
-  const cheapest = source.reduce((min, tc) =>
-    tc.cost.value < min.cost.value ? tc : min, source[0]);
+  const availableSingles = available.filter(tc => attendeesPerTicket(tc) === 1);
+  const allSingles = admission.filter(tc => attendeesPerTicket(tc) === 1);
+  const source = availableSingles.length ? availableSingles
+    : available.length ? available
+    : allSingles.length ? allSingles : admission;
+  const cheapest = source.reduce((min, tc) => perHead(tc) < perHead(min) ? tc : min, source[0]);
+  const fromPrice = Math.round(perHead(cheapest) * 100) / 100;
 
   // ============================================================
   // ATTENDEE-BASED capacity (not ticket count)
@@ -355,9 +363,9 @@ function extractPriceData(ticketClasses, eventDate, location) {
   return {
     // Public fields (written to events.json)
     public: {
-      price: parseFloat(cheapest.cost.major_value),
+      price: fromPrice,
       priceCurrency: cheapest.cost.currency,
-      priceLabel: `From ${cheapest.cost.display}`,
+      priceLabel: `From £${fromPrice.toFixed(2)}`,
       availability: schemaAvailability,
       statusLabel,
       tierLabels: tierLabels.length > 0 ? tierLabels : undefined,
