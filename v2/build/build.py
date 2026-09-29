@@ -114,7 +114,7 @@ PHOTOS = {
     'sd-four-friends.jpg': ('Four friends smiling together in light-up headphones', 'Silent Disco Greatest Hits, The Picturedrome, Northampton, Apr 2026', 'Notion Event Photo Library: Main Event Images/SD/250426-SD-NPTON-four-friends-smiling-headphones.jpeg'),
     'sd-dance-drinks.jpg': ('Friends dancing with drinks in light-up headphones', 'Silent Disco Greatest Hits, The Picturedrome, Northampton, Apr 2026', 'Notion Event Photo Library: Main Event Images/SD/250426-SD-NPTON-dancefloor-friends-drinks-headphones.jpeg'),
     'sd-two-women.jpg': ('Two friends smiling in light-up headphones', 'Silent Disco Greatest Hits, The Picturedrome, Northampton, Apr 2026', 'Notion Event Photo Library: Main Event Images/SD/250426-SD-NPTON-two-women-smiling-headphones.jpeg'),
-    'poster-061226-fsd-npton.webp': ('Official Christmas Family Silent Disco event artwork', 'Christmas Family Silent Disco, Northampton, Dec 2026', 'Public event promotional artwork, 061226-FSD-NPTON'),
+    'poster-121226-fsd-npton.webp': ('Official Christmas Family Silent Disco event artwork', 'Christmas Family Silent Disco, Northampton, Dec 2026', 'Public event promotional artwork, 061226-FSD-NPTON'),
     'family-silent-disco-live.jpg': ('Families dancing in glowing headphones beneath a Family Silent Disco screen', 'At a Family Silent Disco event', 'Photo supplied by John on 23rd September 2026; event date and venue not supplied'),
     'pm-npton-feb.jpg': ('Two friends dancing mid-chorus, drinks in hand', 'THE 2PM CLUB, The Picturedrome, Northampton, Feb 2026', 'Notion Event Photo Library: Main Event Images/2PM/280226-2PM-NPTON-two-friends-dancing-with-drinks.jpeg'),
     'pm-leic.jpg': ('A packed dancefloor with arms raised and music videos on the big screens', 'THE 2PM CLUB, Leicester, May 2026', 'Notion Event Photo Library: Main Event Images/2PM/020526-2PM-LEIC-packed-leicester-dancefloor-arms-raised.jpeg'),
@@ -385,8 +385,8 @@ def notice(e):
     if e['code'] == '031026-2PM-NPTON':
         return ('Good to know for Sat 3rd Oct', 'At The Charles Bradlaugh, 1 Earl Street, Northampton. One ticket covers the 80s party on both floors: Sing Out Loud Anthems upstairs and disco and smooth grooves downstairs. The upstairs room is reached by steps. Your existing ticket remains valid for both floors.')
     if e['code'] == '281026-FSD-NPTON':
-        return ('Good to know for families', 'Supporter Village Barn at DPD Stadium at Franklin\'s Gardens. In adverse weather, the event moves to the Rodber Suite at Saints. Children must be supervised by their accompanying adult at all times; this is not a drop-off event. All attendees require a ticket. Maximum three children per adult.')
-    if e['code'] == '061226-FSD-NPTON':
+        return ('Good to know for families', 'Supporter Village Barn at DPD Stadium at Franklin\'s Gardens. In adverse weather, the event moves to the Rodber Suite at Saints. Children must be supervised by their accompanying adult at all times; this is not a drop-off event. Designed for ages 4 and up. Under-4s are welcome, ideally as babes in arms, and babes in arms go free; everyone else needs a ticket. Maximum three children per adult.')
+    if e['code'] == '121226-FSD-NPTON':
         return ('Good to know for families', 'Now on Saturday 12th December, 11am to 1pm, with admission from 11am. Designed for ages 4 and up; younger children may find the headphones too large. Children must be accompanied by a paying adult, maximum three children per adult. The event is upstairs at The Charles Bradlaugh, accessed by steps. Existing tickets remain valid. Food downstairs is booked separately.')
     if 'Upstairs event, accessed by steps' in e['full']:
         tail = next((l for l in e['full'].split('\n') if 'Upstairs event, accessed by steps' in l), '')
@@ -755,10 +755,66 @@ def boom_parties_grid(cls=''):
 
 def listing(brand, events):
     pm = brand == 'pm'
-    body = f'''<section class="page-band"><div class="container"><p class="eyebrow">What’s on</p><h1>{'YOUR NEXT AFTERNOON.' if pm else 'FIND YOUR NEXT PARTY.'}</h1><p>{'Every upcoming THE 2PM CLUB Daytime Disco. Pick a city, a date or an edition.' if pm else 'Your next daytime disco, silent disco, Decades Party or family party. Pick what sounds like you.'}</p></div></section><section class="section container" id="upcoming">{section_head(f'<span data-live-total>{len(events)}</span> DATES ON SALE', filters(events, 0, 'All editions' if pm else 'All parties'))}{results(events)}</section>'''
+    xmas_link = '' if pm or not christmas_events(events) else f' <a class="text-link" href="/christmas-parties/">Christmas parties {ARROW}</a>'
+    body = f'''<section class="page-band"><div class="container"><p class="eyebrow">What’s on</p><h1>{'YOUR NEXT AFTERNOON.' if pm else 'FIND YOUR NEXT PARTY.'}</h1><p>{'Every upcoming THE 2PM CLUB Daytime Disco. Pick a city, a date or an edition.' if pm else 'Your next daytime disco, silent disco, Decades Party or family party. Pick what sounds like you.'}{xmas_link}</p></div></section><section class="section container" id="upcoming">{section_head(f'<span data-live-total>{len(events)}</span> DATES ON SALE', filters(events, 0, 'All editions' if pm else 'All parties'))}{results(events)}</section>'''
     description = ('Find upcoming THE 2PM CLUB daytime discos and day parties by city and date. See venues, event details and live tickets.' if pm
                    else 'Find upcoming Boombastic daytime discos, silent discos, Decades Parties and family events by city and date.')
     return page(brand, 'What’s on', body, description, '/whats-on/')
+
+
+def christmas_events(events):
+    return [e for e in events if 'christmas' in e['title'].lower() and on_sale(e)]
+
+
+def join_words(items):
+    items = list(items)
+    return items[0] if len(items) == 1 else ', '.join(items[:-1]) + ' and ' + items[-1]
+
+
+def christmas_page(brand, events):
+    """Seasonal landing page built only from the live feed and facts already published on event pages."""
+    xmas = christmas_events(events)
+    cities = list(dict.fromkeys(e['city'] for e in sorted(xmas, key=lambda e: (e['city'] != 'Northampton', e['start']))))
+    kinds = {e['fmt'] if e['brand'] != 'boom-crosslink' else 'pmxmas' for e in xmas}
+    first, last = xmas[0], xmas[-1]
+    parts = []
+    if 'pmxmas' in kinds: parts.append('THE 2PM CLUB Christmas Daytime Disco in the afternoon')
+    evening = [n for k, n in (('sdxmas', 'the Christmas Silent Disco'), ('dec', 'the Christmas Decades Party')) if k in kinds]
+    if evening: parts.append(join_words(evening) + ' in the evening')
+    if 'fsd' in kinds: parts.append('a Christmas Family Silent Disco for ages 4 and up')
+    lead = (f'{len(xmas)} Christmas dates from {d_short(first["start"])} to {d_short(last["start"])} in {join_words(cities)}. '
+            + '; '.join(p[0].upper() + p[1:] if i == 0 else p for i, p in enumerate(parts)) + '.')
+    guide = []
+    if 'pmxmas' in kinds:
+        guide.append(('Afternoon', 'THE 2PM CLUB Christmas Daytime Disco', 'Festive classics first, then the biggest 80s, 90s and 00s anthems. Doors at 2pm, with the evening still yours.'))
+    if 'sdxmas' in kinds:
+        guide.append(('Evening', 'Christmas Silent Disco', 'Three DJs on three headphone channels: Christmas and party, indie classics and dance anthems. A £10 fully refundable headphone deposit is taken on the night.'))
+    if 'dec' in kinds:
+        guide.append(('Evening', 'Christmas Decades Party', '80s, 90s and 00s anthems with the Christmas classics from Mariah, Wham!, Slade and co.'))
+    if 'fsd' in kinds:
+        guide.append(('Family', 'Christmas Family Silent Disco', 'Three family-friendly channels, designed for ages 4 and up. Children must be accompanied by a paying adult, maximum three children per adult.'))
+    guide_html = ''.join(f'<div class="xmas-kind"><p class="eyebrow">{esc(when)}</p><h3>{esc(name)}</h3><p>{esc(text)}</p></div>' for when, name, text in guide)
+    def xmas_name(e):
+        if e['brand'] == 'boom-crosslink' or e['fmt'] == 'pmxmas': return 'THE 2PM CLUB Christmas Daytime Disco'
+        return {'sdxmas': 'Christmas Silent Disco', 'dec': 'Christmas Decades Party'}.get(e['fmt']) or family_event_name(e)
+    when_list = '; '.join(f"{d_short(e['start'])}, {xmas_name(e)}, {e['city']} ({times(e)})" for e in xmas)
+    faqs = [
+        ('When are the Christmas parties?', esc(when_list) + '.'),
+        ('Can we book for a work Christmas party or a big group?', f'Many dates have a group-of-four ticket, shown on each event page. For a larger group or a work party, email <a href="mailto:{EMAIL}">{EMAIL}</a> with the date and rough numbers.'),
+        ('How do I get tickets?', 'Choose a date and use the live ticket selector on its event page. Prices and availability are live, and Eventbrite booking fees are added at checkout.'),
+    ]
+    if 'sdxmas' in kinds:
+        faqs.append(('Is there a headphone deposit at the Christmas Silent Disco?', 'Yes. A £10 fully refundable headphone deposit is taken on the night.'))
+    faq_html = ''.join(acc(q, a) for q, a in faqs)
+    body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Christmas {first["start"][:4]}</p>'
+            f'<h1>CHRISTMAS PARTIES,<br>SORTED.</h1><p>{esc(lead)}</p></div></section>'
+            f'<section class="section container" id="upcoming">{section_head(f"<span data-live-total>{len(xmas)}</span> CHRISTMAS DATES", filters(xmas, 0))}{results(xmas)}</section>'
+            f'<section class="section container"><h2>WHICH CHRISTMAS PARTY?</h2><div class="xmas-kinds">{guide_html}</div></section>'
+            f'<section class="section container faq-list"><h2>CHRISTMAS QUESTIONS</h2>{faq_html}</section>'
+            + signup(brand))
+    description = (f'Christmas parties {first["start"][:4]}: ' + join_words([x[1].replace('THE 2PM CLUB ', '') for x in guide]).lower().replace('christmas ', '')
+                   + f' dates in {join_words(cities)}.')
+    return page(brand, 'Christmas Parties', body, description, '/whats-on/')
 
 
 def details(brand, e):
@@ -818,7 +874,8 @@ def details(brand, e):
     if saints_fsd:
         visit_questions = ''.join([
             acc('Is this a drop-off event?', 'No. Children must be accompanied and <strong>supervised by their participating, ticket-holding adult throughout</strong>. There is a maximum of three children per adult.'),
-            acc('Does everyone need a ticket?', 'Yes. <strong>Every adult and child attending needs a ticket.</strong> Adult and child tickets are £12 each, plus Eventbrite booking fees.'),
+            acc('What age is it for?', 'Designed for ages 4 and up, and most suitable for that age. <strong>Under-4s are welcome, ideally as babes in arms, and babes in arms go free.</strong> Younger children may find the headphones too large.'),
+            acc('Does everyone need a ticket?', 'Everyone except babes in arms. <strong>Every other adult and child attending needs a ticket.</strong> Adult and child tickets are £12 each, plus Eventbrite booking fees.'),
             acc('Who can use a group-of-four ticket?', 'The <strong>£40 group ticket</strong> covers either two adults and two children, or one adult and three children. Single tickets can be added to a group booking. Adults must attend with a child.'),
             acc('Where is it, and what happens in bad weather?', "The party is planned for the <strong>Supporter Village Barn</strong> at DPD Stadium at Franklin's Gardens. In adverse weather, it will move into the <strong>Rodber Suite</strong> at Saints."),
             acc('Where can we park?', f'We will share the event-specific parking, entrance and arrival details before the day. If you need access advice sooner, email <a href="mailto:{EMAIL}">{EMAIL}</a>.'),
@@ -832,7 +889,7 @@ def details(brand, e):
     visit = f'''<section class="visit container"{' id="good-to-know"' if saints_fsd else ''}><div class="visit-venue"><h2>PLAN YOUR VISIT</h2><div class="visit-grid"><p><strong>{esc(e['venue'])}</strong><br>{addr_html}{'<br><strong>Supporter Village Barn.</strong> In adverse weather, the event moves to the <strong>Rodber Suite</strong> at Saints.' if saints_fsd else ''}</p><div class="visit-links"><a href="{esc(maps)}" target="_blank" rel="noopener noreferrer">{icon("pin")}Directions {ARROW}</a><a href="{'#good-to-know' if note and not saints_fsd else '/contact/'}">{icon("access")}Access information {ARROW}</a></div></div></div><div class="visit-qa">{visit_questions}</div></section>'''
     others = [x for x in CURRENT_EVENTS[brand] if x['code'] != e['code']][:3]
     if saints_fsd:
-        related_codes = ('061226-FSD-NPTON', '311026-HHP-NPTON', '041226-SD-NPTON')
+        related_codes = ('121226-FSD-NPTON', '311026-HHP-NPTON', '041226-SD-NPTON')
         others = [x for code in related_codes for x in CURRENT_EVENTS[brand] if x['code'] == code]
     related = f'<section class="section container related">{section_head("MORE COMING UP", f"<a class=text-link href=/whats-on/>See all events {ARROW}</a>")}<div class="card-grid">{"".join(event_card(x) for x in others)}</div></section>'
     body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + related
@@ -974,7 +1031,7 @@ def build_formats():
             cards=[(None, 'Party', 'blue', 'Family favourites and sing-alongs, with seasonal songs on special dates.'), (None, 'Throwbacks', 'red', "Sing-out-loud hits from the 80s, 90s and 2000s. This one's for the grown-ups."), (None, 'Charts', 'green', 'Current favourites and trending hits.')],
             after='<p class="fine">Each person can choose a channel and set their own headphone volume. Check the individual event page for the channel line-up on your date.</p>',
             strip=None, dates_h='UPCOMING FAMILY SILENT DISCOS', nodate='',
-            faq=[('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large.'), ('Do children need an adult?', 'Yes. Children must be accompanied and supervised by a ticket-holding adult at all times, maximum three children per adult. All attendees require a ticket.'), ('Is the venue accessible?', 'Venue arrangements vary by date. The 12th December event is upstairs at The Charles Bradlaugh, accessed by steps. Email us before booking if you need to check an arrangement for either venue.'), ('What time is it?', 'The 28th October Northampton Saints party runs 2pm to 4pm. The 12th December party runs 11am to 1pm. Check your event page for the exact details.')],
+            faq=[('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large. At the 28th October Saints party, under-4s are welcome, ideally as babes in arms, who go free.'), ('Do children need an adult?', 'Yes. Children must be accompanied and supervised by a ticket-holding adult at all times, maximum three children per adult. Everyone needs a ticket, except babes in arms at the 28th October Saints party.'), ('Is the venue accessible?', 'Venue arrangements vary by date. The 12th December event is upstairs at The Charles Bradlaugh, accessed by steps. Email us before booking if you need to check an arrangement for either venue.'), ('What time is it?', 'The 28th October Northampton Saints party runs 2pm to 4pm. The 12th December party runs 11am to 1pm. Check your event page for the exact details.')],
             cta_sub='Find your next Family Silent Disco.'),
         'boombastic-90s': dict(title='Boombastic 90s', eyebrow='Boombastic 90s', h1='ALL OF THE NINETIES.<br>EVERY LAST BIT.', sub='Pop, Britpop, dance and hip-hop. Four hours, giant screens, no filler.', cta='Find Boombastic 90s dates', hero='b90-stage.jpg', fmts=('b90',),
             ribbon=[('THE WHOLE DECADE', 'Pop, Britpop, hip-hop, dance'), ('GIANT SCREENS', 'Authentic 90s videos'), ('COME AS YOU ARE', 'Ready to sing every word')], how_h='HERE’S HOW IT FEELS',
@@ -1241,6 +1298,8 @@ def seo_enrich(brand, path, content):
         title = f'Find {"Daytime Disco" if brand == "pm" else "Boombastic"} Events by Location | {site}'
     elif route.startswith(('/hubs/', '/locations/')):
         title = f'{short_title} {"Daytime Disco" if brand == "pm" else "Parties"} | {site}'
+    elif route == '/christmas-parties/':
+        title = f'Christmas Parties Northampton {TODAY[:4]} | {site}'
     elif route == '/what-to-expect/':
         title = f'What to Expect at a Daytime Disco | {site}'
     elif route == '/blog/what-is-a-daytime-disco/':
@@ -1392,6 +1451,10 @@ def release_redirects(brand, events):
                  '/SaintsFSD /event/281026-fsd-npton/ 302!',
                  '/SaintsFSD/ /event/281026-fsd-npton/ 302!',
                  '/faqs/ /faq/ 301!',
+                 '/event/061226-fsd-npton/ /event/121226-fsd-npton/ 301!',
+                 '/event/061226-fsd-npton /event/121226-fsd-npton/ 301!',
+                 '/event/061226-FSD-NPTON/ /event/121226-fsd-npton/ 301!',
+                 '/event/061226-FSD-NPTON /event/121226-fsd-npton/ 301!',
                  '/events/christmas-silent-disco-northampton/* /silent-disco/ 301!',
                  '/events/the-2pm-club-northampton-christmas-daytime-disco/* https://www.the2pmclub.co.uk/hubs/northampton/ 301!',
                  '/events/boombastics-christmas-decades-party-northampton/* /whats-on/ 301!',
@@ -1438,6 +1501,8 @@ def release_redirects(brand, events):
         if e['brand'] != brand: continue
         rows.append(f'/tickets/{e["code"].lower()}/ https://www.eventbrite.co.uk/e/{e["eventbriteId"]}?aff=BoomWeb 302!')
     rows += past_event_redirects(brand, rows)
+    if brand == 'boom' and not christmas_events(events):
+        rows += ['/christmas-parties/ /whats-on/ 302!', '/christmas-parties /whats-on/ 302!']
     # An unknown URL should return a real 404, never an old React shell.
     rows.append('/* /404.html 404')
     return rows
@@ -1471,6 +1536,7 @@ def llms_txt(brand, events):
         out += [f'- [About Boombastic Events]({base}/about/)', f'- [All dates and tickets]({base}/whats-on/)', f'- [Locations]({base}/locations/)',
                 f'- [FAQs]({base}/faq/)', f'- [Silent Disco Greatest Hits]({base}/silent-disco/)', f'- [Family Silent Disco]({base}/family-silent-disco/)',
                 f'- [Boombastic 90s]({base}/boombastic-90s/)', f'- [Footloose 80s]({base}/footloose-80s/)', f'- [Group bookings]({base}/group-bookings/)',
+                *([f'- [Christmas parties]({base}/christmas-parties/)'] if christmas_events(events) else []),
                 f'- [THE 2PM CLUB daytime disco]({PM_BASE}/)']
     out += ['', '## Data', '', f'- [Event feed (JSON)]({base}/{"events.json" if pm else "events-boombastic.json"})']
     if pm:
@@ -1547,6 +1613,7 @@ def build():
             write_page(dist, 'what-to-expect', pm_what_to_expect(events))
         else:
             for key in BOOM_FORMATS: write_page(dist, key, boom_format(key, events))
+            if christmas_events(events): write_page(dist, 'christmas-parties', christmas_page(brand, events))
             if not RELEASE_MODE: write_page(dist, 'get-ready', paused_format_page('Get Ready'))
         write_page(dist, 'about', about_page(brand, events))
         write_page(dist, 'group-bookings', groups_page(brand, events))

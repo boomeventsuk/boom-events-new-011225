@@ -690,3 +690,7 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .card-status{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);margin:0 0 6px}
 .pm .card-status{color:#a00055}
 .notice-ended{margin-top:20px}
+.xmas-kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:16px}
+.xmas-kind{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px}
+.xmas-kind h3{margin:4px 0 8px}
+.faq-list .acc{margin-top:10px}
