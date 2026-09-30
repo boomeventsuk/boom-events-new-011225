@@ -23,7 +23,7 @@
     "priceLabel": "From £6.00",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-09-29T20:29:42.633Z"
+    "priceLastSync": "2026-09-30T10:02:36.397Z"
   },
   {
     "eventCode": "070226-2PM-LUT",
@@ -47,7 +47,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:29:43.653Z"
+    "priceLastSync": "2026-09-30T10:02:37.575Z"
   },
   {
     "eventCode": "140226-2PM-BED",
@@ -71,7 +71,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:29:44.720Z"
+    "priceLastSync": "2026-09-30T10:02:38.739Z"
   },
   {
     "eventCode": "280226-2PM-NPTON",
@@ -94,7 +94,7 @@
     "priceLabel": "From £7.50",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-09-29T20:29:45.957Z"
+    "priceLastSync": "2026-09-30T10:02:39.833Z"
   },
   {
     "eventCode": "070326-2PM-COV",
@@ -118,7 +118,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:29:47.158Z"
+    "priceLastSync": "2026-09-30T10:02:40.982Z"
   },
   {
     "eventCode": "120926-2PM-BED",
@@ -153,7 +153,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:29:48.532Z"
+    "priceLastSync": "2026-09-30T10:02:42.269Z"
   },
   {
     "eventCode": "190926-2PM-COV",
@@ -188,7 +188,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-09-29T20:29:49.484Z"
+    "priceLastSync": "2026-09-30T10:02:43.408Z"
   },
   {
     "eventCode": "260926-2PM-MK",
@@ -223,7 +223,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-09-29T20:29:50.564Z"
+    "priceLastSync": "2026-09-30T10:02:44.541Z"
   },
   {
     "eventCode": "210326-FSD-NPTON",
@@ -273,7 +273,7 @@
     "priceLabel": "From £8.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:29:51.613Z"
+    "priceLastSync": "2026-09-30T10:02:45.644Z"
   },
   {
     "eventCode": "210326-FL80-NPTON",
@@ -303,7 +303,7 @@
     "priceLabel": "From £8.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-09-29T20:29:53.154Z"
+    "priceLastSync": "2026-09-30T10:02:46.783Z"
   },
   {
     "eventCode": "280326-FL80-BED",
@@ -333,7 +333,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-09-29T20:29:54.451Z"
+    "priceLastSync": "2026-09-30T10:02:47.849Z"
   },
   {
     "eventCode": "250426-SD-NPTON",
@@ -387,7 +387,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-09-29T20:29:55.528Z"
+    "priceLastSync": "2026-09-30T10:02:48.969Z"
   },
   {
     "eventCode": "260926-SD-NPTON",
@@ -440,7 +440,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:29:56.592Z",
+    "priceLastSync": "2026-09-30T10:02:50.235Z",
     "heroVideo": "https://boombastic-events.b-cdn.net/events/artwork/260926-SD-NPTON/260926-SD-NPTON-hero-1x1.mp4"
   },
   {
@@ -473,7 +473,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-09-29T20:29:57.670Z"
+    "priceLastSync": "2026-09-30T10:02:51.368Z"
   },
   {
     "eventCode": "060626-2PM-NPTON",
@@ -505,7 +505,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:29:58.985Z"
+    "priceLastSync": "2026-09-30T10:02:52.585Z"
   },
   {
     "eventCode": "130626-2PM-BED",
@@ -541,7 +541,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-09-29T20:30:00.026Z"
+    "priceLastSync": "2026-09-30T10:02:53.724Z"
   },
   {
     "eventCode": "250726-2PM-NPTON",
@@ -576,7 +576,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Final release",
-    "priceLastSync": "2026-09-29T20:30:01.094Z"
+    "priceLastSync": "2026-09-30T10:02:54.742Z"
   },
   {
     "eventCode": "260626-GR-NPTON",
@@ -607,7 +607,7 @@
     "priceLabel": "From £7.00",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-09-29T20:30:02.729Z"
+    "priceLastSync": "2026-09-30T10:02:55.854Z"
   },
   {
     "eventCode": "230526-2PM-LUT",
@@ -631,7 +631,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-09-29T20:30:03.985Z"
+    "priceLastSync": "2026-09-30T10:02:57.292Z"
   },
   {
     "eventCode": "020526-2PM-LEIC",
@@ -656,7 +656,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-09-29T20:30:05.210Z"
+    "priceLastSync": "2026-09-30T10:02:58.468Z"
   },
   {
     "eventCode": "120926-B90-NPTON",
@@ -685,7 +685,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-09-29T20:30:06.640Z"
+    "priceLastSync": "2026-09-30T10:02:59.441Z"
   },
   {
     "eventCode": "171026-B90-BED",
@@ -720,7 +720,7 @@
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:07.850Z"
+    "priceLastSync": "2026-09-30T10:03:00.564Z"
   },
   {
     "eventCode": "281026-FSD-NPTON",
@@ -780,7 +780,7 @@
       "price": 40,
       "label": "Group of 4 for £40"
     },
-    "priceLastSync": "2026-09-29T20:30:08.992Z"
+    "priceLastSync": "2026-09-30T10:03:01.616Z"
   },
   {
     "eventCode": "311026-HHP-NPTON",
@@ -817,7 +817,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:10.195Z",
+    "priceLastSync": "2026-09-30T10:03:03.903Z",
     "groupTicket": {
       "size": 4,
       "price": 44,
@@ -859,7 +859,7 @@
       "postalCode": "LE2 7TR",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:11.191Z",
+    "priceLastSync": "2026-09-30T10:03:05.180Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -925,7 +925,7 @@
         "description": "Dancefloor and club anthems."
       }
     ],
-    "priceLastSync": "2026-09-29T20:30:12.215Z",
+    "priceLastSync": "2026-09-30T10:03:06.237Z",
     "groupTicket": {
       "size": 4,
       "price": 50,
@@ -967,7 +967,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:13.590Z",
+    "priceLastSync": "2026-09-30T10:03:07.925Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1010,7 +1010,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:14.860Z",
+    "priceLastSync": "2026-09-30T10:03:09.084Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1074,7 +1074,7 @@
         "description": "The chart hits teenagers want."
       }
     ],
-    "priceLastSync": "2026-09-29T20:30:16.182Z"
+    "priceLastSync": "2026-09-30T10:03:10.221Z"
   },
   {
     "eventCode": "121226-2PM-NPTON",
@@ -1111,7 +1111,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:17.511Z",
+    "priceLastSync": "2026-09-30T10:03:11.264Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1153,7 +1153,7 @@
       "postalCode": "CV1 1LF",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:18.839Z",
+    "priceLastSync": "2026-09-30T10:03:12.361Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1195,7 +1195,7 @@
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-09-29T20:30:20.049Z",
+    "priceLastSync": "2026-09-30T10:03:13.463Z",
     "groupTicket": {
       "size": 4,
       "price": 42,
