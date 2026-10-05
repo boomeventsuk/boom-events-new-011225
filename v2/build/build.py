@@ -422,7 +422,7 @@ def event_copy(e):
                     bullets=[('headphones', 'Christmas & party, indie classics and dance anthems'), ('people', 'Office party, friends or a festive catch-up'), ('ticket', '£10 fully refundable headphone deposit on the night')], quote=None, photo='sd-dance-drinks.jpg')
     if e['code'] == '281026-FSD-NPTON':
         return dict(h2='THREE CHANNELS. ONE HALLOWEEN PARTY.', sub=e['subtitle'], lede='Costumes on, headphones on. Dance together at the home of Northampton Saints, DPD Stadium at Franklin\'s Gardens, on Wednesday 28th October from 2pm to 4pm.',
-                    bullets=[('headphones', 'PARTY, THROWBACKS AND CHARTS: switch between three music channels'), ('child', 'Children dance with and are supervised by their accompanying adult'), ('ticket', '£12 adult or child tickets; group of four £40, plus Eventbrite booking fees')], quote=None, photo=None)
+                    bullets=[('headphones', 'PARTY, THROWBACKS AND CHARTS: switch between three music channels'), ('child', 'Children dance with and are supervised by their accompanying adult'), ('ticket', '£10 adult or child tickets; group of four £35, plus Eventbrite booking fees')], quote=None, photo=None)
     if f == 'fsd':
         return dict(h2='EVERYONE FINDS THEIR VIBE.', sub=e['subtitle'], lede='Christmas jumpers on, headphones on. Kids bounce to party hits, parents move to throwbacks and teens pick the chart channel, all on the same dancefloor.',
                     bullets=[('child', 'Perfect for kids 4+, and parents join in too'), ('headphones', 'Three family-friendly channels, curated by the Boombastic team'), ('star', 'Best festive-dressed family or group wins tickets to the next one')], quote=None, photo=None)
@@ -875,8 +875,8 @@ def details(brand, e):
         visit_questions = ''.join([
             acc('Is this a drop-off event?', 'No. Children must be accompanied and <strong>supervised by their participating, ticket-holding adult throughout</strong>. There is a maximum of three children per adult.'),
             acc('What age is it for?', 'Designed for ages 4 and up, and most suitable for that age. <strong>Under-4s are welcome, ideally as babes in arms, and babes in arms go free.</strong> Younger children may find the headphones too large.'),
-            acc('Does everyone need a ticket?', 'Everyone except babes in arms. <strong>Every other adult and child attending needs a ticket.</strong> Adult and child tickets are £12 each, plus Eventbrite booking fees.'),
-            acc('Who can use a group-of-four ticket?', 'The <strong>£40 group ticket</strong> covers either two adults and two children, or one adult and three children. Single tickets can be added to a group booking. Adults must attend with a child.'),
+            acc('Does everyone need a ticket?', 'Everyone except babes in arms. <strong>Every other adult and child attending needs a ticket.</strong> Adult and child tickets are £10 each, plus Eventbrite booking fees.'),
+            acc('Who can use a group-of-four ticket?', 'The <strong>£35 group ticket</strong> covers either two adults and two children, or one adult and three children. Single tickets can be added to a group booking. Adults must attend with a child.'),
             acc('Where is it, and what happens in bad weather?', "The party is planned for the <strong>Supporter Village Barn</strong> at DPD Stadium at Franklin's Gardens. In adverse weather, it will move into the <strong>Rodber Suite</strong> at Saints."),
             acc('Where can we park?', f'We will share the event-specific parking, entrance and arrival details before the day. If you need access advice sooner, email <a href="mailto:{EMAIL}">{EMAIL}</a>.'),
             acc('Can we switch between the music channels?', 'Yes. Everyone gets headphones and can switch between Party, Throwbacks and Charts.'),

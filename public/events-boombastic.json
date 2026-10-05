@@ -744,9 +744,9 @@
     ],
     "fomoOverride": null,
     "status": "just-announced",
-    "price": 12,
+    "price": 10,
     "priceCurrency": "GBP",
-    "priceLabel": "From £12.00",
+    "priceLabel": "From £10.00",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Just announced",
     "venueAddress": {
@@ -777,8 +777,8 @@
     ],
     "groupTicket": {
       "size": 4,
-      "price": 40,
-      "label": "Group of 4 for £40"
+      "price": 35,
+      "label": "Group of 4 for £35"
     },
     "priceLastSync": "2026-10-05T10:55:20.911Z"
   },
