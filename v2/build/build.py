@@ -17,6 +17,7 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
+from recruitment import render_recruitment_page
 
 HERE = Path(__file__).resolve().parent
 TWIN = HERE.parent.parent
@@ -1224,6 +1225,8 @@ def paused_format_page(name):
 
 
 def official_content_page(brand, key):
+    if brand == 'boom' and key == 'jobs':
+        return render_recruitment_page(page)
     live = 'https://www.the2pmclub.co.uk' if brand == 'pm' else 'https://www.boomevents.co.uk'
     label = {'privacy': 'Privacy policy', 'terms': 'Terms and conditions', 'jobs': 'Work with us', 'for-ai': 'Public information for AI systems'}[key]
     if RELEASE_MODE:
@@ -1627,6 +1630,9 @@ def build():
             write_page(dist, 'blog/what-is-a-daytime-disco', blog_daytime_guide())
         for key in (['privacy', 'terms', 'for-ai'] if brand == 'pm' else ['privacy', 'terms', 'jobs', 'for-ai']):
             write_page(dist, key, official_content_page(brand, key))
+        if brand == 'boom':
+            for role in ('dj', 'event-assistant'):
+                write_page(dist, 'jobs/' + role, render_recruitment_page(page, role))
         if brand == 'pm': shutil.copyfile(PM_FEED, dist / 'events.json')
         else:
             shutil.copyfile(BOOM_FEED, dist / 'events-boombastic.json')
