@@ -833,13 +833,15 @@ def details(brand, e):
     alert = f'<a class="hero-alert" href="#good-to-know">{icon("info")}<span>{esc(note[0])}: read before you book</span></a>' if note and not saints_fsd else ''
     adult_event = brand == 'pm' or e['code'] == '260926-SD-NPTON' or e['fmt'] == 'hhp'
     facts_list = f'<ul class="hero-facts"><li>{icon("calendar")}<span>{esc(date)}</span></li><li>{icon("clock")}<span>{esc(tm)}</span></li><li>{icon("pin")}<span>{esc(e["venue"])}, {esc(e["city"])}</span></li>{f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event else ""}</ul>'
+    soldout = e.get('soldout', False)
+    ticket_label = 'Join waiting list' if soldout else 'Choose tickets'
     book_cls = 'btn-hot' if brand == 'pm' else 'btn-coral'
     if brand == 'pm':
         reel = PM_REEL_BASE + ('/2pm-christmas-2026.mp4' if e['fmt'] == 'pmxmas' else '/hero-1x1-' + PM_REEL_CITIES[e['city']] + '.mp4' if e['city'] in PM_REEL_CITIES else '/hero-1x1.mp4')
         media = f'''<figure class="ev-poster ev-poster-reel"><img src="{esc(e['poster'])}" alt="Official promotional artwork for {esc(e['title'])}, {esc(date)}" width="800" height="800" fetchpriority="high"><video data-event-reel data-primary="{esc(reel)}" data-fallback="{esc(PM_REEL_MASTER)}" muted loop playsinline preload="none" controls aria-label="Footage from a previous THE 2PM CLUB event"></video><figcaption>Footage from a previous THE 2PM CLUB event</figcaption></figure>'''
     else:
         media = f'''<figure class="ev-poster"><img src="{esc(e['poster'])}" alt="Official promotional artwork for {esc(e['title'])}, {esc(date)}" width="800" height="800" fetchpriority="high"></figure>'''
-    hero_html = f'''<section class="ev-hero" data-event-end="{esc(e['end'][:19])}"><div class="ev-copy"><div class="hero-inner">{f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''}<h1><span class="pre">{esc(pre)}</span> <span class="city">{esc(e['city'])}</span></h1><p class="hero-sub">{esc(c['sub'])}</p>{facts_list}{alert}{btn('Find your tickets', '#tickets', 'btn-dark' if brand == 'boom' else 'btn-hot')}</div></div>{media}</section>'''
+    hero_html = f'''<section class="ev-hero" data-event-end="{esc(e['end'][:19])}"><div class="ev-copy"><div class="hero-inner">{f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''}<h1><span class="pre">{esc(pre)}</span> <span class="city">{esc(e['city'])}</span></h1><p class="hero-sub">{esc(c['sub'])}</p>{facts_list}{alert}{'<p class=dc-status><strong>SOLD OUT</strong></p>' if soldout else ''}{btn('Join waiting list' if soldout else 'Find your tickets', '#tickets', 'btn-dark' if brand == 'boom' else 'btn-hot')}</div></div>{media}</section>'''
     fact_rib = f'<div class="ribbon fact-rib"><div class="container ribbon-in"><div class="rib-item"><span class="rib-ico i1">{icon("calendar")}</span><b>{esc(date.upper())}</b></div><div class="rib-item"><span class="rib-ico i2">{icon("clock")}</span><b>{esc(tm.upper())}</b></div><div class="rib-item"><span class="rib-ico i3">{icon("pin")}</span><b>{esc(e["venue"].upper())}</b></div></div></div>'
     note_html = f'<section class="container"><div class="notice" id="good-to-know" role="note">{icon("info")}<div><h2>{esc(note[0])}</h2><p>{esc(note[1])} Access questions: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></div></div></section>' if note and not saints_fsd else ''
     bullets = ''.join(f'<li><span class="bubble bb{i + 1}">{icon(ic)}</span><span>{esc(txt)}</span></li>' for i, (ic, txt) in enumerate(c['bullets']))
@@ -856,15 +858,17 @@ def details(brand, e):
         ) + '</div>'
     else:
         music = f'<div class="ev-music"><h3 class="mini-h">{"THE CHANNELS" if any(g[1] for g in groups) else "THE SOUNDTRACK"}</h3>{chips(groups)}</div>' if groups else ''
-    price = f'<p class="dc-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') else ''
-    status = f'<p class="dc-status">{esc(e["status"])}</p>' if e.get('status') else ''
-    date_card = f'''<aside class="date-card" aria-label="Booking summary"><h2>MAKE IT A DATE</h2><ul><li>{icon("calendar")}{esc(date.upper())}</li><li>{icon("clock")}{esc(tm.upper())}</li><li>{icon("pin")}{esc(e["venue"].upper())}</li></ul>{price}{group_price(e, True)}{status}<p class="dc-live">Check live availability in the ticket selector</p>{btn('Choose tickets', '#tickets', 'btn-block ' + book_cls)}<p class="dc-eb">Ticketing powered by <b>Eventbrite</b></p><a class="dc-share" href="{esc(share)}" target="_blank" rel="noopener noreferrer">{icon("share")}Share with your group {ARROW}</a></aside>'''
+    price = f'<p class="dc-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') and not soldout else ''
+    status = '<p class="dc-status"><strong>Sold out</strong></p>' if soldout else (f'<p class="dc-status">{esc(e["status"])}</p>' if e.get('status') else '')
+    date_card = f'''<aside class="date-card" aria-label="Booking summary"><h2>MAKE IT A DATE</h2><ul><li>{icon("calendar")}{esc(date.upper())}</li><li>{icon("clock")}{esc(tm.upper())}</li><li>{icon("pin")}{esc(e["venue"].upper())}</li></ul>{price}{group_price(e, True)}{status}{'' if soldout else '<p class=dc-live>Check live availability in the ticket selector</p>'}{btn(ticket_label, '#tickets', 'btn-block ' + book_cls)}<p class="dc-eb">Ticketing powered by <b>Eventbrite</b></p><a class="dc-share" href="{esc(share)}" target="_blank" rel="noopener noreferrer">{icon("share")}Share with your group {ARROW}</a></aside>'''
     sell = f'''<div class="sell"><p class="eyebrow">{esc(b)}</p><h2>{c['h2']}</h2><p class="lede">{esc(c['lede'])}</p><ul class="bullets">{bullets}</ul>{music}{quote_block(c['quote'])}</div>'''
     main = f'<section class="ev-main container">{sell}{date_card}</section>'
     ph = PM_CITY_PHOTO.get(e['city'], c['photo']) if e['brand'] == 'pm' else c['photo']
     strip_html = f'<div class="ev-strip">{photo(ph, "strip-media")}</div>' if ph else ''
     fallback = f'/tickets/{e["code"].lower()}/'
     tickets = f'''<section class="tickets container" id="tickets"><div class="tickets-intro"><p class="eyebrow">Tickets</p><h2>CHOOSE YOUR TICKETS.</h2><p>Secure checkout by Eventbrite. The selector shows live ticket types, fees and availability for {esc(date)}. Nothing is booked until you complete checkout.</p><p class="tickets-fallback">Selector not loading? <a href="{esc(fallback)}" rel="noopener">Open ticket checkout ↗</a></p></div><div class="ticket-widget" id="eventbrite-tickets" data-eventbrite-id="{esc(e['eventbriteId'])}" role="region" aria-label="Live ticket options for {esc(e['title'])}"><p class="widget-loading">Loading live tickets…</p></div></section>'''
+    if soldout:
+        tickets = f'<section class="tickets container" id="tickets"><div class="tickets-intro"><p class="eyebrow">Sold out</p><h2>SOLD OUT.</h2>{btn("Join waiting list", fallback, book_cls)}</div></section>'
     maps = 'https://www.google.com/maps/search/?api=1&query=' + quote(', '.join([e['venue']] + addr))
     addr_html = '<br>'.join(esc(x) for x in addr) if addr else 'Address on your ticket confirmation.'
     group_a = 'Group options vary by date. Open the ticket selector above to see what is on sale for this event. For a larger group, email ' + f'<a href="mailto:{EMAIL}">{EMAIL}</a> with the date and numbers.'
@@ -896,7 +900,7 @@ def details(brand, e):
     body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
-    return page(brand, f"{clean_title(e)}, {e['city']}, {d_short(e['start'])}", body, description, image=base + e['poster'], sticky_label='Choose tickets', sticky_href='#tickets', body_class='is-event')
+    return page(brand, f"{clean_title(e)}, {e['city']}, {d_short(e['start'])}", body, description, image=base + e['poster'], sticky_label=ticket_label, sticky_href='#tickets', body_class='is-event')
 
 
 def clean_title(e):
@@ -985,7 +989,7 @@ def city_page(brand, city, events):
 
 def boom_format(key, events):
     F = BOOM_FORMATS[key]
-    rel = [e for e in events if e['fmt'] in F['fmts']]
+    rel = [e for e in events if e['fmt'] in F['fmts'] and not e.get('soldout')]
     now = ('See what’s on', '/whats-on/')  # no-date formats: the next step is real events on sale, not a preview signup
     h = hero('boom', F['h1'], F['sub'], btn(F['cta'], '#dates') if rel else btn(*now), F['hero'], eyebrow=F['eyebrow'], cap=F.get('hero_cap'), cls='hero-family' if key == 'family-silent-disco' else '')
     rib = ribbon(F['ribbon'])
