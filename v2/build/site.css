@@ -694,3 +694,7 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .xmas-kind{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px}
 .xmas-kind h3{margin:4px 0 8px}
 .faq-list .acc{margin-top:10px}
+
+/* Keep the Work with us route visible in the existing navigation. */
+@media(min-width:761px){.nav{gap:clamp(16px,2vw,28px);margin-right:clamp(8px,1.5vw,24px)}}
+@media(min-width:761px) and (max-width:1180px){.hdr-in{gap:20px}.hdr-cta{display:none}.nav{margin-right:0;gap:20px}}

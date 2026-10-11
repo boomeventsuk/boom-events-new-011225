@@ -17,6 +17,7 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
+from partnerships import render_partnership_page
 from recruitment import render_recruitment_page
 
 HERE = Path(__file__).resolve().parent
@@ -56,7 +57,7 @@ DESCRIPTIONS = {
     ('boom', '/faqs/'): 'Straight answers on Boombastic Events tickets, timings, access and entry: finding your Eventbrite tickets, group bookings, silent disco headphones and family parties.',
     ('boom', '/for-ai/'): 'Public facts and machine-readable data for Boombastic Events: the event feed, venues, and where to find live dates, times and ticket details.',
     ('boom', '/group-bookings/'): 'Plan a birthday, Christmas party or night out with Boombastic Events. Many dates have a group-of-four ticket; email us about larger groups.',
-    ('boom', '/jobs/'): 'Want to work at Boombastic Events parties? Send a short introduction and your experience to hello@boomevents.co.uk. No specific vacancy is advertised.',
+    ('boom', '/jobs/'): 'Paid DJ and Event Assistant roles with Boombastic Events and THE 2PM CLUB. Read the work and practical requirements, then introduce yourself.',
     ('boom', '/privacy/'): 'How Boombastic Events Ltd collects, uses and protects your information when you visit the website, book through Eventbrite or attend an event.',
     ('boom', '/silent-disco/'): 'Silent Disco Greatest Hits: three live DJs on three headphone channels, pop, indie and dance. Switch whenever you like. See dates, venues and tickets.',
     ('pm', '/about/'): 'About THE 2PM CLUB Daytime Disco: a Saturday afternoon party with a DJ, a full sound system and 80s, 90s and 00s anthems. Doors at 2pm. Run by Boombastic Events.',
@@ -487,7 +488,7 @@ def nav(brand, active='', ticket_href='/whats-on/'):
             sub = f'{len(ds)} date{"s" if len(ds) != 1 else ""} on sale. Next: {d_short(ds[0]["start"])}' if ds else 'No date on sale'
             fmts.append((label, sub, f'/{key}/', active == f'/{key}/', False))
         third = dropdown('parties', 'Our parties', fmts, f'<a class="dd-all" href="/about/#parties">All our parties {ARROW}</a>', active in [f'/{k}/' for k, _, _ in FORMAT_PAGES])
-    items = f'<a href="/whats-on/"{cur("/whats-on/")}>What’s on</a>{locs}{third}{about}'
+    items = f'<a href="/whats-on/"{cur("/whats-on/")}>What’s on</a>{locs}{third}{about}<a href="/work-with-us/"{cur("/work-with-us/")}>Work with us</a>'
     return f'''<header class="hdr"><div class="container hdr-in"><a class="brand" href="/" aria-label="{name} home"><img src="/assets/{'pm' if pm else 'boom'}-logo.png" alt="{name}" width="{'120' if pm else '190'}" height="{'64' if pm else '56'}"></a><nav id="main-nav" class="nav" aria-label="Main navigation">{items}<a class="nav-more" href="/faqs/">FAQs</a><a class="nav-more" href="/group-bookings/">Groups</a><a class="nav-more" href="/contact/">Contact</a></nav><a class="pill-btn hdr-cta" href="{ticket_href}">Find tickets</a><a class="pill-btn m-tickets" href="{ticket_href}">Tickets</a><button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button></div></header>'''
 
 
@@ -497,7 +498,7 @@ def footer(brand):
     live = 'https://www.the2pmclub.co.uk' if pm else 'https://www.boomevents.co.uk'
     socials = ''.join(f'<a href="{u}" aria-label="{label}" rel="noopener">{icon(n)}</a>' for n, u, label in SOCIAL[brand])
     by = f'<a class="by" href="{other}">By Boombastic Events</a>' if pm else ''
-    more = f'<a href="/faqs/">FAQs</a><a href="/group-bookings/">Groups</a><a href="/contact/">Contact</a>' + ('<a href="/blog/">Blog</a>' if pm else f'<a href="/jobs/">Work with us</a>') + f'<a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="{other}">{"Boombastic Events" if pm else "THE 2PM CLUB"}</a>' + ('<button type="button" id="cookie-settings">Cookie settings</button>' if RELEASE_MODE else '')
+    more = f'<a href="/faqs/">FAQs</a><a href="/group-bookings/">Groups</a><a href="/contact/">Contact</a>' + ('<a href="/blog/">Blog</a>' if pm else '') + '<a href="/work-with-us/">Work with us</a>' + f'<a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="{other}">{"Boombastic Events" if pm else "THE 2PM CLUB"}</a>' + ('<button type="button" id="cookie-settings">Cookie settings</button>' if RELEASE_MODE else '')
     note = ('' if RELEASE_MODE else '<p>Website preview (Twin V2). Event details from the public feed of 23rd September 2026. Tickets and availability are live on each event page.</p>')
     return f'''<footer class="ftr"><div class="container ftr-in"><div class="ftr-brand"><a href="/"><img src="/assets/{'pm' if pm else 'boom'}-logo.png" alt="{'THE 2PM CLUB' if pm else 'Boombastic Events'} home" loading="lazy"></a>{by}</div><nav class="ftr-main" aria-label="Footer"><a href="/whats-on/">What’s on</a><a href="/locations/">Locations</a><a href="/about/">About</a></nav><div class="ftr-social">{socials}</div><p class="ftr-tag">{'Good people. Great afternoons.' if pm else 'Events bring people together.'}</p></div><div class="container ftr-sub"><nav aria-label="More links">{more}</nav>{note}</div></footer>'''
 
@@ -1143,7 +1144,7 @@ def about_page(brand, events):
 
 def contact_page(brand):
     pm = brand == 'pm'
-    body = f'''<section class="page-band"><div class="container"><p class="eyebrow">Contact</p><h1>LET’S TALK.</h1><p>Questions about an event, your tickets or access? Email the team.</p></div></section><section class="section container contact-grid"><div><h2>EMAIL US</h2><p><a class="help-mail" href="mailto:{EMAIL}">{icon('mail')}{EMAIL}</a></p><p>Include your name, the event date and city, and your order reference if you already have tickets. For access, tell us what you need so we can advise before you book or travel.</p>{btn('Email us', 'mailto:' + EMAIL)}</div><div class="contact-side"><h2>QUICK ANSWERS</h2><a href="/faqs/#tickets">Where are my tickets? {ARROW}</a><a href="/faqs/#timing">What time does it finish? {ARROW}</a><a href="/faqs/#access">Is my event accessible? {ARROW}</a><a href="/group-bookings/">Coming as a group? {ARROW}</a></div></section>'''
+    body = f'''<section class="page-band"><div class="container"><p class="eyebrow">Contact</p><h1>LET’S TALK.</h1><p>Questions about an event, your tickets or access? Email the team.</p></div></section><section class="section container contact-grid"><div><h2>EMAIL US</h2><p><a class="help-mail" href="mailto:{EMAIL}">{icon('mail')}{EMAIL}</a></p><p>Include your name, the event date and city, and your order reference if you already have tickets. For access, tell us what you need so we can advise before you book or travel.</p>{btn('Email us', 'mailto:' + EMAIL)}</div><div class="contact-side"><h2>QUICK ANSWERS</h2><a href="/work-with-us/">Venues, creators and event roles {ARROW}</a><a href="/faqs/#tickets">Where are my tickets? {ARROW}</a><a href="/faqs/#timing">What time does it finish? {ARROW}</a><a href="/faqs/#access">Is my event accessible? {ARROW}</a><a href="/group-bookings/">Coming as a group? {ARROW}</a></div></section>'''
     return page(brand, 'Contact', body, 'Contact the team about events, tickets or access.')
 
 
@@ -1626,6 +1627,9 @@ def build():
         write_page(dist, 'group-bookings', groups_page(brand, events))
         write_page(dist, 'faqs', faq_page(brand))
         write_page(dist, 'contact', contact_page(brand))
+        for route in ('index', 'venues', 'content-creators', 'enquire'):
+            path = 'work-with-us' + ('/' + route if route != 'index' else '')
+            write_page(dist, path, render_partnership_page(brand, route, page, hero, photo, events, BOOM_BASE, PM_BASE))
         if brand == 'boom': write_page(dist, 'faq', faq_page(brand))
         if brand == 'pm':
             for route in ('/blog/hen-do-daytime-disco/', '/blog/hen-party-ideas-northampton/', '/blog/birthday-party-ideas-northampton-adults/', '/blog/why-daytime-discos-are-popular/'):
