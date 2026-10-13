@@ -709,3 +709,6 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .fact-list li{margin:4px 0}
 .season-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px}
 .season-photos .ph{aspect-ratio:3/2;position:relative;overflow:hidden;border-radius:10px;margin:0}
+.card-soldout{color:#b3261e}
+.date-txt .card-soldout{display:block;font-style:normal;margin-top:4px}
+.ev-row .card-price,.ev-row .card-soldout{margin:6px 0 0}

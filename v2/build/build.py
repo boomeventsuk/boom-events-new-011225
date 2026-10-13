@@ -318,6 +318,11 @@ def format_dates(token):
     return [e for e in CURRENT_EVENTS['boom'] if e['brand'] == 'boom' and token in e['code'] and on_sale(e)]
 
 
+def format_sold_out(token):
+    """Upcoming sold-out Boombastic dates for a format: listed with their waiting list, never hidden."""
+    return [e for e in CURRENT_EVENTS['boom'] if e['brand'] == 'boom' and token in e['code'] and e['start'][:10] >= TODAY and e.get('soldout')]
+
+
 def city_url(brand, city): return f'/{"hubs" if brand == "pm" else "locations"}/{slug(city)}/'
 
 
@@ -527,7 +532,9 @@ def nav(brand, active='', ticket_href='/whats-on/'):
         fmts = []
         for key, label, token in FORMAT_PAGES:
             ds = format_dates(token)
-            sub = f'{len(ds)} date{"s" if len(ds) != 1 else ""} on sale. Next: {d_short(ds[0]["start"])}' if ds else 'No date on sale'
+            so = format_sold_out(token)
+            sub = (f'{len(ds)} date{"s" if len(ds) != 1 else ""} on sale. Next: {d_short(ds[0]["start"])}' if ds
+                   else f'{d_short(so[0]["start"])} sold out. Waiting list open' if so else 'No date on sale')
             fmts.append((label, sub, f'/{key}/', active == f'/{key}/', False))
         third = dropdown('parties', 'Our parties', fmts, f'<a class="dd-all" href="/about/#parties">All our parties {ARROW}</a>', active in [f'/{k}/' for k, _, _ in FORMAT_PAGES])
     xmas = '' if pm or not christmas_events(CURRENT_EVENTS[brand]) else f'<a href="/christmas-parties/"{cur("/christmas-parties/")}>Christmas</a>'
@@ -632,17 +639,30 @@ def event_card(e):
         name = family_event_name(e)
     if e['brand'] != 'pm':
         b = 'Daytime' if e['brand'] == 'boom-crosslink' else 'Family' if e['fmt'] == 'fsd' else 'Evening'
-    price = f'<p class="card-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') else ''
-    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{card_status(e)}{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></div></article>'''
+    price = f'<p class="card-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') and not e.get('soldout') else ''
+    sold = f'<p class="card-status card-soldout">{SOLD_OUT_LINE}</p>' if e.get('soldout') else ''
+    cta = 'Join the waiting list' if e.get('soldout') else 'View event'
+    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{sold}{card_status(e)}{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="{cta}: {esc(e['title'])}, {esc(d_long(e['start']))}">{cta} {ARROW}</a></div></article>'''
 
 
 def event_row(e):
     href = e['path']; b, bc = badge(e)
-    return f'''<article class="ev-row" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="row-poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" width="300" height="300"></a><div class="row-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}">{esc(d_mid(e['start']))}</a></h3><p class="row-facts"><span>{icon('pin')}{esc(e['venue'])}</span><span>{icon('clock')}{esc(times(e))}</span></p></div><a class="btn btn-dark row-btn" href="{esc(href)}" aria-label="View event: {esc(e['title'])}, {esc(d_long(e['start']))}">View event {ARROW}</a></article>'''
+    return f'''<article class="ev-row" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="row-poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" width="300" height="300"></a><div class="row-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}">{esc(d_mid(e['start']))}</a></h3><p class="row-facts"><span>{icon('pin')}{esc(e['venue'])}</span><span>{icon('clock')}{esc(times(e))}</span></p>{row_state(e)}</div><a class="btn btn-dark row-btn" href="{esc(href)}" aria-label="{'Join the waiting list' if e.get('soldout') else 'View event'}: {esc(e['title'])}, {esc(d_long(e['start']))}">{'Join the waiting list' if e.get('soldout') else 'View event'} {ARROW}</a></article>'''
+
+
+SOLD_OUT_LINE = 'Sold out, join the waiting list'
+
+
+def row_state(e):
+    if e.get('soldout'):
+        return f'<p class="card-status card-soldout">{SOLD_OUT_LINE}</p>'
+    return f'<p class="card-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') else ''
 
 
 def date_row(e):
-    return f'''<a class="date-row" data-date="{e['start'][:10]}" href="{esc(e['path'])}"><span class="date-ico">{icon('calendar')}</span><span class="date-txt"><small>{esc(d_short(e['start']))} · {esc(e['venue'])}</small><strong>{esc(e['city'])}</strong></span><span class="btn btn-dark btn-sm">View event {ARROW}</span></a>'''
+    sold = f'<em class="card-status card-soldout">{SOLD_OUT_LINE}</em>' if e.get('soldout') else ''
+    label = 'Join the waiting list' if e.get('soldout') else 'View event'
+    return f'''<a class="date-row" data-date="{e['start'][:10]}" href="{esc(e['path'])}"><span class="date-ico">{icon('calendar')}</span><span class="date-txt"><small>{esc(d_short(e['start']))} · {esc(e['venue'])}</small><strong>{esc(e['city'])}</strong>{sold}</span><span class="btn btn-dark btn-sm">{label} {ARROW}</span></a>'''
 
 
 def filters(events, featured=0, type_label='All parties', with_city=True):
@@ -805,7 +825,12 @@ PARTIES = [
 def party_status(u):
     """'No date on sale' line for a Boombastic format page with nothing on sale in the dated snapshot."""
     tok = next((t for k, _, t in FORMAT_PAGES if u == f'/{k}/'), None)
-    return '<span class="party-nodate">No date on sale at present.</span>' if tok and not format_dates(tok) else ''
+    if not tok or format_dates(tok):
+        return ''
+    so = format_sold_out(tok)
+    if so:
+        return f'<span class="party-nodate">{esc(d_short(so[0]["start"]))} {esc(so[0]["city"])} is sold out: join the waiting list.</span>'
+    return '<span class="party-nodate">No date on sale at present.</span>'
 
 
 def boom_parties_grid(cls=''):
@@ -1213,13 +1238,17 @@ def city_page(brand, city, events):
 
 def boom_format(key, events):
     F = BOOM_FORMATS[key]
-    rel = [e for e in events if e['fmt'] in F['fmts'] and not e.get('soldout')]
+    upcoming = [e for e in events if e['fmt'] in F['fmts'] and e['brand'] == 'boom']
+    rel = [e for e in upcoming if not e.get('soldout')]
+    sold = [e for e in upcoming if e.get('soldout')]
     now = ('See what’s on', '/whats-on/')  # no-date formats: the next step is real events on sale, not a preview signup
     h = hero('boom', F['h1'], F['sub'], btn(F['cta'], '#dates') if rel else btn(*now), F['hero'], eyebrow=F['eyebrow'], cap=F.get('hero_cap'), cls='hero-family' if key == 'family-silent-disco' else '')
     rib = ribbon(F['ribbon'])
     how = f'<section class="section container how">{section_head(F["how_h"])}{steps(F["steps"])}{pill_cards(F["cards"])}{F.get("after", "")}</section>'
     if rel:
-        dates = f'<section class="section container" id="dates">{section_head(F["dates_h"])}<div class="date-rows">{"".join(date_row(e) for e in rel[:4])}</div></section>'
+        dates = f'<section class="section container" id="dates">{section_head(F["dates_h"])}<div class="date-rows">{"".join(date_row(e) for e in sorted(rel[:4] + sold, key=lambda x: x["start"]))}</div></section>'
+    elif sold:
+        dates = f'<section class="section container" id="dates">{section_head("SOLD OUT: JOIN THE WAITING LIST")}<div class="date-rows">{"".join(date_row(e) for e in sold[:4])}</div></section>'
     else:
         dates = f'<section class="section container" id="dates">{section_head("NO DATE ON SALE")}<div class="no-date"><p>{esc(F["nodate"])} See the Boombastic events on sale now.</p>{btn(*now)}</div></section>'
     qa = qa_cta('boom', F['faq'], 'GOOD TIMES.<br>GREAT COMPANY.', F['cta_sub'], *((F['cta'], '#dates') if rel else now))
