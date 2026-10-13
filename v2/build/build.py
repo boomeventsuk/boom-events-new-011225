@@ -1751,9 +1751,45 @@ def family_start_words():
     return 'Family Silent Disco ' + ' or '.join(f'from {t(e["start"])} on {d_day(e["start"])}' for e in fam)
 
 
+def board_faqs():
+    """The ten board FAQ answers (12th October 2026), with every dated fact rebuilt from the feed."""
+    boom = CURRENT_EVENTS['boom']
+    live = [c for c, _ in live_cities('boom')]
+    out = [('What is Boombastic Events?', 'Boombastic Events is a party promoter that has run ticketed singalong parties since 2014. It runs Silent Disco Greatest Hits, the Decades Parties (Boombastic 90s and Footloose 80s), Family Silent Disco for ages 4 and up, seasonal Halloween and Christmas parties, and THE 2PM CLUB daytime disco. ' + f'Current venues are in {join_words(sorted(live, key=lambda c: ["Northampton", "Bedford", "Leicester", "Coventry"].index(c) if c in ["Northampton", "Bedford", "Leicester", "Coventry"] else 9))}.')]
+    pm_up = [e for e in CURRENT_EVENTS['pm'] if e['start'][:10] >= TODAY]
+    odd = sorted({e['city'] for e in pm_up if t(e['end']) != '6pm'})
+    finish = ('Doors open at 2pm, most dates finish at 6pm, and the ' + join_words(odd) + ' Christmas dates finish at 5:30pm.'
+              if pm_up and odd and all(t(e['end']) in ('6pm', '5:30pm') for e in pm_up) and all(e['fmt'] == 'pmxmas' for e in pm_up if t(e['end']) == '5:30pm')
+              else 'Doors open at 2pm; each event page shows its finish time.')
+    out.append(('Is THE 2PM CLUB a silent disco?', 'No. THE 2PM CLUB is a Saturday afternoon daytime disco with a live DJ and a full sound system playing 80s, 90s and 00s anthems. There are no headphones. ' + finish + ' Current dates are for over-18s.'))
+    out.append(('How does Silent Disco Greatest Hits work?', 'Everyone gets wireless headphones with three channels, each with its own live DJ: pop, indie and dance. You switch channel whenever you like, so one room can sing three different songs at once.'))
+    out.append(('What age is Family Silent Disco for?', 'Family Silent Disco by Boombastic Events is designed for children aged 4 and up and the grown-ups who bring them. It has three family-friendly headphone channels.'))
+    sd = next((e for e in boom if e['brand'] == 'boom' and e['fmt'] in ('sd', 'sdxmas') and e['city'] == 'Northampton' and e['start'][:10] >= TODAY), None)
+    if sd:
+        group = ', and a group-of-4 ticket is available' if (sd.get('groupTicket') or {}).get('label') and not sd.get('soldout') else ''
+        addr = ', '.join(street(sd))
+        out.append(('Where is the next silent disco in Northampton?', f'Boombastic’s {event_name(sd)} is on {d_day_year(sd["start"])}, {times(sd).replace(" – ", " to ")}, at {sd["venue"]}, {addr}. ' + (f'Tickets start {price_sentence(sd)}{group}.' if not sd.get('soldout') else 'It is sold out, with a waiting list on the event page.')))
+    xmas = christmas_events(boom)
+    if xmas:
+        out.append((f'What Christmas parties are on in {xmas[0]["start"][:4]}?', f'{len(xmas)} dates: ' + '; '.join(f'{event_name(e)} at {e["venue"]}, {e["city"]} ({d_day(e["start"])})' for e in xmas) + '.'))
+    hall = halloween_events(boom)
+    if hall:
+        towns = list(dict.fromkeys(e['city'] for e in hall))
+        out.append((f'Are there Halloween parties in {join_words(towns)} in {hall[0]["start"][:4]}?', f'Yes, {({1: "one", 2: "two", 3: "three"}).get(len(hall), len(hall))}. ' + ' '.join(f'The {event_name(e)} is {"for over-18s " if is_adult(e) else ""}on {d_day(e["start"])}, {times(e).replace(" – ", " to ")}, at {e["venue"]}, {price_sentence(e)}.' for e in hall)))
+    out.append(('Can I book for a group or a work Christmas party?', f'Many Boombastic dates have a group-of-4 ticket at a lower price per person. For larger groups, birthdays, work parties or a reserved area, email <a href="mailto:{EMAIL}">{EMAIL}</a> with the date and group size.'))
+    out.append(('How do I buy tickets, and what if it is sold out?', 'Every Boombastic party has its own page on boomevents.co.uk (or the2pmclub.co.uk for THE 2PM CLUB) with times, venue, age rule and prices. Checkout is handled by Eventbrite. Prices are shown plus a booking fee. Sold-out dates have a waiting list on the event page.'))
+    quiet = [c for c in ('Luton', 'Milton Keynes') if c not in live]
+    if quiet:
+        hist = ' '.join(past_venue_line(c) for c in quiet if past_venue_line(c))
+        near = sorted({n for c in quiet for n in nearest_live('boom', c)})
+        either = join_words(quiet).replace(' and ', ' or ')
+        out.append((f'Is there a Boombastic party in {either}?', f'Not at the moment. {hist} No {either} date is on sale right now' + (f'; the nearest dates are in {join_words(near)}.' if near else '.')))
+    return out
+
+
 def faq_page(brand):
     pm = brand == 'pm'
-    sections = [
+    sections = ([('about', 'star', 'About us', 'Boombastic, our parties and where', 'ABOUT OUR PARTIES', board_faqs())] if not pm else []) + [
         ('tickets', 'ticket', 'Tickets', 'Booking and your tickets', 'TICKETS & BOOKING', [
             ('Where are my tickets?', f'Check the email address you used at checkout for your Eventbrite confirmation. Still stuck? <a href="mailto:{EMAIL}">Get in touch</a> with your name, event date, city and order reference.'),
             ('How do I book?', 'Choose a date on this site and use the live ticket selector on its event page. It shows the ticket types, fees and availability for that event.'),
@@ -1948,7 +1984,9 @@ def not_found(brand):
 
 
 def plain_text(fragment):
-    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', fragment or ''))).strip()
+    # The lowercase-s span in "80s" is display styling only: drop it without adding a space.
+    fragment = re.sub(r'<span class="lc">([^<]*)</span>', r'\1', fragment or '')
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', fragment))).strip()
 
 
 def price_amount(label):
