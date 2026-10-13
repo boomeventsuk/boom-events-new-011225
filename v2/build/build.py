@@ -131,6 +131,13 @@ PHOTOS = {
 # 2PM event and city pages: a real photo from a 2PM date in that city.
 PM_CITY_PHOTO = {'Leicester': 'pm-leic.jpg', 'Coventry': 'pm-cov.jpg', 'Bedford': 'pm-bed.jpg', 'Milton Keynes': 'pm-mk.jpg', 'Northampton': 'pm-npton-feb.jpg'}
 
+# Per-route search metadata and extra JSON-LD set by page builders, read by seo_enrich.
+# Key: (brand, route). PAGE_META value: dict(title=full <title>, description=meta description).
+PAGE_META = {}
+EXTRA_SCHEMA = {}
+# Short venue names for meta descriptions where the full name is long.
+SHORT_VENUE = {"DPD Stadium at Franklin's Gardens": "Franklin's Gardens"}
+
 ICONS = {
     'calendar': '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
     'clock': '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
@@ -187,6 +194,15 @@ def d_mid(v):
 
 def d_short(v):
     d = dt(v); return f"{d.strftime('%a')} {ordinal(d.day)} {MONTHS[d.month]}"
+
+
+def d_day(v):
+    """Full weekday and month, no year: Wednesday 28th October."""
+    d = dt(v); return f"{d.strftime('%A')} {ordinal(d.day)} {d.strftime('%B')}"
+
+
+def d_day_year(v):
+    d = dt(v); return f"{d.strftime('%A')} {ordinal(d.day)} {d.strftime('%B %Y')}"
 
 
 def t(v):
@@ -731,10 +747,25 @@ def home(brand, events):
     h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">TRUSTED BY THOUSANDS.</p>', h1cls='h1-boom')
     rib = ribbon([('DAYTIME', 'THE 2PM CLUB, doors at 2pm', PM_BASE + '/'), ('EVENING', 'Silent Disco and Decades Parties', '/about/#parties'), ('FAMILY', 'Family Silent Disco, ages 4+', '/family-silent-disco/')], cls='rib-short')
     head = section_head('WHAT’S COMING UP', filters(events, 0))
-    parties = boom_parties_grid()
+    parties = seasonal_section(events) + boom_parties_grid()
     rel = f'''<section class="relation container"><div class="relation-copy"><p class="eyebrow">The people behind the party</p><h2>FAMILY, DAYTIME OR EVENING.</h2><p>Family Silent Disco for kids and grown-ups. THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Same Boombastic team, bringing people together since 2014.</p>{btn('Explore THE 2PM CLUB', PM_BASE + '/')}</div><div class="relation-quotes">{quote_block(QUOTES['emma_r'])}</div></section>'''
     body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'sd-four-friends.jpg', 'PICK YOUR PARTY.<br>BRING YOUR PEOPLE.', [('Daytime discos', PM_BASE + '/'), ('Silent discos', '/silent-disco/'), ('Decades Parties', '/about/#parties'), ('Family parties', '/family-silent-disco/')]) + parties + rel + signup(brand, 'YOUR CITY. YOUR NEXT NIGHT OUT.', 'Be first to hear about new parties near you.', events=events)
     return page(brand, 'The Midlands’ party starters since 2014', body, 'Trusted by thousands. Boombastic Events runs daytime discos, silent discos, Decades Parties and family parties across the Midlands.', '/')
+
+
+def seasonal_section(events):
+    """Homepage links to the seasonal hubs that have dates in the feed."""
+    cards = []
+    hall = halloween_events(events)
+    if hall:
+        cards.append(('Halloween ' + hall[0]['start'][:4], f'Halloween in {join_words(list(dict.fromkeys(e["city"] for e in hall)))}', '; '.join(f'{d_short(e["start"])}: {event_name(e)}' for e in hall) + '.', '/halloween/', 'See Halloween parties'))
+    xmas = christmas_events(events)
+    if xmas:
+        cards.append(('Christmas ' + xmas[0]['start'][:4], f'{len(xmas)} Christmas dates', f'From {d_short(xmas[0]["start"])} in {join_words(list(dict.fromkeys(e["city"] for e in sorted(xmas, key=lambda e: (e["city"] != "Northampton", e["start"])))))}.', '/christmas-parties/', 'See Christmas parties'))
+    if not cards:
+        return ''
+    inner = ''.join(f'<div class="xmas-kind"><p class="eyebrow">{esc(a)}</p><h3>{esc(b)}</h3><p>{esc(c)}</p><a class="text-link" href="{u}">{esc(l)} {ARROW}</a></div>' for a, b, c, u, l in cards)
+    return f'<section class="section container seasonal">{section_head("HALLOWEEN AND CHRISTMAS", "", "Seasonal parties")}<div class="xmas-kinds">{inner}</div></section>'
 
 
 def pm_music_section(events):
@@ -774,6 +805,8 @@ def boom_parties_grid(cls=''):
 def listing(brand, events):
     pm = brand == 'pm'
     xmas_link = '' if pm or not christmas_events(events) else f' <a class="text-link" href="/christmas-parties/">Christmas parties {ARROW}</a>'
+    if not pm and halloween_events(events):
+        xmas_link = f' <a class="text-link" href="/halloween/">Halloween parties {ARROW}</a>' + xmas_link
     body = f'''<section class="page-band"><div class="container"><p class="eyebrow">What’s on</p><h1>{'YOUR NEXT AFTERNOON.' if pm else 'FIND YOUR NEXT PARTY.'}</h1><p>{'Every upcoming THE 2PM CLUB Daytime Disco. Pick a city, a date or an edition.' if pm else 'Your next daytime disco, silent disco, Decades Party or family party. Pick what sounds like you.'}{xmas_link}</p></div></section><section class="section container" id="upcoming">{section_head(f'<span data-live-total>{len(events)}</span> DATES ON SALE', filters(events, 0, 'All editions' if pm else 'All parties'))}{results(events)}</section>'''
     description = ('Find upcoming THE 2PM CLUB daytime discos and day parties by city and date. See venues, event details and live tickets.' if pm
                    else 'Find upcoming Boombastic daytime discos, silent discos, Decades Parties and family events by city and date.')
@@ -833,6 +866,117 @@ def christmas_page(brand, events):
     description = (f'Christmas parties {first["start"][:4]}: ' + join_words([x[1].replace('THE 2PM CLUB ', '') for x in guide]).lower().replace('christmas ', '')
                    + f' dates in {join_words(cities)}.')
     return page(brand, 'Christmas Parties', body, description, '/whats-on/')
+
+
+def halloween_events(events):
+    """Upcoming Halloween dates (sold-out ones included, with their waiting-list state)."""
+    return [e for e in events if 'halloween' in e['title'].lower() and e['start'][:10] >= TODAY]
+
+
+def event_name(e):
+    """Plain event name for copy: format name, seasonal family name or THE 2PM CLUB edition."""
+    if e['brand'] == 'boom-crosslink' or e['brand'] == 'pm':
+        return 'THE 2PM CLUB Christmas Daytime Disco' if e['fmt'] == 'pmxmas' else 'THE 2PM CLUB 80s Edition' if e['fmt'] == 'pm80' else 'THE 2PM CLUB'
+    if e['fmt'] == 'fsd':
+        return family_event_name(e)
+    return FORMAT[e['fmt']][3]
+
+
+def is_adult(e):
+    """Age rule from the feed or the verified event copy. Unknown returns None, never a guess."""
+    if e['brand'] in ('pm', 'boom-crosslink') or e['fmt'] == 'hhp':
+        return True
+    if e['fmt'] == 'fsd':
+        return False
+    return None
+
+
+def price_sentence(e):
+    if e.get('soldout'):
+        return 'sold out, with a waiting list'
+    return f'from {from_price(e)} plus booking fee' if e.get('price') else ''
+
+
+def from_price(e):
+    """'£12.50' from a feed label such as 'From £12.50'."""
+    return re.sub(r'(?i)^from\s+', '', price_label(e.get('price') or ''))
+
+
+def venue_cards_html(rel):
+    cards = []
+    for v in sorted({e['venue'] for e in rel}):
+        item = next(e for e in rel if e['venue'] == v)
+        addr = street(item)
+        maps = 'https://www.google.com/maps/search/?api=1&query=' + quote(', '.join([v] + addr))
+        cards.append(f'<div class="venue-card"><h3>{esc(v)}</h3><p>{icon("pin")}<span>{"<br>".join(esc(x) for x in addr) or "Address on your ticket"}</span></p><a href="{esc(maps)}" target="_blank" rel="noopener noreferrer">{icon("nav")}Directions {ARROW}</a></div>')
+    return ''.join(cards)
+
+
+def what_happens(e):
+    """Facts about the night taken from this event's own page copy: lede, bullets and notice."""
+    c = event_copy(e)
+    items = [txt for _, txt in c['bullets']]
+    return c['lede'], items
+
+
+def series_schema(route, name, description, subs):
+    """EventSeries tying Boombastic-owned dates to one series @id. 2PM dates are left to the2pmclub.co.uk."""
+    item = {'@context': 'https://schema.org', '@type': 'EventSeries', '@id': BOOM_BASE + route + '#series', 'name': name,
+            'description': description, 'url': BOOM_BASE + route, 'organizer': {'@id': 'https://www.boomevents.co.uk/#organization'}}
+    owned = [{'@id': BOOM_BASE + e['path'] + '#event'} for e in subs if e['brand'] == 'boom']
+    if owned:
+        item['subEvent'] = owned
+    return item
+
+
+def halloween_page(brand, events):
+    """Seasonal landing page: only the dated Halloween events in the feed and facts already on their event pages."""
+    hall = halloween_events(events)
+    cities = list(dict.fromkeys(e['city'] for e in hall))
+    year = hall[0]['start'][:4]
+    place = join_words(cities)
+    has_family = any(e['fmt'] == 'fsd' for e in hall)
+    h1 = (f'Halloween in {place}: two parties, one for the kids' if len(hall) == 2 and len(cities) == 1 and has_family
+          else f'Halloween parties in {place}')
+    def line(e):
+        age = ' 18+' if is_adult(e) and e['brand'] == 'boom' else ''
+        return f'The{age} {event_name(e)} is on {d_day(e["start"])}, {times(e).replace(" – ", " to ")}, at {e["venue"]}, {price_sentence(e)}.'
+    count_word = {1: 'one', 2: 'two', 3: 'three', 4: 'four'}.get(len(hall), str(len(hall)))
+    answer = f'Boombastic Events has {count_word} Halloween part{"y" if len(hall) == 1 else "ies"} in {place} in {year}. ' + ' '.join(line(e) for e in hall)
+    desc = ', and '.join(f'{"the 18+ " if is_adult(e) else ""}{event_name(e)} on {d_day(e["start"])} at {SHORT_VENUE.get(e["venue"], e["venue"])}' for e in hall)
+    desc = desc[0].upper() + desc[1:] + '.'
+    kinds = ''.join(
+        f'<div class="xmas-kind"><p class="eyebrow">{esc(d_short(e["start"]))} · {esc(e["venue"])}</p><h3>{esc(event_name(e))}</h3><p>{esc(what_happens(e)[0])}</p>'
+        f'<ul class="fact-list">{"".join(f"<li>{esc(x)}</li>" for x in what_happens(e)[1])}</ul><a class="text-link" href="{esc(e["path"])}">Times and tickets {ARROW}</a></div>' for e in hall)
+    groups = [f'{event_name(e)}: {price_label(e["groupTicket"]["label"])}' for e in hall if (e.get('groupTicket') or {}).get('label') and not e.get('soldout')]
+    group_html = (f'<p>{esc("; ".join(groups))}, plus booking fees, while available.</p>' if groups else '') + f'<p>For a larger group, email <a href="mailto:{EMAIL}">{EMAIL}</a> with the date and numbers. <a href="/group-bookings/">Group bookings {ARROW}</a></p>'
+    faqs = [(f'Are there Halloween parties in {place} in {year}?', esc(f'Yes, {count_word}. ' + ' '.join(line(e) for e in hall)))]
+    if any(e['fmt'] == 'hhp' for e in hall):
+        faqs.append(('Is the Halloween House Party 18+?', 'Yes. Entry is 18+. Valid photo ID may be required.'))
+    if any(e['code'] == '281026-FSD-NPTON' for e in hall):
+        faqs.append(('What age is the Halloween Family Silent Disco for?', 'Designed for ages 4 and up. Under-4s are welcome, ideally as babes in arms, and babes in arms go free. Children must be supervised by their accompanying adult at all times; this is not a drop-off event.'))
+        faqs.append(('Do we need to dress up?', 'Halloween fancy dress is welcome but optional at the Family Silent Disco. Wear comfortable shoes for dancing.'))
+    faqs.append(('How do I get tickets?', 'Choose a date and use the live ticket selector on its event page. Prices and availability are live, and Eventbrite booking fees are added at checkout.'))
+    proof = (photo('family-silent-disco-live.jpg', 'season-photo') if has_family else '') + photo('b90-crowd.jpg', 'season-photo')
+    body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Halloween {year}</p><h1>{esc(h1)}</h1><p class="answer">{esc(answer)}</p></div></section>'
+            f'<section class="section container" id="upcoming">{section_head(f"<span data-live-total>{len(hall)}</span> HALLOWEEN DATES", "")}{results(hall)}</section>'
+            f'<section class="section container"><h2>WHAT HAPPENS ON THE NIGHT</h2><div class="xmas-kinds">{kinds}</div></section>'
+            f'<section class="kb container"><div class="kb-intro"><h2>THE VENUES</h2><p>Check the venue on your chosen event before travelling.</p></div><div class="kb-venues">{venue_cards_html(hall)}</div></section>'
+            f'<section class="section container"><h2>FROM OUR PARTIES</h2><div class="season-photos">{proof}</div></section>'
+            f'<section class="section container"><h2>COMING AS A GROUP</h2>{group_html}</section>'
+            f'<section class="section container faq-list"><h2>HALLOWEEN QUESTIONS</h2>{"".join(acc(q, a) for q, a in faqs)}</section>'
+            + signup(brand))
+    PAGE_META[(brand, '/halloween/')] = dict(title=f'Halloween Parties {place} {year} | Boombastic Events', description=desc)
+    EXTRA_SCHEMA[(brand, '/halloween/')] = [series_schema('/halloween/', f'Halloween parties {year} by Boombastic Events', f'Halloween parties in {place} by Boombastic Events.', hall)]
+    return page(brand, 'Halloween Parties', body, desc, '/whats-on/')
+
+
+def event_more_links(e):
+    """Links from an event page to the durable pages it belongs to."""
+    links = []
+    if 'halloween' in e['title'].lower():
+        links.append((f'Halloween in {e["city"]}', '/halloween/'))
+    return links
 
 
 def details(brand, e):
@@ -930,7 +1074,9 @@ def details(brand, e):
         related_codes = ('121226-FSD-NPTON', '311026-HHP-NPTON', '041226-SD-NPTON')
         others = [x for code in related_codes for x in CURRENT_EVENTS[brand] if x['code'] == code]
     related = f'<section class="section container related">{section_head("MORE COMING UP", f"<a class=text-link href=/whats-on/>See all events {ARROW}</a>")}<div class="card-grid">{"".join(event_card(x) for x in others)}</div></section>'
-    body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + related
+    more = event_more_links(e) if brand == 'boom' else []
+    more_html = f'<nav class="more-links container" aria-label="More like this">{"".join(f"<a class=text-link href={esc(u)}>{esc(x)} {ARROW}</a>" for x, u in more)}</nav>' if more else ''
+    body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + more_html + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
     if is_disco_fever:
@@ -1332,10 +1478,18 @@ def seo_enrich(brand, path, content):
     short_title = (html.unescape(title_match.group(1)).removesuffix(f' | {site} preview').removesuffix(f' | {site}') if title_match else site)
     description = html.unescape(desc_match.group(1)) if desc_match else short_title
     event = next((e for e in CURRENT_EVENTS[brand] if e['path'].lower() == route.lower()), None)
+    meta = PAGE_META.get((brand, route))
     if event:
         title = (f'{clean_title(event)} {event["city"]} | {d_short(event["start"])} | {event["venue"]}' if event['fmt'] == 'pmdf' else f'{clean_title(event)} | {d_short(event["start"])}')
         if event['fmt'] == 'nye':
             title = 'Boombastic NYE 2026 Northampton | The Charles Bradlaugh'
+        if brand == 'boom' and 'halloween' in event['title'].lower():
+            # Town in the title (board F02): "Halloween House Party Northampton, Sat 31st Oct | Boombastic".
+            title = f'{event_name(event)} {event["city"]}, {d_short(event["start"])}'
+            if len(title + ' | Boombastic') <= 60:
+                title += ' | Boombastic'
+    elif meta:
+        title = meta['title']
     elif route == '/':
         title = ('THE 2PM CLUB | Daytime Disco and Day Parties' if brand == 'pm'
                  else 'Boombastic Events | Daytime Disco, Silent Disco and Decades Parties')
@@ -1353,7 +1507,7 @@ def seo_enrich(brand, path, content):
         title = f'What Is a Daytime Disco? | {site}'
     else:
         title = f'{short_title} | {site}'
-    better = DESCRIPTIONS.get((brand, route))
+    better = (meta or {}).get('description') or DESCRIPTIONS.get((brand, route))
     if better:
         description = better
         content = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{esc(better)}">', content, count=1)
@@ -1433,6 +1587,7 @@ def seo_enrich(brand, path, content):
         if hrefs:
             schema.append({'@context': 'https://schema.org', '@type': 'ItemList', 'name': short_title,
                            'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': u} for i, u in enumerate(hrefs)]})
+    schema += EXTRA_SCHEMA.get((brand, route), [])
     faqs = re.findall(r'<details class="acc"[^>]*><summary>(.*?)</summary><div class="acc-body"><p>(.*?)</p></div></details>', content, re.S)
     if faqs:
         schema.append({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
@@ -1552,6 +1707,8 @@ def release_redirects(brand, events):
     rows += past_event_redirects(brand, rows)
     if brand == 'boom' and not christmas_events(events):
         rows += ['/christmas-parties/ /whats-on/ 302!', '/christmas-parties /whats-on/ 302!']
+    if brand == 'boom' and not halloween_events(events):
+        rows += ['/halloween/ /whats-on/ 302!', '/halloween /whats-on/ 302!']
     # An unknown URL should return a real 404, never an old React shell.
     rows.append('/* /404.html 404')
     return rows
@@ -1585,6 +1742,7 @@ def llms_txt(brand, events):
         out += [f'- [About Boombastic Events]({base}/about/)', f'- [All dates and tickets]({base}/whats-on/)', f'- [Locations]({base}/locations/)',
                 f'- [FAQs]({base}/faq/)', f'- [Silent Disco Greatest Hits]({base}/silent-disco/)', f'- [Family Silent Disco]({base}/family-silent-disco/)',
                 f'- [Boombastic 90s]({base}/boombastic-90s/)', f'- [Footloose 80s]({base}/footloose-80s/)', f'- [Group bookings]({base}/group-bookings/)',
+                *([f'- [Halloween parties]({base}/halloween/)'] if halloween_events(events) else []),
                 *([f'- [Christmas parties]({base}/christmas-parties/)'] if christmas_events(events) else []),
                 f'- [THE 2PM CLUB daytime disco]({PM_BASE}/)']
     out += ['', '## Data', '', f'- [Event feed (JSON)]({base}/{"events.json" if pm else "events-boombastic.json"})']
@@ -1664,6 +1822,7 @@ def build():
         else:
             for key in BOOM_FORMATS: write_page(dist, key, boom_format(key, events))
             if christmas_events(events): write_page(dist, 'christmas-parties', christmas_page(brand, events))
+            if halloween_events(events): write_page(dist, 'halloween', halloween_page(brand, events))
             if not RELEASE_MODE: write_page(dist, 'get-ready', paused_format_page('Get Ready'))
         write_page(dist, 'about', about_page(brand, events))
         write_page(dist, 'group-bookings', groups_page(brand, events))
