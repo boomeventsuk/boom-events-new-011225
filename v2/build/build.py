@@ -252,7 +252,8 @@ FORMAT = {
 
 
 def badge(e):
-    if e['brand'] == 'boom-crosslink': return 'THE 2PM CLUB', 'hot'
+    if e['brand'] == 'boom-crosslink':
+        return ('THE 2PM CLUB Christmas Daytime Disco' if e['fmt'] == 'pmxmas' else 'THE 2PM CLUB'), 'hot'
     b = FORMAT[e['fmt']]; return b[0], b[1]
 
 
@@ -520,7 +521,8 @@ def nav(brand, active='', ticket_href='/whats-on/'):
             sub = f'{len(ds)} date{"s" if len(ds) != 1 else ""} on sale. Next: {d_short(ds[0]["start"])}' if ds else 'No date on sale'
             fmts.append((label, sub, f'/{key}/', active == f'/{key}/', False))
         third = dropdown('parties', 'Our parties', fmts, f'<a class="dd-all" href="/about/#parties">All our parties {ARROW}</a>', active in [f'/{k}/' for k, _, _ in FORMAT_PAGES])
-    items = f'<a href="/whats-on/"{cur("/whats-on/")}>What’s on</a>{locs}{third}{about}<a href="/work-with-us/"{cur("/work-with-us/")}>Work with us</a>'
+    xmas = '' if pm or not christmas_events(CURRENT_EVENTS[brand]) else f'<a href="/christmas-parties/"{cur("/christmas-parties/")}>Christmas</a>'
+    items = f'<a href="/whats-on/"{cur("/whats-on/")}>What’s on</a>{xmas}{locs}{third}{about}<a href="/work-with-us/"{cur("/work-with-us/")}>Work with us</a>'
     return f'''<header class="hdr"><div class="container hdr-in"><a class="brand" href="/" aria-label="{name} home"><img src="/assets/{'pm' if pm else 'boom'}-logo.png" alt="{name}" width="{'120' if pm else '190'}" height="{'64' if pm else '56'}"></a><nav id="main-nav" class="nav" aria-label="Main navigation">{items}<a class="nav-more" href="/faqs/">FAQs</a><a class="nav-more" href="/group-bookings/">Groups</a><a class="nav-more" href="/contact/">Contact</a></nav><a class="pill-btn hdr-cta" href="{ticket_href}">Find tickets</a><a class="pill-btn m-tickets" href="{ticket_href}">Tickets</a><button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button></div></header>'''
 
 
@@ -616,7 +618,7 @@ def card_status(e):
 
 def event_card(e):
     href = e['path']; b, bc = badge(e)
-    name = 'THE 2PM CLUB Disco Fever' if e['fmt'] == 'pmdf' else 'THE 2PM CLUB' if e['brand'] in ('pm', 'boom-crosslink') else FORMAT[e['fmt']][3]
+    name = 'THE 2PM CLUB Disco Fever' if e['fmt'] == 'pmdf' else 'THE 2PM CLUB' if e['brand'] == 'pm' else event_name(e) if e['brand'] == 'boom-crosslink' else FORMAT[e['fmt']][3]
     if e['fmt'] == 'fsd':
         name = family_event_name(e)
     if e['brand'] != 'pm':
@@ -833,8 +835,14 @@ def christmas_page(brand, events):
     evening = [n for k, n in (('sdxmas', 'the Christmas Silent Disco'), ('dec', 'the Christmas Decades Party')) if k in kinds]
     if evening: parts.append(join_words(evening) + ' in the evening')
     if 'fsd' in kinds: parts.append('a Christmas Family Silent Disco for ages 4 and up')
-    lead = (f'{len(xmas)} Christmas dates from {d_short(first["start"])} to {d_short(last["start"])} in {join_words(cities)}. '
-            + '; '.join(p[0].upper() + p[1:] if i == 0 else p for i, p in enumerate(parts)) + '.')
+    year = first['start'][:4]
+    # Answer-first paragraph: every date with venue, times and from-price, so this page is the quotable source.
+    def xline(e):
+        return f'{d_day(e["start"])}: {xmas_name(e)}, {e["venue"]}, {e["city"]}, {times(e).replace(" – ", " to ")}, {price_sentence(e)}.'
+    def xmas_name(e):
+        if e['brand'] == 'boom-crosslink' or e['fmt'] == 'pmxmas': return 'THE 2PM CLUB Christmas Daytime Disco'
+        return {'sdxmas': 'Christmas Silent Disco', 'dec': 'Christmas Decades Party'}.get(e['fmt']) or family_event_name(e)
+    lead = f'Boombastic Events has {len(xmas)} Christmas party dates in {year}, in {join_words(cities)}. ' + ' '.join(xline(e) for e in xmas)
     guide = []
     if 'pmxmas' in kinds:
         guide.append(('Afternoon', 'THE 2PM CLUB Christmas Daytime Disco', 'Festive classics first, then the biggest 80s, 90s and 00s anthems. Doors at 2pm, with the evening still yours.'))
@@ -845,9 +853,6 @@ def christmas_page(brand, events):
     if 'fsd' in kinds:
         guide.append(('Family', 'Christmas Family Silent Disco', 'Three family-friendly channels, designed for ages 4 and up. Children must be accompanied by a paying adult, maximum three children per adult.'))
     guide_html = ''.join(f'<div class="xmas-kind"><p class="eyebrow">{esc(when)}</p><h3>{esc(name)}</h3><p>{esc(text)}</p></div>' for when, name, text in guide)
-    def xmas_name(e):
-        if e['brand'] == 'boom-crosslink' or e['fmt'] == 'pmxmas': return 'THE 2PM CLUB Christmas Daytime Disco'
-        return {'sdxmas': 'Christmas Silent Disco', 'dec': 'Christmas Decades Party'}.get(e['fmt']) or family_event_name(e)
     when_list = '; '.join(f"{d_short(e['start'])}, {xmas_name(e)}, {e['city']} ({times(e)})" for e in xmas)
     faqs = [
         ('When are the Christmas parties?', esc(when_list) + '.'),
@@ -857,15 +862,26 @@ def christmas_page(brand, events):
     if 'sdxmas' in kinds:
         faqs.append(('Is there a headphone deposit at the Christmas Silent Disco?', 'Yes. A £10 fully refundable headphone deposit is taken on the night.'))
     faq_html = ''.join(acc(q, a) for q, a in faqs)
-    body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Christmas {first["start"][:4]}</p>'
-            f'<h1>CHRISTMAS PARTIES,<br>SORTED.</h1><p>{esc(lead)}</p></div></section>'
+    grouped = [e for e in xmas if (e.get('groupTicket') or {}).get('label') and not e.get('soldout')]
+    group_items = ''.join(f'<li>{esc(d_short(e["start"]))}, {esc(xmas_name(e))}, {esc(e["city"])}: {esc(price_label(e["groupTicket"]["label"]))}</li>' for e in grouped)
+    work = (f'<section class="section container" id="work-christmas"><h2>WORK CHRISTMAS PARTIES AND GROUPS</h2>'
+            f'<p>Bringing the office, the team or a group of friends? Book a Christmas date together and everyone is on the same dancefloor.</p>'
+            + (f'<p>{len(grouped)} of the {len(xmas)} Christmas dates have a group-of-4 ticket, plus booking fees, while available:</p><ul class="fact-list">{group_items}</ul>' if grouped else '')
+            + f'<p>For a larger group, or to ask about a reserved area, email <a href="mailto:{EMAIL}">{EMAIL}</a> with the date and numbers and we will tell you what the venue can do. <a href="/group-bookings/">Group bookings {ARROW}</a></p></section>')
+    body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Christmas {year}</p>'
+            f'<h1>Christmas parties {year} in {esc(join_words(cities))}</h1><p class="answer">{esc(lead)}</p></div></section>'
             f'<section class="section container" id="upcoming">{section_head(f"<span data-live-total>{len(xmas)}</span> CHRISTMAS DATES", filters(xmas, 0))}{results(xmas)}</section>'
             f'<section class="section container"><h2>WHICH CHRISTMAS PARTY?</h2><div class="xmas-kinds">{guide_html}</div></section>'
+            + work +
             f'<section class="section container faq-list"><h2>CHRISTMAS QUESTIONS</h2>{faq_html}</section>'
             + signup(brand))
-    description = (f'Christmas parties {first["start"][:4]}: ' + join_words([x[1].replace('THE 2PM CLUB ', '') for x in guide]).lower().replace('christmas ', '')
-                   + f' dates in {join_words(cities)}.')
-    return page(brand, 'Christmas Parties', body, description, '/whats-on/')
+    order = [('sdxmas', 'silent disco'), ('dec', 'decades party'), ('fsd', 'family silent disco'), ('pmxmas', 'THE 2PM CLUB')]
+    kind_words = join_words([w for k, w in order if k in kinds])
+    description = (f'{len(xmas)} Christmas party dates from {ordinal(dt(first["start"]).day)} {dt(first["start"]).strftime("%B")}: {kind_words}.'
+                   + (f' Group-of-4 tickets on {len(grouped)} of the {len(xmas)}.' if grouped else ''))
+    PAGE_META[(brand, '/christmas-parties/')] = dict(title=f'Christmas Parties {year}: ' + ', '.join(cities), description=description)
+    EXTRA_SCHEMA[(brand, '/christmas-parties/')] = [series_schema('/christmas-parties/', f'Christmas parties {year} by Boombastic Events', f'Christmas parties in {join_words(cities)} by Boombastic Events and THE 2PM CLUB.', xmas)]
+    return page(brand, 'Christmas Parties', body, description, '/christmas-parties/')
 
 
 def halloween_events(events):
@@ -971,11 +987,20 @@ def halloween_page(brand, events):
     return page(brand, 'Halloween Parties', body, desc, '/whats-on/')
 
 
+def link_list(links, label):
+    if not links:
+        return ''
+    inner = ''.join(f'<a class="text-link" href="{esc(u)}">{esc(x)} {ARROW}</a>' for x, u in links)
+    return f'<nav class="more-links container" aria-label="{esc(label)}">{inner}</nav>'
+
+
 def event_more_links(e):
     """Links from an event page to the durable pages it belongs to."""
     links = []
     if 'halloween' in e['title'].lower():
         links.append((f'Halloween in {e["city"]}', '/halloween/'))
+    if 'christmas' in e['title'].lower() and christmas_events(CURRENT_EVENTS['boom']):
+        links.append((f'Christmas parties {e["start"][:4]}', '/christmas-parties/'))
     return links
 
 
@@ -1075,7 +1100,7 @@ def details(brand, e):
         others = [x for code in related_codes for x in CURRENT_EVENTS[brand] if x['code'] == code]
     related = f'<section class="section container related">{section_head("MORE COMING UP", f"<a class=text-link href=/whats-on/>See all events {ARROW}</a>")}<div class="card-grid">{"".join(event_card(x) for x in others)}</div></section>'
     more = event_more_links(e) if brand == 'boom' else []
-    more_html = f'<nav class="more-links container" aria-label="More like this">{"".join(f"<a class=text-link href={esc(u)}>{esc(x)} {ARROW}</a>" for x, u in more)}</nav>' if more else ''
+    more_html = link_list(more, 'More like this')
     body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + more_html + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
@@ -1165,7 +1190,13 @@ def city_page(brand, city, events):
     notes_html = f'<div class="kb-notes">{"".join(notes)}<p class="kb-access">{icon("access")}<span>Access questions? <a href="mailto:{EMAIL}">Get in touch {ARROW}</a></span></p></div>'
     kb = f'<section class="kb container"><div class="kb-intro"><h2>KNOW BEFORE YOU GO</h2><p class="kb-lead">{"Different dates. Different venues." if len(venues) > 1 else esc(venues[0]) if venues else ""}</p><p>Check the venue on your chosen event before travelling.</p></div><div class="kb-venues">{"".join(venue_cards)}</div>{notes_html}</section>' if venues else ''
     su = signup(brand, city=city, cls='signup-band')
-    body = f'<nav class="crumbs container" aria-label="Breadcrumb"><a href="/locations/">Locations</a> / {esc(city)}</nav>' + h + rib + list_html + kb + strip(strip_name) + su
+    season = []
+    if not pm and any(e in halloween_events(events) for e in rel):
+        season.append((f'Halloween in {city}', '/halloween/'))
+    if not pm and any(e in christmas_events(events) for e in rel):
+        season.append((f'Christmas parties {TODAY[:4]}', '/christmas-parties/'))
+    season_html = link_list(season, 'Seasonal parties')
+    body = f'<nav class="crumbs container" aria-label="Breadcrumb"><a href="/locations/">Locations</a> / {esc(city)}</nav>' + h + rib + list_html + season_html + kb + strip(strip_name) + su
     desc = (f'THE 2PM CLUB daytime disco in {city}. See upcoming dates, {", ".join(venues)}, venue information and live tickets.' if pm
             else f'Boombastic events and parties in {city}. See upcoming dates, {", ".join(venues)}, venue information and live tickets.')
     return page(brand, city, body, desc, city_url(brand, city))
@@ -1499,8 +1530,6 @@ def seo_enrich(brand, path, content):
         title = f'Find {"Daytime Disco" if brand == "pm" else "Boombastic"} Events by Location | {site}'
     elif route.startswith(('/hubs/', '/locations/')):
         title = f'{short_title} {"Daytime Disco" if brand == "pm" else "Parties"} | {site}'
-    elif route == '/christmas-parties/':
-        title = f'Christmas Parties Northampton {TODAY[:4]} | {site}'
     elif route == '/what-to-expect/':
         title = f'What to Expect at a Daytime Disco | {site}'
     elif route == '/blog/what-is-a-daytime-disco/':
