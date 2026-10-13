@@ -184,6 +184,11 @@ ok('across the Midlands' not in re.search(r'<meta name="description" content="([
 ok('across the Midlands' not in open(f'{DIST}/llms.txt').read().split('\n')[2], 'llms.txt summary no longer "across the Midlands"')
 org = next(json.loads(b) for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', home) if json.loads(b)['@type'] == 'Organization')
 ok({'Luton', 'Milton Keynes'} <= {a['name'] for a in org['areaServed']}, 'Organization areaServed includes Luton and Milton Keynes')
+GBP = 'https://maps.google.com/?cid=11371459482578543646'
+ok(org.get('hasMap') == GBP and org['sameAs'].count(GBP) == 1, 'Organization hasMap and sameAs carry the verified Google Business Profile')
+other_cid = sorted({c for r, _, fs in os.walk(DIST) for f in fs if f.endswith(('.html', '.json', '.txt', '.xml'))
+                    for c in re.findall(r'cid=(\d+)', open(os.path.join(r, f), errors='ignore').read()) if c != GBP.split('cid=')[1]})
+ok(not other_cid, f'no Google listing other than the verified profile is referenced (found {other_cid})')
 ok('hero-slogan' in home and 'fetchpriority="high"' in home, 'homepage slogan is a visual line and hero has fetchpriority')
 imgs = re.findall(r'<img[^>]*>', home)
 ok(all('width=' in i and 'height=' in i for i in imgs), f'homepage: all {len(imgs)} images have width and height')

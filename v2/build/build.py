@@ -81,6 +81,7 @@ DESCRIPTIONS = {
     ('pm', '/privacy/'): 'How Boombastic Events Ltd, which runs THE 2PM CLUB, collects and uses personal information, including consent-based analytics and advertising cookies.',
     ('pm', '/terms/'): 'Terms for THE 2PM CLUB tickets: sold through Eventbrite, valid for the named date, with refunds under the Eventbrite policy for each event.',
 }
+BOOM_GBP_URL = 'https://maps.google.com/?cid=11371459482578543646'
 SOCIAL = {
     'boom': [('instagram', 'https://www.instagram.com/boombastic.eventsuk', 'Instagram'), ('facebook', 'https://www.facebook.com/boombastic.eventsuk', 'Facebook'), ('tiktok', 'https://www.tiktok.com/@boombastic.eventsuk', 'TikTok')],
     'pm': [('instagram', 'https://www.instagram.com/the2pmclub', 'Instagram'), ('facebook', 'https://www.facebook.com/the2pmclub', 'Facebook')],
@@ -2090,6 +2091,9 @@ def seo_enrich(brand, path, content):
                                          'name': 'Boombastic Events', 'url': 'https://www.boomevents.co.uk/'}
         else:
             org['foundingDate'] = '2014'
+            # Verified Google Business Profile (JD, 13th October 2026). The old closed listing is never referenced.
+            org['hasMap'] = BOOM_GBP_URL
+            org['sameAs'] = org['sameAs'] + [BOOM_GBP_URL]
             org['subOrganization'] = {'@type': 'Organization', '@id': 'https://www.the2pmclub.co.uk/#organization',
                                       'name': 'THE 2PM CLUB', 'url': 'https://www.the2pmclub.co.uk/'}
         schema.append(org)
