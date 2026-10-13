@@ -59,7 +59,7 @@ EMAIL = 'hello@boomevents.co.uk'
 # The key is public by design: it is served at /<key>.txt on each owned domain.
 INDEXNOW_KEY = '6f1c2b9e8d4a47b3a0e5c7d9f2b18e64'
 ORG_DESCRIPTION = {
-    'boom': 'Boombastic Events has run parties across the Midlands since 2014: THE 2PM CLUB daytime disco, Silent Disco Greatest Hits, Decades Parties (Boombastic 90s and Footloose 80s) and Family Silent Disco.',
+    'boom': 'Boombastic Events is a party promoter running Silent Disco Greatest Hits, Decades Parties (Boombastic 90s and Footloose 80s), Family Silent Disco, seasonal Halloween and Christmas parties, and THE 2PM CLUB daytime disco, since 2014.',
     'pm': 'THE 2PM CLUB Daytime Disco: Saturday afternoon parties with Sing Out Loud Anthems from the 80s, 90s and 00s, doors at 2pm. Run by Boombastic Events.',
 }
 # Route-specific descriptions where the page's own summary is too thin for search results.
@@ -775,7 +775,7 @@ def home(brand, events):
         proof = f'''<section class="proof container"><div class="proof-lead">{quote_block(QUOTES['lorne'], 'quote-xl')}<p>Bring your group or come on your own. The songs give everyone something to sing about.</p></div><div class="proof-more">{quote_block(QUOTES['diane'])}{quote_block(QUOTES['lara'])}{quote_block(QUOTES['friends'])}</div></section>'''
         body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'pm-friends.jpeg', 'ALL THE CHORUSES.<br>ALL YOUR PEOPLE.', [('What to expect', '/what-to-expect/'), ('The music', '#music'), ('Bring your group', '/group-bookings/')]) + music + guide + proof + signup(brand, 'YOUR CITY. YOUR NEXT AFTERNOON.', 'Be first to hear when THE 2PM CLUB announces a date near you.', events=events)
         return page(brand, 'Your best night out. In the middle of the afternoon.', body, 'THE 2PM CLUB Daytime Disco: Sing Out Loud Anthems from the 80s, 90s and 00s. Doors 2pm, home by 7-ish.', '/')
-    h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">TRUSTED BY THOUSANDS.</p>', h1cls='h1-boom')
+    h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">SINCE 2014.</p>', h1cls='h1-boom')
     rib = ribbon([('DAYTIME', 'THE 2PM CLUB, doors at 2pm', PM_BASE + '/'), ('EVENING', 'Silent Disco and Decades Parties', '/about/#parties'), ('FAMILY', 'Family Silent Disco, ages 4+', '/family-silent-disco/')], cls='rib-short')
     head = section_head('WHAT’S COMING UP', filters(events, 0))
     parties = seasonal_section(events) + boom_parties_grid()
@@ -941,6 +941,10 @@ def is_adult(e):
     return None
 
 
+def is_evening(e):
+    return dt(e['start']).hour >= 17
+
+
 def price_sentence(e):
     if e.get('soldout'):
         return 'sold out, with a waiting list'
@@ -1053,8 +1057,11 @@ def details(brand, e):
     is_disco_fever = e['fmt'] == 'pmdf'
     hero_cta = 'Book Disco Fever' if is_disco_fever else 'Find your tickets'
     alert = f'<a class="hero-alert" href="#good-to-know">{icon("info")}<span>{esc(note[0])}: read before you book</span></a>' if note and not saints_fsd else ''
-    adult_event = brand == 'pm' or e['code'] == '260926-SD-NPTON' or e['fmt'] in ('hhp', 'nye')
-    facts_list = f'<ul class="hero-facts"><li>{icon("calendar")}<span>{esc(date)}</span></li><li>{icon("clock")}<span>{esc(tm)}</span></li><li>{icon("pin")}<span>{esc(e["venue"])}, {esc(e["city"])}</span></li>{f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event else ""}</ul>'
+    adult_event = brand == 'pm' or is_adult(e) is True
+    # Evening dates whose age rule is not in the feed or verified copy say where the rule is shown, never a guess.
+    age_li = (f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event
+              else f"<li>{icon('info')}<span>Entry rules for this date are shown in the ticket selector</span></li>" if is_evening(e) else '')
+    facts_list = f'<ul class="hero-facts"><li>{icon("calendar")}<span>{esc(date)}</span></li><li>{icon("clock")}<span>{esc(tm)}</span></li><li>{icon("pin")}<span>{esc(e["venue"])}, {esc(e["city"])}</span></li>{age_li}</ul>'
     soldout = e.get('soldout', False)
     ticket_label = 'Join waiting list' if soldout else 'Choose tickets'
     book_cls = 'btn-hot' if brand == 'pm' else 'btn-coral'
@@ -1171,14 +1178,42 @@ def locations(brand, events):
     return page(brand, 'Locations', body, 'Find upcoming ' + ('THE 2PM CLUB daytime discos' if pm else 'Boombastic parties') + ' by city. See real dates, venues and tickets.', '/locations/')
 
 
+def past_venues(city):
+    """Venues and formats Boombastic has run in a town, from the event registry (retired venues and formats excluded)."""
+    out = {}
+    for r in BOOM_ALL:
+        if r.get('city') != city or not r.get('venue') or r['venue'] == 'The Picturedrome' or str(r.get('eventCode')) in GONE_EVENT_CODES:
+            continue
+        kind = 'THE 2PM CLUB' if '-2PM-' in str(r.get('eventCode')) else next((label for _, label, token in FORMAT_PAGES if token in str(r.get('eventCode'))), 'parties')
+        v = out.setdefault(r['venue'], {'kinds': [], 'address': r.get('venueAddress') or {}})
+        if kind not in v['kinds']: v['kinds'].append(kind)
+        if r.get('venueAddress') and not v['address']: v['address'] = r['venueAddress']
+    return out
+
+
+def past_venue_line(city):
+    parts = []
+    for venue, v in past_venues(city).items():
+        where = ', '.join(x for x in [venue, v['address'].get('streetAddress'), city] if x)
+        parts.append(f'{join_words(v["kinds"])} at {where}')
+    return f'Boombastic has run {join_words(parts)}.' if parts else ''
+
+
 def empty_city_page(brand, city):
     """A verified place with nothing on sale: say so plainly and point to real, bookable dates nearby."""
     pm = brand == 'pm'
     near = nearest_live(brand, city)
-    nearby = sorted([e for e in CURRENT_EVENTS[brand] if on_sale(e) and e['city'] in near], key=lambda e: e['start'])[:4] if near else [e for e in CURRENT_EVENTS[brand] if on_sale(e)][:3]
+    if near:
+        # The next date from each nearest town first, so the cards always match the towns the copy names.
+        firsts = [next(e for e in CURRENT_EVENTS[brand] if on_sale(e) and e['city'] == c) for c in near]
+        rest = [e for e in CURRENT_EVENTS[brand] if on_sale(e) and e['city'] in near and e not in firsts]
+        nearby = sorted(firsts + rest[:max(0, 4 - len(firsts))], key=lambda e: e['start'])
+    else:
+        nearby = [e for e in CURRENT_EVENTS[brand] if on_sale(e)][:3]
     near_txt = ' and '.join(near)
     what = 'THE 2PM CLUB dates' if pm else 'dates'
-    sub = f'No date announced in {esc(city)} at the moment. ' + (f'The nearest {what} on sale are in {esc(near_txt)}.' if near else f'Here are the next {what} on sale.')
+    history = past_venue_line(city) if not pm else ''
+    sub = (esc(history) + ' ' if history else '') + f'No date announced in {esc(city)} at the moment. ' + (f'The nearest {what} on sale are in {esc(near_txt)}.' if near else f'Here are the next {what} on sale.')
     h = hero(brand, f'<span class="city-big">{esc(city.upper())}</span>NO DATE<br>ANNOUNCED<br>RIGHT NOW.', sub, btn('See the nearest dates' if near else 'See dates on sale', '#nearby', 'btn-hot' if pm else 'btn-dark'), 'pm-packed.jpg' if pm else 'boom-hero.jpg', cls='city-hero')
     rib = ribbon([('NEAREST DATES', esc(near_txt) if near else 'On sale now', '#nearby'), ('ALL LOCATIONS', 'Every city with dates on sale', '/locations/'), ('EVERY DATE', 'All cities on What’s on', '/whats-on/')])
     rows = ''.join(event_row(e) for e in nearby)
@@ -1323,6 +1358,14 @@ def pm_what_to_expect(events):
     return page('pm', 'What to expect', body, 'Your first THE 2PM CLUB Daytime Disco: the music, the crowd and the timing.', '/what-to-expect/')
 
 
+def family_start_words():
+    """Family Silent Disco start times read from the upcoming dates, so the FAQ never contradicts a date."""
+    fam = [e for e in CURRENT_EVENTS['boom'] if e['brand'] == 'boom' and e['fmt'] == 'fsd' and e['start'][:10] >= TODAY]
+    if not fam:
+        return 'Family Silent Disco in the daytime'
+    return 'Family Silent Disco ' + ' or '.join(f'from {t(e["start"])} on {d_day(e["start"])}' for e in fam)
+
+
 def faq_page(brand):
     pm = brand == 'pm'
     sections = [
@@ -1334,7 +1377,7 @@ def faq_page(brand):
             ('What if an event is changed or cancelled?', 'We update the event page and email ticket holders. If you need help with a change, email us with your booking details.'),
         ]),
         ('timing', 'clock', 'Timing', 'Event times and schedules', 'TIMING', [
-            ('What time does it start and finish?', ('Doors are at 2pm. Most dates finish at 6pm; the Northampton Christmas dates finish at 5:30pm. Your event page has the exact times.' if pm else 'Times vary: THE 2PM CLUB runs from 2pm, Family Silent Disco from 11am, evening parties from 8pm or 8:30pm. Your event page has the exact times.')),
+            ('What time does it start and finish?', ('Doors are at 2pm. Most dates finish at 6pm; the Northampton Christmas dates finish at 5:30pm. Your event page has the exact times.' if pm else 'Times vary: THE 2PM CLUB runs from 2pm, ' + family_start_words() + ', evening parties from 8pm or 8:30pm. Your event page has the exact times.')),
             ('Can I buy tickets on the door?', 'Book online to secure your place. Door availability varies by event and is not guaranteed.'),
         ]),
         ('access', 'access', 'Access', 'Accessibility and your visit', 'VENUES & ACCESS', [
@@ -1582,7 +1625,7 @@ def seo_enrich(brand, path, content):
         org = {'@context': 'https://schema.org', '@type': 'Organization', '@id': org_id, 'name': site, 'url': site_url,
                'logo': base + ('/assets/pm-logo.png' if brand == 'pm' else '/assets/boom-logo.png'),
                'description': ORG_DESCRIPTION[brand], 'email': EMAIL,
-               'areaServed': [{'@type': 'City', 'name': c} for c in sorted({e['city'] for e in CURRENT_EVENTS[brand]})],
+               'areaServed': [{'@type': 'City', 'name': c} for c in (sorted(verified_places('boom')) if brand == 'boom' else sorted({e['city'] for e in CURRENT_EVENTS[brand]}))],
                'sameAs': [url for _, url, _ in SOCIAL[brand]]}
         if brand == 'pm':
             org['parentOrganization'] = {'@type': 'Organization', '@id': 'https://www.boomevents.co.uk/#organization',
