@@ -65,8 +65,8 @@ ORG_DESCRIPTION = {
 # Route-specific descriptions where the page's own summary is too thin for search results.
 DESCRIPTIONS = {
     ('boom', '/contact/'): 'Email Boombastic Events about tickets, access or an upcoming party. Include your event date, city and order reference and the team will help.',
-    ('boom', '/faq/'): 'Straight answers on Boombastic Events tickets, timings, access and entry: finding your Eventbrite tickets, group bookings, silent disco headphones and family parties.',
-    ('boom', '/faqs/'): 'Straight answers on Boombastic Events tickets, timings, access and entry: finding your Eventbrite tickets, group bookings, silent disco headphones and family parties.',
+    ('boom', '/faq/'): 'Straight answers on Boombastic Events tickets, timings, access and entry: Eventbrite tickets, group bookings, silent disco headphones and family parties.',
+    ('boom', '/faqs/'): 'Straight answers on Boombastic Events tickets, timings, access and entry: Eventbrite tickets, group bookings, silent disco headphones and family parties.',
     ('boom', '/for-ai/'): 'Public facts and machine-readable data for Boombastic Events: the event feed, venues, and where to find live dates, times and ticket details.',
     ('boom', '/group-bookings/'): 'Plan a birthday, Christmas party or night out with Boombastic Events. Many dates have a group-of-four ticket; email us about larger groups.',
     ('boom', '/jobs/'): 'Paid DJ and Event Assistant roles with Boombastic Events and THE 2PM CLUB. Read the work and practical requirements, then introduce yourself.',
@@ -211,6 +211,11 @@ def d_short(v):
 def d_day(v):
     """Full weekday and month, no year: Wednesday 28th October."""
     d = dt(v); return f"{d.strftime('%A')} {ordinal(d.day)} {d.strftime('%B')}"
+
+
+def d_month(v):
+    """Short weekday, full month: Wed 28th October (meta descriptions, 160 character budget)."""
+    d = dt(v); return f"{d.strftime('%a')} {ordinal(d.day)} {d.strftime('%B')}"
 
 
 def d_day_year(v):
@@ -985,7 +990,9 @@ def christmas_page(brand, events):
     kind_words = join_words([w for k, w in order if k in kinds])
     description = (f'{len(xmas)} Christmas party dates from {ordinal(dt(first["start"]).day)} {dt(first["start"]).strftime("%B")}: {kind_words}.'
                    + (f' Group-of-4 tickets on {len(grouped)} of the {len(xmas)}.' if grouped else ''))
-    PAGE_META[(brand, '/christmas-parties/')] = dict(title=f'Christmas Parties {year}: ' + ', '.join(cities), description=description)
+    xtitle = f'Christmas Parties {year}: ' + ', '.join(cities)
+    if len(xtitle) > 60: xtitle = f'Christmas {year}: ' + ', '.join(cities)  # keep every town, drop a word
+    PAGE_META[(brand, '/christmas-parties/')] = dict(title=xtitle, description=description)
     EXTRA_SCHEMA[(brand, '/christmas-parties/')] = [series_schema('/christmas-parties/', f'Christmas parties {year} by Boombastic Events', f'Christmas parties in {join_words(cities)} by Boombastic Events and THE 2PM CLUB.', xmas)]
     return page(brand, 'Christmas Parties', body, description, '/christmas-parties/')
 
@@ -1069,7 +1076,7 @@ def halloween_page(brand, events):
         return f'The{age} {event_name(e)} is on {d_day(e["start"])}, {times(e).replace(" – ", " to ")}, at {e["venue"]}, {price_sentence(e)}.'
     count_word = {1: 'one', 2: 'two', 3: 'three', 4: 'four'}.get(len(hall), str(len(hall)))
     answer = f'Boombastic Events has {count_word} Halloween part{"y" if len(hall) == 1 else "ies"} in {place} in {year}. ' + ' '.join(line(e) for e in hall)
-    desc = ', and '.join(f'{"the 18+ " if is_adult(e) else ""}{event_name(e)} on {d_day(e["start"])} at {SHORT_VENUE.get(e["venue"], e["venue"])}' for e in hall)
+    desc = ' and '.join(f'{"the 18+ " if is_adult(e) else ""}{event_name(e)} on {d_month(e["start"])} at {SHORT_VENUE.get(e["venue"], e["venue"])}' for e in hall)
     desc = desc[0].upper() + desc[1:] + '.'
     kinds = ''.join(
         f'<div class="xmas-kind"><p class="eyebrow">{esc(d_short(e["start"]))} · {esc(e["venue"])}</p><h3>{esc(event_name(e))}</h3><p>{esc(what_happens(e)[0])}</p>'
@@ -1251,6 +1258,8 @@ def details(brand, e):
     body = hero_html + answer_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + more_html + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
+    if len(description) > 160:
+        description = description.removesuffix(' Event details and live tickets.')
     if is_disco_fever:
         description = f'THE 2PM CLUB Disco Fever at {e["venue"]}, {e["city"]}. {d_short(e["start"])}, 2pm till 6pm. Four hours of the biggest disco hits: Chic, Donna Summer, Bee Gees, ABBA and more.'
     if e['fmt'] == 'nye':
@@ -1529,7 +1538,8 @@ def empty_town_meta(city):
              else f'Parties in {city}: Coming Soon | Boombastic')
     near_txt = (f' the nearest is {nxt[0][0]} on {ordinal(dt(nxt[0][1]["start"]).day)} {dt(nxt[0][1]["start"]).strftime("%B")}' if len(nxt) == 1
                 else f' the nearest are in {join_words([c for c, _ in nxt])}') if nxt else ''
-    desc = (past_venue_line(city) + ' ' if past_venue_line(city) else '') + f'No {city} date is on sale right now;{near_txt}.'
+    short_past = ' '.join(f'Boombastic has run {join_words(v["kinds"])} at {venue}, {city}.' for venue, v in past_venues(city).items())
+    desc = (short_past + ' ' if short_past else '') + f'No {city} date is on sale right now;{near_txt}.'
     return title, desc.replace(';.', '.'), f'{city}: next date coming soon'
 
 
@@ -1601,9 +1611,9 @@ def format_meta(key, upcoming, sold):
         bits = []
         for e in on[:3]:
             season = 'Halloween' if 'halloween' in e['title'].lower() else 'Christmas' if 'christmas' in e['title'].lower() else event_name(e)
-            bits.append(f'{season} at {SHORT_VENUE.get(e["venue"], e["venue"])} on {ordinal(dt(e["start"]).day)} {dt(e["start"]).strftime("%B")}')
-        desc = 'Three family-friendly headphone channels for kids 4+ and their grown-ups.' + (' ' + ', '.join(bits[:-1]) + (', ' if len(bits) > 1 else '') + bits[-1] + '.' if bits else '')
-        if len(bits) == 2: desc = 'Three family-friendly headphone channels for kids 4+ and their grown-ups. ' + bits[0] + ', ' + bits[1][0].lower() + bits[1][1:] + '.'
+            bits.append(f'{season} at {SHORT_VENUE.get(e["venue"], e["venue"])} on {ordinal(dt(e["start"]).day)} {MONTHS[dt(e["start"]).month]}')
+        desc = 'Three family-friendly channels for kids 4+ and grown-ups.' + (' ' + ', '.join(bits[:-1]) + (', ' if len(bits) > 1 else '') + bits[-1] + '.' if bits else '')
+        if len(bits) == 2: desc = 'Three family-friendly channels for kids 4+ and grown-ups. ' + bits[0] + ', ' + bits[1][0].lower() + bits[1][1:] + '.'
         if len(bits) == 2: desc = desc.replace(', christmas', ', Christmas').replace(', halloween', ', Halloween')
         town = towns[0] if len(towns) == 1 else join_words(towns)
         return f'Family Silent Disco {town}, Ages 4+ | Boombastic', desc, f'Family Silent Disco in {town}, for kids 4+ and their grown-ups'
@@ -1639,13 +1649,13 @@ def town_format_page(key, city, events):
         title = f'Silent Disco in {city}: Dates and Venue | Boombastic'
         h1 = f'Silent disco in {city}: {name}'
         lead = f'{name} is the Boombastic Events silent disco in {city}: three live DJs on three headphone channels, and you switch whenever you like.'
-        desc = f'{name} in {city}: three DJs on three headphone channels. Next: {event_name(nxt)}, {d_day_year(nxt["start"])}, {nxt["venue"]}, {price_sentence(nxt)}.'
+        desc = f'{name} in {city}: three DJs, three channels. Next: {event_name(nxt)}, {d_mid(nxt["start"])}, {nxt["venue"]}, {price_sentence(nxt).replace("plus booking fee", "plus fee")}.'
     else:
         title = f'Family Silent Disco in {city}: Dates | Boombastic'
         h1 = f'Family Silent Disco in {city}: dates, venues and ages'
         lead = f'Family Silent Disco by Boombastic Events runs in {city} for children aged 4 and up and the grown-ups who bring them, with three family-friendly headphone channels.'
-        bits = [f'{("Halloween" if "halloween" in e["title"].lower() else "Christmas" if "christmas" in e["title"].lower() else name)} at {SHORT_VENUE.get(e["venue"], e["venue"])} on {ordinal(dt(e["start"]).day)} {dt(e["start"]).strftime("%B")}' for e in rel[:3]]
-        desc = f'Family Silent Disco in {city} for kids 4+ and their grown-ups: ' + join_words(bits) + '.'
+        bits = [f'{("Halloween" if "halloween" in e["title"].lower() else "Christmas" if "christmas" in e["title"].lower() else name)} at {SHORT_VENUE.get(e["venue"], e["venue"])} on {ordinal(dt(e["start"]).day)} {MONTHS[dt(e["start"]).month]}' for e in rel[:3]]
+        desc = f'Family Silent Disco in {city} for kids 4+ and grown-ups: ' + join_words(bits) + '.'
     answer = fit_answer([lead, date_sentence(nxt)], [date_sentence(e, 'Then') for e in rel if e is not nxt][:2] + ['Each date has its own page with times, venue and tickets.'])
     notes = []
     for e in rel:
@@ -2169,6 +2179,8 @@ def seo_enrich(brand, path, content):
              f'<meta name="twitter:description" content="{esc(description)}">'
              + (f'<link rel="canonical" href="{esc(base + canonical_route)}">' if RELEASE_MODE else '')
              + ''.join('<script type="application/ld+json">' + json.dumps(item, ensure_ascii=False).replace('<', '\\u003c') + '</script>' for item in schema))
+    if len(title) > 60 and title.endswith(' | Boombastic Events'):
+        title = title.removesuffix(' Events')  # 60 character title budget: keep the page words, shorten the brand
     content = re.sub(r'<title>.*?</title>', f'<title>{esc(title)}</title>', content, count=1)
     content = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{esc(title)}">', content, count=1)
     return content.replace('</head>', extra + '</head>', 1)
