@@ -496,13 +496,63 @@ def event_copy(e):
 PHOTO_POS = {'sd-energy.jpg': '50% 50%', 'b90-mic.jpg': '50% 42%', 'family-silent-disco-live.jpg': '50% 70%'}
 
 
+_SIZES = {}
+
+
+def img_size(path):
+    """(width, height) of a JPEG, PNG or WebP without Pillow, so the Netlify build needs no extra package."""
+    if path in _SIZES: return _SIZES[path]
+    size = None
+    try:
+        data = Path(path).read_bytes()
+        if data[:8] == b'\x89PNG\r\n\x1a\n':
+            size = int.from_bytes(data[16:20], 'big'), int.from_bytes(data[20:24], 'big')
+        elif data[:4] == b'RIFF' and data[8:12] == b'WEBP':
+            kind = data[12:16]
+            if kind == b'VP8 ': size = int.from_bytes(data[26:28], 'little') & 0x3fff, int.from_bytes(data[28:30], 'little') & 0x3fff
+            elif kind == b'VP8L':
+                b = int.from_bytes(data[21:25], 'little'); size = (b & 0x3fff) + 1, ((b >> 14) & 0x3fff) + 1
+            elif kind == b'VP8X': size = int.from_bytes(data[24:27], 'little') + 1, int.from_bytes(data[27:30], 'little') + 1
+        elif data[:2] == b'\xff\xd8':
+            i = 2
+            while i < len(data) - 9:
+                if data[i] != 0xFF: i += 1; continue
+                marker = data[i + 1]
+                if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                    size = int.from_bytes(data[i + 7:i + 9], 'big'), int.from_bytes(data[i + 5:i + 7], 'big'); break
+                i += 2 + int.from_bytes(data[i + 2:i + 4], 'big')
+    except OSError:
+        size = None
+    _SIZES[path] = size
+    return size
+
+
+def small_copy(asset_url, suffix):
+    """'/assets/x-600.webp' when make-responsive.py has made it, else None."""
+    if not asset_url.startswith('/assets/'): return None
+    stem = asset_url.rsplit('/', 1)[1].rsplit('.', 1)[0]
+    f = HERE / 'assets' / f'{stem}-{suffix}.webp'
+    return f'/assets/{f.name}' if f.exists() else None
+
+
+def srcset_attrs(asset_url, suffix, sizes):
+    small = small_copy(asset_url, suffix)
+    full = img_size(HERE / 'assets' / asset_url.rsplit('/', 1)[1]) if asset_url.startswith('/assets/') else None
+    if not small or not full: return ''
+    return f' srcset="{small} {suffix}w, {asset_url} {full[0]}w" sizes="{sizes}"'
+
+
 def photo(name, cls='', loading='lazy', caption=True, cap=None, pos=None):
     alt, cap0, _ = PHOTOS[name]
     cap = cap or cap0
     pos = pos or PHOTO_POS.get(name)
     style = f' style="object-position:{pos}"' if pos else ''
     capx = f'<figcaption>{esc(cap)}</figcaption>' if caption else ''
-    return f'<figure class="ph {cls}"><img src="/assets/{name}" alt="{esc(alt)}" loading="{loading}" decoding="async"{style}>{capx}</figure>'
+    dims = img_size(HERE / 'assets' / name)
+    wh = f' width="{dims[0]}" height="{dims[1]}"' if dims else ''
+    prio = ' fetchpriority="high"' if loading == 'eager' else ''
+    sizes = '100vw' if 'hero' in cls else '(max-width: 760px) 100vw, 50vw'
+    return f'<figure class="ph {cls}"><img src="/assets/{name}"{srcset_attrs("/assets/" + name, 800, sizes)} alt="{esc(alt)}"{wh} loading="{loading}" decoding="async"{prio}{style}>{capx}</figure>'
 
 
 CHEVRON = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
@@ -553,7 +603,7 @@ def footer(brand):
     by = f'<a class="by" href="{other}">By Boombastic Events</a>' if pm else ''
     more = f'<a href="/faqs/">FAQs</a><a href="/group-bookings/">Groups</a><a href="/contact/">Contact</a>' + ('<a href="/blog/">Blog</a>' if pm else '') + '<a href="/work-with-us/">Work with us</a>' + f'<a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="{other}">{"Boombastic Events" if pm else "THE 2PM CLUB"}</a>' + ('<button type="button" id="cookie-settings">Cookie settings</button>' if RELEASE_MODE else '')
     note = ('' if RELEASE_MODE else '<p>Website preview (Twin V2). Event details from the public feed of 23rd September 2026. Tickets and availability are live on each event page.</p>')
-    return f'''<footer class="ftr"><div class="container ftr-in"><div class="ftr-brand"><a href="/"><img src="/assets/{'pm' if pm else 'boom'}-logo.png" alt="{'THE 2PM CLUB' if pm else 'Boombastic Events'} home" loading="lazy"></a>{by}</div><nav class="ftr-main" aria-label="Footer"><a href="/whats-on/">What’s on</a><a href="/locations/">Locations</a><a href="/about/">About</a></nav><div class="ftr-social">{socials}</div><p class="ftr-tag">{'Good people. Great afternoons.' if pm else 'Events bring people together.'}</p></div><div class="container ftr-sub"><nav aria-label="More links">{more}</nav>{note}</div></footer>'''
+    return f'''<footer class="ftr"><div class="container ftr-in"><div class="ftr-brand"><a href="/"><img src="/assets/{'pm' if pm else 'boom'}-logo.png" alt="{'THE 2PM CLUB' if pm else 'Boombastic Events'} home" loading="lazy" width="{'120' if pm else '190'}" height="{'80' if pm else '55'}"></a>{by}</div><nav class="ftr-main" aria-label="Footer"><a href="/whats-on/">What’s on</a><a href="/locations/">Locations</a><a href="/about/">About</a></nav><div class="ftr-social">{socials}</div><p class="ftr-tag">{'Good people. Great afternoons.' if pm else 'Events bring people together.'}</p></div><div class="container ftr-sub"><nav aria-label="More links">{more}</nav>{note}</div></footer>'''
 
 
 def sticky(brand, label='Find tickets', href='/whats-on/'):
@@ -576,9 +626,14 @@ def page(brand, title, body, description='', active='', image='', sticky_label='
     return f'''<!doctype html><html lang="en-GB" class="{'pm' if pm else 'boom'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">{robots}<meta name="description" content="{esc(description or title)}"><meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | {site}"><meta property="og:description" content="{esc(description or title)}"><meta property="og:image" content="{esc(social)}"><meta name="theme-color" content="#080808"><title>{esc(title)} | {site}{suffix}</title><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" href="/favicon-48.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="preload" href="/assets/display.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/site.css"></head><body class="{body_class}"><a class="skip-link" href="#main">Skip to content</a>{nav(brand, active, '#tickets' if body_class == 'is-event' else '/whats-on/')}<main id="main">{decades(body)}</main>{footer(brand)}{sticky(brand, sticky_label, sticky_href)}<script src="/assets/site.js" defer></script>{consent}</body></html>'''
 
 
-def hero(brand, h1, sub, cta, photo_name, eyebrow='', extra='', cls='', loading='eager', h1cls='', cap=None):
+def hero(brand, h1, sub, cta, photo_name, eyebrow='', extra='', cls='', loading='eager', h1cls='', cap=None, slogan=''):
     eb = f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''
-    return f'''<section class="hero {cls}"><div class="hero-copy"><div class="hero-inner">{eb}<h1 class="{h1cls}">{h1}</h1><p class="hero-sub">{sub}</p>{extra}{cta}</div></div>{photo(photo_name, 'hero-media', loading, caption=bool(cap), cap=cap)}</section>'''
+    if slogan:
+        # The display slogan stays as the big visual line; the H1 carries the searchable words (board #rewrites).
+        heading = f'<p class="hero-slogan {h1cls}">{slogan}</p><h1 class="h1-seo">{h1}</h1>'
+    else:
+        heading = f'<h1 class="{h1cls}">{h1}</h1>'
+    return f'''<section class="hero {cls}"><div class="hero-copy"><div class="hero-inner">{eb}{heading}<p class="hero-sub">{sub}</p>{extra}{cta}</div></div>{photo(photo_name, 'hero-media', loading, caption=bool(cap), cap=cap)}</section>'''
 
 
 def ribbon(items, cls=''):
@@ -645,12 +700,12 @@ def event_card(e):
     price = f'<p class="card-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') and not e.get('soldout') else ''
     sold = f'<p class="card-status card-soldout">{SOLD_OUT_LINE}</p>' if e.get('soldout') else ''
     cta = 'Join the waiting list' if e.get('soldout') else 'View event'
-    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{sold}{card_status(e)}{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="{cta}: {esc(e['title'])}, {esc(d_long(e['start']))}">{cta} {ARROW}</a></div></article>'''
+    return f'''<article class="event-card" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}"{srcset_attrs(e['poster'], 600, '(max-width: 600px) 90vw, 360px')} alt="" loading="lazy" decoding="async" width="600" height="600"></a><div class="card-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}"><span class="card-event-type">{esc(name)}</span><span class="card-event-city">{esc(e['city'])}</span></a></h3><p class="card-facts">{esc(d_short(e['start']))} · {esc(e['venue'])}<br>{esc(times(e))}</p>{sold}{card_status(e)}{price}{group_price(e)}<a class="btn btn-dark btn-block" href="{esc(href)}" aria-label="{cta}: {esc(e['title'])}, {esc(d_long(e['start']))}">{cta} {ARROW}</a></div></article>'''
 
 
 def event_row(e):
     href = e['path']; b, bc = badge(e)
-    return f'''<article class="ev-row" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="row-poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}" alt="" loading="lazy" width="300" height="300"></a><div class="row-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}">{esc(d_mid(e['start']))}</a></h3><p class="row-facts"><span>{icon('pin')}{esc(e['venue'])}</span><span>{icon('clock')}{esc(times(e))}</span></p>{row_state(e)}</div><a class="btn btn-dark row-btn" href="{esc(href)}" aria-label="{'Join the waiting list' if e.get('soldout') else 'View event'}: {esc(e['title'])}, {esc(d_long(e['start']))}">{'Join the waiting list' if e.get('soldout') else 'View event'} {ARROW}</a></article>'''
+    return f'''<article class="ev-row" data-item data-city="{slug(e['city'])}" data-type="{event_filter_type(e)}" data-date="{e['start'][:10]}"><a class="row-poster" href="{esc(href)}" tabindex="-1" aria-hidden="true"><img src="{esc(e['poster'])}"{srcset_attrs(e['poster'], 600, '160px')} alt="" loading="lazy" width="300" height="300"></a><div class="row-body"><span class="badge b-{bc}">{esc(b)}</span><h3><a href="{esc(href)}">{esc(d_mid(e['start']))}</a></h3><p class="row-facts"><span>{icon('pin')}{esc(e['venue'])}</span><span>{icon('clock')}{esc(times(e))}</span></p>{row_state(e)}</div><a class="btn btn-dark row-btn" href="{esc(href)}" aria-label="{'Join the waiting list' if e.get('soldout') else 'View event'}: {esc(e['title'])}, {esc(d_long(e['start']))}">{'Join the waiting list' if e.get('soldout') else 'View event'} {ARROW}</a></article>'''
 
 
 SOLD_OUT_LINE = 'Sold out, join the waiting list'
@@ -778,13 +833,14 @@ def home(brand, events):
         proof = f'''<section class="proof container"><div class="proof-lead">{quote_block(QUOTES['lorne'], 'quote-xl')}<p>Bring your group or come on your own. The songs give everyone something to sing about.</p></div><div class="proof-more">{quote_block(QUOTES['diane'])}{quote_block(QUOTES['lara'])}{quote_block(QUOTES['friends'])}</div></section>'''
         body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'pm-friends.jpeg', 'ALL THE CHORUSES.<br>ALL YOUR PEOPLE.', [('What to expect', '/what-to-expect/'), ('The music', '#music'), ('Bring your group', '/group-bookings/')]) + music + guide + proof + signup(brand, 'YOUR CITY. YOUR NEXT AFTERNOON.', 'Be first to hear when THE 2PM CLUB announces a date near you.', events=events)
         return page(brand, 'Your best night out. In the middle of the afternoon.', body, 'THE 2PM CLUB Daytime Disco: Sing Out Loud Anthems from the 80s, 90s and 00s. Doors 2pm, home by 7-ish.', '/')
-    h = hero(brand, 'THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.', 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">SINCE 2014.</p>', h1cls='h1-boom')
+    h = hero(brand, esc(HOME_H1), 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">SINCE 2014.</p>', h1cls='h1-boom', slogan='THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.')
     rib = ribbon([('DAYTIME', 'THE 2PM CLUB, doors at 2pm', PM_BASE + '/'), ('EVENING', 'Silent Disco and Decades Parties', '/about/#parties'), ('FAMILY', 'Family Silent Disco, ages 4+', '/family-silent-disco/')], cls='rib-short')
     head = section_head('WHAT’S COMING UP', filters(events, 0))
     parties = seasonal_section(events) + boom_parties_grid()
     rel = f'''<section class="relation container"><div class="relation-copy"><p class="eyebrow">The people behind the party</p><h2>FAMILY, DAYTIME OR EVENING.</h2><p>Family Silent Disco for kids and grown-ups. THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Same Boombastic team, bringing people together since 2014.</p>{btn('Explore THE 2PM CLUB', PM_BASE + '/')}</div><div class="relation-quotes">{quote_block(QUOTES['emma_r'])}</div></section>'''
     body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'sd-four-friends.jpg', 'PICK YOUR PARTY.<br>BRING YOUR PEOPLE.', [('Daytime discos', PM_BASE + '/'), ('Silent discos', '/silent-disco/'), ('Decades Parties', '/about/#parties'), ('Family parties', '/family-silent-disco/')]) + parties + rel + signup(brand, 'YOUR CITY. YOUR NEXT NIGHT OUT.', 'Be first to hear about new parties near you.', events=events)
-    return page(brand, 'The Midlands’ party starters since 2014', body, 'Trusted by thousands. Boombastic Events runs daytime discos, silent discos, Decades Parties and family parties across the Midlands.', '/')
+    PAGE_META[(brand, '/')] = dict(title='Silent Disco, 80s and 90s Parties | Boombastic Events', description=HOME_DESCRIPTION)
+    return page(brand, 'Silent Disco, 80s and 90s Parties', body, HOME_DESCRIPTION, '/')
 
 
 def seasonal_section(events):
@@ -800,6 +856,11 @@ def seasonal_section(events):
         return ''
     inner = ''.join(f'<div class="xmas-kind"><p class="eyebrow">{esc(a)}</p><h3>{esc(b)}</h3><p>{esc(c)}</p><a class="text-link" href="{u}">{esc(l)} {ARROW}</a></div>' for a, b, c, u, l in cards)
     return f'<section class="section container seasonal">{section_head("HALLOWEEN AND CHRISTMAS", "", "Seasonal parties")}<div class="xmas-kinds">{inner}</div></section>'
+
+
+# Board #rewrites, 12th October 2026 (homepage). Exact wording.
+HOME_H1 = 'Silent discos and decades parties in Northampton, Bedford, Leicester and Coventry'
+HOME_DESCRIPTION = 'Silent discos, 90s and 80s nights and Family Silent Disco in Northampton, Bedford, Leicester and Coventry since 2014. Afternoons: THE 2PM CLUB.'
 
 
 def pm_music_section(events):
@@ -906,7 +967,7 @@ def christmas_page(brand, events):
             + (f'<p>{len(grouped)} of the {len(xmas)} Christmas dates have a group-of-4 ticket, plus booking fees, while available:</p><ul class="fact-list">{group_items}</ul>' if grouped else '')
             + f'<p>For a larger group, or to ask about a reserved area, email <a href="mailto:{EMAIL}">{EMAIL}</a> with the date and numbers and we will tell you what the venue can do. <a href="/group-bookings/">Group bookings {ARROW}</a></p></section>')
     body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Christmas {year}</p>'
-            f'<h1>Christmas parties {year} in {esc(join_words(cities))}</h1><p class="answer">{esc(lead)}</p></div></section>'
+            f'<h1 class="h1-band">Christmas parties {year} in {esc(join_words(cities))}</h1><p class="answer">{esc(lead)}</p></div></section>'
             f'<section class="section container" id="upcoming">{section_head(f"<span data-live-total>{len(xmas)}</span> CHRISTMAS DATES", filters(xmas, 0))}{results(xmas)}</section>'
             f'<section class="section container"><h2>WHICH CHRISTMAS PARTY?</h2><div class="xmas-kinds">{guide_html}</div></section>'
             + work +
@@ -1015,7 +1076,7 @@ def halloween_page(brand, events):
         faqs.append(('Do we need to dress up?', 'Halloween fancy dress is welcome but optional at the Family Silent Disco. Wear comfortable shoes for dancing.'))
     faqs.append(('How do I get tickets?', 'Choose a date and use the live ticket selector on its event page. Prices and availability are live, and Eventbrite booking fees are added at checkout.'))
     proof = (photo('family-silent-disco-live.jpg', 'season-photo') if has_family else '') + photo('b90-crowd.jpg', 'season-photo')
-    body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Halloween {year}</p><h1>{esc(h1)}</h1><p class="answer">{esc(answer)}</p></div></section>'
+    body = (f'<section class="page-band"><div class="container"><p class="eyebrow">Halloween {year}</p><h1 class="h1-band">{esc(h1)}</h1><p class="answer">{esc(answer)}</p></div></section>'
             f'<section class="section container" id="upcoming">{section_head(f"<span data-live-total>{len(hall)}</span> HALLOWEEN DATES", "")}{results(hall)}</section>'
             f'<section class="section container"><h2>WHAT HAPPENS ON THE NIGHT</h2><div class="xmas-kinds">{kinds}</div></section>'
             f'<section class="kb container"><div class="kb-intro"><h2>THE VENUES</h2><p>Check the venue on your chosen event before travelling.</p></div><div class="kb-venues">{venue_cards_html(hall)}</div></section>'
@@ -1179,7 +1240,7 @@ def locations(brand, events):
     tiles = []
     for city in live:
         rel = [e for e in events if e['city'] == city and on_sale(e)]
-        thumbs = ''.join(f'<img src="{esc(e["poster"])}" alt="" loading="lazy" width="120" height="120">' for e in rel[:3])
+        thumbs = ''.join(f'<img src="{esc(small_copy(e["poster"], 600) or e["poster"])}" alt="" loading="lazy" width="120" height="120">' for e in rel[:3])
         venues = ', '.join(sorted({e['venue'] for e in rel}))
         meta = f'<p class="loc-count">{len(rel)} date{"s" if len(rel) != 1 else ""} on sale</p><p class="loc-next">Next: {esc(d_short(rel[0]["start"]))} · {esc(rel[0]["venue"])}</p>'
         tiles.append(f'<a class="loc-tile" href="{city_url(brand, city)}"><div class="loc-thumbs">{thumbs}</div><h2>{esc(city.upper())}</h2>{meta}<b>Explore {esc(city)} {ARROW}</b></a>')
@@ -1750,7 +1811,29 @@ def write_page(dist, path, content):
         aliases = {'/whats-on/': '/events/', '/locations/': '/hubs/'} if brand == 'pm' else {'/faqs/': '/faq/'}
         for old, new in aliases.items():
             content = content.replace(f'href="{old}', f'href="{new}')
-    target.write_text(seo_enrich(brand, path, content))
+    target.write_text(version_assets(seo_enrich(brand, path, content)))
+
+
+_VERSIONS = {}
+
+
+def asset_version(url):
+    """Short content hash for a /assets/ file, so it can be cached for a year and still refresh on change."""
+    name = url.split('/assets/', 1)[1]
+    if name not in _VERSIONS:
+        src = HERE / name if name in ('site.css', 'site.js', 'consent.js') else HERE / 'assets' / name
+        _VERSIONS[name] = hashlib.sha256(src.read_bytes()).hexdigest()[:10] if src.exists() else ''
+    return _VERSIONS[name]
+
+
+def version_assets(content):
+    """Add ?v=<hash> to every /assets/ reference except the font, which site.css loads by its plain URL."""
+    def one(url):
+        if url.endswith('.woff2') or '?' in url: return url
+        v = asset_version(url)
+        return f'{url}?v={v}' if v else url
+    content = re.sub(r'((?:src|href)=")(/assets/[^"?#]+)(")', lambda m: m.group(1) + one(m.group(2)) + m.group(3), content)
+    return re.sub(r'srcset="([^"]+)"', lambda m: 'srcset="' + re.sub(r'/assets/[^\s,?]+', lambda n: one(n.group(0)), m.group(1)) + '"', content)
 
 
 def provenance(all_events):
@@ -2100,7 +2183,10 @@ def build():
             sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{base}{r}</loc></url>\n' for r in routes) + '</urlset>\n'
             (dist / 'sitemap.xml').write_text(sitemap)
             (dist / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n')
-            (dist / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n')
+            # /assets/ references in the HTML carry ?v=<content hash>, so they can be cached for a year.
+            (dist / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n'
+                                           '/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n'
+                                           '/site.webmanifest\n  Content-Type: application/manifest+json\n')
             redirects = release_redirects(brand, events)
             if brand == 'boom':
                 ticket_map = {e['code'].lower(): str(e['eventbriteId']) for e in events if e['brand'] == 'boom'}

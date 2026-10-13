@@ -6,7 +6,7 @@ html.pm{--paper:#fff5fa;--card:#fff;--hero:#e7c9ff;--accent:#ff008a;--band:#ff0a
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 button,select,input{font:inherit;color:inherit}
 h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.9;letter-spacing:.004em;margin:0;text-transform:uppercase}
@@ -712,3 +712,9 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .card-soldout{color:#b3261e}
 .date-txt .card-soldout{display:block;font-style:normal;margin-top:4px}
 .ev-row .card-price,.ev-row .card-soldout{margin:6px 0 0}
+.hero .hero-slogan{font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.004em;font-size:clamp(3.2rem,6.55vw,6.5rem);line-height:.87;margin:0 0 14px}
+.boom .hero .hero-slogan.h1-boom{font-size:clamp(3.2rem,5.8vw,5.8rem)}
+.city-hero .hero-slogan{font-size:clamp(2.9rem,5vw,5rem)}
+.hero h1.h1-seo{font-family:var(--sans);font-weight:800;text-transform:none;font-size:clamp(1.25rem,2.2vw,1.9rem);line-height:1.15;letter-spacing:0;margin:0 0 14px;max-width:640px}
+@media(max-width:760px){.boom .hero .hero-slogan.h1-boom{font-size:clamp(2.8rem,12.1vw,4rem)}.hero .hero-slogan{font-size:clamp(2.6rem,12vw,4rem)}.city-hero .hero-slogan{font-size:clamp(2.4rem,11vw,3.6rem)}}
+.page-band h1.h1-band{font-size:clamp(2.2rem,4vw,3.6rem);line-height:.95;max-width:900px}
