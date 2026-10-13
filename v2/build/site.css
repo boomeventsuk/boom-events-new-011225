@@ -718,3 +718,8 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .hero h1.h1-seo{font-family:var(--sans);font-weight:800;text-transform:none;font-size:clamp(1.25rem,2.2vw,1.9rem);line-height:1.15;letter-spacing:0;margin:0 0 14px;max-width:640px}
 @media(max-width:760px){.boom .hero .hero-slogan.h1-boom{font-size:clamp(2.8rem,12.1vw,4rem)}.hero .hero-slogan{font-size:clamp(2.6rem,12vw,4rem)}.city-hero .hero-slogan{font-size:clamp(2.4rem,11vw,3.6rem)}}
 .page-band h1.h1-band{font-size:clamp(2.2rem,4vw,3.6rem);line-height:.95;max-width:900px}
+.answer-block{margin-top:22px}
+.answer-block .answer{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px;max-width:none}
+.town-formats .fact-list{font-size:16px;list-style:none;padding:0}
+.town-formats .fact-list li{margin:10px 0}
+.town-formats .text-link{margin-left:8px}

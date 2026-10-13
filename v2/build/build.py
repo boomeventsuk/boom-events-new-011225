@@ -1110,7 +1110,12 @@ def link_list(links, label):
 
 def event_more_links(e):
     """Links from an event page to the durable pages it belongs to."""
-    links = []
+    links = [(f'More in {e["city"]}', city_url('boom', e['city']))]
+    if e['fmt'] in FORMAT_LINK:
+        key, name, label = FORMAT_LINK[e['fmt']]
+        links.append((label, f'/{key}/'))
+        if (key, e['city']) in TOWN_FORMAT_LIVE:
+            links.append((f'{name} in {e["city"]}', f'/{key}/{slug(e["city"])}/'))
     if 'halloween' in e['title'].lower():
         links.append((f'Halloween in {e["city"]}', '/halloween/'))
     if 'christmas' in e['title'].lower() and christmas_events(CURRENT_EVENTS['boom']):
@@ -1290,12 +1295,20 @@ def empty_city_page(brand, city):
     what = 'THE 2PM CLUB dates' if pm else 'dates'
     history = past_venue_line(city) if not pm else ''
     sub = (esc(history) + ' ' if history else '') + f'No date announced in {esc(city)} at the moment. ' + (f'The nearest {what} on sale are in {esc(near_txt)}.' if near else f'Here are the next {what} on sale.')
-    h = hero(brand, f'<span class="city-big">{esc(city.upper())}</span>NO DATE<br>ANNOUNCED<br>RIGHT NOW.', sub, btn('See the nearest dates' if near else 'See dates on sale', '#nearby', 'btn-hot' if pm else 'btn-dark'), 'pm-packed.jpg' if pm else 'boom-hero.jpg', cls='city-hero')
+    if pm:
+        h = hero(brand, f'<span class="city-big">{esc(city.upper())}</span>NO DATE<br>ANNOUNCED<br>RIGHT NOW.', sub, btn('See the nearest dates' if near else 'See dates on sale', '#nearby', 'btn-hot'), 'pm-packed.jpg', cls='city-hero')
+    else:
+        em = empty_town_meta(city)
+        PAGE_META[(brand, city_url(brand, city))] = dict(title=em[0], description=em[1])
+        h = hero(brand, esc(em[2]), sub, btn('See the nearest dates' if near else 'See dates on sale', '#nearby', 'btn-dark'), 'boom-hero.jpg', cls='city-hero', slogan=f'<span class="city-big">{esc(city.upper())}</span>NO DATE<br>ANNOUNCED<br>RIGHT NOW.')
     rib = ribbon([('NEAREST DATES', esc(near_txt) if near else 'On sale now', '#nearby'), ('ALL LOCATIONS', 'Every city with dates on sale', '/locations/'), ('EVERY DATE', 'All cities on What’s on', '/whats-on/')])
     rows = ''.join(event_row(e) for e in nearby)
     others = ''.join(f'<li><a href="{city_url(brand, c)}">{esc(c)}</a></li>' for c, _ in live_cities(brand))
     main = f'''<section class="section container" id="nearby">{section_head(("NEAREST DATES ON SALE" if near else "DATES ON SALE NOW"), f"<a class=text-link href=/whats-on/>All dates {ARROW}</a>")}<p class="nearby-lead">{"The closest dates you can book now, in " + esc(near_txt) + "." if near else "The next dates you can book now."}</p><div class="rows">{rows}</div><div class="nearby-more"><h3>ALL CITIES WITH DATES ON SALE</h3><ul class="city-chips">{others}</ul></div></section>'''
-    body = f'<nav class="crumbs container" aria-label="Breadcrumb"><a href="/locations/">Locations</a> / {esc(city)}</nav>' + h + rib + main
+    answer = '' if pm else f'<section class="container answer-block"><p class="answer">{esc(empty_town_answer(city))}</p></section>'
+    pm_hub = '' if pm else (f'<section class="section container town-formats"><h2>OUR PARTIES IN {esc(city.upper())}</h2><ul class="fact-list"><li><strong>THE 2PM CLUB</strong>: Saturday afternoon daytime disco with a live DJ, run on its own site. <a class="text-link" href="{PM_BASE}/hubs/{slug(city)}/">THE 2PM CLUB daytime disco in {esc(city)} {ARROW}</a></li></ul></section>'
+                            if any('-2PM-' in str(r.get('eventCode')) and r.get('city') == city for r in BOOM_ALL) else '')
+    body = f'<nav class="crumbs container" aria-label="Breadcrumb"><a href="/locations/">Locations</a> / {esc(city)}</nav>' + h + answer + rib + main + pm_hub
     desc = f'No date announced in {city} at the moment.' + (f' Nearest dates on sale in {near_txt}.' if near else '')
     return page(brand, city, body, desc, city_url(brand, city), sticky_label='See nearest dates' if near else 'Find tickets', sticky_href='#nearby' if near else '/whats-on/')
 
@@ -1312,7 +1325,12 @@ def city_page(brand, city, events):
     kind_list = ', '.join(kinds[:3]) + (' and more' if len(kinds) > 3 else '')
     sub = (f'THE 2PM CLUB Daytime Disco in {esc(city)}. See the editions, venues and times for every date on sale.' if pm else f'{esc(kind_list)} in {esc(city)}. See dates, venues and tickets below.')
     cta = btn(f'See {esc(city)} dates', '#city-dates', 'btn-hot' if pm else 'btn-dark')
-    h = hero(brand, f'<span class="city-big">{esc(city.upper())}</span>YOUR TOWN.<br>YOUR NEXT {"AFTERNOON" if pm else "PARTY"}.', sub, cta, photo_name, cls='city-hero')
+    if pm:
+        h = hero(brand, f'<span class="city-big">{esc(city.upper())}</span>YOUR TOWN.<br>YOUR NEXT AFTERNOON.', sub, cta, photo_name, cls='city-hero')
+    else:
+        tm = town_meta(city)
+        PAGE_META[(brand, city_url(brand, city))] = dict(title=tm[0], description=tm[1])
+        h = hero(brand, esc(tm[2]), sub, cta, photo_name, cls='city-hero', slogan=f'<span class="city-big">{esc(city.upper())}</span>YOUR TOWN.<br>YOUR NEXT PARTY.')
     rib = ribbon([(f'{len(rel)} DATE{"S" if len(rel) != 1 else ""} ON SALE', f'Next: {d_short(rel[0]["start"])}'), ('REAL DANCEFLOORS', ', '.join(venues)), ('YOUR PLAN', 'Bring friends or come on your own' if pm else 'Pick the party that sounds like you')])
     list_html = f'<section class="section container" id="city-dates">{section_head("COMING UP IN " + esc(city.upper()), filters(rel, 0, "All editions" if pm else "All parties", with_city=False))}{results(rel, "rows")}</section>'
     venue_cards = []
@@ -1341,10 +1359,243 @@ def city_page(brand, city, events):
     if not pm and any(e in christmas_events(events) for e in rel):
         season.append((f'Christmas parties {TODAY[:4]}', '/christmas-parties/'))
     season_html = link_list(season, 'Seasonal parties')
-    body = f'<nav class="crumbs container" aria-label="Breadcrumb"><a href="/locations/">Locations</a> / {esc(city)}</nav>' + h + rib + list_html + season_html + kb + strip(strip_name) + su
+    answer = '' if pm else f'<section class="container answer-block"><p class="answer">{esc(town_answer(city))}</p></section>'
+    extra = '' if pm else town_formats_block(city) + night_block([k for k, _, _ in FORMAT_PAGES if any(e['brand'] == 'boom' and e['fmt'] in NIGHT_FMTS[k] for e in rel)])
+    body = f'<nav class="crumbs container" aria-label="Breadcrumb"><a href="/locations/">Locations</a> / {esc(city)}</nav>' + h + answer + rib + list_html + extra + season_html + kb + strip(strip_name) + su
     desc = (f'THE 2PM CLUB daytime disco in {city}. See upcoming dates, {", ".join(venues)}, venue information and live tickets.' if pm
             else f'Boombastic events and parties in {city}. See upcoming dates, {", ".join(venues)}, venue information and live tickets.')
     return page(brand, city, body, desc, city_url(brand, city))
+
+# ---------------------------------------------------------------- town and format copy (board #rewrites, 12th October 2026)
+# Every dated phrase is rebuilt from the feed on each build, so the copy changes when the next date changes.
+
+TOWN_FORMAT_PAGES = [('silent-disco', 'Northampton'), ('family-silent-disco', 'Northampton')]
+FORMAT_ORDER = ['sdxmas', 'sd', 'dec', 'hhp', 'b90', 'fsd']
+FORMAT_LINK = {'sd': ('silent-disco', 'Silent Disco Greatest Hits', 'More silent discos'), 'sdxmas': ('silent-disco', 'Silent Disco Greatest Hits', 'More silent discos'),
+               'fsd': ('family-silent-disco', 'Family Silent Disco', 'More Family Silent Discos'), 'b90': ('boombastic-90s', 'Boombastic 90s', 'More Boombastic 90s')}
+TITLE_VENUE = {'Mattioli Woods Welford Road Stadium': 'Welford Road'}
+
+# What happens on the night: only facts already in this site's copy or the feed.
+FORMAT_NIGHT = {
+    'silent-disco': ['Everyone gets wireless headphones with three channels, each with its own live DJ: pop, indie and dance.',
+                     'Switch channel with the button on the headphones whenever you like; the light shows which channel you are on, and you set your own volume.',
+                     'The Christmas edition swaps pop for Christmas and party songs, alongside indie classics and dance anthems.',
+                     'Take the headphones off for five seconds and you hear the whole room singing different songs at once.'],
+    'family-silent-disco': ['Everyone gets headphones with three family-friendly channels: Party, Throwbacks and Charts.',
+                            'Each person picks their own channel and sets their own volume, all on one dancefloor.',
+                            'Designed for ages 4 and up. Children stay with, and are supervised by, their ticket-holding adult.'],
+    'boombastic-90s': ['Four hours of 90s pop, Britpop, dance and hip-hop.', 'Authentic 90s videos on giant screens above the dancefloor.',
+                       'Inflatable microphones up and every word sung back.'],
+    'footloose-80s': ['Four hours of non-stop 80s anthems, played loud.', 'Classic 80s videos on big screens above the dancefloor.',
+                      'Inflatable microphones, obviously.'],
+}
+NIGHT_FMTS = {'silent-disco': ('sd', 'sdxmas'), 'family-silent-disco': ('fsd',), 'boombastic-90s': ('b90',), 'footloose-80s': ()}
+
+
+def town_events(city):
+    return [e for e in CURRENT_EVENTS['boom'] if e['city'] == city and e['start'][:10] >= TODAY]
+
+
+def owned_kinds(rel):
+    """Boombastic-owned format names in a town, in a fixed order, seasonal family dates folded into one name."""
+    fm = sorted({e['fmt'] for e in rel if e['brand'] == 'boom'}, key=lambda f: FORMAT_ORDER.index(f) if f in FORMAT_ORDER else 99)
+    return [('Family Silent Disco' if f == 'fsd' else FORMAT[f][3]) for f in fm]
+
+
+def venues_by_use(rel):
+    counts = {}
+    for e in rel: counts[e['venue']] = counts.get(e['venue'], 0) + 1
+    return sorted(counts, key=lambda v: (-counts[v], v))
+
+
+def age_words(e):
+    a = is_adult(e)
+    return 'for over-18s' if a is True else 'for ages 4 and up' if e['fmt'] == 'fsd' else ''
+
+
+def with_article(name):
+    return name if name.startswith(('THE ', 'Boombastic', 'Footloose')) else 'the ' + name
+
+
+def date_sentence(e, lead='The next date is'):
+    bits = [f'{lead} {with_article(event_name(e))} on {d_day_year(e["start"])}, {times(e).replace(" – ", " to ")}']
+    if age_words(e): bits.append(age_words(e))
+    bits.append(price_sentence(e))
+    return ', '.join(b for b in bits if b) + '.'
+
+
+def words(text): return len(plain_text(text).split())
+
+
+def fit_answer(core, extras):
+    """Answer block of 40 to 60 words: core sentences, then extras while they fit."""
+    out = list(core)
+    for x in extras:
+        if words(' '.join(out + [x])) <= 60: out.append(x)
+    while words(' '.join(out)) > 60 and len(out) > 1: out.pop()
+    return ' '.join(out)
+
+
+def strip_number(street_):
+    return re.sub(r'^\d+[A-Za-z]?\s+', '', street_ or '')
+
+
+def town_answer(city):
+    rel = town_events(city)
+    kinds = owned_kinds(rel)
+    venues = venues_by_use(rel)
+    pm_dates = [e for e in rel if e['brand'] == 'boom-crosslink']
+    first = rel[0]
+    if kinds:
+        core = [f'Boombastic Events runs {join_words(kinds)} in {city}, at {join_words(venues)}.', date_sentence(first)]
+    else:
+        v = venues[0]; addr = (first.get('address') or {}).get('streetAddress')
+        core = [f'Boombastic Events runs THE 2PM CLUB daytime disco in {city} at {v}{", " + strip_number(addr) if addr else ""}.', date_sentence(first)]
+    extras = [date_sentence(e, 'Then') for e in rel if e is not first][:2]
+    if kinds and pm_dates: extras.append(f'THE 2PM CLUB daytime disco runs here on Saturday afternoons too.')
+    extras += ['Each date has its own page with times, venue, age rule and tickets.']
+    return fit_answer(core, extras)
+
+
+def empty_town_answer(city):
+    near = nearest_live('boom', city)
+    nxt = [(c, next(e for e in CURRENT_EVENTS['boom'] if on_sale(e) and e['city'] == c)) for c in near]
+    core = [past_venue_line(city), f'No {city} date is on sale right now.']
+    if nxt:
+        core.append('The nearest dates on sale are in ' + join_words([f'{c} (from {d_day_year(e["start"])})' for c, e in sorted(nxt, key=lambda x: x[1]['start'])]) + '.')
+    return fit_answer([x for x in core if x], ['Each date has its own page with times, venue, age rule and tickets.', 'Booking fees are added at checkout.', f'Check the {city} page again for new dates.'])
+
+
+def town_meta(city):
+    """(title, description, h1) for a town page with dates, following the board pattern."""
+    rel = town_events(city)
+    kinds = owned_kinds(rel)
+    venues = venues_by_use(rel)
+    short = [SHORT_VENUE.get(v, v) for v in venues]
+    first = next((e for e in rel if on_sale(e)), rel[0])
+    if city == 'Northampton' and kinds:
+        title = 'Silent Disco and Party Nights in Northampton | Boombastic' if any('Silent Disco' in k for k in kinds) else f'Party Nights in {city} | Boombastic Events'
+        names = [k for k in kinds if k != 'Family Silent Disco'] + (['Family Silent Disco'] if 'Family Silent Disco' in kinds else [])
+        desc = f'{join_words(names)} at {join_words(short)}, {city}.'
+        fam = 'Family Silent Disco' in kinds
+        decades_ = any(k in kinds for k in ('Christmas Decades Party', 'Boombastic 90s', 'Footloose 80s', 'Halloween House Party'))
+        flags = [('silent disco', any('Silent Disco' in k for k in kinds)), ('decades', decades_), ('family', fam)]
+        h1 = f'Parties in {city}: ' + join_words([x for x, ok in flags if ok])
+    elif kinds:
+        lead = 'Boombastic 90s' in kinds
+        title = (f'90s Nights and Parties in {city} | Boombastic Events' if lead else f'Parties in {city} at {TITLE_VENUE.get(venues[0], venues[0])} | Boombastic Events')
+        addr = (next(e for e in rel if e['venue'] == venues[0]).get('address') or {}).get('streetAddress')
+        all_kinds = kinds + (['THE 2PM CLUB'] if any(e['brand'] == 'boom-crosslink' for e in rel) else [])
+        desc = f'{join_words(all_kinds)} at {venues[0]}{", " + addr if addr else ""}. Dates, ' + ('sold-out waiting lists and tickets.' if any(e.get('soldout') for e in rel) else 'venue details and tickets.')
+        h1 = f'Parties in {city} at {join_words(venues)}'
+    else:
+        v = venues[0]
+        addr = strip_number((first.get('address') or {}).get('streetAddress'))
+        title = f'Parties in {city} at {TITLE_VENUE.get(v, v)} | Boombastic Events'
+        desc = f'{event_name(first)} at {v}{", " + addr if addr and city == "Coventry" else ""}, on {d_day_year(first["start"])}. Dates and tickets.'
+        h1 = f'Parties in {city}' + (f' at {v}' if city == 'Coventry' else '')
+    return title, desc, h1
+
+
+def empty_town_meta(city):
+    near = nearest_live('boom', city)
+    nxt = [(c, next(e for e in CURRENT_EVENTS['boom'] if on_sale(e) and e['city'] == c)) for c in near]
+    title = (f'Parties in {city}: Next Date Coming Soon | Boombastic' if len(f'Parties in {city}: Next Date Coming Soon | Boombastic') <= 55
+             else f'Parties in {city}: Coming Soon | Boombastic')
+    near_txt = (f' the nearest is {nxt[0][0]} on {ordinal(dt(nxt[0][1]["start"]).day)} {dt(nxt[0][1]["start"]).strftime("%B")}' if len(nxt) == 1
+                else f' the nearest are in {join_words([c for c, _ in nxt])}') if nxt else ''
+    desc = (past_venue_line(city) + ' ' if past_venue_line(city) else '') + f'No {city} date is on sale right now;{near_txt}.'
+    return title, desc.replace(';.', '.'), f'{city}: next date coming soon'
+
+
+def night_block(keys, heading='WHAT HAPPENS ON THE NIGHT'):
+    """Factual 'what happens' list for the given format pages, with their next times from the feed."""
+    parts = []
+    for key in keys:
+        facts = list(FORMAT_NIGHT.get(key, []))
+        dated = [e for e in CURRENT_EVENTS['boom'] if e['brand'] == 'boom' and e['fmt'] in NIGHT_FMTS.get(key, ()) and e['start'][:10] >= TODAY]
+        for e in dated[:2]:
+            facts.append(f'{d_short(e["start"])} at {e["venue"]}: {times(e).replace(" – ", " to ")}' + (', sold out with a waiting list.' if e.get('soldout') else '.'))
+        if facts:
+            name = next(label for k, label, _ in FORMAT_PAGES if k == key)
+            parts.append(f'<div class="xmas-kind"><h3>{esc(name)}</h3><ul class="fact-list">{"".join(f"<li>{esc(x)}</li>" for x in facts)}</ul><a class="text-link" href="/{key}/">About {esc(name)} {ARROW}</a></div>')
+    return f'<section class="section container night"><h2>{heading}</h2><div class="xmas-kinds">{"".join(parts)}</div></section>' if parts else ''
+
+
+def town_formats_block(city):
+    """Formats Boombastic runs in a town, each linked to its format page (and town and format page), then THE 2PM CLUB hub."""
+    rel = town_events(city)
+    items = []
+    seen = set()
+    for e in rel:
+        if e['brand'] != 'boom' or e['fmt'] not in FORMAT_LINK: continue
+        key, name, _ = FORMAT_LINK[e['fmt']]
+        if key in seen: continue
+        seen.add(key)
+        tf = f'/{key}/{slug(city)}/' if (key, city) in TOWN_FORMAT_LIVE else ''
+        n = len([x for x in rel if x['brand'] == 'boom' and x['fmt'] in NIGHT_FMTS[key]])
+        extra = f' <a class="text-link" href="{tf}">{esc(name)} in {esc(city)} {ARROW}</a>' if tf else ''
+        items.append(f'<li><strong>{esc(name)}</strong>: {n} date{"s" if n != 1 else ""} coming up. <a class="text-link" href="/{key}/">About {esc(name)} {ARROW}</a>{extra}</li>')
+    for e in rel:
+        if e['brand'] == 'boom' and e['fmt'] in ('hhp', 'dec') and e['fmt'] not in seen:
+            seen.add(e['fmt'])
+            items.append(f'<li><strong>{esc(event_name(e))}</strong>: {esc(d_short(e["start"]))} at {esc(e["venue"])}. <a class="text-link" href="{esc(e["path"])}">Times and tickets {ARROW}</a></li>')
+    pm_link = f'<li><strong>THE 2PM CLUB</strong>: Saturday afternoon daytime disco with a live DJ, run on its own site. <a class="text-link" href="{PM_BASE}/hubs/{slug(city)}/">THE 2PM CLUB daytime disco in {esc(city)} {ARROW}</a></li>'
+    if any(e['brand'] == 'boom-crosslink' for e in rel) or any('-2PM-' in str(r.get('eventCode')) and r.get('city') == city for r in BOOM_ALL):
+        items.append(pm_link)
+    return f'<section class="section container town-formats"><h2>OUR PARTIES IN {esc(city.upper())}</h2><ul class="fact-list">{"".join(items)}</ul></section>' if items else ''
+
+
+TOWN_FORMAT_LIVE = set()
+
+
+def format_meta(key, upcoming, sold):
+    """(title, description, h1) for a format page, from the board pattern and the feed."""
+    on = [e for e in upcoming if not e.get('soldout')]
+    token = next((t for k, _, t in FORMAT_PAGES if k == key), '#')
+    reg_towns = list(dict.fromkeys(r['city'] for r in BOOM_ALL if token in str(r.get('eventCode')) and r.get('city')))
+    if key == 'silent-disco':
+        towns = list(dict.fromkeys(e['city'] for e in on))
+        title = f'Silent Disco Greatest Hits: {towns[0]} Silent Disco' if len(towns) == 1 else 'Silent Disco Greatest Hits | Boombastic Events'
+        nxt = on[0] if on else None
+        desc = 'Three DJs, three headphone channels: pop, indie and dance.' + (f' Next: {event_name(nxt)}, {d_day_year(nxt["start"])}, {nxt["venue"]}, {nxt["city"]}.' if nxt else ' No date is on sale right now.')
+        return title, desc, 'Silent Disco Greatest Hits: three channels, one dancefloor'
+    if key == 'boombastic-90s':
+        towns = sorted(set(reg_towns), key=lambda c: (c != 'Bedford', c))
+        title = f'Boombastic 90s: 90s Party Nights in {join_words(towns)}'
+        if len(title) > 65: title = 'Boombastic 90s: 90s Party Nights | Boombastic Events'
+        state = (f' {sold[0]["venue"]} on {ordinal(dt(sold[0]["start"]).day)} {dt(sold[0]["start"]).strftime("%B %Y")} is sold out: join the waiting list.' if sold and not on
+                 else f' Next: {d_day_year(on[0]["start"])} at {on[0]["venue"]}.' if on else ' No date is on sale right now.')
+        return title, 'Pop, Britpop, dance and hip-hop with 90s videos on giant screens.' + state, f'Boombastic 90s: the 90s night for {join_words(towns)}'
+    if key == 'footloose-80s':
+        dec = next((e for e in CURRENT_EVENTS['boom'] if e['brand'] == 'boom' and e['fmt'] == 'dec' and on_sale(e)), None)
+        state = (f' Next: {d_day_year(on[0]["start"])} at {on[0]["venue"]}.' if on else ' No Footloose 80s date is on sale right now' + (f'; see the Christmas Decades Party in {dec["city"]}.' if dec else '.'))
+        return 'Footloose 80s: 80s Party Nights | Boombastic Events', 'Wall-to-wall 80s anthems, four hours long.' + state, 'Footloose 80s: all the anthems, all night'
+    if key == 'family-silent-disco':
+        towns = list(dict.fromkeys(e['city'] for e in on)) or ['the Midlands']
+        bits = []
+        for e in on[:3]:
+            season = 'Halloween' if 'halloween' in e['title'].lower() else 'Christmas' if 'christmas' in e['title'].lower() else event_name(e)
+            bits.append(f'{season} at {SHORT_VENUE.get(e["venue"], e["venue"])} on {ordinal(dt(e["start"]).day)} {dt(e["start"]).strftime("%B")}')
+        desc = 'Three family-friendly headphone channels for kids 4+ and their grown-ups.' + (' ' + ', '.join(bits[:-1]) + (', ' if len(bits) > 1 else '') + bits[-1] + '.' if bits else '')
+        if len(bits) == 2: desc = 'Three family-friendly headphone channels for kids 4+ and their grown-ups. ' + bits[0] + ', ' + bits[1][0].lower() + bits[1][1:] + '.'
+        if len(bits) == 2: desc = desc.replace(', christmas', ', Christmas').replace(', halloween', ', Halloween')
+        town = towns[0] if len(towns) == 1 else join_words(towns)
+        return f'Family Silent Disco {town}, Ages 4+ | Boombastic', desc, f'Family Silent Disco in {town}, for kids 4+ and their grown-ups'
+    return None
+
+
+def format_towns_block(key, upcoming):
+    """Format page: link to the town pages that have (or have had) this format."""
+    token = next(t for k, _, t in FORMAT_PAGES if k == key)
+    towns = list(dict.fromkeys(e['city'] for e in upcoming))
+    label = 'WHERE IT IS ON'
+    if not towns:
+        towns = list(dict.fromkeys(r['city'] for r in BOOM_ALL if token in str(r.get('eventCode')) and r.get('city')))
+        label = 'WHERE IT HAS RUN'
+    links = ''.join(f'<li><a href="{city_url("boom", c)}">{esc(c)}</a></li>' for c in towns)
+    tf = ''.join(f'<a class="text-link" href="/{key}/{slug(c)}/">{esc(next(l for k, l, _ in FORMAT_PAGES if k == key))} in {esc(c)} {ARROW}</a> ' for c in towns if (key, c) in TOWN_FORMAT_LIVE)
+    return f'<section class="section container">{section_head(label)}<ul class="city-chips">{links}</ul>{f"<p class=more-links>{tf}</p>" if tf else ""}</section>' if towns else ''
 
 
 def boom_format(key, events):
@@ -1353,7 +1604,8 @@ def boom_format(key, events):
     rel = [e for e in upcoming if not e.get('soldout')]
     sold = [e for e in upcoming if e.get('soldout')]
     now = ('See what’s on', '/whats-on/')  # no-date formats: the next step is real events on sale, not a preview signup
-    h = hero('boom', F['h1'], F['sub'], btn(F['cta'], '#dates') if rel else btn(*now), F['hero'], eyebrow=F['eyebrow'], cap=F.get('hero_cap'), cls='hero-family' if key == 'family-silent-disco' else '')
+    fm = format_meta(key, upcoming, sold)
+    h = hero('boom', esc(fm[2]) if fm else F['h1'], F['sub'], btn(F['cta'], '#dates') if (rel or sold) else btn(*now), F['hero'], eyebrow=F['eyebrow'], cap=F.get('hero_cap'), cls='hero-family' if key == 'family-silent-disco' else '', slogan=F['h1'] if fm else '')
     rib = ribbon(F['ribbon'])
     how = f'<section class="section container how">{section_head(F["how_h"])}{steps(F["steps"])}{pill_cards(F["cards"])}{F.get("after", "")}</section>'
     if rel:
@@ -1363,7 +1615,9 @@ def boom_format(key, events):
     else:
         dates = f'<section class="section container" id="dates">{section_head("NO DATE ON SALE")}<div class="no-date"><p>{esc(F["nodate"])} See the Boombastic events on sale now.</p>{btn(*now)}</div></section>'
     qa = qa_cta('boom', F['faq'], 'GOOD TIMES.<br>GREAT COMPANY.', F['cta_sub'], *((F['cta'], '#dates') if rel else now))
-    body = h + rib + how + (strip(F['strip']) if F['strip'] else '') + dates + qa
+    body = h + rib + how + night_block([key]) + (strip(F['strip']) if F['strip'] else '') + dates + format_towns_block(key, upcoming) + qa
+    if fm:
+        PAGE_META[('boom', f'/{key}/')] = dict(title=fm[0], description=fm[1])
     token = next(t for k, _, t in FORMAT_PAGES if k == key)
     EXTRA_SCHEMA[('boom', f'/{key}/')] = [series_schema(f'/{key}/', F['title'], F['sub'] + ' By Boombastic Events.', upcoming)]
     if bool(rel) != bool(format_dates(token)): raise SystemExit(f'{key}: format page shows {len(rel)} dates but the feed has {len(format_dates(token))} on sale')
