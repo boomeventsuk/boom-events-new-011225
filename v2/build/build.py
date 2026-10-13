@@ -269,12 +269,19 @@ def badge(e):
     b = FORMAT[e['fmt']]; return b[0], b[1]
 
 
+def pm_city(raw):
+    """City for a 2PM feed record. The 2PM feed sanitises ended records down to slug, eventbriteId,
+    title, start, end and city, so cityCode may be missing: fall back to city, then the slug suffix."""
+    code = raw.get('cityCode') or str(raw.get('slug') or '').rsplit('-', 1)[-1].upper()
+    return CITY_CODE.get(raw.get('cityCode')) or raw.get('city') or CITY_CODE.get(code) or code
+
+
 def normalized():
     p = []
     for raw in PM:
         if raw['start'][:10] < TODAY or raw.get('isCancelled'): continue
         code = raw['slug']
-        p.append(dict(code=code, title=raw['title'], city=CITY_CODE.get(raw['cityCode'], raw['cityCode']), venue=raw['location'].rsplit(', ', 1)[0], address=raw.get('venueAddress') or {}, start=raw['start'], end=raw['end'], image=raw['image'], eventbriteId=raw['eventbriteId'], price=raw.get('priceLabel'), groupTicket=raw.get('groupTicket'), status=raw.get('statusLabel'), description=raw.get('description') or '', subtitle=raw.get('subtitle') or '', full=raw.get('fullDescription') or '', highlights=raw.get('highlights') or '', soundtrack=raw.get('soundtrack') or '', brand='pm', path=f'/events/{code.lower()}/', owned=f'https://www.the2pmclub.co.uk/events/{code.lower()}/'))
+        p.append(dict(code=code, title=raw['title'], city=pm_city(raw), venue=raw['location'].rsplit(', ', 1)[0], address=raw.get('venueAddress') or {}, start=raw['start'], end=raw['end'], image=raw['image'], eventbriteId=raw['eventbriteId'], price=raw.get('priceLabel'), groupTicket=raw.get('groupTicket'), status=raw.get('statusLabel'), description=raw.get('description') or '', subtitle=raw.get('subtitle') or '', full=raw.get('fullDescription') or '', highlights=raw.get('highlights') or '', soundtrack=raw.get('soundtrack') or '', brand='pm', path=f'/events/{code.lower()}/', owned=f'https://www.the2pmclub.co.uk/events/{code.lower()}/'))
     p.sort(key=lambda e: e['start'])
     b = []
     for raw in BOOM:
@@ -344,7 +351,7 @@ def sitemap_city_slugs(brand):
 
 def verified_places(brand):
     raw = PM if brand == 'pm' else BOOM_ALL
-    names = {CITY_CODE.get(r['cityCode'], r['cityCode']) if brand == 'pm' else r['city'] for r in raw}
+    names = {pm_city(r) if brand == 'pm' else r['city'] for r in raw}
     by_slug = {slug(n): n for n in names}
     missing = sitemap_city_slugs(brand) - set(by_slug)
     if missing: raise SystemExit(f'{brand}: sitemap city routes with no feed city to name them: {sorted(missing)}')
@@ -2409,7 +2416,7 @@ def past_event_redirects(brand, existing):
         if path in current or (raw['start'][:10] >= TODAY and not raw.get('isCancelled')):
             continue
         if brand == 'pm':
-            city = CITY_CODE.get(raw.get('cityCode'), raw.get('cityCode'))
+            city = pm_city(raw)
             dest = city_url('pm', city) if city in hubs else '/events/'
         else:
             # Ended Boombastic dates go to their town page, which lists what is on there now (board F06).
