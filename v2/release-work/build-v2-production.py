@@ -4,7 +4,10 @@
 The repository's existing Eventbrite sync continues updating public/events*.json.
 The opposite brand is read from its live owned domain. Network or data failures
 stop the deploy rather than silently publishing old ticket details.
+For preview reruns only, TWIN_OTHER_FEED=/path/to/feed.json uses a local copy instead
+(refused when Netlify CONTEXT is production). The other feed's sha256 is always printed.
 """
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -35,10 +38,24 @@ def check(path, brand):
 with tempfile.TemporaryDirectory(prefix='boom-v2-build-') as tmp:
     temporary = Path(tmp)
     other = temporary / 'other.json'
-    with urlopen(Request(other_url, headers={'User-Agent': 'Boombastic-V2-Build/1.0'}), timeout=25) as response:
-        if response.status != 200:
-            raise RuntimeError(f'Other brand feed returned HTTP {response.status}')
-        other.write_bytes(response.read())
+    override = os.environ.get('TWIN_OTHER_FEED')
+    if override:
+        # Preview and CI reruns only: a local copy of the other brand's feed. Refused on a Netlify
+        # production build, which must always read the live owned feed (fail closed).
+        if os.environ.get('CONTEXT') == 'production':
+            raise SystemExit('TWIN_OTHER_FEED is not allowed on a production deploy')
+        source = Path(override)
+        if not source.is_file():
+            raise SystemExit(f'TWIN_OTHER_FEED file not found: {source}')
+        other.write_bytes(source.read_bytes())
+        origin = f'local file {source} (TWIN_OTHER_FEED, preview only)'
+    else:
+        with urlopen(Request(other_url, headers={'User-Agent': 'Boombastic-V2-Build/1.0'}), timeout=25) as response:
+            if response.status != 200:
+                raise RuntimeError(f'Other brand feed returned HTTP {response.status}')
+            other.write_bytes(response.read())
+        origin = other_url
+    print('Other brand feed:', origin, 'sha256', hashlib.sha256(other.read_bytes()).hexdigest())
     pm = own if BRAND == 'pm' else other
     boom = own if BRAND == 'boom' else other
     print('Validated feed records:', '2PM', check(pm, '2PM'), 'Boombastic', check(boom, 'Boombastic'))
