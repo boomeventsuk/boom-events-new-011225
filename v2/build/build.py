@@ -859,8 +859,9 @@ def seasonal_section(events):
 
 
 # Board #rewrites, 12th October 2026 (homepage). Exact wording.
-HOME_H1 = 'Silent discos and decades parties in Northampton, Bedford, Leicester and Coventry'
-HOME_DESCRIPTION = 'Silent discos, 90s and 80s nights and Family Silent Disco in Northampton, Bedford, Leicester and Coventry since 2014. Afternoons: THE 2PM CLUB.'
+# Corrected 13th October 2026: only THE 2PM CLUB has run in Leicester and Coventry.
+HOME_H1 = 'Silent discos, decades parties and daytime discos since 2014'
+HOME_DESCRIPTION = 'Silent discos, 90s nights and Family Silent Disco in Northampton and Bedford, and THE 2PM CLUB daytime disco in Leicester and Coventry. Since 2014.'
 
 
 def pm_music_section(events):
