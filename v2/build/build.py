@@ -145,6 +145,9 @@ PM_CITY_PHOTO = {'Leicester': 'pm-leic.jpg', 'Coventry': 'pm-cov.jpg', 'Bedford'
 PAGE_META = {}
 EXTRA_SCHEMA = {}
 # Short venue names for meta descriptions where the full name is long.
+# County for schema addressRegion (geography, not event data).
+REGION = {'Northampton': 'Northamptonshire', 'Bedford': 'Bedfordshire', 'Luton': 'Bedfordshire', 'Leicester': 'Leicestershire',
+          'Coventry': 'West Midlands', 'Milton Keynes': 'Buckinghamshire'}
 SHORT_VENUE = {"DPD Stadium at Franklin's Gardens": "Franklin's Gardens"}
 
 ICONS = {
@@ -281,7 +284,7 @@ def normalized():
             if match: b.append({**match, 'path': PM_BASE + match['path'], 'brand': 'boom-crosslink'})
             continue
         code = raw['eventCode']
-        b.append(dict(code=code, title=raw['title'], city=raw['city'], venue=raw['venue'], address=raw.get('venueAddress') or {}, start=raw['start'], end=raw['end'], image=raw['image'], eventbriteId=raw['eventbriteId'], price=raw.get('priceLabel'), groupTicket=raw.get('groupTicket'), status=raw.get('statusLabel'), description=raw.get('description') or '', subtitle=raw.get('subtitle') or '', full=raw.get('fullDescription') or '', highlights=raw.get('highlights') or '', soundtrack=raw.get('soundtrack') or '', brand='boom', path=f'/event/{code.lower()}/', owned=f'https://www.boomevents.co.uk/event/{code.lower()}/'))
+        b.append(dict(saleStartsAt=raw.get('saleStartsAt'), code=code, title=raw['title'], city=raw['city'], venue=raw['venue'], address=raw.get('venueAddress') or {}, start=raw['start'], end=raw['end'], image=raw['image'], eventbriteId=raw['eventbriteId'], price=raw.get('priceLabel'), groupTicket=raw.get('groupTicket'), status=raw.get('statusLabel'), description=raw.get('description') or '', subtitle=raw.get('subtitle') or '', full=raw.get('fullDescription') or '', highlights=raw.get('highlights') or '', soundtrack=raw.get('soundtrack') or '', brand='boom', path=f'/event/{code.lower()}/', owned=f'https://www.boomevents.co.uk/event/{code.lower()}/'))
     b.sort(key=lambda e: e['start'])
     # Same named venue, address taken from another entry in the same dated feeds when this entry lacks one.
     known = {}
@@ -1025,6 +1028,18 @@ def halloween_page(brand, events):
     return page(brand, 'Halloween Parties', body, desc, '/whats-on/')
 
 
+FORMAT_SERIES = {'sd': '/silent-disco/', 'sdxmas': '/silent-disco/', 'fsd': '/family-silent-disco/', 'b90': '/boombastic-90s/'}
+
+
+def event_series_routes(e):
+    """Series an event belongs to: its format page, plus the seasonal hub when that page is built."""
+    routes = []
+    if e['fmt'] in FORMAT_SERIES: routes.append(FORMAT_SERIES[e['fmt']])
+    if 'halloween' in e['title'].lower() and halloween_events(CURRENT_EVENTS['boom']): routes.append('/halloween/')
+    if 'christmas' in e['title'].lower() and christmas_events(CURRENT_EVENTS['boom']): routes.append('/christmas-parties/')
+    return routes
+
+
 def link_list(links, label):
     if not links:
         return ''
@@ -1289,6 +1304,7 @@ def boom_format(key, events):
     qa = qa_cta('boom', F['faq'], 'GOOD TIMES.<br>GREAT COMPANY.', F['cta_sub'], *((F['cta'], '#dates') if rel else now))
     body = h + rib + how + (strip(F['strip']) if F['strip'] else '') + dates + qa
     token = next(t for k, _, t in FORMAT_PAGES if k == key)
+    EXTRA_SCHEMA[('boom', f'/{key}/')] = [series_schema(f'/{key}/', F['title'], F['sub'] + ' By Boombastic Events.', upcoming)]
     if bool(rel) != bool(format_dates(token)): raise SystemExit(f'{key}: format page shows {len(rel)} dates but the feed has {len(format_dates(token))} on sale')
     return page('boom', F['title'], body, F['sub'], f'/{key}/', sticky_label='Find tickets' if rel else now[0], sticky_href='#dates' if rel else now[1])
 
@@ -1640,9 +1656,13 @@ def seo_enrich(brand, path, content):
     if event:
         address = event.get('address') or {}
         place = {'@type': 'Place', 'name': event['venue']}
+        if brand == 'boom':
+            place = {'@type': 'Place', '@id': site_url + '#place-' + slug(event['venue']), 'name': event['venue']}
         if address:
             place['address'] = {'@type': 'PostalAddress', **{k: v for k, v in address.items()
                                 if k in ('streetAddress', 'addressLocality', 'addressRegion', 'postalCode', 'addressCountry') and v}}
+            if brand == 'boom' and event['city'] in REGION:
+                place['address'].setdefault('addressRegion', REGION[event['city']])
         item = {'@context': 'https://schema.org', '@type': 'Event',
                 'name': event['title'], 'description': description,
                 'startDate': schema_time(event['start']), 'endDate': schema_time(event['end']),
@@ -1656,14 +1676,28 @@ def seo_enrich(brand, path, content):
         amount = price_amount(event.get('price'))
         if amount:
             # The page's own "from" price. Booking fees are added at Eventbrite checkout, as the page states.
+            # Price stays the page's own "from" price; whether to include the Eventbrite fee is pending JD.
             item['offers'] = {'@type': 'Offer', 'url': page_url, 'price': amount, 'priceCurrency': 'GBP',
                               'availability': 'https://schema.org/SoldOut' if event.get('soldout') else 'https://schema.org/InStock'}
+            if brand == 'boom' and event.get('saleStartsAt'):
+                item['offers']['validFrom'] = event['saleStartsAt']
+        if brand == 'boom':
+            # No DJ is named in the feed, so performer is omitted rather than invented.
+            item = {'@context': item['@context'], '@type': 'Event', '@id': page_url + '#event', **{k: v for k, v in item.items() if k not in ('@context', '@type')}}
+            age = is_adult(event)
+            if age is True: item['typicalAgeRange'] = '18-'
+            elif event['fmt'] == 'fsd': item['typicalAgeRange'] = '4-'
+            series = event_series_routes(event)
+            if series:
+                refs = [{'@id': BOOM_BASE + r + '#series'} for r in series]
+                item['superEvent'] = refs[0] if len(refs) == 1 else refs
         schema.append(item)
         listing_route = '/events/' if brand == 'pm' else '/whats-on/'
+        crumbs = ([('Home', site_url), ('What’s on', base + listing_route)] if brand == 'pm'
+                  else [('Home', site_url), ('Locations', base + '/locations/'), (event['city'], base + city_url('boom', event['city']))])
+        crumbs.append((clean_title(event), page_url))
         schema.append({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
-            {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site_url},
-            {'@type': 'ListItem', 'position': 2, 'name': 'What’s on', 'item': base + listing_route},
-            {'@type': 'ListItem', 'position': 3, 'name': clean_title(event), 'item': page_url}]})
+            {'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u} for i, (n, u) in enumerate(crumbs)]})
     elif route != '/':
         parts = route.strip('/').split('/')
         if len(parts) > 1:
