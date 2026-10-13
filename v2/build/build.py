@@ -1598,6 +1598,60 @@ def format_towns_block(key, upcoming):
     return f'<section class="section container">{section_head(label)}<ul class="city-chips">{links}</ul>{f"<p class=more-links>{tf}</p>" if tf else ""}</section>' if towns else ''
 
 
+TOWN_FORMAT_PROOF = {'silent-disco': ['sd-energy.jpg', 'sd-four-friends.jpg', 'sd-dance-drinks.jpg'], 'family-silent-disco': ['family-silent-disco-live.jpg']}
+
+
+def town_format_page(key, city, events):
+    """Town and format page, built only while that format has upcoming dates in that town (board #newtown template)."""
+    name = next(label for k, label, _ in FORMAT_PAGES if k == key)
+    token = next(t for k, _, t in FORMAT_PAGES if k == key)
+    rel = [e for e in events if e['brand'] == 'boom' and e['city'] == city and e['fmt'] in NIGHT_FMTS[key]]
+    route = f'/{key}/{slug(city)}/'
+    nxt = next((e for e in rel if on_sale(e)), rel[0])
+    venues = venues_by_use(rel)
+    past = sorted([r for r in BOOM_ALL if token in str(r.get('eventCode')) and r.get('city') == city and r['start'][:10] < TODAY and not r.get('isCancelled')], key=lambda r: r['start'])
+    if key == 'silent-disco':
+        title = f'Silent Disco in {city}: Dates and Venue | Boombastic'
+        h1 = f'Silent disco in {city}: {name}'
+        lead = f'{name} is the Boombastic Events silent disco in {city}: three live DJs on three headphone channels, and you switch whenever you like.'
+        desc = f'{name} in {city}: three DJs on three headphone channels. Next: {event_name(nxt)}, {d_day_year(nxt["start"])}, {nxt["venue"]}, {price_sentence(nxt)}.'
+    else:
+        title = f'Family Silent Disco in {city}: Dates | Boombastic'
+        h1 = f'Family Silent Disco in {city}: dates, venues and ages'
+        lead = f'Family Silent Disco by Boombastic Events runs in {city} for children aged 4 and up and the grown-ups who bring them, with three family-friendly headphone channels.'
+        bits = [f'{("Halloween" if "halloween" in e["title"].lower() else "Christmas" if "christmas" in e["title"].lower() else name)} at {SHORT_VENUE.get(e["venue"], e["venue"])} on {ordinal(dt(e["start"]).day)} {dt(e["start"]).strftime("%B")}' for e in rel[:3]]
+        desc = f'Family Silent Disco in {city} for kids 4+ and their grown-ups: ' + join_words(bits) + '.'
+    answer = fit_answer([lead, date_sentence(nxt)], [date_sentence(e, 'Then') for e in rel if e is not nxt][:2] + ['Each date has its own page with times, venue and tickets.'])
+    notes = []
+    for e in rel:
+        n = notice(e)
+        if n: notes.append(f'<p><strong>{esc(d_short(e["start"]))}:</strong> {esc(n[1])} <a href="{esc(e["path"])}#good-to-know">Details {ARROW}</a></p>')
+    venue_html = (f'<section class="kb container"><div class="kb-intro"><h2>THE VENUE{"S" if len(venues) > 1 else ""}</h2><p>Check the venue on your chosen date before travelling.</p></div>'
+                  f'<div class="kb-venues">{venue_cards_html(rel)}</div><div class="kb-notes">{"".join(notes)}<p class="kb-access">{icon("access")}<span>Access questions? <a href="mailto:{EMAIL}">Get in touch {ARROW}</a></span></p></div></section>')
+    past_txt = (f'<p>{esc(name)} has run in {esc(city)} before: ' + join_words([d_day_year(r['start']) for r in past[-3:]]) + '.</p>') if past else ''
+    proof = f'<section class="section container"><h2>FROM OUR {esc(name.upper())} NIGHTS</h2>{past_txt}<div class="season-photos">{"".join(photo(x, "season-photo") for x in TOWN_FORMAT_PROOF.get(key, []))}</div></section>'
+    if key == 'silent-disco':
+        faqs = [(f'When is the next silent disco in {city}?', esc(date_sentence(nxt).replace('The next date is ', ''))),
+                ('How do the channels work?', 'Wireless headphones pick up three DJs. Switch channel with the button on the headphones; the light shows which channel you are on.')]
+        if any('£10 fully refundable headphone deposit' in (e.get('full') or '') or e['fmt'] == 'sdxmas' for e in rel):
+            faqs.append(('Is there a headphone deposit?', 'For the Christmas Silent Disco, a £10 fully refundable headphone deposit is taken on the night. Check your event page for others.'))
+        faqs.append((f'Where is it in {city}?', esc('; '.join(f'{v}, {", ".join(street(next(e for e in rel if e["venue"] == v)))}' for v in venues) + '.') + (' Some events use an upstairs room reached by steps; check your event page.' if 'The Charles Bradlaugh' in venues else '')))
+    else:
+        faqs = [(f'When is the next Family Silent Disco in {city}?', esc('; '.join(f'{event_name(e)}: {d_day_year(e["start"])}, {times(e).replace(" – ", " to ")}, {e["venue"]}' for e in rel) + '.')),
+                ('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large. Check your event page for the under-4s policy on that date.'),
+                ('Do children need an adult?', 'Yes. Children must be accompanied and supervised by a ticket-holding adult at all times, maximum three children per adult.'),
+                ('Is the venue accessible?', 'Venue arrangements vary by date. The Charles Bradlaugh events are upstairs, accessed by steps. Email us before booking if you need to check an arrangement.')]
+    body = (f'<nav class="crumbs container" aria-label="Breadcrumb"><a href="/{key}/">{esc(name)}</a> / {esc(city)}</nav>'
+            f'<section class="page-band"><div class="container"><p class="eyebrow">{esc(name)} · {esc(city)}</p><h1 class="h1-band">{esc(h1)}</h1><p class="answer">{esc(answer)}</p></div></section>'
+            f'<section class="section container" id="upcoming">{section_head(f"{esc(name.upper())} IN {esc(city.upper())}", f"<a class=text-link href={city_url("boom", city)}>Everything in {esc(city)} {ARROW}</a>")}{results(rel)}</section>'
+            + night_block([key]) + venue_html + proof
+            + f'<section class="section container faq-list"><h2>{esc(name.upper())} IN {esc(city.upper())}: QUESTIONS</h2>{"".join(acc(q, a) for q, a in faqs)}</section>'
+            + link_list([(f'All {name} dates', f'/{key}/'), (f'Everything in {city}', city_url('boom', city)), ('Group bookings', '/group-bookings/')], 'More')
+            + signup('boom', city=city))
+    PAGE_META[('boom', route)] = dict(title=title, description=desc)
+    return page('boom', f'{name} in {city}', body, desc, route)
+
+
 def boom_format(key, events):
     F = BOOM_FORMATS[key]
     upcoming = [e for e in events if e['fmt'] in F['fmts'] and e['brand'] == 'boom']
@@ -2232,6 +2286,10 @@ def release_redirects(brand, events):
     rows += past_event_redirects(brand, rows)
     if brand == 'boom' and not christmas_events(events):
         rows += ['/christmas-parties/ /whats-on/ 302!', '/christmas-parties /whats-on/ 302!']
+    if brand == 'boom':
+        for key, city in TOWN_FORMAT_PAGES:
+            if (key, city) not in TOWN_FORMAT_LIVE:
+                rows += [f'/{key}/{slug(city)}/ /{key}/ 302!', f'/{key}/{slug(city)} /{key}/ 302!']
     if brand == 'boom' and not halloween_events(events):
         rows += ['/halloween/ /whats-on/ 302!', '/halloween /whats-on/ 302!']
     # An unknown URL should return a real 404, never an old React shell.
@@ -2358,6 +2416,9 @@ def build():
     errors = install_assets(all_events.values())
     for e in boom + pm: e['poster'] = all_events[e['code']]['poster']
     CURRENT_EVENTS = {'boom': boom, 'pm': pm}
+    TOWN_FORMAT_LIVE.clear()
+    TOWN_FORMAT_LIVE.update((k, c) for k, c in TOWN_FORMAT_PAGES
+                            if any(e['brand'] == 'boom' and e['city'] == c and e['fmt'] in NIGHT_FMTS[k] for e in boom))
     build_formats()
     for brand, events in CURRENT_EVENTS.items():
         dist = OUTPUT_ROOT / ('dist-2pm' if brand == 'pm' else 'dist-boom')
@@ -2391,6 +2452,7 @@ def build():
             write_page(dist, 'what-to-expect', pm_what_to_expect(events))
         else:
             for key in BOOM_FORMATS: write_page(dist, key, boom_format(key, events))
+            for key, city in sorted(TOWN_FORMAT_LIVE): write_page(dist, f'{key}/{slug(city)}', town_format_page(key, city, events))
             if christmas_events(events): write_page(dist, 'christmas-parties', christmas_page(brand, events))
             if halloween_events(events): write_page(dist, 'halloween', halloween_page(brand, events))
         write_page(dist, 'about', about_page(brand, events))
