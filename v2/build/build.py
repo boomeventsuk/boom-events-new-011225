@@ -1108,6 +1108,22 @@ def link_list(links, label):
     return f'<nav class="more-links container" aria-label="{esc(label)}">{inner}</nav>'
 
 
+def event_answer(e):
+    """Answer-first summary for an event page: what, when, where, age where known, price and group ticket."""
+    addr = ', '.join(street(e))
+    out = [f'{"Boombastic’s " if e["title"].startswith("Boombastic") else ""}{event_name(e)} in {e["city"]} is on {d_day_year(e["start"])}, {times(e).replace(" – ", " to ")}, at {e["venue"]}{", " + addr if addr else ""}.']
+    if is_adult(e) is True: out.append('It is an 18+ event; valid photo ID may be required.' if e['fmt'] == 'hhp' else 'It is an 18+ event.')
+    elif e['fmt'] == 'fsd': out.append('It is designed for children aged 4 and up and the grown-ups who bring them.')
+    if e.get('soldout'):
+        out.append('It is sold out; join the waiting list below.')
+    elif e.get('price'):
+        g = (e.get('groupTicket') or {}).get('label')
+        m = re.match(r'Group of (\d+) for (£[\d.]+)', price_label(g or ''))
+        extra = f', and a group-of-{m.group(1)} ticket costs {m.group(2)}' if m else (', and group offers are available' if g else '')
+        out.append(f'Tickets start from {from_price(e)} plus booking fee{extra}.')
+    return ' '.join(out)
+
+
 def event_more_links(e):
     """Links from an event page to the durable pages it belongs to."""
     links = [(f'More in {e["city"]}', city_url('boom', e['city']))]
@@ -1223,7 +1239,8 @@ def details(brand, e):
     related = f'<section class="section container related">{section_head("MORE COMING UP", f"<a class=text-link href=/whats-on/>See all events {ARROW}</a>")}<div class="card-grid">{"".join(event_card(x) for x in others)}</div></section>'
     more = event_more_links(e) if brand == 'boom' else []
     more_html = link_list(more, 'More like this')
-    body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + more_html + related
+    answer_html = f'<section class="container answer-block"><p class="answer">{esc(event_answer(e))}</p></section>' if brand == 'boom' else ''
+    body = hero_html + answer_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + more_html + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
     if is_disco_fever:
