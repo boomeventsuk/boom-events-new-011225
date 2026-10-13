@@ -33,6 +33,7 @@ BOOM = json.loads(BOOM_FEED.read_text())
 WITHDRAWN_EVENT_CODES = {'281026-FSD-NPTON'}
 BOOM = [e for e in BOOM if str(e.get('eventCode', '')).upper() not in WITHDRAWN_EVENT_CODES]
 PM = json.loads(PM_FEED.read_text())
+BOOM_ALL = BOOM  # feed plus archived past records (see F08)
 SUPPORT = json.loads((TWIN / 'source-snapshots/support-pages.json').read_text())
 TODAY = datetime.now(ZoneInfo('Europe/London')).date().isoformat()
 STRICTLY_SEASON_2026 = '2026-09-19' <= TODAY <= '2026-12-19'
@@ -326,7 +327,7 @@ def sitemap_city_slugs(brand):
 
 
 def verified_places(brand):
-    raw = PM if brand == 'pm' else BOOM
+    raw = PM if brand == 'pm' else BOOM_ALL
     names = {CITY_CODE.get(r['cityCode'], r['cityCode']) if brand == 'pm' else r['city'] for r in raw}
     by_slug = {slug(n): n for n in names}
     missing = sitemap_city_slugs(brand) - set(by_slug)
@@ -1437,12 +1438,6 @@ def blog_daytime_guide():
     return page('pm', 'What is a Daytime Disco?', body, 'A daytime disco is a proper party in the afternoon. See the music, timing, crowd and how to book a THE 2PM CLUB day party.', '/blog/', image=PM_BASE + '/assets/pm-arms.jpg')
 
 
-def paused_format_page(name):
-    """Old URL of a format that is not running. Plain statement and a route to real events; no dates, photos or revival promise."""
-    body = f'<section class="page-band"><div class="container"><h1>{esc(name.upper())}.</h1><p>{esc(name)} is not running at the moment. No {esc(name)} date is on sale.</p>{btn("See what’s on", "/whats-on/")}</div></section>'
-    return page('boom', name, body, f'{name} is not running at the moment.', sticky_label='See what’s on', sticky_href='/whats-on/')
-
-
 def official_content_page(brand, key):
     if brand == 'boom' and key == 'jobs':
         return render_recruitment_page(page)
@@ -1653,6 +1648,43 @@ def provenance(all_events):
     (HERE / 'V2-ASSET-PROVENANCE.json').write_text(json.dumps(dict(photos=rows, posters=posters, boom_base=BOOM_BASE, pm_base=PM_BASE), indent=1))
 
 
+def case_variants(src, dest, status='301!'):
+    """Old links arrive in either case, with or without a trailing slash: emit every form."""
+    out = []
+    for base in dict.fromkeys([src.rstrip('/'), src.rstrip('/').lower(), src.rstrip('/').upper().replace('/EVENTS/', '/events/').replace('/EVENT/', '/event/')]):
+        out += [f'{base} {dest} {status}', f'{base}/ {dest} {status}', f'{base}/* {dest} {status}']
+    return list(dict.fromkeys(out))
+
+
+GONE_EVENT_CODES = ('250126-GR-NPTON', '260626-GR-NPTON')  # retired GET READY one-off dates
+GONE_LEGACY = ('/events/get-ready-60s-70s-motown-soul-disco-sunday-matinee-special',)
+
+
+def gone_paths():
+    paths = []
+    for code in GONE_EVENT_CODES:
+        for form in dict.fromkeys([code.lower(), code]):
+            paths += [f'/event/{form}', f'/event/{form}/', f'/event/{form}/*']
+    for legacy in GONE_LEGACY:
+        paths += [legacy, legacy + '/', legacy + '/*']
+    return paths
+
+
+def pm_dest(code, pm_by_code):
+    code = code.lower()
+    if code in pm_by_code:
+        return PM_BASE + pm_by_code[code]['path']
+    city = CITY_CODE.get(code.split('-')[-1].upper())
+    return PM_BASE + '/hubs/' + slug(city) + '/' if city else PM_BASE + '/events/'
+
+
+def gone_page(brand):
+    body = ('<section class="page-band"><div class="container"><p class="eyebrow">Event finished</p><h1>THAT EVENT HAS ENDED.</h1>'
+            '<p>This party has finished and will not be coming back. See what is on now.</p>' + btn('See what’s on', '/whats-on/') + '</div></section>')
+    html_ = page(brand, 'Event ended', body, 'This event has finished.')
+    return html_.replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="robots" content="noindex">', 1)
+
+
 def release_redirects(brand, events):
     """Keep old owned URLs useful without sending ended events to stale ticket pages."""
     host = 'the2pmclub.co.uk' if brand == 'pm' else 'boomevents.co.uk'
@@ -1694,13 +1726,20 @@ def release_redirects(brand, events):
                  '/events/christmas-family-silent-disco-northampton/* /family-silent-disco/ 301!',
                  '/events/the-2pm-club-milton-keynes-christmas-daytime-disco/* https://www.the2pmclub.co.uk/hubs/milton-keynes/ 301!',
                  '/events/the-2pm-club-bedford-christmas-daytime-disco/* https://www.the2pmclub.co.uk/hubs/bedford/ 301!',
-                 '/events/get-ready-60s-70s-motown-soul-disco-sunday-matinee-special/* /whats-on/ 301!',
-                 '/get-ready /whats-on/ 301!', '/get-ready/ /whats-on/ 301!',
+                 # GET READY is retired (it only ran in Northampton): the brand hub goes to the Northampton
+                 # town page and its past one-off event URLs answer 410 Gone from a small gone page.
+                 '/get-ready /locations/northampton/ 301!', '/get-ready/ /locations/northampton/ 301!', '/get-ready/* /locations/northampton/ 301!',
+                 *[f'{src} /gone.html 410!' for src in gone_paths()],
+                 # Indexed URLs that returned 404 (research 12th October 2026), restored to their nearest live page.
+                 '/tickets /whats-on/ 301!', '/tickets/ /whats-on/ 301!',
+                 *case_variants('/events/family-silent-disco-halloween-party-bedford', '/family-silent-disco/'),
+                 *case_variants('/event/061225-DEC-NPTON', '/locations/northampton/'),
+                 *case_variants('/events/the-2pm-club-northampton-80s-90s-00s-daytime-disco', PM_BASE + '/hubs/northampton/'),
                  '/events/the-2pm-club-luton-80s-90s-00s-daytime-disco/* https://www.the2pmclub.co.uk/hubs/luton/ 301!',
                  '/event/the-2pm-club-bedford-80s-90s-00s-daytime-disco https://www.the2pmclub.co.uk/hubs/bedford/ 301!',
                  '/event/the-2pm-club-bedford-80s-90s-00s-daytime-disco/* https://www.the2pmclub.co.uk/hubs/bedford/ 301!',
-                 '/event/071225-fsd-npton /family-silent-disco/ 301!',
-                 '/event/210326-sd-npton /silent-disco/ 301!',
+                 *case_variants('/event/071225-FSD-NPTON', '/locations/northampton/'),
+                 *case_variants('/event/210326-SD-NPTON', '/locations/northampton/'),
                  '/event/031026-2pm-lut /locations/luton/ 301!',
                  '/event/031026-2pm-lut/ /locations/luton/ 301!',
                  '/event/031026-2pm-lut/* /locations/luton/ 301!',
@@ -1717,14 +1756,16 @@ def release_redirects(brand, events):
             if any(row.split()[0] == src for row in rows):
                 continue
             code = src.split('/')[2].lower()
-            if code in pm_by_code:
-                dest = PM_BASE + pm_by_code[code]['path']
-            elif code == '250726-2pm-npton':
-                dest = PM_BASE + '/events/031026-2pm-npton/'
-            else:
-                city = CITY_CODE.get(code.split('-')[-1].upper())
-                dest = PM_BASE + '/hubs/' + (city.lower().replace(' ', '-') if city else '') + '/' if city else PM_BASE + '/events/'
-            rows.append(f'{src} {dest} 301!')
+            if any(row.split()[0] == f'/event/{code}' for row in rows):
+                continue
+            # One hop only: a current 2PM date goes to its 2PM page, any ended or moved date straight to its city hub.
+            # (250726-2PM-NPTON moved to 3rd October, which has also now passed, so it lands on the Northampton hub.)
+            rows += case_variants(f'/event/{code}', pm_dest(code, pm_by_code))
+        listed = {row.split()[0].lower() for row in rows}
+        for raw in BOOM_ALL:
+            code = str(raw.get('eventCode') or '').lower()
+            if '-2pm-' in code and f'/event/{code}' not in listed:
+                rows += case_variants(f'/event/{code}', pm_dest(code, pm_by_code))
         for e in events:
             src = '/events/' + e['code'].lower()
             rows += [f'{src} {e["path"]} 301!', f'{src}/ {e["path"]} 301!']
@@ -1789,8 +1830,8 @@ def past_event_redirects(brand, existing):
     current = {e['path'].lower() for e in CURRENT_EVENTS[brand] if e['brand'] == brand}
     hubs = set(verified_places('pm')) if brand == 'pm' else set()
     rows = []
-    for raw in (PM if brand == 'pm' else BOOM):
-        if brand == 'boom' and '2PM' in raw['title'].upper():
+    for raw in (PM if brand == 'pm' else BOOM_ALL):
+        if brand == 'boom' and ('2PM' in raw['title'].upper() or str(raw.get('eventCode')) in GONE_EVENT_CODES):
             continue
         code = str((raw.get('slug') if brand == 'pm' else raw.get('eventCode')) or '')
         if not code:
@@ -1802,12 +1843,19 @@ def past_event_redirects(brand, existing):
             city = CITY_CODE.get(raw.get('cityCode'), raw.get('cityCode'))
             dest = city_url('pm', city) if city in hubs else '/events/'
         else:
-            dest = next((f'/{key}/' for key, _, token in FORMAT_PAGES if token in code.upper()), '/whats-on/')
+            # Ended Boombastic dates go to their town page, which lists what is on there now (board F06).
+            city = raw.get('city')
+            dest = city_url('boom', city) if city in verified_places('boom') else '/whats-on/'
+        if brand == 'boom':
+            if path.rstrip('/').lower() not in seen:
+                rows += case_variants(path, dest)
+                seen.update(r.split()[0].lower() for r in rows)
+            continue
         for src in (path, path.rstrip('/')):
             if src.lower() not in seen:
                 rows.append(f'{src} {dest} 301!')
                 seen.add(src.lower())
-    return rows
+    return list(dict.fromkeys(rows))
 
 
 def build():
@@ -1852,7 +1900,6 @@ def build():
             for key in BOOM_FORMATS: write_page(dist, key, boom_format(key, events))
             if christmas_events(events): write_page(dist, 'christmas-parties', christmas_page(brand, events))
             if halloween_events(events): write_page(dist, 'halloween', halloween_page(brand, events))
-            if not RELEASE_MODE: write_page(dist, 'get-ready', paused_format_page('Get Ready'))
         write_page(dist, 'about', about_page(brand, events))
         write_page(dist, 'group-bookings', groups_page(brand, events))
         write_page(dist, 'faqs', faq_page(brand))
@@ -1891,7 +1938,7 @@ def build():
                 (dist / 'upcoming-events.json').write_text(json.dumps(upcoming, ensure_ascii=False, indent=2) + '\n')
             (dist / 'llms.txt').write_text(llms_txt(brand, events))
             (dist / f'{INDEXNOW_KEY}.txt').write_text(INDEXNOW_KEY)
-            aliases = {'whats-on', 'locations'} if brand == 'pm' else {'faqs', 'get-ready'}
+            aliases = {'whats-on', 'locations'} if brand == 'pm' else {'faqs'}
             routes = sorted('/' + str(f.parent.relative_to(dist)).replace('.', '').strip('/') + '/' for f in dist.rglob('index.html'))
             routes = [r.replace('//', '/') for r in routes if r.strip('/') not in aliases]
             sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{base}{r}</loc></url>\n' for r in routes) + '</urlset>\n'
@@ -1904,6 +1951,7 @@ def build():
             (dist / 'robots.txt').write_text('User-agent: *\nDisallow: /\n')
             (dist / '_headers').write_text('/*\n  X-Robots-Tag: noindex, nofollow, noarchive\n  X-Content-Type-Options: nosniff\n')
         (dist / '404.html').write_text(not_found(brand))
+        if brand == 'boom': (dist / 'gone.html').write_text(gone_page(brand))
         print(brand, len(list(dist.rglob('index.html'))), 'pages')
     provenance(all_events.values())
     print('poster errors', len(errors))
