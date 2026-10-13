@@ -33,7 +33,15 @@ BOOM = json.loads(BOOM_FEED.read_text())
 WITHDRAWN_EVENT_CODES = {'281026-FSD-NPTON'}
 BOOM = [e for e in BOOM if str(e.get('eventCode', '')).upper() not in WITHDRAWN_EVENT_CODES]
 PM = json.loads(PM_FEED.read_text())
-BOOM_ALL = BOOM  # feed plus archived past records (see F08)
+# Ended Boombastic dates leave the public feed (sync script and build both filter them) and are kept
+# in this archive so redirects, town history and venues.json still know where we have partied.
+HISTORY_PATH = TWIN / 'data/boom-event-history.json'
+HISTORY = json.loads(HISTORY_PATH.read_text()) if HISTORY_PATH.exists() else []
+# One name per venue everywhere (venues.json, pages, feed). Franklin's Gardens: JD to confirm DPD versus cinch.
+VENUE_ALIASES = {"Cinch Stadium, Franklin's Gardens": "DPD Stadium at Franklin's Gardens"}
+for _r in BOOM + HISTORY:
+    if _r.get('venue') in VENUE_ALIASES: _r['venue'] = VENUE_ALIASES[_r['venue']]
+BOOM_ALL = BOOM + [h for h in HISTORY if h.get('eventCode') not in {r.get('eventCode') for r in BOOM}]
 SUPPORT = json.loads((TWIN / 'source-snapshots/support-pages.json').read_text())
 TODAY = datetime.now(ZoneInfo('Europe/London')).date().isoformat()
 STRICTLY_SEASON_2026 = '2026-09-19' <= TODAY <= '2026-12-19'
@@ -277,7 +285,7 @@ def normalized():
     b.sort(key=lambda e: e['start'])
     # Same named venue, address taken from another entry in the same dated feeds when this entry lacks one.
     known = {}
-    for raw in PM + BOOM:
+    for raw in PM + BOOM_ALL:
         v = raw.get('venue') or (raw.get('location') or '').rsplit(', ', 1)[0]
         if raw.get('venueAddress') and v: known.setdefault(v, raw['venueAddress'])
     raw_by_id = {r['eventbriteId']: r for r in PM + BOOM}
@@ -1463,7 +1471,7 @@ def official_content_page(brand, key):
         if key == 'for-ai':
             name = 'THE 2PM CLUB' if brand == 'pm' else 'Boombastic Events'
             feed = '/events.json' if brand == 'pm' else '/events-boombastic.json'
-            body = f'''<article class="prose container legal-page"><h1>Public information about {esc(name)}</h1><p>{esc(name)} is operated by Boombastic Events Ltd. The <a href="{feed}">public event feed</a> lists event-specific dates, venues and links. The <a href="/whats-on/">What’s on page</a> is the current visitor-facing listing; each event page links to its live Eventbrite ticket selector.</p><p>Check the individual event page for the current time, access details and ticket options. Questions: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></article>'''
+            body = f'''<article class="prose container legal-page"><h1>Public information about {esc(name)}</h1><p>{esc(name)} is operated by Boombastic Events Ltd. The <a href="{feed}">public event feed</a> lists upcoming dates, venues and links.{' The <a href="/venues.json">venues feed</a> lists each venue with its address, town page and current dates.' if brand == 'boom' else ''} The <a href="/whats-on/">What’s on page</a> is the current visitor-facing listing; each event page links to its live Eventbrite ticket selector.</p><p>Check the individual event page for the current time, access details and ticket options. Questions: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></article>'''
             return page(brand, label, body, f'Public event information and data feed for {name}.')
         raise SystemExit(f'{brand}/{key}: no production content source')
     body = f'<section class="page-band"><div class="container"><p class="eyebrow">Current information</p><h1>{esc(label.upper())}.</h1><p>This preview keeps the current {esc(label.lower())} on the official website while the new site is reviewed.</p>{btn("Read the current " + esc(label.lower()) + " ↗", f"{live}/{key}/")}</div></section>'
@@ -1858,6 +1866,44 @@ def past_event_redirects(brand, existing):
     return list(dict.fromkeys(rows))
 
 
+def public_feed():
+    """events-boombastic.json as published: upcoming, not cancelled, start and end with their UK offset."""
+    out = []
+    for raw in BOOM:
+        if raw['start'][:10] < TODAY or raw.get('isCancelled'):
+            continue
+        item = dict(raw)
+        item['start'], item['end'] = schema_time(raw['start']), schema_time(raw['end'])
+        out.append(item)
+    return sorted(out, key=lambda r: r['start'])
+
+
+def venues_feed(events):
+    """venues.json regenerated from the event registry: one entry per venue, with address, town page and live URLs.
+
+    Retired venues and formats are left out (The Picturedrome, GET READY)."""
+    retired_venues = {'The Picturedrome'}
+    cities = {}
+    for raw in BOOM_ALL:
+        venue, city = raw.get('venue'), raw.get('city')
+        if not venue or not city or venue in retired_venues or str(raw.get('eventCode')) in GONE_EVENT_CODES:
+            continue
+        c = cities.setdefault(city, {'city': city, 'townPage': BOOM_BASE + city_url('boom', city), 'venues': {}})
+        v = c['venues'].setdefault(venue, {'name': venue, 'address': None, 'upcomingEvents': [], 'pastEventCount': 0})
+        if raw.get('venueAddress') and not v['address']:
+            v['address'] = {k: raw['venueAddress'][k] for k in ('streetAddress', 'addressLocality', 'postalCode', 'addressCountry') if raw['venueAddress'].get(k)}
+        if raw['start'][:10] < TODAY or raw.get('isCancelled'):
+            v['pastEventCount'] += 1
+    for e in events:
+        if e['venue'] in retired_venues or e['city'] not in cities or e['venue'] not in cities[e['city']]['venues']:
+            continue
+        url = e['path'] if e['path'].startswith('http') else BOOM_BASE + e['path']
+        cities[e['city']]['venues'][e['venue']]['upcomingEvents'].append(
+            {'name': event_name(e), 'title': e['title'], 'start': schema_time(e['start']), 'url': url, 'soldOut': bool(e.get('soldout'))})
+    return {'updated': TODAY, 'description': 'Venues Boombastic Events uses or has used, with addresses where published and links to current dates.',
+            'cities': [dict(c, venues=sorted(c['venues'].values(), key=lambda v: v['name'])) for _, c in sorted(cities.items())]}
+
+
 def build():
     global CURRENT_EVENTS
     boom, pm = normalized()
@@ -1920,8 +1966,8 @@ def build():
                 write_page(dist, 'jobs/' + role, render_recruitment_page(page, role))
         if brand == 'pm': shutil.copyfile(PM_FEED, dist / 'events.json')
         else:
-            shutil.copyfile(BOOM_FEED, dist / 'events-boombastic.json')
-            shutil.copyfile(TWIN / 'source-snapshots/venues.json', dist / 'venues.json')
+            (dist / 'events-boombastic.json').write_text(json.dumps(public_feed(), ensure_ascii=False, indent=2) + '\n')
+            (dist / 'venues.json').write_text(json.dumps(venues_feed(events), ensure_ascii=False, indent=2) + '\n')
         if RELEASE_MODE:
             base = PM_BASE if brand == 'pm' else BOOM_BASE
             if brand == 'pm':

@@ -17,6 +17,51 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const EVENTS_PATH = resolve(ROOT, 'public/events-boombastic.json');
 const INTERNAL_PATH = resolve(ROOT, 'scripts/.ticket-data-internal.json');
+const HISTORY_PATH = resolve(ROOT, 'data/boom-event-history.json');
+
+// ============================================================
+// Upcoming-only public feed (SEO/GEO pass, 13th October 2026).
+//
+// events-boombastic.json is the feed AI tools are pointed at, so it must
+// only carry dates that have not happened yet. Ended records are moved to
+// data/boom-event-history.json with no price, availability or urgency
+// label, so a sync can never put a past event (or a stale "Selling fast")
+// back into the public feed. The site build reads the history file for
+// redirects, town history and venues.json.
+// ============================================================
+const ARCHIVE_FIELDS = ['eventCode', 'eventbriteId', 'title', 'start', 'end', 'city', 'venue', 'venueAddress', 'isCancelled'];
+
+function londonToday(now = new Date()) {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/London' }).format(now);
+}
+
+function archiveRecord(event) {
+  const out = {};
+  for (const key of ARCHIVE_FIELDS) if (event[key] !== undefined) out[key] = event[key];
+  return out;
+}
+
+// Pure: returns the upcoming events (same order) and the merged history.
+function splitPastEvents(events, history, today) {
+  const upcoming = [];
+  const merged = [...history];
+  const known = new Set(history.map(h => h.eventCode));
+  let moved = 0;
+  for (const event of events) {
+    const day = String(event.start || '').slice(0, 10);
+    if (day && day < today) {
+      if (!known.has(event.eventCode)) {
+        merged.push(archiveRecord(event));
+        known.add(event.eventCode);
+      }
+      moved++;
+    } else {
+      upcoming.push(event);
+    }
+  }
+  merged.sort((a, b) => String(a.start).localeCompare(String(b.start)));
+  return { upcoming, history: merged, moved };
+}
 
 // Load token from env or .env.local
 function loadToken() {
@@ -416,7 +461,12 @@ async function main() {
   const token = loadToken();
   console.log('Eventbrite price sync starting...');
 
-  const events = JSON.parse(readFileSync(EVENTS_PATH, 'utf-8'));
+  const history = existsSync(HISTORY_PATH) ? JSON.parse(readFileSync(HISTORY_PATH, 'utf-8')) : [];
+  const split = splitPastEvents(JSON.parse(readFileSync(EVENTS_PATH, 'utf-8')), history, londonToday());
+  const events = split.upcoming;
+  if (split.moved > 0) {
+    console.log(`Moved ${split.moved} ended event(s) out of the public feed into ${HISTORY_PATH}.`);
+  }
 
   const sanitised = { count: 0 };
   sanitiseEmDashes(events, null, sanitised);
@@ -531,8 +581,9 @@ async function main() {
     await new Promise(r => setTimeout(r, 200));
   }
 
-  // Write public data
+  // Write public data (upcoming only) and the ended-event history
   writeFileSync(EVENTS_PATH, JSON.stringify(events, null, 2) + '\n');
+  writeFileSync(HISTORY_PATH, JSON.stringify(split.history, null, 2) + '\n');
 
   // Write internal data (gitignored, never pushed)
   writeFileSync(INTERNAL_PATH, JSON.stringify(internalData, null, 2) + '\n');
@@ -550,6 +601,8 @@ export {
   classifyCancellation,
   applyCancellationFields,
   extractPriceData,
+  splitPastEvents,
+  londonToday,
 };
 
 // Only run the live sync when this file is executed directly (`node
