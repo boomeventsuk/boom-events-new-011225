@@ -29,6 +29,9 @@ if RELEASE_MODE and not (os.environ.get('TWIN_BOOM_FEED') and os.environ.get('TW
 BOOM_FEED = Path(os.environ.get('TWIN_BOOM_FEED', TWIN / 'source-snapshots/boom-events-2026-09-23.json'))
 PM_FEED = Path(os.environ.get('TWIN_PM_FEED', TWIN / 'source-snapshots/2pm-events-2026-09-23.json'))
 BOOM = json.loads(BOOM_FEED.read_text())
+# Withdrawn at John's instruction on 14th October 2026. Keep external feeds from restoring the event.
+WITHDRAWN_EVENT_CODES = {'281026-FSD-NPTON'}
+BOOM = [e for e in BOOM if str(e.get('eventCode', '')).upper() not in WITHDRAWN_EVENT_CODES]
 PM = json.loads(PM_FEED.read_text())
 SUPPORT = json.loads((TWIN / 'source-snapshots/support-pages.json').read_text())
 TODAY = datetime.now(ZoneInfo('Europe/London')).date().isoformat()
@@ -1053,7 +1056,7 @@ def build_formats():
             cards=[(None, 'Party', 'blue', 'Family favourites and sing-alongs, with seasonal songs on special dates.'), (None, 'Throwbacks', 'red', "Sing-out-loud hits from the 80s, 90s and 2000s. This one's for the grown-ups."), (None, 'Charts', 'green', 'Current favourites and trending hits.')],
             after='<p class="fine">Each person can choose a channel and set their own headphone volume. Check the individual event page for the channel line-up on your date.</p>',
             strip=None, dates_h='UPCOMING FAMILY SILENT DISCOS', nodate='',
-            faq=[('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large. At the 28th October Saints party, under-4s are welcome, ideally as babes in arms, who go free.'), ('Do children need an adult?', 'Yes. Children must be accompanied and supervised by a ticket-holding adult at all times, maximum three children per adult. Everyone needs a ticket, except babes in arms at the 28th October Saints party.'), ('Is the venue accessible?', 'Venue arrangements vary by date. The 12th December event is upstairs at The Charles Bradlaugh, accessed by steps. Email us before booking if you need to check an arrangement for either venue.'), ('What time is it?', 'The 28th October Northampton Saints party runs 2pm to 4pm. The 12th December party runs 11am to 1pm. Check your event page for the exact details.')],
+            faq=[('What age is it for?', 'Designed for ages 4 and up. Younger children may find the headphones too large. Check your event page for its age guidance.'), ('Do children need an adult?', 'Yes. Children must be accompanied and supervised by a ticket-holding adult at all times, maximum three children per adult. Check your event page for ticket requirements.'), ('Is the venue accessible?', 'Venue arrangements vary by date. The 12th December event is upstairs at The Charles Bradlaugh, accessed by steps. Email us before booking if you need to check access arrangements.'), ('What time is it?', 'The 12th December party runs 11am to 1pm. Check your event page for the exact details.')],
             cta_sub='Find your next Family Silent Disco.'),
         'boombastic-90s': dict(title='Boombastic 90s', eyebrow='Boombastic 90s', h1='ALL OF THE NINETIES.<br>EVERY LAST BIT.', sub='Pop, Britpop, dance and hip-hop. Four hours, giant screens, no filler.', cta='Find Boombastic 90s dates', hero='b90-stage.jpg', fmts=('b90',),
             ribbon=[('THE WHOLE DECADE', 'Pop, Britpop, hip-hop, dance'), ('GIANT SCREENS', 'Authentic 90s videos'), ('COME AS YOU ARE', 'Ready to sing every word')], how_h='HERE’S HOW IT FEELS',
@@ -1468,12 +1471,12 @@ def release_redirects(brand, events):
                  '/blog/why-2pm-works/ /blog/what-is-a-daytime-disco/ 301!']
         # Earlier blog URLs are retained as full pages and are not redirected.
     else:
-        rows += ['/saintsfsd /event/281026-fsd-npton/ 302!',
-                 '/saintsfsd/ /event/281026-fsd-npton/ 302!',
-                 '/SAINTSFSD /event/281026-fsd-npton/ 302!',
-                 '/SAINTSFSD/ /event/281026-fsd-npton/ 302!',
-                 '/SaintsFSD /event/281026-fsd-npton/ 302!',
-                 '/SaintsFSD/ /event/281026-fsd-npton/ 302!',
+        rows += ['/saintsfsd /404.html 404!',
+                 '/saintsfsd/ /404.html 404!',
+                 '/SAINTSFSD /404.html 404!',
+                 '/SAINTSFSD/ /404.html 404!',
+                 '/SaintsFSD /404.html 404!',
+                 '/SaintsFSD/ /404.html 404!',
                  '/faqs/ /faq/ 301!',
                  '/event/061226-fsd-npton/ /event/121226-fsd-npton/ 301!',
                  '/event/061226-fsd-npton /event/121226-fsd-npton/ 301!',
@@ -1611,7 +1614,8 @@ def build():
         if dist.exists(): shutil.rmtree(dist)
         (dist / 'assets').mkdir(parents=True)
         for f in (HERE / 'assets').iterdir():
-            if f.is_file(): shutil.copyfile(f, dist / 'assets' / f.name)
+            if f.is_file() and not any(code.lower() in f.name.lower() for code in WITHDRAWN_EVENT_CODES):
+                shutil.copyfile(f, dist / 'assets' / f.name)
         shutil.copyfile(HERE / 'site.css', dist / 'assets/site.css')
         shutil.copyfile(HERE / 'site.js', dist / 'assets/site.js')
         for f in (HERE / 'icons' / brand).iterdir():
