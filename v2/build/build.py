@@ -215,6 +215,7 @@ def fmt_key(e):
     if '-SD-' in code: return 'sdxmas' if 'Christmas' in title else 'sd'
     if '-B90-' in code: return 'b90'
     if '-HHP-' in code: return 'hhp'
+    if code == '311226-DEC-NPTON': return 'nye'
     if '-DEC-' in code: return 'dec'
     return 'party'
 
@@ -229,6 +230,7 @@ FORMAT = {
     'fsd': ('Family Silent Disco', 'green', 'Family', 'Family Silent Disco', ''),
     'b90': ('Boombastic 90s', 'coral', 'Decades Parties', 'Boombastic 90s', ''),
     'hhp': ('Halloween House Party', 'orange', 'Halloween', 'Halloween House Party', ''),
+    'nye': ('Boombastic NYE', 'coral', 'Decades Parties', 'Boombastic NYE: The Decades Party', 'New Year’s Eve 2026'),
     'dec': ('Christmas Decades Party', 'coral', 'Decades Parties', 'Christmas Decades Party', ''),
 }
 
@@ -444,6 +446,10 @@ def event_copy(e):
     if f == 'hhp':
         return dict(h2='TWO FLOORS. ONE HALLOWEEN.', sub='One building. Two floors. Five hours of anthems and classics.', lede='Our first ever Halloween House Party. Upstairs is 90s and 00s throwback anthems; downstairs is 90s and 00s indie classics. Party from 8pm to 1am.',
                     bullets=[('music', 'Upstairs: Spice Girls to Daft Punk'), ('music', 'Downstairs: Oasis to Arctic Monkeys'), ('info', 'Entry is 18+. Valid photo ID may be required')], quote=None, photo='b90-crowd.jpg')
+    if f == 'nye':
+        return dict(h2='BOOMBASTIC NYE IS BACK!', sub=e['subtitle'],
+                    lede='We couldn’t let another New Year’s Eve pass without a massive Boombastic party in Northampton. After 10 years of sellout New Year’s Eve parties, we’re bringing Boombastic NYE to The Charles Bradlaugh.',
+                    bullets=[('music', 'The biggest hits of the 80s, 90s and 2000s'), ('people', 'All on one dancefloor. Get your mates together'), ('clock', '8pm to 1am on Thursday 31st December, seeing in 2027')], quote=None, photo=None)
     if f == 'dec':
         return dict(h2='THE CHRISTMAS NIGHT OUT.', sub='Wall-to-wall 80s, 90s and 00s anthems with festive classics from Mariah, Wham!, Slade and co.', lede='Grab your favourite people for four hours of 80s, 90s and 00s anthems, laced with the Christmas classics you still know word for word.',
                     bullets=[('music', 'Mariah and Wham! alongside Whitney, Take That and Oasis'), ('people', 'One date for the people you want to spend Christmas with'), ('star', 'Four hours on the dancefloor')], quote=QUOTES['emma_r'], photo='b90-group.jpg')
@@ -844,7 +850,7 @@ def details(brand, e):
     is_disco_fever = e['fmt'] == 'pmdf'
     hero_cta = 'Book Disco Fever' if is_disco_fever else 'Find your tickets'
     alert = f'<a class="hero-alert" href="#good-to-know">{icon("info")}<span>{esc(note[0])}: read before you book</span></a>' if note and not saints_fsd else ''
-    adult_event = brand == 'pm' or e['code'] == '260926-SD-NPTON' or e['fmt'] == 'hhp'
+    adult_event = brand == 'pm' or e['code'] == '260926-SD-NPTON' or e['fmt'] in ('hhp', 'nye')
     facts_list = f'<ul class="hero-facts"><li>{icon("calendar")}<span>{esc(date)}</span></li><li>{icon("clock")}<span>{esc(tm)}</span></li><li>{icon("pin")}<span>{esc(e["venue"])}, {esc(e["city"])}</span></li>{f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event else ""}</ul>'
     soldout = e.get('soldout', False)
     ticket_label = 'Join waiting list' if soldout else 'Choose tickets'
@@ -904,6 +910,16 @@ def details(brand, e):
             acc('What time does it finish?', 'The party runs from 2pm to 4pm on Wednesday 28th October.'),
             acc('What if I have an access question?', access_a),
         ])
+    elif e['fmt'] == 'nye':
+        visit_questions = ''.join([
+            acc('When and where is Boombastic NYE?', 'Thursday 31st December 2026, 8pm to 1am on Friday 1st January 2027, at The Charles Bradlaugh, 1 Earl Street, Northampton, NN1 3AU.'),
+            acc('What music will be played?', 'The biggest hits of the 80s, 90s and 2000s, including Wham!, Whitney Houston, Oasis, Spice Girls, The Killers, Robin S and N-TRANCE. These are tracks on the soundtrack, not live artist appearances.'),
+            acc('Is the party on one floor?', 'Yes. Boombastic NYE is on one floor, with all three decades on the same dancefloor.'),
+            acc('How much are tickets?', 'Earlybird tickets are £12.50 plus booking fees, until the end of October or until the allocation sells out. General Release is £15 plus booking fees from 1st November to 17th December. Final Release is £17.50 plus booking fees from 18th December. Each release has 100 tickets. The live selector shows availability and the full checkout total.'),
+            acc('Can we book as a group?', 'There is no group-of-four offer on sale for this event. Book individual tickets together in the live selector.'),
+            acc('Is the event 18+?', 'Yes. Entry is 18+.'),
+            acc('What if I have an access question?', access_a),
+        ])
     elif is_disco_fever:
         visit_questions = ''.join([acc('Is it all disco?', 'Yes. All disco, all afternoon.'), acc('Is it fancy dress?', 'No. Dig out the sequins or wear what you can dance in.'), acc('What time is it on?', '2pm till 6pm.'), acc('Is the event 18+?', 'Yes. Entry is 18+.'), acc('Can we book as a group?', 'The group-of-four release is £40 plus booking fees and follows Early Release. The live ticket selector shows what is available now.'), acc('What if I have an access question?', access_a)])
     else:
@@ -919,7 +935,9 @@ def details(brand, e):
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
     if is_disco_fever:
         description = f'THE 2PM CLUB Disco Fever at {e["venue"]}, {e["city"]}. {d_short(e["start"])}, 2pm till 6pm. Four hours of the biggest disco hits: Chic, Donna Summer, Bee Gees, ABBA and more.'
-    return page(brand, f"{clean_title(e)}, {e['city']}, {d_short(e['start'])}", body, description, image=base + e['poster'], sticky_label=ticket_label, sticky_href='#tickets', body_class='is-event')
+    if e['fmt'] == 'nye':
+        description = 'Boombastic NYE 2026 in Northampton: 80s, 90s and 00s hits at The Charles Bradlaugh, 31st December, 8pm to 1am. Tickets from £12.50 plus booking fees.'
+    return page(brand, f"{clean_title(e)}, {e['city']}, {d_short(e['start'])}", body, description, image=base + ('/assets/nye-2026-social.webp' if e['fmt'] == 'nye' else e['poster']), sticky_label=ticket_label, sticky_href='#tickets', body_class='is-event')
 
 
 def clean_title(e):
@@ -1316,6 +1334,8 @@ def seo_enrich(brand, path, content):
     event = next((e for e in CURRENT_EVENTS[brand] if e['path'].lower() == route.lower()), None)
     if event:
         title = (f'{clean_title(event)} {event["city"]} | {d_short(event["start"])} | {event["venue"]}' if event['fmt'] == 'pmdf' else f'{clean_title(event)} | {d_short(event["start"])}')
+        if event['fmt'] == 'nye':
+            title = 'Boombastic NYE 2026 Northampton | The Charles Bradlaugh'
     elif route == '/':
         title = ('THE 2PM CLUB | Daytime Disco and Day Parties' if brand == 'pm'
                  else 'Boombastic Events | Daytime Disco, Silent Disco and Decades Parties')
@@ -1373,6 +1393,8 @@ def seo_enrich(brand, path, content):
                 'location': place, 'image': [base + event['poster']],
                 'organizer': {'@type': 'Organization', '@id': org_id, 'name': site, 'url': site_url},
                 'url': page_url}
+        if event['fmt'] == 'nye':
+            item['image'].append(base + '/assets/nye-2026-social.webp')
         amount = price_amount(event.get('price'))
         if amount:
             # The page's own "from" price. Booking fees are added at Eventbrite checkout, as the page states.

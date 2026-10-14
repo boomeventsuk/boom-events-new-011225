@@ -1217,5 +1217,40 @@
     ],
     "fomoOverride": null,
     "priceLastSync": "2026-10-14T14:48:31.913Z"
+  },
+  {
+    "eventCode": "311226-DEC-NPTON",
+    "title": "Boombastic NYE: The Decades Party | 80s · 90s · 00s",
+    "subtitle": "The biggest hits of the 80s, 90s and 2000s. One dancefloor, 8pm to 1am, seeing in 2027.",
+    "date": "Thursday, 31st December 2026",
+    "timeDisplay": "20:00 - 01:00",
+    "start": "2026-12-31T20:00:00",
+    "end": "2027-01-01T01:00:00",
+    "venue": "The Charles Bradlaugh",
+    "city": "Northampton",
+    "venueAddress": {
+      "streetAddress": "1 Earl Street",
+      "addressLocality": "Northampton",
+      "postalCode": "NN1 3AU",
+      "addressCountry": "GB"
+    },
+    "image": "https://www.boomevents.co.uk/assets/poster-311226-dec-npton.webp",
+    "eventbriteId": "2003404237003",
+    "description": "Boombastic NYE is back! Biggest 80s, 90s and 00s hits at The Charles Bradlaugh. One dancefloor, 8pm to 1am, seeing in 2027.",
+    "fullDescription": "🎉 BOOMBASTIC NYE IS BACK!\n\nWe couldn’t let another New Year’s Eve pass without a massive Boombastic party in Northampton.\n\nAfter 10 years of sellout New Year’s Eve parties, we’re bringing Boombastic NYE: The Decades Party to The Charles Bradlaugh. 🙌\n\nThe biggest hits of the 80s, 90s and 2000s, all on one dancefloor from 8pm until 1am as we see in 2027. 🥂\n\n🎶 EXPECT HITS FROM:\n\nWHITNEY HOUSTON · MADONNA · MICHAEL JACKSON · BON JOVI · OASIS · WHAM! · SPICE GIRLS · TAKE THAT · BACKSTREET BOYS · BRITNEY SPEARS · THE KILLERS · CHER · BEYONCÉ · RIHANNA · LADY GAGA · JUSTIN TIMBERLAKE · ROBIN S · N-TRANCE & MORE\n\nGet your mates together and join us for one big New Year’s Eve party!\n\n📅 Thursday 31st December 2026\n📍 The Charles Bradlaugh, Northampton\n🕗 8pm to 1am\n\n🎟️ TICKETS\nEarlybird: £12.50, available until the end of October or until the allocation sells out.\nGeneral release: £15\nFinal release: £17.50\n\nBooking fees apply.",
+    "soundtrack": "WHITNEY HOUSTON · MADONNA · MICHAEL JACKSON · BON JOVI · OASIS · WHAM! · SPICE GIRLS · TAKE THAT · BACKSTREET BOYS · BRITNEY SPEARS · THE KILLERS · CHER · BEYONCÉ · RIHANNA · LADY GAGA · JUSTIN TIMBERLAKE · ROBIN S · N-TRANCE",
+    "highlights": "🎉 Boombastic NYE is back!|🎶 Biggest hits of the 80s, 90s and 00s.|🥂 One dancefloor, seeing in 2027.|🕗 8pm to 1am.",
+    "entryRequirement": "Entry is 18+.",
+    "price": 12.5,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £12.50",
+    "availability": "https://schema.org/InStock",
+    "statusLabel": "Just announced",
+    "isSoldOut": false,
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
+    "groupTicket": null
   }
 ]
