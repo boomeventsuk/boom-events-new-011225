@@ -23,7 +23,7 @@
     "priceLabel": "From £6.00",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-10-14T14:47:56.370Z"
+    "priceLastSync": "2026-10-14T20:01:30.162Z"
   },
   {
     "eventCode": "070226-2PM-LUT",
@@ -47,7 +47,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:47:57.555Z"
+    "priceLastSync": "2026-10-14T20:01:31.328Z"
   },
   {
     "eventCode": "140226-2PM-BED",
@@ -71,7 +71,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:47:58.606Z"
+    "priceLastSync": "2026-10-14T20:01:32.349Z"
   },
   {
     "eventCode": "280226-2PM-NPTON",
@@ -94,7 +94,7 @@
     "priceLabel": "From £7.50",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-10-14T14:47:59.699Z"
+    "priceLastSync": "2026-10-14T20:01:33.630Z"
   },
   {
     "eventCode": "070326-2PM-COV",
@@ -118,7 +118,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:48:00.785Z"
+    "priceLastSync": "2026-10-14T20:01:34.872Z"
   },
   {
     "eventCode": "120926-2PM-BED",
@@ -153,7 +153,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:48:02.192Z"
+    "priceLastSync": "2026-10-14T20:01:35.909Z"
   },
   {
     "eventCode": "190926-2PM-COV",
@@ -188,7 +188,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-10-14T14:48:03.177Z"
+    "priceLastSync": "2026-10-14T20:01:36.987Z"
   },
   {
     "eventCode": "260926-2PM-MK",
@@ -223,7 +223,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-10-14T14:48:04.222Z"
+    "priceLastSync": "2026-10-14T20:01:38.169Z"
   },
   {
     "eventCode": "210326-FSD-NPTON",
@@ -273,7 +273,7 @@
     "priceLabel": "From £8.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:48:05.384Z"
+    "priceLastSync": "2026-10-14T20:01:39.191Z"
   },
   {
     "eventCode": "210326-FL80-NPTON",
@@ -303,7 +303,7 @@
     "priceLabel": "From £8.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-10-14T14:48:06.517Z"
+    "priceLastSync": "2026-10-14T20:01:40.287Z"
   },
   {
     "eventCode": "280326-FL80-BED",
@@ -333,7 +333,7 @@
     "priceLabel": "From £8.50",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-10-14T14:48:07.761Z"
+    "priceLastSync": "2026-10-14T20:01:41.461Z"
   },
   {
     "eventCode": "250426-SD-NPTON",
@@ -387,7 +387,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-10-14T14:48:08.892Z"
+    "priceLastSync": "2026-10-14T20:01:42.517Z"
   },
   {
     "eventCode": "260926-SD-NPTON",
@@ -440,7 +440,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:48:09.960Z",
+    "priceLastSync": "2026-10-14T20:01:43.672Z",
     "heroVideo": "https://boombastic-events.b-cdn.net/events/artwork/260926-SD-NPTON/260926-SD-NPTON-hero-1x1.mp4"
   },
   {
@@ -473,7 +473,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-10-14T14:48:11.136Z"
+    "priceLastSync": "2026-10-14T20:01:44.767Z"
   },
   {
     "eventCode": "060626-2PM-NPTON",
@@ -505,7 +505,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:48:12.262Z"
+    "priceLastSync": "2026-10-14T20:01:45.947Z"
   },
   {
     "eventCode": "130626-2PM-BED",
@@ -541,7 +541,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-10-14T14:48:13.331Z"
+    "priceLastSync": "2026-10-14T20:01:47.101Z"
   },
   {
     "eventCode": "250726-2PM-NPTON",
@@ -576,7 +576,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:48:14.378Z"
+    "priceLastSync": "2026-10-14T20:01:48.173Z"
   },
   {
     "eventCode": "260626-GR-NPTON",
@@ -607,7 +607,7 @@
     "priceLabel": "From £7.00",
     "availability": "https://schema.org/InStock",
     "statusLabel": "Selling fast",
-    "priceLastSync": "2026-10-14T14:48:15.461Z"
+    "priceLastSync": "2026-10-14T20:01:49.331Z"
   },
   {
     "eventCode": "230526-2PM-LUT",
@@ -631,7 +631,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/LimitedAvailability",
     "statusLabel": "Over two-thirds sold",
-    "priceLastSync": "2026-10-14T14:48:16.525Z"
+    "priceLastSync": "2026-10-14T20:01:50.472Z"
   },
   {
     "eventCode": "020526-2PM-LEIC",
@@ -656,7 +656,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-10-14T14:48:17.679Z"
+    "priceLastSync": "2026-10-14T20:01:51.856Z"
   },
   {
     "eventCode": "120926-B90-NPTON",
@@ -685,7 +685,7 @@
     "priceLabel": "From £10.00",
     "availability": "https://schema.org/SoldOut",
     "statusLabel": "Join waiting list",
-    "priceLastSync": "2026-10-14T14:48:18.665Z"
+    "priceLastSync": "2026-10-14T20:01:52.913Z"
   },
   {
     "eventCode": "171026-B90-BED",
@@ -720,7 +720,7 @@
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:19.696Z"
+    "priceLastSync": "2026-10-14T20:01:53.997Z"
   },
   {
     "eventCode": "311026-HHP-NPTON",
@@ -757,7 +757,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:21.676Z",
+    "priceLastSync": "2026-10-14T20:01:55.067Z",
     "groupTicket": {
       "size": 4,
       "price": 44,
@@ -799,7 +799,7 @@
       "postalCode": "LE2 7TR",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:22.630Z",
+    "priceLastSync": "2026-10-14T20:01:56.095Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -865,7 +865,7 @@
         "description": "Dancefloor and club anthems."
       }
     ],
-    "priceLastSync": "2026-10-14T14:48:23.649Z",
+    "priceLastSync": "2026-10-14T20:01:57.140Z",
     "groupTicket": {
       "size": 4,
       "price": 50,
@@ -907,7 +907,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:24.692Z",
+    "priceLastSync": "2026-10-14T20:01:58.271Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -950,7 +950,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:25.711Z",
+    "priceLastSync": "2026-10-14T20:01:59.685Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1014,7 +1014,7 @@
         "description": "The chart hits teenagers want."
       }
     ],
-    "priceLastSync": "2026-10-14T14:48:26.730Z"
+    "priceLastSync": "2026-10-14T20:02:00.831Z"
   },
   {
     "eventCode": "121226-2PM-NPTON",
@@ -1051,7 +1051,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:27.756Z",
+    "priceLastSync": "2026-10-14T20:02:02.084Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1093,7 +1093,7 @@
       "postalCode": "CV1 1LF",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:28.833Z",
+    "priceLastSync": "2026-10-14T20:02:03.256Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -1135,7 +1135,7 @@
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-14T14:48:29.837Z",
+    "priceLastSync": "2026-10-14T20:02:04.399Z",
     "groupTicket": {
       "size": 4,
       "price": 42,
@@ -1178,7 +1178,7 @@
       "gallery"
     ],
     "fomoOverride": null,
-    "priceLastSync": "2026-10-14T14:48:30.906Z"
+    "priceLastSync": "2026-10-14T20:02:05.438Z"
   },
   {
     "title": "THE 2PM CLUB Disco Fever: Bedford",
@@ -1216,7 +1216,7 @@
       "gallery"
     ],
     "fomoOverride": null,
-    "priceLastSync": "2026-10-14T14:48:31.913Z"
+    "priceLastSync": "2026-10-14T20:02:06.607Z"
   },
   {
     "eventCode": "311226-DEC-NPTON",
@@ -1237,7 +1237,7 @@
     "image": "https://www.boomevents.co.uk/assets/poster-311226-dec-npton.webp",
     "eventbriteId": "2003404237003",
     "description": "Boombastic NYE is back! Biggest 80s, 90s and 00s hits at The Charles Bradlaugh. One dancefloor, 8pm to 1am, seeing in 2027.",
-    "fullDescription": "🎉 BOOMBASTIC NYE IS BACK!\n\nWe couldn’t let another New Year’s Eve pass without a massive Boombastic party in Northampton.\n\nAfter 10 years of sellout New Year’s Eve parties, we’re bringing Boombastic NYE: The Decades Party to The Charles Bradlaugh. 🙌\n\nThe biggest hits of the 80s, 90s and 2000s, all on one dancefloor from 8pm until 1am as we see in 2027. 🥂\n\n🎶 EXPECT HITS FROM:\n\nWHITNEY HOUSTON · MADONNA · MICHAEL JACKSON · BON JOVI · OASIS · WHAM! · SPICE GIRLS · TAKE THAT · BACKSTREET BOYS · BRITNEY SPEARS · THE KILLERS · CHER · BEYONCÉ · RIHANNA · LADY GAGA · JUSTIN TIMBERLAKE · ROBIN S · N-TRANCE & MORE\n\nGet your mates together and join us for one big New Year’s Eve party!\n\n📅 Thursday 31st December 2026\n📍 The Charles Bradlaugh, Northampton\n🕗 8pm to 1am\n\n🎟️ TICKETS\nEarlybird: £12.50, available until the end of October or until the allocation sells out.\nGeneral release: £15\nFinal release: £17.50\n\nBooking fees apply.",
+    "fullDescription": "🎉 BOOMBASTIC NYE IS BACK!\n\nWe couldn’t let another New Year’s Eve pass without a massive Boombastic party in Northampton.\n\nAfter 10 years of sellout New Year’s Eve parties, we’re bringing Boombastic NYE: The Decades Party to The Charles Bradlaugh. 🙌\n\nThe biggest hits of the 80s, 90s and 2000s, all on one dancefloor from 8pm until 1am as we see in 2027. 🥂\n\n🎶 EXPECT HITS FROM:\n\nWHITNEY HOUSTON · MADONNA · MICHAEL JACKSON · BON JOVI · OASIS · WHAM! · SPICE GIRLS · TAKE THAT · BACKSTREET BOYS · BRITNEY SPEARS · THE KILLERS · CHER · BEYONCÉ · RIHANNA · LADY GAGA · JUSTIN TIMBERLAKE · ROBIN S · N-TRANCE & MORE\n\nGet your mates together and join us for one big New Year’s Eve party!\n\n📅 Thursday 31st December 2026\n📍 The Charles Bradlaugh, Northampton\n🕗 8pm to 1am\n\n🎟 Check the live ticket selector for current prices, availability and group offers when available.\n\nBooking fees apply.",
     "soundtrack": "WHITNEY HOUSTON · MADONNA · MICHAEL JACKSON · BON JOVI · OASIS · WHAM! · SPICE GIRLS · TAKE THAT · BACKSTREET BOYS · BRITNEY SPEARS · THE KILLERS · CHER · BEYONCÉ · RIHANNA · LADY GAGA · JUSTIN TIMBERLAKE · ROBIN S · N-TRANCE",
     "highlights": "🎉 Boombastic NYE is back!|🎶 Biggest hits of the 80s, 90s and 00s.|🥂 One dancefloor, seeing in 2027.|🕗 8pm to 1am.",
     "entryRequirement": "Entry is 18+.",
@@ -1251,6 +1251,6 @@
       "video",
       "gallery"
     ],
-    "groupTicket": null
+    "priceLastSync": "2026-10-14T20:02:07.710Z"
   }
 ]
