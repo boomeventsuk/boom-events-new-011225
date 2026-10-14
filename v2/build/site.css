@@ -698,3 +698,6 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 /* Keep the Work with us route visible in the existing navigation. */
 @media(min-width:761px){.nav{gap:clamp(16px,2vw,28px);margin-right:clamp(8px,1.5vw,24px)}}
 @media(min-width:761px) and (max-width:1180px){.hdr-in{gap:20px}.hdr-cta{display:none}.nav{margin-right:0;gap:20px}}
+
+/* Disco Fever: keep the artist roll readable as one coherent list. */
+.disco-artist-roll{font-weight:800;font-size:clamp(1rem,2vw,1.18rem);line-height:1.8;letter-spacing:.02em;max-width:42rem}

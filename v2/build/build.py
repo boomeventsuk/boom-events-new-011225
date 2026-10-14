@@ -206,6 +206,7 @@ def strip_emoji(s):
 
 def fmt_key(e):
     code, title = e['code'], e['title']
+    if '-2PMDF-' in code: return 'pmdf'
     if '-2PM-' in code: return 'pm80' if '80s' in title else 'pmxmas'
     if '-FSD-' in code: return 'fsd'
     if '-SD-' in code: return 'sdxmas' if 'Christmas' in title else 'sd'
@@ -217,6 +218,7 @@ def fmt_key(e):
 
 FORMAT = {
     # key: (badge, badge colour, filter type, display pre-title, eyebrow)
+    'pmdf': ('Disco Fever', 'pink', 'Disco Fever', 'DISCO FEVER', 'THE 2PM CLUB'),
     'pm80': ('80s Edition', 'pink', '80s Edition', '80s Edition', 'THE 2PM CLUB Daytime Disco'),
     'pmxmas': ('Christmas', 'hot', 'Christmas', 'Christmas Daytime Disco', 'THE 2PM CLUB Daytime Disco'),
     'sd': ('Silent Disco', 'blue', 'Silent disco', 'Silent Disco', 'Silent Disco Greatest Hits'),
@@ -238,7 +240,7 @@ def normalized():
     for raw in PM:
         if raw['start'][:10] < TODAY or raw.get('isCancelled'): continue
         code = raw['slug']
-        p.append(dict(code=code, title=raw['title'], city=CITY_CODE.get(raw['cityCode'], raw['cityCode']), venue=raw['location'].rsplit(', ', 1)[0], address=raw.get('venueAddress') or {}, start=raw['start'], end=raw['end'], image=raw['image'], eventbriteId=raw['eventbriteId'], price=raw.get('priceLabel'), groupTicket=raw.get('groupTicket'), status=raw.get('statusLabel'), description=raw.get('description') or '', subtitle=raw.get('subtitle') or '', full=raw.get('fullDescription') or '', highlights=raw.get('highlights') or '', soundtrack='', brand='pm', path=f'/events/{code.lower()}/', owned=f'https://www.the2pmclub.co.uk/events/{code.lower()}/'))
+        p.append(dict(code=code, title=raw['title'], city=CITY_CODE.get(raw['cityCode'], raw['cityCode']), venue=raw['location'].rsplit(', ', 1)[0], address=raw.get('venueAddress') or {}, start=raw['start'], end=raw['end'], image=raw['image'], eventbriteId=raw['eventbriteId'], price=raw.get('priceLabel'), groupTicket=raw.get('groupTicket'), status=raw.get('statusLabel'), description=raw.get('description') or '', subtitle=raw.get('subtitle') or '', full=raw.get('fullDescription') or '', highlights=raw.get('highlights') or '', soundtrack=raw.get('soundtrack') or '', brand='pm', path=f'/events/{code.lower()}/', owned=f'https://www.the2pmclub.co.uk/events/{code.lower()}/'))
     p.sort(key=lambda e: e['start'])
     b = []
     for raw in BOOM:
@@ -409,6 +411,11 @@ def event_copy(e):
                     bullets=[('music', 'Upstairs: Madonna, Whitney, Wham! and big 80s choruses'),
                              ('music', 'Downstairs: Chic, Luther Vandross and 80s soul, funk and disco'),
                              ('ticket', 'One ticket covers both floors. Existing tickets remain valid')],
+                    quote=QUOTES['lorne'], photo='pm-mic.jpg')
+    if f == 'pmdf':
+        return dict(h2='THE DISCO ERA. ALL AFTERNOON.', sub='Four hours of the biggest disco hits ever made. Glitter ball up, dancefloor full, all afternoon.',
+                    lede='THE 2PM CLUB returns with a Disco Fever special.' if e['city'] == 'Northampton' else 'THE 2PM CLUB is back at Esquires with a Disco Fever special.',
+                    bullets=[('music', 'The biggest disco hits, back to back'), ('star', 'Glitter ball, big lights, full dancefloor'), ('clock', '2pm till 6pm, home by 7')],
                     quote=QUOTES['lorne'], photo='pm-mic.jpg')
     if f == 'pm80':
         return dict(h2='ALL THE 80s. ALL AFTERNOON.', sub='Your best 80s night out. In the middle of the afternoon.', lede='Four hours of 80s Sing Out Loud Anthems, back to back. Doors at 2pm, and home by 7 if you want to be.',
@@ -584,7 +591,7 @@ def card_status(e):
 
 def event_card(e):
     href = e['path']; b, bc = badge(e)
-    name = 'THE 2PM CLUB' if e['brand'] in ('pm', 'boom-crosslink') else FORMAT[e['fmt']][3]
+    name = 'THE 2PM CLUB Disco Fever' if e['fmt'] == 'pmdf' else 'THE 2PM CLUB' if e['brand'] in ('pm', 'boom-crosslink') else FORMAT[e['fmt']][3]
     if e['fmt'] == 'fsd':
         name = family_event_name(e)
     if e['brand'] != 'pm':
@@ -831,18 +838,20 @@ def details(brand, e):
     base = PM_BASE if brand == 'pm' else BOOM_BASE
     share = 'https://wa.me/?text=' + quote(f"{clean_title(e)}, {e['city']}, {d_long(e['start'])}, {tm}: {base + e['path']}")
     b, bc = badge(e)
+    is_disco_fever = e['fmt'] == 'pmdf'
+    hero_cta = 'Book Disco Fever' if is_disco_fever else 'Find your tickets'
     alert = f'<a class="hero-alert" href="#good-to-know">{icon("info")}<span>{esc(note[0])}: read before you book</span></a>' if note and not saints_fsd else ''
     adult_event = brand == 'pm' or e['code'] == '260926-SD-NPTON' or e['fmt'] == 'hhp'
     facts_list = f'<ul class="hero-facts"><li>{icon("calendar")}<span>{esc(date)}</span></li><li>{icon("clock")}<span>{esc(tm)}</span></li><li>{icon("pin")}<span>{esc(e["venue"])}, {esc(e["city"])}</span></li>{f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event else ""}</ul>'
     soldout = e.get('soldout', False)
     ticket_label = 'Join waiting list' if soldout else 'Choose tickets'
     book_cls = 'btn-hot' if brand == 'pm' else 'btn-coral'
-    if brand == 'pm':
+    if brand == 'pm' and e['fmt'] != 'pmdf':
         reel = PM_REEL_BASE + ('/2pm-christmas-2026.mp4' if e['fmt'] == 'pmxmas' else '/hero-1x1-' + PM_REEL_CITIES[e['city']] + '.mp4' if e['city'] in PM_REEL_CITIES else '/hero-1x1.mp4')
         media = f'''<figure class="ev-poster ev-poster-reel"><img src="{esc(e['poster'])}" alt="Official promotional artwork for {esc(e['title'])}, {esc(date)}" width="800" height="800" fetchpriority="high"><video data-event-reel data-primary="{esc(reel)}" data-fallback="{esc(PM_REEL_MASTER)}" muted loop playsinline preload="none" controls aria-label="Footage from a previous THE 2PM CLUB event"></video><figcaption>Footage from a previous THE 2PM CLUB event</figcaption></figure>'''
     else:
         media = f'''<figure class="ev-poster"><img src="{esc(e['poster'])}" alt="Official promotional artwork for {esc(e['title'])}, {esc(date)}" width="800" height="800" fetchpriority="high"></figure>'''
-    hero_html = f'''<section class="ev-hero" data-event-end="{esc(e['end'][:19])}"><div class="ev-copy"><div class="hero-inner">{f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''}<h1><span class="pre">{esc(pre)}</span> <span class="city">{esc(e['city'])}</span></h1><p class="hero-sub">{esc(c['sub'])}</p>{facts_list}{alert}{'<p class=dc-status><strong>SOLD OUT</strong></p>' if soldout else ''}{btn('Join waiting list' if soldout else 'Find your tickets', '#tickets', 'btn-dark' if brand == 'boom' else 'btn-hot')}</div></div>{media}</section>'''
+    hero_html = f'''<section class="ev-hero" data-event-end="{esc(e['end'][:19])}"><div class="ev-copy"><div class="hero-inner">{f'<p class="kicker">{esc(eyebrow)}</p>' if eyebrow else ''}<h1><span class="pre">{esc(pre)}</span> <span class="city">{esc(e['city'])}</span></h1><p class="hero-sub">{esc(c['sub'])}</p>{facts_list}{alert}{'<p class=dc-status><strong>SOLD OUT</strong></p>' if soldout else ''}{btn('Join waiting list' if soldout else hero_cta, '#tickets', 'btn-dark' if brand == 'boom' else 'btn-hot')}</div></div>{media}</section>'''
     fact_rib = f'<div class="ribbon fact-rib"><div class="container ribbon-in"><div class="rib-item"><span class="rib-ico i1">{icon("calendar")}</span><b>{esc(date.upper())}</b></div><div class="rib-item"><span class="rib-ico i2">{icon("clock")}</span><b>{esc(tm.upper())}</b></div><div class="rib-item"><span class="rib-ico i3">{icon("pin")}</span><b>{esc(e["venue"].upper())}</b></div></div></div>'
     note_html = f'<section class="container"><div class="notice" id="good-to-know" role="note">{icon("info")}<div><h2>{esc(note[0])}</h2><p>{esc(note[1])} Access questions: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></div></div></section>' if note and not saints_fsd else ''
     bullets = ''.join(f'<li><span class="bubble bb{i + 1}">{icon(ic)}</span><span>{esc(txt)}</span></li>' for i, (ic, txt) in enumerate(c['bullets']))
@@ -859,6 +868,8 @@ def details(brand, e):
         ) + '</div>'
     else:
         music = f'<div class="ev-music"><h3 class="mini-h">{"THE CHANNELS" if any(g[1] for g in groups) else "THE SOUNDTRACK"}</h3>{chips(groups)}</div>' if groups else ''
+    if is_disco_fever:
+        music = f'<div class="ev-music"><h3 class="mini-h">THE SOUNDTRACK</h3><p class="disco-artist-roll">{esc(e["soundtrack"])}</p></div>'
     price = f'<p class="dc-price">{esc(price_label(e["price"]))} + booking fee</p>' if e.get('price') and not soldout else ''
     status = '<p class="dc-status"><strong>Sold out</strong></p>' if soldout else (f'<p class="dc-status">{esc(e["status"])}</p>' if e.get('status') else '')
     date_card = f'''<aside class="date-card" aria-label="Booking summary"><h2>MAKE IT A DATE</h2><ul><li>{icon("calendar")}{esc(date.upper())}</li><li>{icon("clock")}{esc(tm.upper())}</li><li>{icon("pin")}{esc(e["venue"].upper())}</li></ul>{price}{group_price(e, True)}{status}{'' if soldout else '<p class=dc-live>Check live availability in the ticket selector</p>'}{btn(ticket_label, '#tickets', 'btn-block ' + book_cls)}<p class="dc-eb">Ticketing powered by <b>Eventbrite</b></p><a class="dc-share" href="{esc(share)}" target="_blank" rel="noopener noreferrer">{icon("share")}Share with your group {ARROW}</a></aside>'''
@@ -890,6 +901,8 @@ def details(brand, e):
             acc('What time does it finish?', 'The party runs from 2pm to 4pm on Wednesday 28th October.'),
             acc('What if I have an access question?', access_a),
         ])
+    elif is_disco_fever:
+        visit_questions = ''.join([acc('Is it all disco?', 'Yes. All disco, all afternoon.'), acc('Is it fancy dress?', 'No. Dig out the sequins or wear what you can dance in.'), acc('What time is it on?', '2pm till 6pm.'), acc('Is the event 18+?', 'Yes. Entry is 18+.'), acc('Can we book as a group?', 'The group-of-four release is £40 plus booking fees and follows Early Release. The live ticket selector shows what is available now.'), acc('What if I have an access question?', access_a)])
     else:
         visit_questions = ''.join([acc('What time does it finish?', f'This date runs {esc(tm)}. Times vary between events, so check the date you book.'), acc('What should I wear?', wear), acc('Can we book as a group?', group_a), acc('What if I have an access question?', access_a)])
     visit = f'''<section class="visit container"{' id="good-to-know"' if saints_fsd else ''}><div class="visit-venue"><h2>PLAN YOUR VISIT</h2><div class="visit-grid"><p><strong>{esc(e['venue'])}</strong><br>{addr_html}{'<br><strong>Supporter Village Barn.</strong> In adverse weather, the event moves to the <strong>Rodber Suite</strong> at Saints.' if saints_fsd else ''}</p><div class="visit-links"><a href="{esc(maps)}" target="_blank" rel="noopener noreferrer">{icon("pin")}Directions {ARROW}</a><a href="{'#good-to-know' if note and not saints_fsd else '/contact/'}">{icon("access")}Access information {ARROW}</a></div></div></div><div class="visit-qa">{visit_questions}</div></section>'''
@@ -901,10 +914,13 @@ def details(brand, e):
     body = hero_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
+    if is_disco_fever:
+        description = f'THE 2PM CLUB Disco Fever at {e["venue"]}, {e["city"]}. {d_short(e["start"])}, 2pm till 6pm. Four hours of the biggest disco hits: Chic, Donna Summer, Bee Gees, ABBA and more.'
     return page(brand, f"{clean_title(e)}, {e['city']}, {d_short(e['start'])}", body, description, image=base + e['poster'], sticky_label=ticket_label, sticky_href='#tickets', body_class='is-event')
 
 
 def clean_title(e):
+    if e['fmt'] == 'pmdf': return 'THE 2PM CLUB Disco Fever'
     t_ = e['title'].replace('THE 2PM CLUB Daytime Disco: ', 'THE 2PM CLUB ').replace("Boombastic's ", 'Boombastic ')
     return t_
 
@@ -1296,7 +1312,7 @@ def seo_enrich(brand, path, content):
     description = html.unescape(desc_match.group(1)) if desc_match else short_title
     event = next((e for e in CURRENT_EVENTS[brand] if e['path'].lower() == route.lower()), None)
     if event:
-        title = f'{clean_title(event)} | {d_short(event["start"])}'
+        title = (f'{clean_title(event)} {event["city"]} | {d_short(event["start"])} | {event["venue"]}' if event['fmt'] == 'pmdf' else f'{clean_title(event)} | {d_short(event["start"])}')
     elif route == '/':
         title = ('THE 2PM CLUB | Daytime Disco and Day Parties' if brand == 'pm'
                  else 'Boombastic Events | Daytime Disco, Silent Disco and Decades Parties')

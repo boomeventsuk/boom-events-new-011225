@@ -1201,5 +1201,89 @@
       "price": 42,
       "label": "Group of 4 for £42"
     }
+  },
+  {
+    "title": "THE 2PM CLUB Disco Fever: Northampton",
+    "subtitle": "The biggest disco hits, all afternoon.",
+    "start": "2027-01-23T14:00:00+00:00",
+    "end": "2027-01-23T18:00:00+00:00",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/230127-2PMDF-NPTON/230127-2PMDF-NPTON-SQUARE.webp",
+    "description": "The biggest disco hits, all afternoon. Sat 23rd Jan at The Charles Bradlaugh, 2pm till 6pm.",
+    "eventbriteId": "2003376797932",
+    "isSoldOut": false,
+    "isCancelled": false,
+    "fullDescription": "THE 2PM CLUB returns with a Disco Fever special.\n\nFour hours of the biggest disco hits ever made at The Charles Bradlaugh, Sat 23rd Jan, 2pm till 6pm.\n\nGlitter ball up, dancefloor full, big disco hits back to back all afternoon.\n\nCHIC · DONNA SUMMER · BEE GEES · EARTH WIND & FIRE · SISTER SLEDGE · DIANA ROSS · GLORIA GAYNOR · KOOL & THE GANG · ABBA & MORE\n\nDig out the sequins.",
+    "highlights": "The biggest disco hits, back to back|Glitter ball, big lights, full dancefloor|2pm till 6pm, home by 7",
+    "soundtrack": "CHIC · DONNA SUMMER · BEE GEES · EARTH WIND & FIRE · SISTER SLEDGE · DIANA ROSS · GLORIA GAYNOR · KOOL & THE GANG · ABBA & MORE",
+    "status": "just-announced",
+    "statusLabel": "Just announced",
+    "price": 10,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £10",
+    "availability": "https://schema.org/InStock",
+    "venueAddress": {
+      "streetAddress": "1 Earl Street",
+      "addressLocality": "Northampton",
+      "postalCode": "NN1 3AU",
+      "addressCountry": "GB"
+    },
+    "groupTicket": {
+      "size": 4,
+      "price": 40,
+      "label": "Group of 4 for £40 (after Early Release)"
+    },
+    "heroMedia": "image",
+    "eventCode": "230127-2PMDF-NPTON",
+    "venue": "The Charles Bradlaugh",
+    "city": "Northampton",
+    "date": "Saturday, 23 January 2027",
+    "timeDisplay": "2pm to 6pm",
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
+    "fomoOverride": null
+  },
+  {
+    "title": "THE 2PM CLUB Disco Fever: Bedford",
+    "subtitle": "The biggest disco hits, all afternoon.",
+    "start": "2027-02-06T14:00:00+00:00",
+    "end": "2027-02-06T18:00:00+00:00",
+    "image": "https://boombastic-events.b-cdn.net/events/artwork/060227-2PMDF-BED/060227-2PMDF-BED-SQUARE.webp",
+    "description": "The biggest disco hits, all afternoon. Sat 6th Feb at Bedford Esquires, 2pm till 6pm.",
+    "eventbriteId": "2003376805956",
+    "isSoldOut": false,
+    "isCancelled": false,
+    "fullDescription": "THE 2PM CLUB is back at Esquires with a Disco Fever special.\n\nFour hours of the biggest disco hits ever made at Bedford Esquires, Sat 6th Feb, 2pm till 6pm.\n\nGlitter ball up, dancefloor full, big disco hits back to back all afternoon.\n\nDONNA SUMMER · CHIC · EARTH WIND & FIRE · BEE GEES · SISTER SLEDGE · DIANA ROSS · KOOL & THE GANG · BONEY M · ABBA & MORE\n\nDig out the sequins.",
+    "highlights": "The biggest disco hits, back to back|Glitter ball, big lights, full dancefloor|2pm till 6pm, home by 7",
+    "soundtrack": "DONNA SUMMER · CHIC · EARTH WIND & FIRE · BEE GEES · SISTER SLEDGE · DIANA ROSS · KOOL & THE GANG · BONEY M · ABBA & MORE",
+    "status": "just-announced",
+    "statusLabel": "Just announced",
+    "price": 10,
+    "priceCurrency": "GBP",
+    "priceLabel": "From £10",
+    "availability": "https://schema.org/InStock",
+    "venueAddress": {
+      "streetAddress": "60A Bromham Road",
+      "addressLocality": "Bedford",
+      "postalCode": "MK40 2QG",
+      "addressCountry": "GB"
+    },
+    "groupTicket": {
+      "size": 4,
+      "price": 40,
+      "label": "Group of 4 for £40 (after Early Release)"
+    },
+    "heroMedia": "image",
+    "eventCode": "060227-2PMDF-BED",
+    "venue": "Bedford Esquires",
+    "city": "Bedford",
+    "date": "Saturday, 6 February 2027",
+    "timeDisplay": "2pm to 6pm",
+    "hiddenSections": [
+      "video",
+      "gallery"
+    ],
+    "fomoOverride": null
   }
 ]

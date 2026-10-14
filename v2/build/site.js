@@ -172,6 +172,18 @@
   if (widget) {
     const loading = widget.querySelector('.widget-loading');
     const eventId = widget.dataset.eventbriteId;
+    // Preserve launch attribution on the owned fallback as well as the embed.
+    if (location.pathname.toLowerCase().includes('-2pmdf-')) {
+      const fallback = document.querySelector('.tickets-fallback a');
+      if (fallback) {
+        const target = new URL(fallback.href);
+        const current = new URLSearchParams(location.search);
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'email'].forEach(key => {
+          if (current.has(key)) target.searchParams.set(key, current.get(key));
+        });
+        fallback.href = target.href;
+      }
+    }
     const fail = () => { if (loading) loading.textContent = 'Ticket selector unavailable here. Use the official event page link.'; };
     let widgetStarted = false;
     const start = () => {
