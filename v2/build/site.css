@@ -140,7 +140,7 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .poster img{width:100%;height:100%;object-fit:contain}
 .card-body{padding:16px 16px 18px;display:flex;flex-direction:column;flex:1}
 .badge{align-self:flex-start;display:inline-block;padding:5px 11px;border-radius:30px;background:var(--accent);color:#fff;font:800 11px/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
-.b-blue{background:#1f5eff}.b-coral{background:#e2493c}.b-orange{background:#f06a22}.b-green{background:#12a843}.b-pink{background:#ff008a}.b-hot{background:#e0007a}
+.b-blue{background:#1f5eff}.b-coral{background:#de3021}.b-orange{background:#c74e0e}.b-green{background:#0e8736}.b-pink{background:#ff008a}.b-hot{background:#e0007a}
 .pm .b-pink{background:#b04dff}
 .pm .badge{color:#111}
 .pm .b-hot{color:#fff}
@@ -723,3 +723,5 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .town-formats .fact-list{font-size:16px;list-style:none;padding:0}
 .town-formats .fact-list li{margin:10px 0}
 .town-formats .text-link{margin-left:8px}
+/* WCAG AA (15th October 2026): the accent red on the peach page band was 2.57:1; this darker red is 4.63:1. */
+.boom .page-band .eyebrow{color:#832120}

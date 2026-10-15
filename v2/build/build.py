@@ -846,7 +846,7 @@ def home(brand, events):
         proof = f'''<section class="proof container"><div class="proof-lead">{quote_block(QUOTES['lorne'], 'quote-xl')}<p>Bring your group or come on your own. The songs give everyone something to sing about.</p></div><div class="proof-more">{quote_block(QUOTES['diane'])}{quote_block(QUOTES['lara'])}{quote_block(QUOTES['friends'])}</div></section>'''
         body = h + rib + f'<section class="section container" id="upcoming">{head}{results(events)}</section>' + band(brand, 'pm-friends.jpeg', 'ALL THE CHORUSES.<br>ALL YOUR PEOPLE.', [('What to expect', '/what-to-expect/'), ('The music', '#music'), ('Bring your group', '/group-bookings/')]) + music + guide + proof + signup(brand, 'YOUR CITY. YOUR NEXT AFTERNOON.', 'Be first to hear when THE 2PM CLUB announces a date near you.', events=events)
         return page(brand, 'Your best night out. In the middle of the afternoon.', body, 'THE 2PM CLUB Daytime Disco: Sing Out Loud Anthems from the 80s, 90s and 00s. Doors 2pm, home by 7-ish.', '/')
-    h = hero(brand, esc(HOME_H1), 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', extra='<p class="hero-proof">SINCE 2014.</p>', h1cls='h1-boom', slogan='THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.')
+    h = hero(brand, esc(HOME_H1), 'THE 2PM CLUB in the afternoon. Silent Disco Greatest Hits and Decades Parties in the evening. Family Silent Disco too.', btn(f'See all <span data-live-total>{len(events)}</span> dates', '/whats-on/') + home_city_finder(brand, events), 'boom-hero.jpg', h1cls='h1-boom', slogan='THE MIDLANDS’<br>PARTY STARTERS<br>SINCE 2014.')
     rib = ribbon([('DAYTIME', 'THE 2PM CLUB, doors at 2pm', PM_BASE + '/'), ('EVENING', 'Silent Disco and Decades Parties', '/about/#parties'), ('FAMILY', 'Family Silent Disco, ages 4+', '/family-silent-disco/')], cls='rib-short')
     head = section_head('WHAT’S COMING UP', filters(events, 0))
     parties = seasonal_section(events) + boom_parties_grid()
@@ -877,7 +877,7 @@ def seasonal_section(events):
 
 # Board #rewrites, 12th October 2026 (homepage). Exact wording.
 # Corrected 13th October 2026: only THE 2PM CLUB has run in Leicester and Coventry.
-HOME_H1 = 'Silent discos, decades parties and daytime discos since 2014'
+HOME_H1 = 'Silent discos, decades parties and daytime discos'
 HOME_DESCRIPTION = 'Silent discos, 90s nights and Family Silent Disco in Northampton and Bedford, and THE 2PM CLUB daytime disco in Leicester and Coventry. Since 2014.'
 
 
