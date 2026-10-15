@@ -1,0 +1,233 @@
+[
+  {
+    "eventCode": "250126-GR-NPTON",
+    "eventbriteId": "1975285601407",
+    "title": "GET READY - 60s/70s Motown, Soul & Disco",
+    "start": "2026-01-25T14:00:00",
+    "end": "2026-01-25T18:00:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "070226-2PM-LUT",
+    "eventbriteId": "1645025849599",
+    "title": "THE 2PM CLUB Luton: 80s 90s 00s Daytime Disco",
+    "start": "2026-02-07T14:00:00",
+    "end": "2026-02-07T18:00:00",
+    "city": "Luton",
+    "venue": "Hat Factory"
+  },
+  {
+    "eventCode": "140226-2PM-BED",
+    "eventbriteId": "1975982183904",
+    "title": "THE 2PM CLUB Bedford: 80s 90s 00s Daytime Disco",
+    "start": "2026-02-14T14:00:00",
+    "end": "2026-02-14T18:00:00",
+    "city": "Bedford",
+    "venue": "Bedford Esquires"
+  },
+  {
+    "eventCode": "280226-2PM-NPTON",
+    "eventbriteId": "1975984047478",
+    "title": "THE 2PM CLUB Northampton: 80s 90s 00s Daytime Disco",
+    "start": "2026-02-28T14:00:00",
+    "end": "2026-02-28T18:00:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "070326-2PM-COV",
+    "eventbriteId": "1975984192913",
+    "title": "THE 2PM CLUB Coventry: 80s 90s 00s Daytime Disco",
+    "start": "2026-03-07T14:00:00",
+    "end": "2026-03-07T18:00:00",
+    "city": "Coventry",
+    "venue": "hmv Empire"
+  },
+  {
+    "eventCode": "210326-FSD-NPTON",
+    "eventbriteId": "1980887034444",
+    "title": "FAMILY SILENT DISCO Northampton",
+    "start": "2026-03-21T14:00:00",
+    "end": "2026-03-21T16:00:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "210326-FL80-NPTON",
+    "eventbriteId": "1977527798880",
+    "title": "FOOTLOOSE 80s Northampton",
+    "start": "2026-03-21T20:00:00",
+    "end": "2026-03-22T00:00:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "280326-FL80-BED",
+    "eventbriteId": "1979550056507",
+    "title": "FOOTLOOSE 80s Bedford",
+    "start": "2026-03-28T20:00:00",
+    "end": "2026-03-29T00:00:00",
+    "city": "Bedford",
+    "venue": "Bedford Esquires"
+  },
+  {
+    "eventCode": "250426-SD-NPTON",
+    "eventbriteId": "1977024693077",
+    "title": "SILENT DISCO GREATEST HITS IS 10!",
+    "start": "2026-04-25T20:30:00",
+    "end": "2026-04-26T00:30:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "020526-2PM-LEIC",
+    "eventbriteId": "1983866397800",
+    "title": "THE 2PM CLUB Leicester: 80s 90s 00s Daytime Disco",
+    "start": "2026-05-02T14:00:00",
+    "end": "2026-05-02T18:00:00",
+    "city": "Leicester",
+    "venue": "Mattioli Woods Welford Road Stadium"
+  },
+  {
+    "eventCode": "230526-2PM-LUT",
+    "eventbriteId": "1982497843417",
+    "title": "THE 2PM CLUB Luton: 80s 90s 00s Daytime Disco",
+    "start": "2026-05-23T14:00:00",
+    "end": "2026-05-23T18:00:00",
+    "city": "Luton",
+    "venue": "Hat Factory"
+  },
+  {
+    "eventCode": "060626-2PM-COV",
+    "eventbriteId": "1984666422696",
+    "title": "THE 2PM CLUB Coventry: 80s 90s 00s Daytime Disco",
+    "start": "2026-06-06T14:00:00",
+    "end": "2026-06-06T18:00:00",
+    "city": "Coventry",
+    "venue": "hmv Empire",
+    "venueAddress": {
+      "streetAddress": "22 Hertford Street",
+      "addressLocality": "Coventry",
+      "postalCode": "CV1 1LF",
+      "addressCountry": "GB"
+    }
+  },
+  {
+    "eventCode": "060626-2PM-NPTON",
+    "eventbriteId": "1981781356385",
+    "title": "THE 2PM CLUB Northampton: 80s 90s 00s Daytime Disco",
+    "start": "2026-06-06T14:00:00",
+    "end": "2026-06-06T18:00:00",
+    "city": "Northampton",
+    "venue": "Cinch Stadium, Franklin's Gardens",
+    "venueAddress": {
+      "streetAddress": "Weedon Road",
+      "addressLocality": "Northampton",
+      "postalCode": "NN5 5BG",
+      "addressCountry": "GB"
+    }
+  },
+  {
+    "eventCode": "130626-2PM-BED",
+    "eventbriteId": "1983156002990",
+    "title": "THE 2PM CLUB Bedford: 80s 90s 00s Daytime Disco",
+    "start": "2026-06-13T14:00:00",
+    "end": "2026-06-13T18:00:00",
+    "city": "Bedford",
+    "venue": "Bedford Esquires",
+    "venueAddress": {
+      "streetAddress": "60A Bromham Road",
+      "addressLocality": "Bedford",
+      "postalCode": "MK40 2QG",
+      "addressCountry": "GB"
+    }
+  },
+  {
+    "eventCode": "260626-GR-NPTON",
+    "eventbriteId": "1981517770994",
+    "title": "GET READY - Summer Special",
+    "start": "2026-06-26T20:00:00",
+    "end": "2026-06-27T00:00:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "120926-2PM-BED",
+    "eventbriteId": "1990916485803",
+    "title": "THE 2PM CLUB Bedford: 80s Edition Daytime Disco",
+    "start": "2026-09-12T14:00:00",
+    "end": "2026-09-12T18:00:00",
+    "city": "Bedford",
+    "venue": "Bedford Esquires",
+    "venueAddress": {
+      "streetAddress": "60A Bromham Road",
+      "addressLocality": "Bedford",
+      "postalCode": "MK40 2QG",
+      "addressCountry": "GB"
+    }
+  },
+  {
+    "eventCode": "120926-B90-NPTON",
+    "eventbriteId": "1985640928469",
+    "title": "BOOMBASTIC 90s Northampton",
+    "start": "2026-09-12T20:30:00",
+    "end": "2026-09-13T00:30:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "190926-2PM-COV",
+    "eventbriteId": "1990916488812",
+    "title": "THE 2PM CLUB Coventry: 80s Edition Daytime Disco",
+    "start": "2026-09-19T14:00:00",
+    "end": "2026-09-19T18:00:00",
+    "city": "Coventry",
+    "venue": "hmv Empire",
+    "venueAddress": {
+      "streetAddress": "22 Hertford Street",
+      "addressLocality": "Coventry",
+      "postalCode": "CV1 1LF",
+      "addressCountry": "GB"
+    }
+  },
+  {
+    "eventCode": "260926-2PM-MK",
+    "eventbriteId": "1985171487358",
+    "title": "THE 2PM CLUB Milton Keynes: 80s Edition Daytime Disco",
+    "start": "2026-09-26T14:00:00",
+    "end": "2026-09-26T18:00:00",
+    "city": "Milton Keynes",
+    "venue": "MK11 Music Venue",
+    "venueAddress": {
+      "streetAddress": "Keller Close, Kiln Farm",
+      "addressLocality": "Milton Keynes",
+      "postalCode": "MK11 3LH",
+      "addressCountry": "GB"
+    }
+  },
+  {
+    "eventCode": "260926-SD-NPTON",
+    "eventbriteId": "1988133337331",
+    "title": "SILENT DISCO GREATEST HITS Northampton",
+    "start": "2026-09-26T20:30:00",
+    "end": "2026-09-27T00:30:00",
+    "city": "Northampton",
+    "venue": "The Picturedrome"
+  },
+  {
+    "eventCode": "250726-2PM-NPTON",
+    "eventbriteId": "1990826967050",
+    "title": "THE 2PM CLUB Northampton: 80s Edition Daytime Disco",
+    "start": "2026-10-03T14:00:00",
+    "end": "2026-10-03T18:00:00",
+    "city": "Northampton",
+    "venue": "The Charles Bradlaugh",
+    "venueAddress": {
+      "streetAddress": "1 Earl Street",
+      "addressLocality": "Northampton",
+      "postalCode": "NN1 3AU",
+      "addressCountry": "GB"
+    }
+  }
+]

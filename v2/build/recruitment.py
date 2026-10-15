@@ -20,7 +20,7 @@ ROLES = {
     'dj': {
         'title': 'DJs for our daytime discos and decades parties',
         'summary': 'Big anthems. Lots of fun. A warm welcome.',
-        'description': 'Join Boombastic Events as a DJ for daytime discos and decades parties. Broad music taste, confident microphone skills and a willingness to follow our event formats.',
+        'description': 'Join Boombastic Events as a DJ for daytime discos and decades parties. Broad music taste, confident microphone skills and happy to follow our event formats.',
         'body': '''<p>We are looking for friendly, reliable DJs to join the team at Boombastic Events, including THE 2PM CLUB daytime discos and our decades parties.</p>
 <p>Our events are a lot of fun, with big anthems and music that is not too niche. If you are comfortable following the structure of an event and working the audience with a microphone, we want to hear from you.</p>
 <h2>How we work</h2>
