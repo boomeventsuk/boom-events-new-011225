@@ -22,10 +22,11 @@ echo "mode: $([ "$OFFLINE" = 1 ] && echo 'OFFLINE static (no network, no sockets
 cd "$REPO" || { echo "FAIL: repo missing at $REPO"; exit 1; }
 
 # 0. Repository safety: right branch, main untouched, nothing pushed.
-[ "$(git rev-parse --abbrev-ref HEAD)" = "seo-geo-2026-10-13" ] && pass "on branch seo-geo-2026-10-13" || fail "not on branch seo-geo-2026-10-13"
+case "$(git rev-parse --abbrev-ref HEAD)" in seo-geo-*) pass "on branch $(git rev-parse --abbrev-ref HEAD)";; *) fail "not on an seo-geo-* working branch";; esac
 [ -z "$(git rev-list origin/main..main)" ] && pass "local main has no commits that origin/main lacks (nothing committed to main)" || fail "local main has its own commits"
 git merge-base --is-ancestor origin/main HEAD && pass "branch contains origin/main ($(git rev-parse --short origin/main))" || fail "branch is not rebased on origin/main"
-git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1 && fail "branch has an upstream (was it pushed?)" || pass "branch has no upstream (not pushed)"
+# Since 15th October 2026 deploys go through pull requests, so a pushed branch is allowed: report it, do not fail.
+if git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1; then echo "WARNING: branch has an upstream ($(git rev-parse --abbrev-ref '@{u}')); fine for a PR, this script never pushes"; else pass "branch has no upstream (not pushed)"; fi
 [ -z "$(git status --porcelain -- v2 scripts netlify data public .github)" ] && pass "working tree clean in source folders" || fail "uncommitted source changes"
 
 # 1. Build (runs the production gate) unless skipped or offline.
@@ -127,7 +128,7 @@ PAGES = list(dict.fromkeys(p.replace('/./', '/') for p in PAGES))
 EXPECT = {
     '/': ('Silent Disco, 80s and 90s Parties | Boombastic Events',
           'Silent discos, 90s nights and Family Silent Disco in Northampton and Bedford, and THE 2PM CLUB daytime disco in Leicester and Coventry. Since 2014.',
-          'Silent discos, decades parties and daytime discos since 2014'),
+          'Silent discos, decades parties and daytime discos'),
     '/christmas-parties/': ('Christmas 2026: Northampton, Leicester, Coventry, Bedford', None, 'Christmas parties 2026 in Northampton, Leicester, Coventry and Bedford'),
     '/halloween/': ('Halloween Party Northampton 2026 | Boombastic Events', None, 'Halloween in Northampton: the 18+ Halloween House Party, Saturday 31st October'),
     '/locations/northampton/': ('Silent Disco and Party Nights in Northampton | Boombastic', None, 'Parties in Northampton: silent disco, decades and family'),
@@ -192,6 +193,7 @@ other_cid = sorted({c for r, _, fs in os.walk(DIST) for f in fs if f.endswith(('
                     for c in re.findall(r'cid=(\d+)', open(os.path.join(r, f), errors='ignore').read()) if c != GBP.split('cid=')[1]})
 ok(not other_cid, f'no Google listing other than the verified profile is referenced (found {other_cid})')
 ok('hero-slogan' in home and 'fetchpriority="high"' in home, 'homepage slogan is a visual line and hero has fetchpriority')
+ok('hero-proof' not in home and text(re.search(r'<section class="hero.*?</section>', home, re.S).group(0)).upper().count('SINCE 2014') == 1, 'homepage hero says "since 2014" once (slogan only)')
 imgs = re.findall(r'<img[^>]*>', home)
 ok(all('width=' in i and 'height=' in i for i in imgs), f'homepage: all {len(imgs)} images have width and height')
 ok(sum('srcset=' in i for i in imgs) >= 10, 'homepage: posters and photos use srcset')
