@@ -1017,12 +1017,9 @@ def event_name(e):
 
 
 def is_adult(e):
-    """Age rule from the feed or the verified event copy. Unknown returns None, never a guess."""
-    if e['brand'] in ('pm', 'boom-crosslink') or e['fmt'] in ('hhp', 'nye'):
-        return True
-    if e['fmt'] == 'fsd':
-        return False
-    return None
+    """Owner rule (John, 15th October 2026): "All the events we do, apart from the family silent disco, would be 18+."
+    Family Silent Disco keeps its ages 4 and up handling; every other event is 18+."""
+    return e['fmt'] != 'fsd'
 
 
 def is_evening(e):
@@ -1192,9 +1189,8 @@ def details(brand, e):
     hero_cta = 'Book Disco Fever' if is_disco_fever else 'Find your tickets'
     alert = f'<a class="hero-alert" href="#good-to-know">{icon("info")}<span>{esc(note[0])}: read before you book</span></a>' if note and not saints_fsd else ''
     adult_event = brand == 'pm' or is_adult(e) is True
-    # Evening dates whose age rule is not in the feed or verified copy say where the rule is shown, never a guess.
-    age_li = (f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event
-              else f"<li>{icon('info')}<span>Entry rules for this date are shown in the ticket selector</span></li>" if is_evening(e) else '')
+    # Owner rule: every event except Family Silent Disco is 18+, so there is no "check the selector" fallback.
+    age_li = f"<li>{icon('info')}<span>18+ event</span></li>" if adult_event else ''
     facts_list = f'<ul class="hero-facts"><li>{icon("calendar")}<span>{esc(date)}</span></li><li>{icon("clock")}<span>{esc(tm)}</span></li><li>{icon("pin")}<span>{esc(e["venue"])}, {esc(e["city"])}</span></li>{age_li}</ul>'
     soldout = e.get('soldout', False)
     ticket_label = 'Join waiting list' if soldout else 'Choose tickets'
@@ -1516,7 +1512,10 @@ def town_answer(city):
 def empty_town_answer(city):
     near = nearest_live('boom', city)
     nxt = [(c, next(e for e in CURRENT_EVENTS['boom'] if on_sale(e) and e['city'] == c)) for c in near]
-    core = [past_venue_line(city), f'No {city} date is on sale right now.']
+    if city in COMING_SOON_TOWNS:
+        core = [past_venue_line(city), f'No {city} date is on sale right now.']
+    else:
+        core = [f'No {city} date is announced right now.', past_dates_line(city)]
     if nxt:
         core.append('The nearest dates on sale are in ' + join_words([f'{c} (from {d_day_year(e["start"])})' for c, e in sorted(nxt, key=lambda x: x[1]['start'])]) + '.')
     return fit_answer([x for x in core if x], ['Each date has its own page with times, venue, age rule and tickets.', 'Booking fees are added at checkout.', f'Check the {city} page again for new dates.'])
@@ -1553,9 +1552,31 @@ def town_meta(city):
     return title, desc, h1
 
 
+# Owner answer (John, 15th October 2026): "Milton Keynes is planned, Luton potentially not."
+COMING_SOON_TOWNS = {'Milton Keynes'}
+
+
+def past_dates_line(city):
+    """'Boombastic has run THE 2PM CLUB at the Hat Factory, Luton, on Saturday 7th February and Saturday 23rd May 2026.' from the registry."""
+    parts = []
+    for venue, v in past_venues(city).items():
+        days = sorted(r['start'] for r in BOOM_ALL if r.get('city') == city and r.get('venue') == venue and r['start'][:10] < TODAY and not r.get('isCancelled'))
+        if not days: continue
+        same_year = len({d[:4] for d in days}) == 1
+        when = join_words([d_day(d) for d in days]) + (' ' + days[0][:4] if same_year else '') if same_year else join_words([d_day_year(d) for d in days])
+        parts.append(f'{join_words(v["kinds"])} at {"the " if venue == "Hat Factory" else ""}{venue}, {city}, on {when}')
+    return f'Boombastic has run {join_words(parts)}.' if parts else ''
+
+
 def empty_town_meta(city):
     near = nearest_live('boom', city)
     nxt = [(c, next(e for e in CURRENT_EVENTS['boom'] if on_sale(e) and e['city'] == c)) for c in near]
+    if city not in COMING_SOON_TOWNS:
+        title = f'Parties in {city}: No Date Announced | Boombastic Events'
+        if len(title) > 60: title = title.removesuffix(' Events')
+        desc = f'No {city} date is announced right now. ' + past_dates_line(city) + (f' Nearest dates on sale: {join_words([c for c, _ in nxt])}.' if nxt else '')
+        if len(desc) > 160: desc = f'No {city} date is announced right now. ' + past_venue_line(city).replace('Hat Factory', 'the Hat Factory') + (f' Nearest dates: {join_words([c for c, _ in nxt])}.' if nxt else '')
+        return title, desc, f'{city}: no date announced right now'
     title = (f'Parties in {city}: Next Date Coming Soon | Boombastic' if len(f'Parties in {city}: Next Date Coming Soon | Boombastic') <= 55
              else f'Parties in {city}: Coming Soon | Boombastic')
     near_txt = (f' the nearest is {nxt[0][0]} on {ordinal(dt(nxt[0][1]["start"]).day)} {dt(nxt[0][1]["start"]).strftime("%B")}' if len(nxt) == 1
@@ -1873,7 +1894,7 @@ def faq_page(brand):
             ('What is a silent disco?', 'Music plays through wireless headphones. Three DJs, three channels; switch whenever you like and set your own volume.'),
             ('What if headphones are lost or damaged?', 'Replacement charges may apply. Staff explain the terms when you collect your headphones.'),
             ('Are there family events?', 'Yes. Family Silent Disco is designed for ages 4 and up; children need a paying adult, maximum three per adult.'),
-            ('Is there an age limit for evening parties?', 'Entry rules are set for each event and shown on its event page. The Halloween House Party is an 18+ event, and valid photo ID may be required. Check your chosen event page and ticket selector before you book.'),
+            ('Is there an age limit?', 'Yes. All Boombastic events are 18+, apart from Family Silent Disco, which is designed for children aged 4 and up with their grown-ups. Check your event page for any ID requirements.'),
         ])),
     ]
     side = ''.join(f'<a href="#{i}"{" class=on" if n == 0 else ""}><span class="fn-ico">{icon(ic)}</span><span><b>{t_}</b><small>{d}</small></span></a>' for n, (i, ic, t_, d, _, _) in enumerate(sections))

@@ -135,7 +135,7 @@ EXPECT = {
     '/locations/bedford/': ('90s Nights and Parties in Bedford | Boombastic Events', None, 'Parties in Bedford at Bedford Esquires'),
     '/locations/leicester/': ('Parties in Leicester at Welford Road | Boombastic Events', None, 'Parties in Leicester'),
     '/locations/coventry/': ('Parties in Coventry at hmv Empire | Boombastic Events', None, 'Parties in Coventry at hmv Empire'),
-    '/locations/luton/': ('Parties in Luton: Next Date Coming Soon | Boombastic', None, 'Luton: next date coming soon'),
+    '/locations/luton/': ('Parties in Luton: No Date Announced | Boombastic Events', None, 'Luton: no date announced right now'),
     '/locations/milton-keynes/': ('Parties in Milton Keynes: Coming Soon | Boombastic', None, 'Milton Keynes: next date coming soon'),
     '/silent-disco/': ('Silent Disco Greatest Hits: Northampton Silent Disco', None, 'Silent Disco Greatest Hits: three channels, one dancefloor'),
     '/boombastic-90s/': ('Boombastic 90s: 90s Party Nights in Bedford and Northampton', None, 'Boombastic 90s: the 90s night for Bedford and Northampton'),
@@ -217,7 +217,12 @@ for e in sorted(os.listdir(f'{DIST}/event')):
     if 'christmas' in e or e.startswith(('0412', '0512', '1212')): ok('href="/christmas-parties/"' in s.split('<main', 1)[1], f'event {e}: links Christmas hub in body')
     if e == '311026-hhp-npton': ok('href="/halloween/"' in s.split('<main', 1)[1], f'event {e}: links Halloween hub')
     ok('class="answer">' in s and 'Boombastic’s Boombastic' not in s, f'event {e}: answer-first block, no doubled brand name')
-    if int(ev['startDate'][11:13]) >= 17: ok('18+ event' in s or 'Entry rules for this date' in s, f'event {e}: evening age line present')
+    # Owner rule (John, 15th October 2026): every event except Family Silent Disco is 18+.
+    if '-fsd-' in e:
+        ok(ev.get('typicalAgeRange') == '4-' and '18+' not in text(s.split('<main', 1)[1].split('</main>')[0]), f'event {e}: family event keeps ages 4 and up, no 18+')
+    else:
+        ok('<span>18+ event</span>' in s and ev.get('typicalAgeRange') == '18-', f'event {e}: states 18+ and typicalAgeRange 18-')
+    ok('Entry rules for this date' not in s, f'event {e}: no ticket-selector age fallback')
 
 # Format pages carry EventSeries.
 for f in ('silent-disco', 'family-silent-disco', 'boombastic-90s', 'footloose-80s', 'christmas-parties', 'halloween'):
@@ -246,6 +251,10 @@ for c in ('bedford', 'coventry'):
     ok(f'THE 2PM CLUB daytime disco in {c.title()}' in open(f'{DIST}/locations/{c}/index.html').read(), f'{c}: descriptive anchor to the 2PM hub')
 ok('MK11 Music Venue' in open(f'{DIST}/locations/milton-keynes/index.html').read(), 'Milton Keynes page names MK11 Music Venue')
 ok('Hat Factory' in open(f'{DIST}/locations/luton/index.html').read(), 'Luton page names the Hat Factory')
+lut = open(f'{DIST}/locations/luton/index.html').read()
+ok('coming soon' not in (text(lut) + ' ' + ' '.join(re.findall(r'content="([^"]*)"', lut)) + ' ' + re.search(r'<title>(.*?)</title>', lut).group(1)).lower(), 'Luton never says "coming soon" (owner: Luton potentially not returning)')
+ok('next date coming soon' in text(open(f'{DIST}/locations/milton-keynes/index.html').read()).lower(), 'Milton Keynes keeps "next date coming soon" (owner: MK is planned)')
+_faq = open(f'{DIST}/faq/index.html').read(); ok('Entry rules are set for each event' not in _faq and 'All Boombastic events are 18+, apart from Family Silent Disco' in _faq, '/faq/ age answer states the owner rule')
 faq = open(f'{DIST}/faq/index.html').read()
 for q in ('What is Boombastic Events?', 'Is THE 2PM CLUB a silent disco?', 'How does Silent Disco Greatest Hits work?', 'What age is Family Silent Disco for?',
           'Where is the next silent disco in Northampton?', 'What Christmas parties are on in 2026?', 'Is there a Halloween party in Northampton in 2026?',
