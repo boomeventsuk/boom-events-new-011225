@@ -322,6 +322,9 @@ def normalized():
 TOWN_COORDS = {'Northampton': (52.2405, -0.9027), 'Bedford': (52.1360, -0.4667), 'Milton Keynes': (52.0406, -0.7594), 'Leicester': (52.6369, -1.1398), 'Coventry': (52.4068, -1.5197), 'Luton': (51.8787, -0.4200)}
 
 
+FSD_VENUE_MOVE_NOTE = 'This event was previously listed at The Picturedrome. It is on Saturday 12th December, 11am to 1pm, at The Charles Bradlaugh.'
+
+
 def on_sale(e): return e['start'][:10] >= TODAY and not e.get('soldout')
 
 
@@ -1273,6 +1276,10 @@ def details(brand, e):
     more = event_more_links(e) if brand == 'boom' else []
     more_html = link_list(more, 'More like this')
     answer_html = f'<section class="container answer-block"><p class="answer">{esc(event_answer(e))}</p></section>' if brand == 'boom' else ''
+    # John approved 15th October 2026 (Codex approvals item 10): stale Google results still show
+    # this date at The Picturedrome, so this one page states the move plainly. This page only.
+    if brand == 'boom' and e['code'] == '121226-FSD-NPTON':
+        answer_html = answer_html.replace('</p></section>', '</p><p class="answer venue-move-note">' + esc(FSD_VENUE_MOVE_NOTE) + '</p></section>')
     body = hero_html + answer_html + fact_rib + note_html + main + (tickets + strip_html if brand == 'pm' else strip_html + tickets) + visit + more_html + related
     description = (f'THE 2PM CLUB daytime disco in {e["city"]} on {d_long(e["start"])}. {e["venue"]}, {tm}. Music, access information and live tickets.' if brand == 'pm'
                    else f'{clean_title(e)} on {d_long(e["start"])}. {e["venue"]}, {e["city"]}, {tm}. Event details and live tickets.')
