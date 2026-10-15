@@ -77,9 +77,10 @@ for r in json.load(open(sys.argv[1])):
 json.dump(out, open(sys.argv[2], 'w'))
 PYS
   ok_full=0; ok_san=0
+  cp netlify/functions/tickets/ticket-map.mjs "$TMPF/ticket-map.keep"  # fixture builds rewrite it; restore exactly what was there
   TWIN_RELEASE=1 TWIN_BOOM_FEED="$REPO/public/events-boombastic.json" TWIN_PM_FEED="$SNAP" TWIN_OUTPUT_ROOT="$TMPF/full" python3 v2/build/build.py > "$TMPF/full.log" 2>&1 && ok_full=1
   TWIN_RELEASE=1 TWIN_BOOM_FEED="$REPO/public/events-boombastic.json" TWIN_PM_FEED="$TMPF/pm-sanitised.json" TWIN_OUTPUT_ROOT="$TMPF/san" python3 v2/build/build.py > "$TMPF/san.log" 2>&1 && ok_san=1
-  git checkout -q -- netlify/functions/tickets/ticket-map.mjs 2>/dev/null
+  cp "$TMPF/ticket-map.keep" netlify/functions/tickets/ticket-map.mjs
   if [ $ok_full = 1 ] && [ $ok_san = 1 ] && diff -r -q "$TMPF/full/dist-boom" "$TMPF/san/dist-boom" >/dev/null; then
     pass "sanitised 2PM feed: build succeeds and Boom output is identical ($(basename "$SNAP"))"
   else tail -5 "$TMPF/san.log"; fail "sanitised 2PM feed breaks or changes the Boom build"; fi
@@ -359,7 +360,7 @@ print(f'\nPAGES CHECKED: {len(PAGES)} ({"files" if OFFLINE else "localhost HTTP"
 sys.exit(1 if bad else 0)
 PY
 
-[ -n "$SERVER" ] && kill $SERVER 2>/dev/null; trap - EXIT
+[ -n "$SERVER" ] && { kill $SERVER 2>/dev/null; wait $SERVER 2>/dev/null; }; trap - EXIT
 MODE="$([ "$OFFLINE" = 1 ] && echo OFFLINE || echo FULL)"
 if [ $FAIL -ne 0 ]; then echo "CHECK-BOOM-PREVIEW ($MODE): FAIL"; exit 1; fi
 echo "CHECK-BOOM-PREVIEW ($MODE): PASS with $WAIVERS named waiver(s)"
