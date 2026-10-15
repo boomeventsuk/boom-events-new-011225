@@ -268,6 +268,11 @@ feed = json.load(open(f'{DIST}/events-boombastic.json'))
 ok(feed and all(r['start'][:10] >= TODAY and re.search(r'[+-]\d\d:\d\d$', r['start']) and re.search(r'[+-]\d\d:\d\d$', r['end']) for r in feed), f'events-boombastic.json: {len(feed)} upcoming records, all with UTC offsets')
 raw = json.dumps(feed) + open(f'{DIST}/venues.json').read()
 ok('Picturedrome' not in raw and 'GET READY' not in raw.upper() and 'Cinch' not in raw, 'feeds: no Picturedrome, GET READY or Cinch')
+# Item 10 (John, 15th October 2026): exact venue-move line on the Christmas Family Silent Disco page only.
+_note = 'This event was previously listed at The Picturedrome. It is on Saturday 12th December, 11am to 1pm, at The Charles Bradlaugh.'
+from pathlib import Path as _P
+_with = [str(q) for q in _P(os.environ['DIST']).rglob('index.html') if _note in q.read_text()]
+ok(len(_with) == 1 and _with[0].endswith('event/121226-fsd-npton/index.html'), f'item10: venue-move line only on /event/121226-fsd-npton/ (found on {len(_with)} page(s))')
 ven = json.load(open(f'{DIST}/venues.json'))
 names = {v['name'] for c in ven['cities'] for v in c['venues']}
 ok("DPD Stadium at Franklin's Gardens" in names and 'MK11 Music Venue' in names, 'venues.json: consistent venue names')
