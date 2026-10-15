@@ -23,7 +23,8 @@ cd "$REPO" || { echo "FAIL: repo missing at $REPO"; exit 1; }
 
 # 0. Repository safety: right branch, main untouched, nothing pushed.
 [ "$(git rev-parse --abbrev-ref HEAD)" = "seo-geo-2026-10-13" ] && pass "on branch seo-geo-2026-10-13" || fail "not on branch seo-geo-2026-10-13"
-[ "$(git rev-parse main)" = "$(git rev-parse origin/main)" ] && pass "local main equals origin/main (no commits to main)" || fail "local main differs from origin/main"
+[ -z "$(git rev-list origin/main..main)" ] && pass "local main has no commits that origin/main lacks (nothing committed to main)" || fail "local main has its own commits"
+git merge-base --is-ancestor origin/main HEAD && pass "branch contains origin/main ($(git rev-parse --short origin/main))" || fail "branch is not rebased on origin/main"
 git rev-parse --abbrev-ref --symbolic-full-name '@{u}' >/dev/null 2>&1 && fail "branch has an upstream (was it pushed?)" || pass "branch has no upstream (not pushed)"
 [ -z "$(git status --porcelain -- v2 scripts netlify data public .github)" ] && pass "working tree clean in source folders" || fail "uncommitted source changes"
 
@@ -127,7 +128,7 @@ EXPECT = {
           'Silent discos, 90s nights and Family Silent Disco in Northampton and Bedford, and THE 2PM CLUB daytime disco in Leicester and Coventry. Since 2014.',
           'Silent discos, decades parties and daytime discos since 2014'),
     '/christmas-parties/': ('Christmas 2026: Northampton, Leicester, Coventry, Bedford', None, 'Christmas parties 2026 in Northampton, Leicester, Coventry and Bedford'),
-    '/halloween/': ('Halloween Parties Northampton 2026 | Boombastic Events', None, 'Halloween in Northampton: two parties, one for the kids'),
+    '/halloween/': ('Halloween Party Northampton 2026 | Boombastic Events', None, 'Halloween in Northampton: the 18+ Halloween House Party, Saturday 31st October'),
     '/locations/northampton/': ('Silent Disco and Party Nights in Northampton | Boombastic', None, 'Parties in Northampton: silent disco, decades and family'),
     '/locations/bedford/': ('90s Nights and Parties in Bedford | Boombastic Events', None, 'Parties in Bedford at Bedford Esquires'),
     '/locations/leicester/': ('Parties in Leicester at Welford Road | Boombastic Events', None, 'Parties in Leicester'),
@@ -139,7 +140,7 @@ EXPECT = {
     '/footloose-80s/': ('Footloose 80s: 80s Party Nights | Boombastic Events', None, 'Footloose 80s: all the anthems, all night'),
     '/family-silent-disco/': ('Family Silent Disco Northampton, Ages 4+ | Boombastic', None, 'Family Silent Disco in Northampton, for kids 4+ and their grown-ups'),
     '/event/311026-hhp-npton/': ('Halloween House Party Northampton, Sat 31st Oct | Boombastic', None, None),
-    '/event/281026-fsd-npton/': ('Halloween Family Silent Disco Northampton, Wed 28th Oct', None, None),
+    '/event/311226-dec-npton/': ('Boombastic NYE 2026 Northampton | The Charles Bradlaugh', None, None),
 }
 def text(fragment):
     fragment = re.sub(r'<span class="lc">([^<]*)</span>', r'\1', fragment)
@@ -211,7 +212,8 @@ for e in sorted(os.listdir(f'{DIST}/event')):
     ok(ev.get('@id', '').endswith('#event') and ev['location'].get('@id') and ev['location']['address'].get('addressRegion'), f'event {e}: Event @id, Place @id, addressRegion')
     ok('performer' not in ev, f'event {e}: no invented performer')
     if 'christmas' in e or e.startswith(('0412', '0512', '1212')): ok('href="/christmas-parties/"' in s.split('<main', 1)[1], f'event {e}: links Christmas hub in body')
-    if e in ('311026-hhp-npton', '281026-fsd-npton'): ok('href="/halloween/"' in s.split('<main', 1)[1], f'event {e}: links Halloween hub')
+    if e == '311026-hhp-npton': ok('href="/halloween/"' in s.split('<main', 1)[1], f'event {e}: links Halloween hub')
+    ok('class="answer">' in s and 'Boombastic’s Boombastic' not in s, f'event {e}: answer-first block, no doubled brand name')
     if int(ev['startDate'][11:13]) >= 17: ok('18+ event' in s or 'Entry rules for this date' in s, f'event {e}: evening age line present')
 
 # Format pages carry EventSeries.
@@ -221,6 +223,22 @@ for f in ('silent-disco', 'family-silent-disco', 'boombastic-90s', 'footloose-80
 ok('href="/locations/northampton/"' in open(f'{DIST}/silent-disco/index.html').read().split('<main', 1)[1], '/silent-disco/ links its town page')
 ok('Work Christmas parties and groups'.upper() in open(f'{DIST}/christmas-parties/index.html').read(), 'Christmas hub has work Christmas and groups section')
 ok('Christmas Daytime Disco' in open(f'{DIST}/locations/leicester/index.html').read(), 'Leicester card says Christmas Daytime Disco')
+# NYE (added on main 14th October 2026) is part of the SEO system.
+nye = open(f'{DIST}/event/311226-dec-npton/index.html').read()
+nev = next(json.loads(b) for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', nye) if json.loads(b)['@type'] == 'Event')
+ok(nev.get('typicalAgeRange') == '18-' and '18+ event' in nye and 'href="/locations/northampton/">More in Northampton' in nye, 'NYE: 18+ in schema and page, links its town page')
+ok('href="/event/311226-dec-npton/"' in home, 'homepage seasonal block links Boombastic NYE')
+# THE 2PM CLUB Disco Fever on Boom pages: no decade in its name or title, no "-tastic", no silent disco words near it.
+df_bad = []
+for root, _, files in os.walk(DIST):
+    for f in files:
+        if f.endswith('.html'):
+            t = text(open(os.path.join(root, f)).read())
+            for m in re.finditer(r'Disco Fever', t):
+                win = t[max(0, m.start() - 60):m.end() + 60]
+                if re.search(r'(?i)tastic|\b[0-9]0s\b Disco Fever|Disco Fever \b[0-9]0s\b|silent|headphone|channel', win): df_bad.append((f, win))
+ok(not df_bad, f'Disco Fever: no decade, -tastic or silent disco vocabulary next to it {df_bad[:2]}')
+ok(not any(re.search(r'(?i)tastic', r.get('title', '')) for r in json.load(open(f'{DIST}/events-boombastic.json'))), 'feed titles have no -tastic')
 for c in ('bedford', 'coventry'):
     ok(f'THE 2PM CLUB daytime disco in {c.title()}' in open(f'{DIST}/locations/{c}/index.html').read(), f'{c}: descriptive anchor to the 2PM hub')
 ok('MK11 Music Venue' in open(f'{DIST}/locations/milton-keynes/index.html').read(), 'Milton Keynes page names MK11 Music Venue')
@@ -272,6 +290,22 @@ for v in ('/event/250126-gr-npton/', '/event/250126-GR-NPTON', '/event/260626-gr
 ok(os.path.exists(f'{DIST}/gone.html'), 'gone.html exists for 410 rules')
 ok(not any(r[1] == '/get-ready/index.html' for r in rules), 'old get-ready rewrite removed')
 for v in ('/event/260926-sd-npton/', '/event/120926-b90-npton/', '/event/210326-fsd-npton/', '/event/250426-SD-NPTON/'): has(v, '/locations/northampton/', '301!')
+# Withdrawn Saints Halloween Family Silent Disco (14th October 2026): only its old-URL redirect may mention it, one hop.
+for v in ('/event/281026-fsd-npton', '/event/281026-fsd-npton/', '/event/281026-FSD-NPTON', '/event/281026-FSD-NPTON/'): has(v, '/locations/northampton/', '301!')
+ok(R.get('/locations/northampton/') is None, 'withdrawn-event redirect target is a live page, not a further redirect (one hop)')
+withdrawn = re.compile(r'(?i)281026|28th oct|wednesday 28|saints|half[- ]term')
+hits = []
+for root, _, files in os.walk(DIST):
+    for f in files:
+        if f.endswith(('.html', '.json', '.txt', '.xml')):
+            data = open(os.path.join(root, f), errors='ignore').read()
+            if f.endswith('.html'):
+                data = re.sub(r'<script.*?</script>', '', data, flags=re.S)  # scripts only carry our own asset code
+            if withdrawn.search(data): hits.append(os.path.relpath(os.path.join(root, f), DIST))
+ok(not hits, f'withdrawn 28th October Saints family event mentioned nowhere in pages or feeds {hits}')
+bad_r = [r for r in rules if withdrawn.search(' '.join(r)) and not r[0].lower().startswith(('/event/281026-fsd-npton', '/saintsfsd'))]
+ok(not bad_r, f'_redirects mentions the withdrawn event only for its old URLs {bad_r}')
+ok(not any('281026' in l for l in open(f'{DIST}/sitemap.xml')), 'sitemap has no withdrawn event')
 has('/event/280326-fl80-bed/', '/locations/bedford/', '301!')
 upcoming_pm = {re.search(r'/events/([^/]+)/', r[1]).group(1) for r in rules if r[1].startswith(PM + '/events/')}
 past_targets = [c for c in upcoming_pm if c[:6].isdigit() and f'20{c[4:6]}-{c[2:4]}-{c[0:2]}' < TODAY]
