@@ -245,7 +245,7 @@ ok('MK11 Music Venue' in open(f'{DIST}/locations/milton-keynes/index.html').read
 ok('Hat Factory' in open(f'{DIST}/locations/luton/index.html').read(), 'Luton page names the Hat Factory')
 faq = open(f'{DIST}/faq/index.html').read()
 for q in ('What is Boombastic Events?', 'Is THE 2PM CLUB a silent disco?', 'How does Silent Disco Greatest Hits work?', 'What age is Family Silent Disco for?',
-          'Where is the next silent disco in Northampton?', 'What Christmas parties are on in 2026?', 'Are there Halloween parties in Northampton in 2026?',
+          'Where is the next silent disco in Northampton?', 'What Christmas parties are on in 2026?', 'Is there a Halloween party in Northampton in 2026?',
           'Can I book for a group or a work Christmas party?', 'How do I buy tickets, and what if it is sold out?', 'Is there a Boombastic party in Luton or Milton Keynes?'):
     ok(html.escape(q, quote=True) in faq or q in faq, f'/faq/ has board FAQ: {q}')
 ok('Sat 26th September' not in faq and 'from 11am, evening' not in faq, '/faq/ age and family time answers carry no stale date')
