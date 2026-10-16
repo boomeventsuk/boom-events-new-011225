@@ -103,6 +103,9 @@ QUOTES = {
 
 # Real event photography. Caption = provenance shown on the page wherever a city could be misread.
 PHOTOS = {
+    'pm-mk-friends-sept.jpg': ('A group of friends smiling together under colourful stage lights', 'THE 2PM CLUB, Milton Keynes, 26th September 2026', '80s Day Party Milton Keynes 26th Sept 2026/PHOTO-REVIEW-260926-2PM-MK/clean/260926-2PM-MK-011-clean.jpeg'),
+    'pm-leicester-friends-may.jpg': ('A large group of friends smiling together on the colourful Leicester dancefloor', 'THE 2PM CLUB, Leicester, 2nd May 2026', '020526-2PM-LEIC PHOTOS/photos/event photos no logo/020526-2PM-LEIC-event-photo-no-logo-040.jpeg'),
+    'pm-friends-bradlaugh-oct.jpg': ('Friends with their arms around one another at a previous THE 2PM CLUB event', 'At a previous THE 2PM CLUB event in Northampton, 3rd October 2026', '031026-2PM-NPTON Charles Bradlaugh/PHOTO-REVIEW-031026-2PM-NPTON/clean/031026-2PM-NPTON-024-clean.jpeg'),
     'pm-northampton-friends-oct.jpg': ('A large group of friends smiling together at The Charles Bradlaugh', 'THE 2PM CLUB, The Charles Bradlaugh, Northampton, 3rd October 2026', '031026-2PM-NPTON Charles Bradlaugh/PHOTO-REVIEW-031026-2PM-NPTON/clean/031026-2PM-NPTON-091-clean.jpeg'),
     'pm-hero.webp': ('THE 2PM CLUB crowd under confetti and stage lights', 'THE 2PM CLUB', 'https://www.the2pmclub.co.uk/img/hero-confetti-1280.webp'),
     'pm-friends.jpeg': ('Three friends laughing together on the dancefloor', 'THE 2PM CLUB, Bedford, June 2026', 'reports/website-research-2026-09-22/page-designs/assets/2pm-friends.jpeg'),
@@ -151,6 +154,9 @@ EXTRA_SCHEMA = {}
 REGION = {'Northampton': 'Northamptonshire', 'Bedford': 'Bedfordshire', 'Luton': 'Bedfordshire', 'Leicester': 'Leicestershire',
           'Coventry': 'West Midlands', 'Milton Keynes': 'Buckinghamshire'}
 SHORT_VENUE = {"DPD Stadium at Franklin's Gardens": "Franklin's Gardens"}
+
+# Warm group photographs for Boombastic town pages, with visible source captions.
+BOOM_LOCATION_PHOTO = {'Northampton': 'pm-northampton-friends-oct.jpg', 'Bedford': 'pm-bed.jpg', 'Coventry': 'pm-cov.jpg', 'Leicester': 'pm-leicester-friends-may.jpg', 'Milton Keynes': 'pm-mk-friends-sept.jpg', 'Luton': 'pm-friends-bradlaugh-oct.jpg'}
 
 ICONS = {
     'calendar': '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
@@ -1358,9 +1364,10 @@ def empty_city_page(brand, city):
     if pm:
         h = hero(brand, f'<span class="city-big">{esc(city.upper())}</span>NO DATE<br>ANNOUNCED<br>RIGHT NOW.', sub, btn('See the nearest dates' if near else 'See dates on sale', '#nearby', 'btn-hot'), 'pm-packed.jpg', cls='city-hero')
     else:
+        photo_name = BOOM_LOCATION_PHOTO.get(city, 'b90-group.jpg')
         em = empty_town_meta(city)
         PAGE_META[(brand, city_url(brand, city))] = dict(title=em[0], description=em[1])
-        h = hero(brand, esc(em[2]), sub, btn('See the nearest dates' if near else 'See dates on sale', '#nearby', 'btn-dark'), 'boom-hero.jpg', cls='city-hero', slogan=f'<span class="city-big">{esc(city.upper())}</span>NO DATE<br>ANNOUNCED<br>RIGHT NOW.')
+        h = hero(brand, esc(em[2]), sub, btn('See the nearest dates' if near else 'See dates on sale', '#nearby', 'btn-dark'), photo_name, cls='city-hero location-group-hero', cap=PHOTOS[photo_name][1], slogan=f'<span class="city-big">{esc(city.upper())}</span>NO DATE<br>ANNOUNCED<br>RIGHT NOW.')
     rib = ribbon([('NEAREST DATES', esc(near_txt) if near else 'On sale now', '#nearby'), ('ALL LOCATIONS', 'Every city with dates on sale', '/locations/'), ('EVERY DATE', 'All cities on What’s on', '/whats-on/')])
     rows = ''.join(event_row(e) for e in nearby)
     others = ''.join(f'<li><a href="{city_url(brand, c)}">{esc(c)}</a></li>' for c, _ in live_cities(brand))
@@ -1378,7 +1385,7 @@ def city_page(brand, city, events):
     rel = [e for e in events if e['city'] == city]
     if not any(on_sale(e) for e in rel): return empty_city_page(brand, city)
     venues = sorted({e['venue'] for e in rel})
-    photo_name = PM_CITY_PHOTO.get(city, 'pm-packed.jpg') if pm else {'Northampton': 'pm-northampton-friends-oct.jpg', 'Bedford': 'b90-stage.jpg'}.get(city, 'boom-hero.jpg')
+    photo_name = PM_CITY_PHOTO.get(city, 'pm-packed.jpg') if pm else BOOM_LOCATION_PHOTO.get(city, 'b90-group.jpg')
     # Supporting strip: never the hero photo; Boombastic cities with only 2PM dates show that city's real 2PM photo, captioned.
     strip_name = {'Northampton': 'pm-group.jpg', 'Leicester': 'pm-three.jpg', 'Coventry': 'pm-arms.jpg', 'Bedford': 'pm-friends.jpeg', 'Milton Keynes': 'pm-hug.jpg'}.get(city, 'pm-wide.jpg') if pm else {'Northampton': 'silent-photo.jpeg', 'Bedford': 'pm-bed.jpg'}.get(city, PM_CITY_PHOTO.get(city, 'b90-group.jpg'))
     kinds = list(dict.fromkeys('THE 2PM CLUB' if e['brand'] == 'boom-crosslink' else FORMAT[e['fmt']][0] for e in rel))
@@ -1390,7 +1397,7 @@ def city_page(brand, city, events):
     else:
         tm = town_meta(city)
         PAGE_META[(brand, city_url(brand, city))] = dict(title=tm[0], description=tm[1])
-        h = hero(brand, esc(tm[2]), sub, cta, photo_name, cls='city-hero northampton-group-hero' if city == 'Northampton' else 'city-hero', cap=PHOTOS[photo_name][1] if city == 'Northampton' else None, slogan=f'<span class="city-big">{esc(city.upper())}</span>YOUR TOWN.<br>YOUR NEXT PARTY.')
+        h = hero(brand, esc(tm[2]), sub, cta, photo_name, cls='city-hero location-group-hero', cap=PHOTOS[photo_name][1], slogan=f'<span class="city-big">{esc(city.upper())}</span>YOUR TOWN.<br>YOUR NEXT PARTY.')
     rib = ribbon([(f'{len(rel)} DATE{"S" if len(rel) != 1 else ""} ON SALE', f'Next: {d_short(rel[0]["start"])}'), ('REAL DANCEFLOORS', ', '.join(venues)), ('YOUR PLAN', 'Bring friends or come on your own' if pm else 'Pick the party that sounds like you')])
     list_html = f'<section class="section container" id="city-dates">{section_head("COMING UP IN " + esc(city.upper()), filters(rel, 0, "All editions" if pm else "All parties", with_city=False))}{results(rel, "rows")}</section>'
     venue_cards = []
