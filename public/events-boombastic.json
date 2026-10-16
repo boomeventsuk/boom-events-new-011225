@@ -32,7 +32,7 @@
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:32:59.472Z"
+    "priceLastSync": "2026-10-16T14:25:32.242Z"
   },
   {
     "eventCode": "311026-HHP-NPTON",
@@ -69,7 +69,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:33:00.525Z",
+    "priceLastSync": "2026-10-16T14:25:33.519Z",
     "groupTicket": {
       "size": 4,
       "price": 44,
@@ -111,7 +111,7 @@
       "postalCode": "LE2 7TR",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:33:01.603Z",
+    "priceLastSync": "2026-10-16T14:25:34.813Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -177,7 +177,7 @@
         "description": "Dancefloor and club anthems."
       }
     ],
-    "priceLastSync": "2026-10-16T08:33:02.666Z",
+    "priceLastSync": "2026-10-16T14:25:36.169Z",
     "groupTicket": {
       "size": 4,
       "price": 50,
@@ -219,7 +219,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:33:03.744Z",
+    "priceLastSync": "2026-10-16T14:25:37.443Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -262,7 +262,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:33:04.817Z",
+    "priceLastSync": "2026-10-16T14:25:38.640Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -326,7 +326,7 @@
         "description": "The chart hits teenagers want."
       }
     ],
-    "priceLastSync": "2026-10-16T08:33:05.920Z"
+    "priceLastSync": "2026-10-16T14:25:39.882Z"
   },
   {
     "eventCode": "121226-2PM-NPTON",
@@ -363,7 +363,7 @@
       "postalCode": "NN1 3AU",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:33:06.993Z",
+    "priceLastSync": "2026-10-16T14:25:41.041Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -405,7 +405,7 @@
       "postalCode": "CV1 1LF",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:33:08.129Z",
+    "priceLastSync": "2026-10-16T14:25:42.303Z",
     "groupTicket": {
       "size": 4,
       "price": 46,
@@ -447,7 +447,7 @@
       "postalCode": "MK40 2QG",
       "addressCountry": "GB"
     },
-    "priceLastSync": "2026-10-16T08:33:09.533Z",
+    "priceLastSync": "2026-10-16T14:25:43.586Z",
     "groupTicket": {
       "size": 4,
       "price": 42,
@@ -490,7 +490,7 @@
       "gallery"
     ],
     "fomoOverride": null,
-    "priceLastSync": "2026-10-16T08:33:10.615Z"
+    "priceLastSync": "2026-10-16T14:25:44.697Z"
   },
   {
     "title": "THE 2PM CLUB Disco Fever: Bedford",
@@ -528,7 +528,7 @@
       "gallery"
     ],
     "fomoOverride": null,
-    "priceLastSync": "2026-10-16T08:33:12.242Z"
+    "priceLastSync": "2026-10-16T14:25:45.947Z"
   },
   {
     "eventCode": "311226-DEC-NPTON",
@@ -563,6 +563,6 @@
       "video",
       "gallery"
     ],
-    "priceLastSync": "2026-10-16T08:33:13.628Z"
+    "priceLastSync": "2026-10-16T14:25:47.197Z"
   }
 ]
