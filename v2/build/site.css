@@ -725,3 +725,7 @@ a.rib-item:hover b{text-decoration:underline;text-decoration-color:var(--accent)
 .town-formats .text-link{margin-left:8px}
 /* WCAG AA (15th October 2026): the accent red on the peach page band was 2.57:1; this darker red is 4.63:1. */
 .boom .page-band .eyebrow{color:#832120}
+
+/* The approved Northampton group stays complete on desktop and phones. */
+.boom .northampton-group-hero .hero-media{aspect-ratio:3/2;min-height:0;height:auto;align-self:center;width:100%}
+.boom .northampton-group-hero .hero-media img{object-fit:cover;object-position:50% 50%}

@@ -103,6 +103,7 @@ QUOTES = {
 
 # Real event photography. Caption = provenance shown on the page wherever a city could be misread.
 PHOTOS = {
+    'pm-northampton-friends-oct.jpg': ('A large group of friends smiling together at The Charles Bradlaugh', 'THE 2PM CLUB, The Charles Bradlaugh, Northampton, 3rd October 2026', '031026-2PM-NPTON Charles Bradlaugh/PHOTO-REVIEW-031026-2PM-NPTON/clean/031026-2PM-NPTON-091-clean.jpeg'),
     'pm-hero.webp': ('THE 2PM CLUB crowd under confetti and stage lights', 'THE 2PM CLUB', 'https://www.the2pmclub.co.uk/img/hero-confetti-1280.webp'),
     'pm-friends.jpeg': ('Three friends laughing together on the dancefloor', 'THE 2PM CLUB, Bedford, June 2026', 'reports/website-research-2026-09-22/page-designs/assets/2pm-friends.jpeg'),
     'pm-group.jpg': ('A group of friends posing together, drinks in hand', 'THE 2PM CLUB, Northampton, June 2026', '060626-2PM-NPTON processed no-logo 055'),
@@ -1377,7 +1378,7 @@ def city_page(brand, city, events):
     rel = [e for e in events if e['city'] == city]
     if not any(on_sale(e) for e in rel): return empty_city_page(brand, city)
     venues = sorted({e['venue'] for e in rel})
-    photo_name = PM_CITY_PHOTO.get(city, 'pm-packed.jpg') if pm else {'Northampton': 'sd-energy.jpg', 'Bedford': 'b90-stage.jpg'}.get(city, 'boom-hero.jpg')
+    photo_name = PM_CITY_PHOTO.get(city, 'pm-packed.jpg') if pm else {'Northampton': 'pm-northampton-friends-oct.jpg', 'Bedford': 'b90-stage.jpg'}.get(city, 'boom-hero.jpg')
     # Supporting strip: never the hero photo; Boombastic cities with only 2PM dates show that city's real 2PM photo, captioned.
     strip_name = {'Northampton': 'pm-group.jpg', 'Leicester': 'pm-three.jpg', 'Coventry': 'pm-arms.jpg', 'Bedford': 'pm-friends.jpeg', 'Milton Keynes': 'pm-hug.jpg'}.get(city, 'pm-wide.jpg') if pm else {'Northampton': 'silent-photo.jpeg', 'Bedford': 'pm-bed.jpg'}.get(city, PM_CITY_PHOTO.get(city, 'b90-group.jpg'))
     kinds = list(dict.fromkeys('THE 2PM CLUB' if e['brand'] == 'boom-crosslink' else FORMAT[e['fmt']][0] for e in rel))
@@ -1389,7 +1390,7 @@ def city_page(brand, city, events):
     else:
         tm = town_meta(city)
         PAGE_META[(brand, city_url(brand, city))] = dict(title=tm[0], description=tm[1])
-        h = hero(brand, esc(tm[2]), sub, cta, photo_name, cls='city-hero', slogan=f'<span class="city-big">{esc(city.upper())}</span>YOUR TOWN.<br>YOUR NEXT PARTY.')
+        h = hero(brand, esc(tm[2]), sub, cta, photo_name, cls='city-hero northampton-group-hero' if city == 'Northampton' else 'city-hero', cap=PHOTOS[photo_name][1] if city == 'Northampton' else None, slogan=f'<span class="city-big">{esc(city.upper())}</span>YOUR TOWN.<br>YOUR NEXT PARTY.')
     rib = ribbon([(f'{len(rel)} DATE{"S" if len(rel) != 1 else ""} ON SALE', f'Next: {d_short(rel[0]["start"])}'), ('REAL DANCEFLOORS', ', '.join(venues)), ('YOUR PLAN', 'Bring friends or come on your own' if pm else 'Pick the party that sounds like you')])
     list_html = f'<section class="section container" id="city-dates">{section_head("COMING UP IN " + esc(city.upper()), filters(rel, 0, "All editions" if pm else "All parties", with_city=False))}{results(rel, "rows")}</section>'
     venue_cards = []
