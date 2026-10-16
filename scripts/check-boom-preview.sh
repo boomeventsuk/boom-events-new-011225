@@ -378,5 +378,8 @@ PY
 
 [ -n "$SERVER" ] && { kill $SERVER 2>/dev/null; wait $SERVER 2>/dev/null; }; trap - EXIT
 MODE="$([ "$OFFLINE" = 1 ] && echo OFFLINE || echo FULL)"
+# Event structured-data guard (Google Search Console critical alerts, 16th October 2026).
+python3 "$REPO/scripts/check-event-schema.py" --self-test >/dev/null || fail "event schema guard self-test"
+python3 "$REPO/scripts/check-event-schema.py" "$DIST" --event-pages '^/event/[^/]+/index\.html$' || fail "event schema: thin or incomplete Event data"
 if [ $FAIL -ne 0 ]; then echo "CHECK-BOOM-PREVIEW ($MODE): FAIL"; exit 1; fi
 echo "CHECK-BOOM-PREVIEW ($MODE): PASS with $WAIVERS named waiver(s)"

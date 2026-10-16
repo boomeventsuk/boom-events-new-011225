@@ -1068,9 +1068,9 @@ def series_schema(route, name, description, subs):
     """EventSeries tying Boombastic-owned dates to one series @id. 2PM dates are left to the2pmclub.co.uk."""
     item = {'@context': 'https://schema.org', '@type': 'EventSeries', '@id': BOOM_BASE + route + '#series', 'name': name,
             'description': description, 'url': BOOM_BASE + route, 'organizer': {'@id': 'https://www.boomevents.co.uk/#organization'}}
-    owned = [{'@id': BOOM_BASE + e['path'] + '#event'} for e in subs if e['brand'] == 'boom']
-    if owned:
-        item['subEvent'] = owned
+    # No subEvent or superEvent links: Google reads an @id-only reference in an Event-typed
+    # property as a separate Event missing name, startDate and location (Search Console
+    # critical alerts, 16th October 2026). Full Event objects live on each event page.
     return item
 
 
@@ -2191,10 +2191,6 @@ def seo_enrich(brand, path, content):
             age = is_adult(event)
             if age is True: item['typicalAgeRange'] = '18-'
             elif event['fmt'] == 'fsd': item['typicalAgeRange'] = '4-'
-            series = event_series_routes(event)
-            if series:
-                refs = [{'@id': BOOM_BASE + r + '#series'} for r in series]
-                item['superEvent'] = refs[0] if len(refs) == 1 else refs
         schema.append(item)
         listing_route = '/events/' if brand == 'pm' else '/whats-on/'
         crumbs = ([('Home', site_url), ('What’s on', base + listing_route)] if brand == 'pm'
